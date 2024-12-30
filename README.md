@@ -3102,10 +3102,7 @@ kill -9 %1
 | Send a specific signal to a job                   | `kill -<signal> %num` or `kill -<signal> <PID>` | `kill -9 %1` or `kill -9 12345`             |
 | Force kill a job (SIGKILL signal)                 | `kill -9`                  | `kill -9 %1`                                  |
 
-
-
-
-
+---
 
 # Switching Users
 
@@ -3120,20 +3117,82 @@ The `su` command is used to switch between users in a Linux system. By default, 
 - **Switch to Root**:  
   The `su` command without any arguments switches to the root user.
   ```bash
-  su
+  $ su
+  ```
+  The above command may give error: 
+  ```bash
+  $ su
+  Password: 
+  su: Authentication failure
+  ```
+  On many modern Linux distributions, the root account is disabled by default for security reasons. In this case, you might need to use sudo to gain root privileges instead of su. Ensure to enter the current user's password and not the superuser.
+  ```bash
+  $ sudo su
+  root@envy:/home/sri/Documents/Linux# 
   ```
 
 - **Switch to a Specific User**:  
-  To switch to a specific user, use the command `su [username]`.
+  To switch to a specific user, use the command `su [username]`. Enter the **switching user**'s password and not current user's password. 
+
+  In the below example you will have to enter switching user, `ram`'s passowrd. 
   ```bash
-  su oracle
+  sri@envy:~/Documents/Linux
+  $ su ram
+  Password: 
+  ram@envy:/home/sri/Documents/Linux$ 
+  ```
+  Also notice that you are still the same directory as before. 
+
+  To quit from this user (`ram` here) account: 
+  ```bash
+  ram@envy:/home/sri/Documents/Linux$ exit
+  exit
+  sri@envy:~/Documents/Linux
+  $ 
+  ```
+  
+  Another way of logging to another user is through `sudo su [username]`, use the **current user**'s password. 
+
+  In the below example you will have to enter current user, `sri`'s password. 
+  ```bash
+  sri@envy:~/Documents/Linux
+  $ sudo su ram
+  [sudo] password for sri: 
+  ram@envy:/home/sri/Documents/Linux$ 
   ```
 
 - **Simulate Logging In as a User**:  
   By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user’s home directory. **While the previous method don't change the working directory.** 
   ```bash
-  su - oracle
+  sri@envy:~/Documents/Linux
+  $ sudo su - ram
+  [sudo] password for sri: 
+  ram@envy:~$ 
   ```
+- **Excuting command as another user**: 
+  By using `-c` option with `su` we can execute command as another user. 
+  ```bash
+  sri@envy:~/Documents/Linux
+  $ su - ram # swtiching to ram
+  Password: 
+  ram@envy:~$ echo "I am ram" > a.txt # creating a file
+  ram@envy:~$ exit # switch back to sri
+  logout
+  # this below command will not work, since it logins and stays in /home/sri/Documents/Linux
+  sri@envy:~/Documents/Linux
+  $ su ram -c "cat a.txt" 
+  Password: 
+  cat: a.txt: No such file or directory
+
+  # this below command will WORK, since it logins and stays in ~ram
+  sri@envy:~/Documents/Linux
+  $ su ram -c "cat ~/a.txt"
+  Password: 
+  I am ram
+  sri@envy:~/Documents/Linux # haven't switched to ram, still in sri
+  $ 
+  ```
+---
 
 ### Common `su` Options
 
@@ -3143,50 +3202,25 @@ The `su` command is used to switch between users in a Linux system. By default, 
 | `su -c`       | Runs a specified command as another user. The command needs to be quoted if it contains spaces. |
 | `su [user]`   | Switch to the specified user. Without the hyphen, the environment and directory remain unchanged. |
 
-### Example of Switching Users
+**In all the above case, we will use the switching user's password.**
 
-1. **Switch to Oracle User (Without Changing Environment)**:
-   ```bash
-   su oracle
-   Password:
-   oracle@linuxsvr:/home/jason$ echo $TEST
-   1
-   oracle@linuxsvr:/home/jason$ pwd
-   /home/jason
-   oracle@linuxsvr:/home/jason$ exit
-   ```
+We can also prefix the above commands with **sudo**, where we will use **current user's password**.
 
-2. **Switch to Oracle User (With Full Environment)**:
-   ```bash
-   su - oracle
-   Password:
-   oracle@linuxsvr:~$ echo $TEST
-   # No output, because TEST is not set in oracle's environment.
-   oracle@linuxsvr:~$ pwd
-   /home/oracle
-   oracle@linuxsvr:~$ exit
-   ```
-
-3. **Running a Command as Another User**:
-   ```bash
-   su -c 'echo $ORACLE_HOME' oracle
-   Password:
-   /u01/app/oracle/product/current
-   ```
+---
 
 ### Checking Current User
 
 To check which user you are currently working as, use the `whoami` command:
 ```bash
-whoami
+$ whoami
 # Output: jason
 ```
 After switching to another user with `su`, `whoami` will show the new user:
 ```bash
-su oracle
+$ su ram
 Password:
 whoami
-# Output: oracle
+# Output: ram
 ```
 
 ---
@@ -3195,6 +3229,8 @@ whoami
 
 The `sudo` command allows a permitted user to execute a command as another user, typically the root user, without switching users entirely. It’s often used for administrative tasks, such as installing software or managing system services, that require superuser privileges.
 
+---
+
 ### Why Use `sudo` Over `su`?
 
 - **Password Requirements**: `sudo` asks for the current user's password, while `su` requires the password of the user you're switching to (typically the root user).
@@ -3202,16 +3238,20 @@ The `sudo` command allows a permitted user to execute a command as another user,
 - **Logging and Auditing**: `sudo` provides better logging of commands that require elevated privileges, which is helpful for security audits.
 - **One-Time Commands**: `sudo` is typically used for a single command, while `su` changes the shell to the target user, allowing multiple commands to be executed.
 
+---
+
 ### Common `sudo` Usage
 
 | Command| Description| Example|
 |--------|------------|--------|
 | `sudo -l`| List commands that can be run with `sudo`| `sudo -l`|
-| `sudo command`| Run a command with superuser privileges| `sudo apt-get update`|
-| `sudo -u user command`| Run a command as a specific user (other than root)| `sudo -u oracle whoami`|
+| `sudo command`| Run a command with superuser privileges| `sudo apt update`|
+| `sudo -u user command`| Run a command as a specific user (other than root)| `sudo -u ram whoami`|
 | `sudo su`| Switch to the superuser account (root)| `sudo su`|
-| `sudo su -`| Switch to the superuser account (root) with the user's environment| `sudo su -`|
-| `sudo su - username`| Switch to a specific user’s account with that user's environment| `sudo su - oracle`|
+| `sudo su -`| Switch to the **superuser account (root)** with the user's environment| `sudo su -`|
+| `sudo su - username`| Switch to a **specific user’s account** with that user's environment| `sudo su - ram`|
+
+---
 
 ### Example of Using `sudo`
 
@@ -3227,25 +3267,22 @@ The `sudo` command allows a permitted user to execute a command as another user,
    # Output: Fred's app started as user fred.
    ```
 
-3. **Switch to Oracle User as Root**:
+3. **Switch to ram User as Root**:
    ```bash
-   sudo su - oracle
-   [sudo] password for jason:
-   oracle@linuxsvr:~$ whoami
-   # Output: oracle
-   oracle@linuxsvr:~$ exit
+   sri@evny:~
+   $ sudo su - ram
+   [sudo] password for ram:
+   
+   ram@envy:~
+   $ whoami
+   ram
+   
+   ram@envy:~
+   $ exit
+   
+   sri@envy:~
+   $
    ```
-       
-### `sudo` Configuration and Access Control
-
-The configuration of `sudo` is controlled via the `/etc/sudoers` file, which can be edited to specify which users can execute which commands as which other users. For example, a user can be allowed to run specific commands without entering a password by setting `NOPASSWD` in the `sudoers` file:
-```bash
-$ sudo visudo
-# Example sudoers file configuration:
-jason    ALL=(root) NOPASSWD: /etc/init.d/apache2
-```
-This configuration allows the user `jason` to run `/etc/init.d/apache2` as the root user without needing to enter a password.
-
 ---
 
 ## Summary of Differences Between `su` and `sudo`
@@ -3254,7 +3291,7 @@ This configuration allows the user `jason` to run `/etc/init.d/apache2` as the r
 |---------------------|------------------------------------------------------|----------------------------------------------------|
 | **Password Prompt**  | Requires the target user’s password (e.g., root).    | Requires the current user’s password.              |
 | **Command Scope**    | Changes the current shell to the target user’s shell. | Runs a single command as the specified user.       |
-| **Security**         | Requires sharing of passwords for different users.   | Provides better control and logging of commands.   |
+| **Security**        sudo su ram | Requires sharing of passwords for different users.   | Provides better control and logging of commands.   |
 | **Usage**            | Best for switching users to run multiple commands.   | Best for executing one-off commands with elevated privileges. |
 
 `sudo` is generally preferred over `su` for security reasons, as it reduces the risk of exposing root passwords and provides better auditing and control over user actions.
@@ -3263,9 +3300,9 @@ This configuration allows the user `jason` to run `/etc/init.d/apache2` as the r
 
 | Command| Description| Example Usage|
 |--------|------------|--------------|
-| `su`| Switch to the superuser (root) or another specified user.| `su` or `su oracle`|
-| `su -`| Switch to the specified user with their environment (login shell).     | `su - oracle`|
-| `su -c 'command'`| Run a command as another user, with their environment.| `su -c 'echo $ORACLE_HOME' oracle`           |
+| `su`| Switch to the superuser (root) or another specified user.| `su` or `su ram`|
+| `su -`| Switch to the specified user with their environment (login shell).     | `su - ram`|
+| `su -c 'command'`| Run a command as another user, with their environment.| `su -c 'echo $ram_HOME' ram`           |
 | `whoami`| Display the current user’s name.| `whoami`|
 | `sudo`| Execute a command with superuser privileges or as another user.        | `sudo ls`|
 | `sudo -l`| List the commands available to run with `sudo`.| `sudo -l`|
@@ -3273,9 +3310,10 @@ This configuration allows the user `jason` to run `/etc/init.d/apache2` as the r
 | `sudo -u user command`| Run a command as another user (other than root).| `sudo -u fred /opt/fredsApp/bin/start`       |
 | `sudo su`| Switch to the superuser account (root) with the current shell.         | `sudo su`|
 | `sudo su -`| Switch to the superuser account (root) with a login shell.| `sudo su -`|
-| `sudo su - username`| Switch to the specified user's account with a login shell.| `sudo su - oracle`|
+| `sudo su - username`| Switch to the specified user's account with a login shell.| `sudo su - ram`|
 | `sudo visudo`| Edit the sudoers file for configuration.| `sudo visudo`|
 
+---
 
 # Installing Software
 
@@ -3283,96 +3321,179 @@ Software installation on Linux is commonly done through packages, which contain 
 
 ## DEB-Based Distributions
 
-Linux distributions based on Debian use the DEB package format. Popular Debian-based distributions include Debian, Ubuntu, Linux Mint, and Elementary OS. The package manager used is **APT** (Advanced Packaging Tool). 
+Linux distributions based on Debian use the DEB package format. Popular Debian-based distributions include **Debian**, **Ubuntu**, **Linux Mint**, and **Elementary OS**. The package manager used is **APT** (Advanced Packaging Tool). 
 
 ### Common APT Commands
 
-| Command | Description | Example |
-|---------|-------------|---------|
-| `apt-cache search search-pattern` | Search for packages matching the search pattern| `apt-cache search web browser`|
-| `apt-get install package`         | Install a package| `sudo apt-get install firefox`|
-| `apt-get remove package`| Remove a package, leaving behind configuration files            | `sudo apt-get remove firefox`        |
-| `apt-get purge package`           | Remove a package, including its configuration files             | `sudo apt-get purge firefox`         |
-| `apt-cache show package`| Display detailed information about a package| `apt-cache show firefox`|
-| `sudo apt update`| Update package list and metadata from repositories              | `sudo apt update`                    |
-| `sudo apt upgrade`                | Upgrade all installed packages to the latest available versions | `sudo apt upgrade`                   |
-| `sudo apt dist-upgrade`           | Upgrade to a new release, handling changes in dependencies      | `sudo apt dist-upgrade`              |
-| `sudo apt full-upgrade`           | Perform an upgrade with more aggressive handling of dependencies | `sudo apt full-upgrade`              |
-| `sudo apt autoremove`             | Removes unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove` |
-| `sudo apt clean`                  | Clears the local repository cache to free up space             | `sudo apt clean`                      |
-| `sudo apt install -y package`     | Installs a package and automatically answers "yes" to prompts  | `sudo apt install -y firefox`        |
+Here's the table converted to use only `sudo apt` commands:
 
-### Example Workflow: Installing Firefox
+| Command                      | Description                                                                         | Example                          |
+|------------------------------|-------------------------------------------------------------------------------------|----------------------------------|
+| `sudo apt update`                 | Update package list and metadata from repositories                                | `sudo apt update`                |
+| `sudo apt upgrade`                | Upgrade all installed packages to the latest available versions                   | `sudo apt upgrade`               |
+| `sudo apt autoremove`             | Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove`     |
+| `sudo apt clean`                  | Clear the local repository cache to free up space                                 | `sudo apt clean`                 |
+| `sudo apt search search-pattern` | Search for packages matching the search pattern                                   | `sudo apt search web browser`    |
+| `sudo apt install package`        | Install a package| `sudo apt install firefox`       |
+| `sudo apt install -y package`     | Install a package and automatically answer "yes" to prompts                       | `sudo apt install -y firefox`    |
+| `sudo apt remove package`         | Remove a package, leaving behind configuration files                              | `sudo apt remove firefox`        |
+| `sudo apt purge package`          | Remove a package, including its configuration files                               | `sudo apt purge firefox`         |
+| `sudo apt show package`           | Display detailed information about a package                                      | `sudo apt show firefox`          |
+| `sudo apt full-upgrade`           | Perform an upgrade with more aggressive handling of dependencies                   | `sudo apt full-upgrade`          |
 
-1. **Search for a package**:  
-   To search for packages related to "web browser":
+### Example Workflow: Installing and Managing GIMP (GNU Image Manipulation Program)
+
+1. **Update package list**:  
+   Before installing or managing any package, ensure the package list is up to date:
    ```bash
-   apt-cache search web browser
-   ```
-   
-2. **Install a package**:  
-   To install Firefox, run:
-   ```bash
-   sudo apt-get install firefox
+   $ sudo apt update
+   $ sudo apt upgrade -y
    ```
 
-3. **Remove a package**:  
-   To remove Firefox, leaving behind its configuration files:
+2. **Search for a package**:  
+   To search for packages related to "image editor":
    ```bash
-   sudo apt-get remove firefox
+   $ sudo apt search image editor
    ```
 
-4. **Purge a package**:  
-   To remove Firefox and delete its configuration files:
+3. **Display package details**:  
+   To view detailed information about the GIMP package:
    ```bash
-   sudo apt-get purge firefox
+   $ sudo apt show gimp
    ```
 
-### Using the `dpkg` Command
+4. **Install a package**:  
+   To install GIMP:
+   ```bash
+   $ sudo apt install gimp
+   ```
 
-In addition to APT commands, you can interact directly with the package manager using `dpkg`.
+5. **Upgrade installed packages**:  
+   To upgrade all installed packages to their latest versions:
+   ```bash
+   $ sudo apt upgrade
+   ```
 
-| Command| Description| Example|
-|--------|------------|--------|
-| `dpkg -l`| List all installed packages| `dpkg -l`|
-| `dpkg -S /path/to/file`| List the package that contains a specific file| `dpkg -S /usr/bin/firefox`|
-| `dpkg -i package.deb`| Install a package from a `.deb` file| `sudo dpkg -i package.deb`|
-| `dpkg -L package`| List all files installed by a package| `dpkg -L firefox`|
+6. **Full upgrade (handle dependencies)**:  
+   To perform an upgrade with more aggressive dependency handling:
+   ```bash
+   $ sudo apt full-upgrade
+   ```
 
+7. **Remove a package**:  
+   To remove GIMP while keeping its configuration files:
+   ```bash
+   $ sudo apt remove gimp
+   ```
 
-### Example of Installing Firefox
+8. **Purge a package**:  
+   To completely remove GIMP along with its configuration files:
+   ```bash
+   $ sudo apt purge gimp
+   ```
 
-```bash
-$ sudo apt-get install firefox
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-The following extra packages will be installed:
-  libdbusmenu-gtk4 xul-ext-ubufox
-Suggested packages:
-  ttf-lyx
-The following NEW packages will be installed:
-  firefox libdbusmenu-gtk4 xul-ext-ubufox
-0 upgraded, 3 newly installed, 0 to remove and 193 not upgraded.
-Need to get 36.1 MB of archives.
-After this operation, 82.4 MB of additional disk space will be used.
-Do you want to continue [Y/n]? y
-Get:1 http://archive.ubuntu.com/ubuntu/ precise-updates/main libdbusmenu-gtk4 amd64 0.6.2-0ubuntu0.2 [31.2 kB]
-Get:2 http://archive.ubuntu.com/ubuntu/ precise-updates/main firefox amd64 29.0+build1-0ubuntu0.12.04.2 [36.0 MB]
-...
-```
+9. **Clean up unnecessary packages**:  
+   To remove packages that are no longer needed as dependencies:
+   ```bash
+   $ sudo apt autoremove
+   ```
 
-### Uninstalling Firefox
+10. **Clear the package cache**:  
+    To free up disk space by clearing the local repository cache:
+    ```bash
+    $ sudo apt clean
+    ```
+---
 
-```bash
-$ sudo apt-get remove firefox
-Reading package lists... Done
-Building dependency tree       
-Reading state information... Done
-The following packages will be REMOVED:
-  firefox
-0 upgraded, 0 newly installed, 1 to remove and 193 not upgraded.
-After this operation, 81.8 MB disk space will be freed.
-Do you want to continue [Y/n]? y
-...
-```
+### What is the difference between `apt upgrade` and `apt full-upgrade`?
+
+- **`sudo apt upgrade`**:
+  - This command upgrades all the currently installed packages to their latest versions, but **without removing** any installed packages or adding new ones. If a package upgrade requires removing other packages, it will **not be installed**.
+  - Essentially, it only upgrades packages that can be updated without causing any dependency issues.
+  
+- **`sudo apt full-upgrade`** (formerly `dist-upgrade`):
+  - This command performs a more **aggressive upgrade** by upgrading all installed packages **and** also handling changes in dependencies, such as:
+    - Removing packages that are no longer required.
+    - Installing new dependencies required by upgraded packages.
+  - If upgrading a package requires removing others or installing additional packages, `full-upgrade` will allow it.
+
+#### Key Differences:
+- **`apt upgrade`**: Only upgrades packages and won't remove or install anything unless it's necessary for the upgrade of an existing package.
+- **`apt full-upgrade`**: Upgrades packages and **may remove or install packages** to resolve dependencies and ensure a successful upgrade.
+
+---
+
+### What is the difference between `apt` and `apt-get`?
+
+| **Feature**               | **`apt`**                             | **`apt-get`**                        |
+|---------------------------|---------------------------------------|--------------------------------------|
+| **User Focus**            | Designed for end-users with a simpler and cleaner interface. | Designed for scripts and advanced users. |
+| **Default Output**        | Provides a more user-friendly and colored output. | Outputs detailed but less formatted information. |
+| **Commands**              | Combines commands like `install`, `remove`, `update`, `upgrade`, etc. | Requires separate commands for some actions, like `apt-get` and `apt-cache`. |
+| **Introduced In**         | Ubuntu 16.04+ / Debian 8+             | Older tool, part of APT package manager since inception. |
+| **Use Case**              | Recommended for interactive use.       | Recommended for scripting and backward compatibility. |
+
+#### **Key Commands Comparison**
+
+| Task                     | `apt` Command          | `apt-get` Command     |
+|--------------------------|------------------------|-----------------------|
+| Install a package        | `sudo apt install`     | `sudo apt-get install` |
+| Remove a package         | `sudo apt remove`      | `sudo apt-get remove` |
+| Update package list      | `sudo apt update`      | `sudo apt-get update` |
+| Upgrade installed packages | `sudo apt upgrade`   | `sudo apt-get upgrade` |
+| Full system upgrade      | `sudo apt full-upgrade` | `sudo apt-get dist-upgrade` |
+
+**Summary**: Use `apt` for day-to-day tasks and `apt-get` for scripting or advanced operations.
+
+---
+
+### Managing DEB Packages Directly with `dpkg`
+
+While `apt` is the most common tool for package management, you can interact directly with the **DEB package manager** using `dpkg`.  
+
+| Command                     | Description                                                     |
+|-----------------------------|-----------------------------------------------------------------|
+| `dpkg -l`                  | List all installed packages.                                    |
+| `dpkg -S /path/to/file`    | Find the package that provides a specific file.                 |
+| `sudo dpkg -i package.deb` | Install a package from a `.deb` file.                          |
+| `dpkg -L <package>`         | List all files installed by a package.                         |
+
+#### Example Workflow with `dpkg`
+
+1. **Install a `.deb` package**:  
+   Download and install a `.deb` file:
+   ```bash
+   sudo dpkg -i package.deb
+   ```
+
+2. **Fix broken dependencies (if needed)**:  
+   If the above command fails due to unmet dependencies, run:
+   ```bash
+   sudo apt install -f
+   ```
+
+3. **List installed files for a package**:  
+   To see which files a package has installed:
+   ```bash
+   dpkg -L <package>
+   ```
+
+4. **Find a package by file**:  
+   To identify which package installed a specific file:
+   ```bash
+   dpkg -S /path/to/file
+   ```
+
+---
+
+### What is the difference between `apt` and `dpkg`?
+
+| **Feature**               | **`apt`**                                 | **`dpkg`**                             |
+|---------------------------|-------------------------------------------|---------------------------------------|
+| **Purpose**               | High-level package manager for managing packages (installing, upgrading, searching, etc.) with dependency resolution. | Low-level package manager for installing, removing, and inspecting `.deb` packages without resolving dependencies. |
+| **Dependency Handling**   | Automatically handles dependencies during package installation and removal. | Does not manage dependencies; errors occur if dependencies are missing. |
+| **Interface**             | User-friendly commands like `install`, `update`, `upgrade`, etc. | Requires direct interaction with `.deb` files using precise commands. |
+| **Use Case**              | Used for managing packages from repositories and performing system-wide package management. | Used for manual installation or troubleshooting specific `.deb` files. |
+| **Example Commands**      | `sudo apt install firefox`                | `sudo dpkg -i firefox.deb`           |
+
+**Summary**: Use `apt` for general package management and `dpkg` for direct `.deb` file manipulation or troubleshooting.
