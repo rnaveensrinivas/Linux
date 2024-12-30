@@ -1,19 +1,32 @@
 # Table of Contents
 * [Introduction](#Introduction)
 * [Linux Directory Structure](#Linux-Directory-Structure)
+  * [Summary of Introduction](#Summary-of-Linux-Directory-Structure)
 * [Command Line Interface](#Command-Line-Interface)
 * [Basic Commands](#Basic-Commands)
+  * [Summary of Basic Commands](#Summary-of-Basic-Commands)
 * [Directories](#Directories)
+  * [Summary of Directory Commands](#Summary-of-Directory-Commands)
 * [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
+  * [Summary of Permissions Commands](#Summary-of-Permissions-Commands)
+  * [Summary of Viewing files](#Summary-of-Viewing-files)
 * [Permissions](#Permissions)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
+  * [Summary of Vim Commands](#Summary-of-Vim-Commands)
 * [Deleting, Moving, and Renaming Files and Directories](#deleting-moving-and-renaming-files-and-directories)
+  * [Summary of Deleting, Moving, and Renaming Files and Directories Commands](#Summary-of-Deleting-Moving-and-Renaming-Files-and-Directories-Commands)
 * [Finding, Sorting, and Comparing Files and Directories](#finding-sorting-and-comparing-files-and-directories)
+  * [Summary of Finding, Sorting, and Comparing Files and Directories](#Summary-of-Finding-Sorting-and-Comparing-Files-and-Directories)
 * [I/O Redirection](#io-redirection)
+  * [Summary of I/O Redirection Commands](#Summary-of-IO-Redirection-Commands)
 * [Additional Command Line Concepts](#Additional-Command-Line-Concepts)
-* [Processes and Jobs](#Processes-and-Jobs )
+  * [Summary of Additional Command Line Concept Commands](#Summary-of-Additional-Command-Line-Concept-Commands)
+* [Processes and Jobs](#Processes-and-Jobs)
+  * [Summary of Process and Job Control Commands](#Summary-of-Process-and-Job-Control-Commands)
 * [Switching Users](#Switching-Users)
+  * [Summary of Switching User Commands](#Summary-of-Switching-User-Commands)
 * [Installing Software](#Installing-Software)
+  * [Summary of Installing Software Commands](#Summary-of-Installing-Software-Commands)
 
 # Introduction
 
@@ -1554,7 +1567,7 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 
 
 
-## Summary of Commands Permissions
+## Summary of Permissions Commands
 
 
 | **Command**      | **Description**                                                  | **Example**                                                 |
@@ -1614,6 +1627,8 @@ cat goals.txt
 ```
 This will display the full content of `goals.txt`.
 
+---
+
 ### `more` - Browse Through a Text File
 
 The `more` command allows you to view a file one page at a time, which is useful for larger files.
@@ -1628,6 +1643,8 @@ more goals.txt
 ```
 This will display the content of `goals.txt`, allowing you to scroll through it.
 
+---
+
 ### `less` - Browse Backward and Search Within a File
 
 The `less` command is similar to `more`, but it offers additional functionality like backward navigation and searching.
@@ -1635,6 +1652,8 @@ The `less` command is similar to `more`, but it offers additional functionality 
 - **Spacebar**: Move forward by one page.
 - **b**: Move backward by one page.
 - **/pattern**: Search for a specific pattern forward in the file.
+  - **`n`** to go to find
+  - **`N`** to go to previous find
 - **?pattern**: Search for a specific pattern backward in the file.
 - **F**: Follow the file as it grows.
 
@@ -1644,20 +1663,26 @@ less goals.txt
 ```
 You can scroll up and down through the file, search for patterns, and use other advanced features like following the file.
 
+### Philosophy: *less is more*
+
+---
+
 ### `head` - Display the Beginning of a File
 
 The `head` command shows the first 10 lines of a file by default. You can also specify how many lines to display using `-N`, where `N` is the number of lines.
 
 **Example**:
 ```bash
-head goals.txt
+$ head goals.txt
 ```
 This will display the first 10 lines of `goals.txt`.
 
 To display only the first line of a file:
 ```bash
-head -1 goals.txt
+$ head -1 goals.txt
 ```
+
+---
 
 ### `tail` - Display the End of a File
 
@@ -1665,14 +1690,16 @@ The `tail` command shows the last 10 lines of a file by default. You can specify
 
 **Example**:
 ```bash
-tail goals.txt
+$ tail goals.txt
 ```
 This will display the last 10 lines of `goals.txt`.
 
 To display only the last line of a file:
 ```bash
-tail -1 goals.txt
+$ tail -1 goals.txt
 ```
+
+---
 
 ### `tail -f` - Follow a File as It Grows
 
@@ -1680,7 +1707,7 @@ The `-f` flag with `tail` allows you to view a file as it is updated in real tim
 
 **Example**:
 ```bash
-tail -f /var/log/syslog
+$ tail -f /var/log/syslog
 ```
 This will show the contents of `syslog` as it gets updated.
 
@@ -1692,6 +1719,22 @@ less goals.txt
 ```
 Then, type `F` to follow the file in real-time.
 
+## Summary of Viewing files
+
+| **Command**          | **Description**                                                                            | **Example**                                   |
+|----------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------|
+| `cat [file]`         | Displays the entire contents of a file. Useful for smaller files.                          | `cat goals.txt`                              |
+| `more [file]`        | Displays a file one page at a time. Useful for larger files.                               | `more goals.txt`                             |
+| `less [file]`        | Allows backward navigation and searching within a file.                                   | `less goals.txt`                             |
+| `head [file]`        | Displays the first 10 lines of a file.                                                     | `head goals.txt`                             |
+| `head -N [file]`     | Displays the first N lines of a file.                                                      | `head -5 goals.txt`                          |
+| `tail [file]`        | Displays the last 10 lines of a file.                                                      | `tail goals.txt`                             |
+| `tail -N [file]`     | Displays the last N lines of a file.                                                       | `tail -5 goals.txt`                          |
+| `tail -f [file]`     | Displays the last lines of a file and follows it as it grows (useful for logs).           | `tail -f /var/log/syslog`                    |
+| `less [file]` + `F`  | Follow a file as it grows in real-time within `less`.                                      | `less goals.txt` then type `F`               |
+
+---
+
 ## The Vim Editor
 
 Vim is a highly powerful and efficient text editor that is often used in Linux and Unix systems. It is an improvement on the original `vi` editor, adding advanced features such as syntax highlighting, multi-level undo/redo, network file editing, and screen splitting. Vim is often available by default on many Linux distributions, and when you run `vi`, you are usually running Vim.
@@ -1700,7 +1743,7 @@ Vim's main feature is its use of different **modes** to manage interaction with 
 
 ### Modes in Vim
 
-#### 1. **Command Mode**
+#### 1. Command Mode
 
 Vim starts in **Command Mode**, where keystrokes are interpreted as commands, not text input. In this mode, you can navigate, search, delete, copy, paste, and perform many other actions without directly typing into the file.
 
@@ -1725,7 +1768,7 @@ Vim starts in **Command Mode**, where keystrokes are interpreted as commands, no
 - To move to the start of the file, type `gg`.
 - To move to the end of the file, type `G`.
 
-#### 2. **Insert Mode**
+#### 2. Insert Mode
 
 In **Insert Mode**, you can type text into the file. To enter Insert Mode from Command Mode, press:
 - `i` to insert at the current position.
@@ -1739,7 +1782,7 @@ Once you have finished typing, press `Esc` to return to Command Mode.
 - Press `i` to enter Insert Mode at the current cursor position and start typing.
 - Press `A` to start typing at the end of the line.
 
-#### 3. **Line Mode**
+#### 3. Line Mode
 
 Line Mode (also called Command Line Mode) is accessed from Command Mode by typing `:`. In Line Mode, you can issue commands to save, quit, replace text, and perform some forms of navigation.
 
@@ -1799,7 +1842,7 @@ Vim provides a wide range of commands for modifying and managing text efficientl
 | Change from the current position to the end of the line | `c$` |
 
 **Examples**:
-- To replace the current character with `x`, type `rx`.
+- To replace the current character with `d`, type `rd`.
 - To change the current word, press `cw` and type the new word.
 - To change the entire line, type `cc` and then type the new content.
 
@@ -1924,6 +1967,7 @@ Vim allows you to change the case of letters.
 | Move the cursor to the next match of a search  | `n`     |
 | Move the cursor to the previous match of a search | `N`   |
 
+---
 
 # Deleting, Moving, and Renaming Files and Directories
 
@@ -2014,7 +2058,7 @@ The `cp` command is used to copy files and directories. You can create duplicate
 
 ### Interactive Mode
 
-- **Interactive copy**: Use the `-i` option to prompt before overwriting existing files.
+- **Interactive copy**: Use the `-i` option to **prompt before overwriting** existing files.
   ```bash
   cp -i source_file destination_file
   ```
@@ -2023,6 +2067,7 @@ The `cp` command is used to copy files and directories. You can create duplicate
   cp -i file1.txt file2.txt
   ```
   If `file2.txt` exists, `cp` will ask if you want to overwrite it.
+  **Always try to use interactive copy**.
 
 ### Copying Directories
 
@@ -2036,9 +2081,15 @@ The `cp` command is used to copy files and directories. You can create duplicate
   ```
   This copies the entire `project_folder` to `/backup/`.
 
+  If you don't use `-r` when dealing with directories, you will get error. 
+  ```bash
+  $ cp source_directory destination_directory
+  cp: -r not specified; omitting directory 'source_directory'
+  ```
+
 ## Moving and Renaming Files and Directories
 
-The `mv` command is used to move files and directories from one location to another. It can also be used to rename files and directories.
+The `mv` command is used to **move files and directories** from one location to another. It can also be used to **rename files and directories**.
 
 ### Basic Usage
 
@@ -2084,6 +2135,7 @@ The `mv` command is used to move files and directories from one location to anot
   mv -i old_document.txt new_document.txt
   ```
   If `new_document.txt` exists, `mv` will ask whether you want to overwrite it.
+  **Always try to use interactive move.**
 
 ### Renaming a Directory
 
@@ -2131,7 +2183,7 @@ Let’s take a closer look at some real-world examples.
 
 ---
 
-## Summary of Commands for deleting, moving, and renaming files and directories
+## Summary of Deleting, Moving, and Renaming Files and Directories Commands
 
 | **Command**| **Description**| **Example**|
 |------------|----------------|------------|
@@ -2155,13 +2207,12 @@ Let’s take a closer look at some real-world examples.
 | `mv file1.txt 2file.txt`| Rename a file without prompt (can overwrite).| `mv file1.txt 2file.txt` - Renames `file1.txt` to `2file.txt`.|
 | `mv -i 2file.txt file1.txt`| Interactive move; prompts before overwriting an existing file.| `mv -i 2file.txt file1.txt` - Prompts before overwriting `file1.txt`.|
 
-## Notes:
+### Notes:
 - The `-i` flag is useful for confirming file overwrites to prevent accidental deletion or overwriting.
 - The `-r` flag is necessary for copying or deleting directories and their contents recursively.
 - Wildcards (`*`, `?`) allow you to match files based on patterns, providing a powerful way to work with multiple files at once.
 
 ---
-
 
 # Finding, Sorting, and Comparing Files and Directories
 
@@ -2179,15 +2230,15 @@ find [path...] [expression]
 
 #### Common `find` Options and Examples:
 
-| **Description** | **Command** | **Example** |
-|-----------------|-------------|-------------|
-| Display items whose names match a pattern (case-sensitive) | `find . -name pattern` | `find . -name "*.txt"` - Finds all `.txt` files in the current directory and subdirectories. |
-| Same as `-name`, but case-insensitive | `find . -iname pattern` | `find . -iname "*.jpg"` - Finds all `.jpg` files, case-insensitive. |
-| Perform an `-ls` operation on each found item | `find . -ls` | `find . -ls` - Lists detailed information for all files in the current directory and subdirectories. |
-| Display items that are a specific number of days old | `find . -mtime number_of_days` | `find . -mtime 7` - Finds files modified 7 days ago. |
-| Display items that match a size criterion | `find . -size number` | `find . -size +10M` - Finds files larger than 10MB. |
-| Display items newer than a specified file | `find . -newer file` | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
-| Run a command on each found item | `find . -exec command {} \;` | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files found. |
+| **Command**                                   | **Description**                                             | **Example**                                                                 |
+|-----------------------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `find . -name pattern`                        | Display items whose names match a pattern (case-sensitive)   | `find . -name "*.txt"` - Finds all `.txt` files in the current directory and subdirectories. |
+| `find . -iname pattern`                       | Same as `-name`, but case-insensitive                        | `find . -iname "*.jpg"` - Finds all `.jpg` files, case-insensitive.        |
+| `find . -ls`                                  | Perform an `-ls` operation on each found item                | `find . -ls` - Lists detailed information for all files in the current directory and subdirectories. |
+| `find . -mtime number_of_days`                | Display items that are a specific number of days old         | `find . -mtime 7` - Finds files modified 7 days ago.                        |
+| `find . -size number`                         | Display items that match a size criterion                    | `find . -size +10M` - Finds files larger than 10MB.                          |
+| `find . -newer file`                          | Display items newer than a specified file                    | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
+| `find . -exec command {} \;`                   | Run a command on each found item                             | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files found.    |
 
 #### Combining `find` Options
 You can combine multiple expressions to refine your search. For example, to find `.txt` files modified in the last 7 days:
@@ -2213,20 +2264,20 @@ locate example.txt
 
 ## Sorting Files
 
-The `sort` command is used to sort the contents of a file or input in various ways, such as by key, in reverse order, or uniquely.
+The `sort` command is used to sort the contents of a file or input in various ways, such as by **key**, in **reverse order**, or uniquely.
 
 ### Common `sort` Options and Examples:
 
-| **Description** | **Option** | **Command** | **Example** |
-|-----------------|------------|-------------|-------------|
-| Sort the contents of a file | `sort file` | `sort mylist.txt` - Sorts the lines in `mylist.txt` in ascending order. |
-| Sort by a specific field/column | `-k FIELD_NUM` | `sort -k 2 mylist.txt` - Sorts by the second column in `mylist.txt`. |
-| Sort in reverse order | `-r` | `sort -r mylist.txt` - Sorts the lines in `mylist.txt` in descending order. |
-| Sort uniquely (no duplicates) | `-u` | `sort -u mylist.txt` - Sorts `mylist.txt` and removes duplicates. |
+| **Command**| **Description**| **Option**| **Example**|
+|------------|----------------|-----------|------------|
+| `sort file`| Sort the contents of a file **line by line**| `file`| `sort mylist.txt` - Sorts the lines in `mylist.txt` in ascending order. |
+| `sort -k FIELD_NUM`  | Sort by a specific field/column| `-k FIELD_NUM`| `sort -k 2 mylist.txt` - Sorts by the second column in `mylist.txt`.   |
+| `sort -r`| Sort in reverse order| `-r`| `sort -r mylist.txt` - Sorts the lines in `mylist.txt` in descending order. |
+| `sort -u`| Sort uniquely (no duplicates)| `-u`| `sort -u mylist.txt` - Sorts `mylist.txt` and removes duplicates.|
 
 #### Sorting by Multiple Keys:
 To sort by multiple keys (columns), you can use multiple `-k` options:
-```
+```bash
 sort -k 2 -k 1 mylist.txt
 ```
 This sorts first by the second column and then by the first column.
@@ -2310,7 +2361,7 @@ vimdiff old_version.txt new_version.txt
 ```
 - The files will be displayed side by side within `vim`, with differences highlighted.
 
-## Summary of Commands
+## Summary of Finding, Sorting, and Comparing Files and Directories
 
 | **Command** | **Description** | **Example** |
 |-------------|-----------------|-------------|
@@ -2329,10 +2380,6 @@ vimdiff old_version.txt new_version.txt
 | `diff` | Compares two files and shows their differences. | `diff old_version.txt new_version.txt` - Compares `old_version.txt` and `new_version.txt`. |
 | `sdiff` | Compares two files side by side, showing differences. | `sdiff old_version.txt new_version.txt` - Displays a side-by-side comparison. |
 | `vimdiff` | Compares two files in the Vim editor with differences highlighted. | `vimdiff old_version.txt new_version.txt` - Displays differences in `vim`. |
-
-
-
-
 
 # I/O Redirection
 
@@ -2463,7 +2510,7 @@ If you don't want to display the output of a command (or save it to a file), you
    command > combined-output.txt 2>&1
    ```
 
-## Summary of Redirection Operators
+## Summary of I/O Redirection Commands
 
 | **Action**                                                   | **Format**            | **Operator**      | **Description**                                                                 |
 |--------------------------------------------------------------|-----------------------|-------------------|---------------------------------------------------------------------------------|
@@ -2645,7 +2692,7 @@ The continued lines will be prefixed with the greater-than symbol (`>`).
 
 ---
 
-## Summary of Key Commands
+## Summary of Additional Command Line Concept Commands
 
 | **Command**          | **Description**                                    | **Example Usage**                              |
 |----------------------|----------------------------------------------------|------------------------------------------------|
@@ -3073,7 +3120,7 @@ kill 12345
 kill -9 %1
 ```
 
-## Summary table of Process and Job Control Commands
+## Summary of Process and Job Control Commands
 
 | **Command**               | **Description**                                                                 | **Example**                                               |
 |---------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------|
@@ -3497,3 +3544,28 @@ While `apt` is the most common tool for package management, you can interact dir
 | **Example Commands**      | `sudo apt install firefox`                | `sudo dpkg -i firefox.deb`           |
 
 **Summary**: Use `apt` for general package management and `dpkg` for direct `.deb` file manipulation or troubleshooting.
+
+## Summary of Installing Software Commands
+
+| **Command**                     | **Description**                                                        | **Example**                          |
+|----------------------------------|------------------------------------------------------------------------|--------------------------------------|
+| `sudo apt update`                | Update package list and metadata from repositories                     | `sudo apt update`                   |
+| `sudo apt upgrade`               | Upgrade all installed packages to the latest available versions        | `sudo apt upgrade`                  |
+| `sudo apt autoremove`            | Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove`            |
+| `sudo apt clean`                 | Clear the local repository cache to free up space                      | `sudo apt clean`                    |
+| `sudo apt search search-pattern` | Search for packages matching the search pattern                        | `sudo apt search web browser`       |
+| `sudo apt install package`       | Install a package                                                      | `sudo apt install firefox`          |
+| `sudo apt install -y package`    | Install a package and automatically answer "yes" to prompts            | `sudo apt install -y firefox`       |
+| `sudo apt remove package`        | Remove a package, leaving behind configuration files                   | `sudo apt remove firefox`           |
+| `sudo apt purge package`         | Remove a package, including its configuration files                    | `sudo apt purge firefox`            |
+| `sudo apt show package`          | Display detailed information about a package                           | `sudo apt show firefox`             |
+| `sudo apt full-upgrade`          | Perform an upgrade with more aggressive handling of dependencies        | `sudo apt full-upgrade`             |
+| `dpkg -l`                        | List all installed packages.                                           | `dpkg -l`                           |
+| `dpkg -S /path/to/file`          | Find the package that provides a specific file.                        | `dpkg -S /path/to/file`             |
+| `sudo dpkg -i package.deb`       | Install a package from a `.deb` file.                                  | `sudo dpkg -i package.deb`          |
+| `dpkg -L <package>`              | List all files installed by a package.                                 | `dpkg -L <package>`                 |
+| **Example Workflow with `dpkg`** | **Description**                                                        | **Command**                          |
+| Install a `.deb` package         | Install a `.deb` file.                                                 | `sudo dpkg -i package.deb`          |
+| Fix broken dependencies          | Fix unmet dependencies after installing a `.deb` package.              | `sudo apt install -f`               |
+| List installed files for a package | View which files a package has installed.                              | `dpkg -L <package>`                 |
+| Find a package by file           | Identify which package installed a specific file.                      | `dpkg -S /path/to/file`             |
