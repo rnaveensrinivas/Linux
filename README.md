@@ -2413,7 +2413,7 @@ In Linux, input (like a file or standard input) is terminated by an **EOF (End o
   ```bash
   sort
   ```
-  (Now, type the text you want to sort. Press `Ctrl-d` to indicate EOF, and the text will be sorted).
+  (Now, type the text you want to sort. **Press `Ctrl-d` to indicate EOF**, and the text will be sorted).
 
 ## Pipes and Redirection
 
@@ -2463,6 +2463,12 @@ You can combine both **standard output** and **standard error** into one file. U
 ```bash
 command > output.log 2>&1
 ```
+The above command has got three parts: 
+1. `command` - when run, will generate errors or outputs. 
+2. `> output.log` - tells that standard output to be redirected to file.
+   * `> output.log` is equivalent to `1> output.log`
+3. `2>&1`- tells that standard output to be redirected to `&1` **reference of 1**, which is `output.log`.
+
 
 This command redirects both the standard output and standard error from `command` into `output.log`.
 
@@ -2491,7 +2497,8 @@ If you don't want to display the output of a command (or save it to a file), you
    ```bash
    sort < test.txt > sorted.txt
    ```
-   This reads input from `test.txt` and sorts it, saving the sorted output to `sorted.txt`.
+   This reads input from `test.txt` and sorts it, saving the sorted output to `sorted.txt`.   sort < test.txt > sorted.txt
+
 
 2. **Using pipes and redirecting output**:
    ```bash
@@ -2504,6 +2511,8 @@ If you don't want to display the output of a command (or save it to a file), you
    command > output.txt 2> error.txt
    ```
    This command redirects **standard output** to `output.txt` and **standard error** to `error.txt`.
+   
+   Again it's **not one continuous redirection**, command to output to error! Each of these are independent.
 
 4. **Combining output and error into one file**:
    ```bash
@@ -2522,7 +2531,12 @@ If you don't want to display the output of a command (or save it to a file), you
 | **Discard output (send it to the null device)**               | `cmd > /dev/null`      | `> /dev/null`      | Discards the standard output by redirecting it to `/dev/null`.                 |
 | **Discard standard error (send it to the null device)**       | `cmd 2> /dev/null`     | `2> /dev/null`     | Discards the standard error by redirecting it to `/dev/null`.                  |
 | **Combine output and error, sending both to `/dev/null`**     | `cmd > /dev/null 2>&1` | `> /dev/null 2>&1` | Discards both standard output and standard error by redirecting them to `/dev/null`. |
-
+| **Sort the contents of a file**                              | `sort < file.txt`      | `<`               | Uses the contents of `file.txt` as input and outputs the sorted content.        |
+| **Sort and save output to a file**                           | `sort < test.txt > sorted.txt` | `<` `>`         | Uses `test.txt` as input and saves the sorted output to `sorted.txt`.          |
+| **Find and save matches from a file**                        | `cat file.txt | grep "search term" > result.txt` | `>` `|` | Searches `file.txt` for "search term" and saves matching lines to `result.txt`. |
+| **Redirect standard output and error to separate files**     | `command > output.txt 2> error.txt` | `>` `2>`     | Saves standard output to `output.txt` and standard error to `error.txt`.       |
+| **Combine standard output and error into one file**          | `command > combined-output.txt 2>&1` | `>` `2>&1` | Saves both standard output and standard error to `combined-output.txt`.        |
+| **Pipe output of one command to another**                    | `cat file.txt | sort`  | `|`               | Redirects the output of `cat file.txt` to `sort` as its input.                  |
 
 
 # Additional Command Line Concepts
@@ -2722,7 +2736,7 @@ The continued lines will be prefixed with the greater-than symbol (`>`).
 
 In Linux, processes are the running instances of commands, applications, or programs. The `ps` command is a key tool for viewing information about currently running processes. You can also use other commands like `top`, `htop`, and `pstree` to monitor and manage processes. This chapter covers the `ps` command, which is used for viewing processes, as well as other tools and options to manage and track system activities.
 
-## 1. The `ps` Command
+## The `ps` Command
 
 The `ps` (process status) command provides a snapshot of the currently running processes on your system. By default, `ps` shows processes associated with your current terminal session.
 
@@ -2802,7 +2816,7 @@ The `ps` command has several options to control the level of detail displayed in
   ps -p 1234
   ```
 
-## 2. `pstree` Command
+## `pstree` Command
 
 The `pstree` command is another tool that displays running processes in a tree-like format. It is similar to the `ps -H` or `ps --forest` command options but with a more visually structured output. Unlike `ps`, `pstree` provides a continuous, updated process tree.
 
@@ -2823,7 +2837,7 @@ init─┬─bash─┬─ps
      └─sshd─┬─sshd───bash───pstree
 ```
 
-## 3. Real-Time Process Monitoring with `top` and `htop`
+## Real-Time Process Monitoring with `top` and `htop`
 
 While `ps` gives a snapshot of processes at a specific moment, `top` and `htop` are dynamic tools that display processes in real-time, refreshing periodically.
 
@@ -2898,7 +2912,7 @@ While `ps` gives a snapshot of processes at a specific moment, `top` and `htop` 
    htop
    ```
 
-## Jobs - In-Depth Summary
+## Jobs 
 
 ### Overview
 
@@ -2906,7 +2920,7 @@ In Linux, when you execute a command at the terminal, it runs in the foreground 
 
 This section covers how to control jobs in a Linux environment, including how to start jobs in the background, manage job statuses, suspend, resume, and kill jobs, and use the `fg`, `bg`, and `kill` commands effectively.
 
-### 1. Running Jobs in the Background
+### Running Jobs in the Background
 
 When you start a command in the background, the terminal immediately returns the prompt, allowing you to continue executing other commands. To start a command in the background, you append an ampersand (`&`) to the command:
 
@@ -2940,7 +2954,7 @@ Here, `1` is the job number, and `12345` is the process ID of the background job
 | Kill a process by job number or PID               | `kill [%num]` or `kill <PID>` |
 | List all jobs or a specific job by job number     | `jobs [%num]`        |
 
-### 2. Job Status and Job Numbers
+### Job Status and Job Numbers
 
 The `jobs` command lists all the jobs running in the background or suspended. The job numbers are displayed in square brackets. Jobs that are running or stopped are listed with their status.
 
@@ -2959,11 +2973,11 @@ Example output:
 
 These symbols help you identify which job is currently active or was last active.
 
-### 3. Managing Jobs with `fg` and `bg`
+### Managing Jobs with `fg` and `bg`
 
 You can control jobs that are running in the background or that have been suspended by bringing them to the foreground or resuming them in the background.
 
-#### 3.1 Foregrounding a Job
+#### Foregrounding a Job
 
 To bring a background job to the foreground, use the `fg` command followed by the job number.
 
@@ -2977,7 +2991,7 @@ fg %%
 ```
 This will bring the most recently started or suspended job to the foreground.
 
-#### 3.2 Backgrounding a Suspended Job
+#### Backgrounding a Suspended Job
 
 If a job is suspended (e.g., using `Ctrl-Z`), you can resume it in the background by using the `bg` command followed by the job number.
 
@@ -3011,15 +3025,15 @@ This will resume the last suspended job in the background.
    fg
    ```
 
-### 4. Killing Jobs
+### Killing Jobs
 
 To terminate a job, you can use the `kill` command. This command sends a signal to a process, and by default, the signal is `SIGTERM` (termination).
 
-#### 4.1 Killing Foreground Jobs
+#### Killing Foreground Jobs
 
 To kill a foreground job, you can simply press `Ctrl-C`. This sends the `SIGINT` signal (interrupt), which immediately stops the process.
 
-#### 4.2 Killing Background Jobs by Job Number or PID
+#### Killing Background Jobs by Job Number or PID
 
 To kill a background job, use the `kill` command followed by the job number or process ID (PID). 
 
@@ -3035,7 +3049,7 @@ kill 12345
 
 You can also use `kill -l` to list all the available signals that can be sent to a process.
 
-#### 4.3 Sending Specific Signals
+#### Sending Specific Signals
 
 The `kill` command can send different types of signals. By default, `kill` sends `SIGTERM` (signal 15) to gracefully terminate the process. If the process does not terminate after receiving `SIGTERM`, you can forcefully terminate it by sending `SIGKILL` (signal 9).
 
@@ -3049,7 +3063,7 @@ To send `SIGKILL` to forcefully kill a job:
 kill -9 %1
 ```
 
-#### 4.4 Listing Signals with `kill -l`
+#### Listing Signals with `kill -l`
 
 To view a list of all available signals, use the `kill -l` command:
 
@@ -3064,7 +3078,7 @@ Example output:
 
 You can use these signal names or numbers to control the behavior of the `kill` command.
 
-### 5. Practical Examples of Job Control
+### Practical Examples of Job Control
 
 #### Example 1: Starting a Process in the Background
 ```bash
