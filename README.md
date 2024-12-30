@@ -1,3 +1,20 @@
+# Table of Contents
+* [Introduction](#Introduction)
+* [Linux Directory Structure](#Linux-Directory-Structure)
+* [Command Line Interface](#Command-Line-Interface)
+* [Basic Commands](#Basic-Commands)
+* [Directories](#Directories)
+* [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
+* [Permissions](#Permissions)
+* [Viewing and Editing Files](#Viewing-and-Editing-Files)
+* [Deleting, Moving, and Renaming Files and Directories](#deleting-moving-and-renaming-files-and-directories)
+* [Finding, Sorting, and Comparing Files and Directories](#finding-sorting-and-comparing-files-and-directories)
+* [I/O Redirection](#io-redirection)
+* [Additional Command Line Concepts](#Additional-Command-Line-Concepts)
+* [Processes and Jobs](#Processes-and-Jobs )
+* [Switching Users](#Switching-Users)
+* [Installing Software](#Installing-Software)
+
 # Introduction
 
 ## What is Linux?
@@ -18,18 +35,38 @@ A **Linux distribution (distro)** is a complete operating system built around th
 2. **Custom Software**: Each distribution includes different default software, tools, and configurations based on its focus.
 3. **Versatile Applications**: Applicable to desktops, servers, and specialized systems.
 4. **Community vs. Corporate**: Some distributions are maintained by volunteers, while others are backed by companies offering paid support.
+5. **Desktop vs. Server**: Some distribution are exclusive for PC, Linux Desktops, eg. Linux Mint. While others are exclusive for Servers, eg. CentOS, RHEL. And some distro serves both Desktop and Server users, eg. Ubuntu..
 
-### Popular Linux Distributions
-Linux distributions cater to diverse needs and preferences. Here are some widely used distros:
+### Popular Linux Distributions  
 
-- **Linux Mint**: User-friendly, suitable for beginners.
-- **Ubuntu**: Popular for its ease of use and community support.
-- **Debian**: Stable and reliable, favored for servers and long-term use.
-- **Fedora**: Cutting-edge features, backed by Red Hat.
-- **openSUSE**: Enterprise-grade tools with a focus on developers and administrators.
-- **Arch Linux**: Minimalist and customizable for advanced users.
-- **CentOS**: Community-supported version of Red Hat Enterprise Linux.
-- **Red Hat Enterprise Linux (RHEL)**: Commercial, enterprise-grade distribution with professional support.
+This table categorizes popular Linux distributions based on their primary usage (Desktop vs. Server) and support model (Community vs. Corporate).  
+
+| **Distribution**        | **Primary Usage** | **Support Model** | **Notes**                                                                 |
+|--------------------------|-------------------|-------------------|---------------------------------------------------------------------------|
+| **Linux Mint**           | Desktop           | Community         | User-friendly, great for beginners.                                       |
+| **Ubuntu**               | Both              | Community         | Widely used, offers LTS versions for stability.                           |
+| **Debian**               | Both              | Community         | Stable and reliable, widely used for servers.                             |
+| **Fedora**               | Both              | Community         | Cutting-edge features, upstream for RHEL.                                 |
+| **openSUSE**             | Both              | Community/Corporate | Offers both Leap (stable) and Tumbleweed (rolling release) versions.     |
+| **Arch Linux**           | Desktop           | Community         | Minimalist and highly customizable.                                       |
+| **CentOS**               | Server            | Community         | RHEL-based, stable, and enterprise-ready.                                 |
+| **Red Hat Enterprise Linux (RHEL)** | Server            | Corporate         | Commercial support for enterprise environments.                           |
+| **Manjaro**              | Desktop           | Community         | Arch-based with user-friendly tools.                                      |
+| **Elementary OS**        | Desktop           | Community         | Aesthetically pleasing, great for newcomers.                              |
+| **Kali Linux**           | Desktop           | Community         | Specialized for penetration testing and security tasks.                   |
+| **Zorin OS**             | Desktop           | Community         | Aimed at users transitioning from Windows.                                |
+| **Pop!_OS**              | Desktop           | Community         | Developer and gamer-friendly, based on Ubuntu.                           |
+| **AlmaLinux**            | Server            | Community         | RHEL clone, focused on enterprise users.                                  |
+| **Slackware**            | Both              | Community         | Simple, traditional UNIX-like experience.                                 |
+| **MX Linux**             | Desktop           | Community         | Lightweight, efficient, and great for older hardware.                     |
+| **Deepin**               | Desktop           | Community         | Focuses on an elegant and intuitive desktop environment.                  |
+| **Void Linux**           | Desktop           | Community         | Independent and minimalist, with a unique package manager (`xbps`).       |
+
+**Legend**:  
+- **Desktop**: Primarily tailored for personal or workstation use.  
+- **Server**: Designed for stability, often used in enterprise or hosting environments.  
+- **Community**: Developed and maintained by a community of volunteers.  
+- **Corporate**: Backed by a company providing commercial support.  
 
 ---
 
@@ -42,35 +79,201 @@ While the software bundled with each distribution varies, the **core principles 
 
 The Linux directory structure is hierarchical, resembling an inverted tree with the root (`/`) as its base. All directories branch off from the root, with forward slashes (`/`) separating directories.
 
+**Directory** is nothing but a linux jargon for **folder**.
+
 ## Common Top-Level Directories
 
 ### `/` Root Directory
 The starting point of the Linux file system. All files and directories reside under `/`. Additional storage devices are mounted as subdirectories like `/mnt` or `/media`.
+```bash
+$ ls /
+bin                dev   lib64              mnt   run                 srv       usr
+bin.usr-is-merged  etc   lib.usr-is-merged  opt   sbin                swap.img  var
+boot               home  lost+found         proc  sbin.usr-is-merged  sys
+cdrom              lib   media              root  snap                tmp
+```
 
 ### `/bin` Binaries
 Contains essential executable programs (e.g., basic commands like `ls`, `cp`). Additional non-essential binaries are found in `/usr/bin`.
+```bash
+$ ls /bin
+'['                                   mpris-proxy
+ aa-enabled                           mpstat
+ aa-exec                              mscompress
+ aa-features-abi                      msexpand
+ aconnect                             mt
+ acpidbg                              mt-gnu
+ add-apt-repository                   mtr
+ addpart                              mtrace
+ addr2line                            mtr-
+ ...
+```
 
 ### `/etc` System Configuration Files
 Houses configuration files for the system and applications (e.g., boot modes, nareetwork settings).
+```bash
+$ ls /etc
+adduser.conf            fuse.conf             logrotate.d          rsyslog.d
+alsa                    fwupd                 lsb-release          rygel.conf
+alternatives            gai.conf              machine-id           sane.d
+anacrontab              gdb                   magic                security
+apache2                 gdm3                  magic.mime           selinux
+apg.conf                geoclue               manpath.config       sensors3.conf
+apm                     ghostscript           mime.types           sensors.d
+apparmor                glvnd                 mke2fs.conf          services
+apparmor.d              gnome                 ModemManager         sgml
+apport                  gnome-remote-desktop  modprobe.d           shadow
+apt                     gnutls                modules              shadow-
+avahi                   gprofng.rc            modules-load.d       shells
+bash.bashrc             groff                 mtab                 skel
+bash_completion         group                 nanorc               snmp
+bash_completion.d       group-                netconfig            speech-dispatcher
+bindresvport.blacklist  grub.d                netplan              ssh
+binfmt.d                gshadow               network              ssl
+...
+```
 
 ### `/home` Home Directories
 User-specific directories containing personal files, configurations, and data. Example: `/home/user`.
+```bash
+$ ls /home/
+sri
+```
 
 ### `/opt` Optional or Third-Party Software
 Used for software not bundled with the operating system, like Google Chrome.
 
+**Fact** - Firefox comes builtin with the operating system. 
+```bash
+$ whereis firefox
+firefox: /usr/bin/firefox /snap/bin/firefox
+```
+
 ### `/tmp` Temporary Files
 Temporary workspace for applications and users. Files here are cleared at boot time.
+```bash
+$ ls /tmp
+snap-private-tmp
+systemd-private-9e8bed51413f4d929422b8d7d854bbcd-bluetooth.service-rcvxLj
+systemd-private-9e8bed51413f4d929422b8d7d854bbcd-colord.service-1fPQpU
+systemd-private-9e8bed51413f4d929422b8d7d854bbcd-fwupd.service-RclrPC
+systemd-private-9e8bed51413f4d929422b8d7d854bbcd-ModemManager.service-ItsVvS
+...
+```
 
 ### `/usr` User-Related Data
-Contains user-related programs and read-only data. Subdirectories include:
+Contains user-related programs and **read-only data**. Subdirectories include:
 - `/usr/bin`: Executable programs.
 - `/usr/lib`: Libraries.
 - `/usr/share`: Shared documentation and resources.
 
+#### `/usr`
+```bash
+$ ls /usr
+bin  games  include  lib  lib64  libexec  local  sbin  share  src
+```
+#### `/usr/bin`
+```bash
+$ ls /usr/bin
+'['                                   mpris-proxy
+ aa-enabled                           mpstat
+ aa-exec                              mscompress
+ aa-features-abi                      msexpand
+ aconnect                             mt
+ acpidbg                              mt-gnu
+ add-apt-repository                   mtr
+ addpart                              mtrace
+ addr2line                            mtr-packet
+ airscan-discover                     mv
+ alsabat                              namei
+ alsaloop                             nano
+ ...
+```
+#### `/usr/lib`
+```bash
+$ ls /usr/lib
+apg                        gvfs                                  pam.d
+apparmor                   hdparm                                pcmciautils
+apt                        init                                  pcrlock.d
+aspell                     initramfs-tools                       pm-utils
+bfd-plugins                ispell                                policykit-1
+binfmt.d                   kernel                                polkit-1
+brltty                     klibc                                 pppd
+...
+```
+#### `/usr/share`
+```bash
+$ ls /usr/share/
+accountsservice              gnome-tweaks                    pam-configs
+aclocal                      gnupg                           perl
+alsa                         groff                           perl5
+alsa-base                    grub                            perl-openssl-defaults
+alsa-card-profile            gst-plugins-base                pipewire
+applications                 gstreamer-1.0                   pixmaps
+apport                       gtk-3.0                         pkgconfig
+appstream                    gtk-4.0                         plymouth
+aspell                       gtk-engines                     pnm2ppa
+avahi                        gtksourceview-2.0               pocketsphinx
+backgrounds                  gtksourceview-3.0               polkit-1
+base-files                   gtksourceview-4                 poppler
+base-passwd                  gtksourceview-5                 ppd
+bash-completion              gupnp-av                        ppdc
+binfmts                      gupnp-dlna-2.0                  ppp
+...
+```
+### What is the difference between `/bin` and `/usr/bin`?
+
+The directories `/bin` and `/usr/bin` are part of the Linux filesystem hierarchy and are used to store executable files. However, they differ in purpose and historical usage.
+
+---
+
+#### **1. `/bin` (Essential User Binaries)**
+- **Purpose**: Contains essential binaries required for the system to function, especially during boot or when the system is in single-user mode.
+- **Availability**: These binaries are available even if the `/usr` directory is not mounted.
+- **Usage**: Includes basic commands that are needed for system recovery, maintenance, and basic user interaction.
+- **Examples**:
+  - `ls`: List directory contents
+  - `cp`: Copy files
+  - `mv`: Move files
+  - `cat`: Concatenate and display file contents
+  - `bash`: The Bourne Again Shell
+  
+---
+
+#### **2. `/usr/bin` (Non-Essential User Binaries)**
+- **Purpose**: Contains binaries for general use by all users, but these are not essential for booting or repairing the system.
+- **Availability**: Typically resides on a separate partition and may not be available if `/usr` is not mounted (e.g., during early boot stages or recovery modes).
+- **Usage**: Includes a broader range of applications and tools that are not critical to the core system operation.
+- **Examples**:
+  - `vim`: Text editor
+  - `gcc`: C compiler
+  - `python`: Python interpreter
+  - `git`: Version control system
+
+---
+
+#### **Key Differences**
+| Aspect             | `/bin`                              | `/usr/bin`                          |
+|--------------------|-------------------------------------|-------------------------------------|
+| **Purpose**         | Essential commands for the system  | General-purpose commands and tools |
+| **Availability**    | Always available, even in recovery | May not be available in early boot |
+| **Examples**        | `ls`, `cat`, `bash`                | `vim`, `python`, `git`             |
+| **System Dependence** | Required for booting and recovery | Not required for core boot         |
+
+---
+
+#### **Historical Context**
+- In older UNIX systems, `/bin` was designed for essential commands, while `/usr/bin` held supplementary tools. Over time, `/usr/bin` grew to contain a significant portion of system utilities.
+- Modern Linux systems often include `/bin` and `/usr/bin` as part of the same filesystem, and some distributions have unified these directories, symlinking `/bin` to `/usr/bin` for simplicity.
+
+
 ### `/var` Variable Data
 Stores variable and runtime data, like log files in `/var/log`.
 
+```bash
+$ ls /var
+backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  snap  spool  tmp
+```
 ---
 
 ## Additional Important Directories
@@ -85,9 +288,9 @@ Stores variable and runtime data, like log files in `/var/log`.
 
 ---
 
-## Application Directory Structures
+## Application Directory Organizatoin Structure
 
-Application directory structures can be organized based on the operating system's layout. For example, when Apache is installed in `/usr/local`, its directories can look like:
+Application directory structures can be organized similar to the operating system's layout. For example, when Apache is installed in `/usr/local`, its directories can look like:
 - `/usr/local/apache/bin`: Binaries and executables
 - `/usr/local/apache/etc`: Configuration files
 - `/usr/local/apache/lib`: Libraries
@@ -107,21 +310,39 @@ Another common pattern is separating configuration and log data:
 
 Applications can also share common directory spaces. For instance, Apache might be installed in `/usr/local` along with other local applications.
 
-## Organizational Directory Structures
+## Summary of Linux Directory Structure
 
-Organizations often create directory structures based on company, group, or team needs. For example, a directory for a company named Widget might look like:
-- `/opt/widget`: Top-level directory
-  - `/opt/widget/bin`: Company binaries
-  - `/opt/widget/etc`: Configuration files
+| **Directory**   | **Purpose**| **Key Contents**|
+|------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| `/bin`           | Essential binaries for system operation and recovery.                      | Basic commands like `ls`, `cp`, `mv`, `cat`, `bash`.                                                     |
+| `/boot`          | Contains bootloader files and the kernel.                                  | Kernel images, `grub` configuration files.                                                              |
+| `/dev`           | Device files representing hardware and virtual devices.                    | Files like `/dev/sda` (disk), `/dev/null`, `/dev/tty` (terminals).                                       |
+| `/etc`           | System-wide configuration files.                                           | Configs for services like `ssh`, `passwd`, `fstab`.                                                      |
+| `/home`          | User home directories.                                                     | Personal files and directories for users (e.g., `/home/naveen`).                                         |
+| `/lib`           | Essential shared libraries and kernel modules.                             | Libraries used by programs in `/bin` and `/sbin`.                                                       |
+| `/media`         | Mount points for removable media.                                          | Subdirectories for CDs, USB drives (e.g., `/media/usb`).                                                |
+| `/mnt`           | Temporary mount point for filesystems.                                     | Used for mounting partitions during maintenance or temporary usage.                                      |
+| `/opt`           | Optional software packages installed outside standard directories.         | Third-party apps like `/opt/google`.                                                                    |
+| `/proc`          | Virtual filesystem providing process and system information.               | Files like `/proc/cpuinfo`, `/proc/meminfo`.                                                            |
+| `/root`          | Home directory for the root user.                                          | Files specific to the `root` superuser.                                                                 |
+| `/run`           | Runtime files like process IDs (PIDs) and sockets.                        | Files such as `/run/sshd.pid`.                                                                          |
+| `/sbin`          | System binaries for administrative tasks.                                  | Commands like `fsck`, `shutdown`, `mount`.                                                              |
+| `/srv`           | Data served by the system, such as web server or FTP server files.         | E.g., `/srv/www` for websites.                                                                          |
+| `/sys`           | Virtual filesystem for device and system configuration.                   | Hardware information and control files (e.g., `/sys/class`).                                            |
+| `/tmp`           | Temporary files, often cleared on reboot.                                 | Session data, temporary downloads.                                                                      |
+| `/usr`           | Secondary hierarchy for user programs and data.                           | Subdirectories like `/usr/bin`, `/usr/lib`, `/usr/share`.                                               |
+| `/var`           | Variable data files that change during operation.                         | Logs (`/var/log`), spools (`/var/spool`), caches (`/var/cache`).                                         |
 
-Subdirectories may be created for each application or team, like:
-- `/opt/widget/apache`: Apache installation for Widget
-  - `/opt/widget/apache/bin`: Apache binaries
-  - `/opt/widget/apache/etc`: Apache configurations
+---
 
-These structures can be customized further for different teams or applications.
+### Notes:
+1. Some directories like `/media` or `/mnt` might not have content unless specifically used.
+2. On modern systems, certain directories like `/bin` and `/sbin` may be symlinks to `/usr/bin` and `/usr/sbin`.
+3. The layout and contents of these directories can vary slightly between Linux distributions.
 
-# Command Line Interface (CLI)
+---
+
+# Command Line Interface
 
 The **shell** is a program that accepts commands and directs the operating system to execute them. It serves as the interface between the user and the system. The **Command Line Interface (CLI)** is a text-based interface where users type commands.
 
@@ -145,11 +366,13 @@ The prompt can vary in format, and users can customize it. Special symbols like 
 - `linuxsvr:/home/jason>`
 - `jason@linuxsvr:~>`
 
-Shell prompts can span multiple lines, showing additional information like time and session details. 
+Shell prompts can also span multiple lines, showing additional information like time and session details. 
+
+---
 
 # Basic Commands
 
-In Linux, commands are case-sensitive and typically in lowercase. Items surrounded by square brackets are optional. 
+In Linux, commands are **case-sensitive** and typically in lowercase. Items surrounded by square brackets are optional. 
 
 ## Navigation Commands:
 - **pwd**: Displays the present working directory.
@@ -162,6 +385,23 @@ In Linux, commands are case-sensitive and typically in lowercase. Items surround
   $ cd /home
   $ pwd
   /home
+  ```
+* Going to home directory using cd
+  ```bash
+  sri@envy:~
+  $ cd ~
+
+  sri@envy:~
+  $ cd ~sri
+  
+  sri@envy:~
+  $ cd /home/sri
+  
+  sri@envy:~
+  $ cd
+  
+  sri@envy:~
+  $
   ```
 
 ## Listing and Viewing Files:
@@ -182,9 +422,15 @@ In Linux, commands are case-sensitive and typically in lowercase. Items surround
 - **exit**, **logout**, or **Ctrl-D**: Exits the shell or current session.
   ```bash
   $ exit
-  logout
-  Connection to linuxsvr closed.
   ```
+  ```bash
+  $ logout 
+  bash: logout: not login shell: use `exit'
+  ```
+  ```bash
+  $ ^D
+  ```
+
 
 ## Command Line Help:
 Linux provides built-in documentation through **man** pages:
@@ -194,56 +440,113 @@ Linux provides built-in documentation through **man** pages:
   ```
 - **man -k [keyword]**: Searches for commands related to a keyword.
   ```bash
-  $ man -k reboot
+  $ man -k reboot # returns all the man files which contain word 'reboot'
+  grub-reboot (8)      - set the default boot entry for GRUB, for the next boot only
+  halt (8)             - Power off, reboot, or halt the machine
+  poweroff (8)         - Power off, reboot, or halt the machine
+  reboot (2)           - reboot or enable/disable Ctrl-Alt-Del
+  reboot (8)           - Power off, reboot, or halt the machine
+  shutdown (8)         - Halt, power off or reboot the machine
+  systemd-pcrlock-secureboot-authority.service (8) - Analyze and predict TPM2 PCR states and ...
+  systemd-pcrlock-secureboot-policy.service (8) - Analyze and predict TPM2 PCR states and gen...
+  systemd-reboot.service (8) - System shutdown logic
+  systemd-soft-reboot.service (8) - Userspace reboot operation
+  systemd-sysupdate-reboot.service (8) - Automatically Update OS or Other Resources
+  systemd-sysupdate-reboot.timer (8) - Automatically Update OS or Other Resources
   ```
 - **[command] --help**: Displays a help message for a command.
   ```bash
   $ ls --help
+  $ cd --help
   ```
 
 ## Exploring Commands:
 You can explore commands in directories like `/bin` and `/usr/bin` using `ls` and `man` to learn their functions.
-  ```bash
-  $ cd /bin
-  $ ls
-  awk diff cal cat cp date du echo grep groups less more
-  $ man date
-  ```
-- **clear**: Clears the terminal screen.
-  ```bash
-  $ clear
-  ```
+```bash
+$ cd /bin
+$ ls
+awk diff cal cat cp date du echo grep groups less more
+$ man date
+```
+### Clearing the terminal screen.
+Screen can be cleared using 
+1. `clear` command
+2. `CTRL + l` shortcut
+   
+#### 1. `clear` command
+The below command clears the entire terminal. Gives a fresh terminal.
+```bash
+$ clear
+```
+#### 2. `CTRL + l` Shortcut
+This doesn't doesn't clear the terminal, but clears the Window. If you scroll up you can see the previous commands. 
+```bash
+$ ^l
+```
+---
+
+### Creating files
+To create an empty files use `touch`
+```bash
+touch file[s]
+```
+---
 
 ## Summary of Basic Commands
 
-| Command | Description | Example Output |
-|---------|-------------|----------------|
-| **pwd**| Displays the present working directory.| `/home/jason`|
-| **cd [directory]** | Changes the current directory to the specified directory.| Changes to `/home` if `cd /home` is used.|
-| **ls**| Lists the contents of a directory.| `Desktop Documents Downloads Music Pictures to-do.txt`|
-| **cat [file]**| Displays the contents of a file.| Displays contents of `to-do.txt` like "Mow the lawn, Take over the world" |
-| **exit**| Exits the shell or current session.| Logs out or ends the session.|
-| **man [command]**  | Displays the manual (help) page for a command.| Shows documentation for `ls` or other commands.|
-| **man -k [keyword]**| Searches for a keyword in all man pages.| Lists all man pages related to "reboot" or other keywords.|
-| **[command] --help**| Displays a help message for a command.| `ls --help` shows options for the `ls` command.|
-| **clear**| Clears the terminal screen.| Clears terminal output for a fresh screen.|
-| **touch [file]**   | Creates a new empty file or updates the timestamp of an existing file. | Creates `newfile.txt` or updates its timestamp.|
+| **Command**        | **Description**                                                   | **Example Output**                                                                  |
+|---------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| **pwd**            | Displays the present working directory.                          | `/home/jason`                                                                       |
+| **cd [directory]** | Changes the current directory to the specified directory.        | Changes to `/home` if `cd /home` is used.                                           |
+| **ls**             | Lists the contents of a directory.                               | `Desktop Documents Downloads Music Pictures to-do.txt`                              |
+| **cat [file]**     | Displays the contents of a file.                                 | Displays contents of `to-do.txt` like "Mow the lawn, Take over the world."          |
+| **exit**           | Exits the shell or current session.                              | Logs out or ends the session.                                                       |
+| **CTRL + d**       | Shortcut to log out of the shell or end the current input.       | Ends the terminal session if pressed at the command line.                           |
+| **man [command]**  | Displays the manual (help) page for a command.                   | Shows documentation for `ls` or other commands.                                     |
+| **man -k [keyword]**| Searches for a keyword in all man pages.                        | Lists all man pages related to "reboot" or other keywords.                          |
+| **[command] --help**| Displays a help message for a command.                          | `ls --help` shows options for the `ls` command.                                     |
+| **clear**          | Clears the terminal screen.                                      | Clears terminal output for a fresh screen.                                          |
+| **CTRL + l**       | Clears the terminal window without erasing previous output.      | Scroll up to see previous commands after using this shortcut.                       |
+| **touch [file]**   | Creates a new empty file or updates the timestamp of an existing file. | Creates `newfile.txt` or updates its timestamp.                                     |
+
+---
 
 # Directories
 In linux, we call **folder** as **directory**.
 
-### Absolute vs Relative Paths
-- **Absolute Path**: Starts with a `/` and points to a location from the root of the file system.
-  ```bash
-  $ cd /home/jason/Music   # Absolute path to the Music directory
-  ```
+## Absolute vs Relative Paths
+### **Absolute Path**: 
+Starts with a `/` and points to a location from the root of the file system.
+```bash
+$ cd /home/jason/Music   # Absolute path to the Music directory
+```
 
-- **Relative Path**: Doesn't start with a `/` and is relative to the current working directory.
-  ```bash
-  $ cd Music   # Relative path, assuming you are already in /home/jason
-  ```
+### **Relative Path**: 
+Doesn't start with a `/` and is relative to the current working directory.
+```bash
+$ cd Music   # Relative path, assuming you are already in /home/jason
+```
 
-### Special Directory References
+## Home Directory
+There are many ways to go to user's home directory from anywhere. 
+```bash
+sri@envy:~
+$ cd ~
+
+sri@envy:~
+$ cd ~sri
+
+sri@envy:~
+$ cd /home/sri
+
+sri@envy:~
+$ cd
+
+sri@envy:~
+$
+```
+
+## Special Directory References
 - `.` represents the **current directory**.
   ```bash
   $ cd .   # Stays in the current directory
@@ -254,63 +557,66 @@ In linux, we call **folder** as **directory**.
   $ cd ..   # Moves up one level to the parent directory
   ```
 
-### Navigating Directories
-- **Change directories using `cd`**: 
-  ```bash
-  $ cd Music   # Changes to the Music directory
-  $ pwd        # Shows the current directory, which should now be /home/jason/Music
-  ```
+## Navigating Directories
+### **Change directories using `cd`**: 
+```bash
+$ cd ~/Music   # Changes to the Music directory
+$ pwd        # Shows the current directory, which should now be /home/sri/Music
+/home/sri/Music
+```
 
-- **Return to the previous directory with `cd -`**:
-  ```bash
-  $ cd /home/jason/Music   # Change to Music
-  $ cd -   # Goes back to the previous directory
-  ```
+### **Return to the previous directory with `cd -`**:
+```bash
+$ cd /home/jason/Music   # Change to Music
+$ cd -   # Goes back to the previous directory
+```
 
-### Creating and Removing Directories
-- **Create a directory with `mkdir`**:
-  ```bash
-  $ mkdir newdir   # Creates a new directory called newdir
-  ```
+## Creating and Removing Directories
+### **Create a directory with `mkdir`**:
+```bash
+$ mkdir newdir   # Creates a new directory called newdir
+```
 
-- **Create directories with `mkdir -p`** (including intermediate directories):
-  ```bash
-  $ mkdir -p newdir/one/two   # Creates newdir, then one, and then two inside it
-  ```
+### **Create directories with `mkdir -p`** (including intermediate directories):
+```bash
+$ mkdir -p newdir/one/two   # Creates newdir, then one, and then two inside it
+```
 
-- **Remove an empty directory with `rmdir`**:
-  ```bash
-  $ rmdir newdir   # Removes the empty directory newdir
-  ```
+### **Remove an empty directory with `rmdir`**:
+```bash
+$ rmdir newdir   # Removes the empty directory newdir
+```
 
-- **Forcefully remove a directory and its contents with `rm -rf`**:
-  ```bash
-  $ rm -rf newdir   # Deletes the newdir directory and all of its contents
-  ```
+### **Forcefully remove a directory and its contents with `rm -rf`**:
+```bash
+$ rm -rf newdir   # Deletes the newdir directory and all of its contents
+```
 
-# Summary of Directory Commands
+## Summary of Directory Commands
 
-| **Command**          | **Description**                                                                 | **Example Usage**                                  |
-|----------------------|---------------------------------------------------------------------------------|----------------------------------------------------|
-| `pwd`                | Prints the current working directory.                                             | `pwd`                                              |
-| `cd [directory]`     | Changes the current directory to the specified one.                              | `cd /home/jason`                                   |
-| `cd ..`              | Moves up one directory level (to the parent directory).                          | `cd ..`                                            |
-| `cd -`               | Returns to the previous working directory.                                       | `cd -`                                             |
-| `mkdir [directory]`  | Creates a new directory.                                                         | `mkdir newdir`                                     |
-| `mkdir -p [dir]`     | Creates a directory and any necessary parent directories.                        | `mkdir -p newdir/one/two`                         |
-| `rmdir [directory]`  | Removes an empty directory.                                                      | `rmdir newdir`                                     |
-| `rm -rf [directory]` | Recursively and forcefully removes a directory and its contents.                 | `rm -rf newdir`                                    |
-| `ls`                 | Lists the contents of the current directory.                                     | `ls`                                               |
-| `ls [directory]`     | Lists the contents of the specified directory.                                   | `ls /home/jason`                                   |
-| `cd [directory]`     | Changes to a specified directory (can use relative or absolute path).           | `cd /home/jason/Music` or `cd Music`              |
-| `.`        | Current directory            | `cd .`                 |
-| `..`       | Parent directory             | `cd ..`                |
+| **Command**          | **Description**                                                             | **Example Usage**                                  |
+|-----------------------|-----------------------------------------------------------------------------|----------------------------------------------------|
+| `pwd`                | Prints the current working directory.                                      | `pwd`                                              |
+| `cd [directory]`     | Changes the current directory to the specified one.                        | `cd /home/jason`                                   |
+| `cd ..`              | Moves up one directory level (to the parent directory).                    | `cd ..`                                            |
+| `cd -`               | Returns to the previous working directory.                                 | `cd -`                                             |
+| `cd`               | Changes to the home directory of the current user.                        | `cd`                                             |
+| `cd ~`               | Changes to the home directory of the current user.                        | `cd ~`                                             |
+| `cd ~[username]`     | Changes to the home directory of the specified user.                      | `cd ~sri`                                          |
+| `mkdir [directory]`  | Creates a new directory.                                                   | `mkdir newdir`                                     |
+| `mkdir -p [dir]`     | Creates a directory and any necessary parent directories.                  | `mkdir -p newdir/one/two`                         |
+| `rmdir [directory]`  | Removes an empty directory.                                                | `rmdir newdir`                                     |
+| `rm -rf [directory]` | Recursively and forcefully removes a directory and its contents.           | `rm -rf newdir`                                    |
+| `.`                  | Represents the current directory.                                          | `cd .`                                             |
+| `..`                 | Represents the parent directory.                                           | `cd ..`                                            |
+| `/`                  | Root directory (absolute path starts here).                               | `cd /home/jason`                                   |
+| `~`                  | Shortcut for the home directory.                                           | `cd ~/Music`                                       |
 
 ---
 
 # Viewing File and Directory Details
 
-In Linux, the `ls` command is used to list files and directories, but it can also provide detailed information about them when combined with different options. Understanding these options is crucial for navigating and managing files efficiently. This chapter delves into the various ways you can use `ls` to display file and directory details in a more readable format.
+In Linux, the `ls` command is used to list files and directories, but it can also provide detailed information about them when combined with different options. 
 
 ## Basic `ls` Command
 
@@ -347,11 +653,11 @@ The detailed output from `ls -l` is split into several columns:
 
 ### Example Breakdown
 ```bash
--rw-r--r-- 1 jason users 73 Jun 22 19:34 to-do.txt
+-rw-r--r-- 1 sri users 73 Jun 22 19:34 to-do.txt
 ```
 - `-rw-r--r--`: File permissions
 - `1`: Number of links
-- `jason`: Owner of the file
+- `sri`: Owner of the file
 - `users`: Group associated with the file
 - `73`: Size in bytes
 - `Jun 22 19:34`: Modification date and time
@@ -362,11 +668,50 @@ The detailed output from `ls -l` is split into several columns:
 By default, `ls` does not show hidden files (files that begin with a dot `.`). To display hidden files, use the `-a` option:
 ```bash
 $ ls -a
-.  ..  .bash_history  .bash_logout  .bashrc  Desktop  Documents  Downloads  Music  to-do.txt
+.                 .cache      .gnupg    Public                     .vim
+..                .config     .lesshst  .python_history            .viminfo
+.aspell.en.prepl  Desktop     .local    snap                       .vimrc
+.aspell.en.pws    Documents   Music     .ssh                       .vscode
+.bash_history     .dotnet     Pictures  .sudo_as_admin_successful
+.bash_logout      Downloads   .pki      Templates
+.bashrc           .gitconfig  .profile  Videos
 ```
 To list hidden files with details, use both the `-a` and `-l` options:
 ```bash
-$ ls -a -l
+$ ls -a -l # or -al
+total 160
+drwxr-x--- 20 sri  sri   4096 Dec 30 11:38 .
+drwxr-xr-x  3 root root  4096 Dec 28 16:16 ..
+-rw-rw-r--  1 sri  sri     24 Dec 23 13:01 .aspell.en.prepl
+-rw-rw-r--  1 sri  sri    108 Dec 23 13:01 .aspell.en.pws
+-rw-------  1 sri  sri  20019 Dec 30 11:37 .bash_history
+-rw-r--r--  1 sri  sri    220 Mar 31  2024 .bash_logout
+-rw-r--r--  1 sri  sri   4316 Dec 29 18:48 .bashrc
+drwx------ 19 sri  sri   4096 Dec 25 20:21 .cache
+drwx------ 21 sri  sri   4096 Dec 25 16:17 .config
+drwxr-xr-x  2 sri  sri   4096 Dec 29 20:45 Desktop
+drwxr-xr-x 13 sri  sri   4096 Dec 29 18:04 Documents
+drwxrwxr-x  3 sri  sri   4096 Dec 21 17:15 .dotnet
+drwxr-xr-x  2 sri  sri   4096 Dec 29 18:02 Downloads
+-rw-rw-r--  1 sri  sri    152 Dec 21 17:40 .gitconfig
+drwx------  2 sri  sri   4096 Dec 30 11:37 .gnupg
+-rw-------  1 sri  sri     63 Dec 30 11:38 .lesshst
+drwx------  4 sri  sri   4096 Dec 21 16:45 .local
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Music
+drwxr-xr-x  3 sri  sri   4096 Dec 23 15:41 Pictures
+drwx------  3 sri  sri   4096 Dec 21 17:15 .pki
+-rw-r--r--  1 sri  sri    807 Mar 31  2024 .profile
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Public
+-rw-------  1 sri  sri    242 Dec 30 06:31 .python_history
+drwx------  7 sri  sri   4096 Dec 25 16:08 snap
+drwx------  2 sri  sri   4096 Dec 21 17:29 .ssh
+-rw-r--r--  1 sri  sri      0 Dec 21 16:45 .sudo_as_admin_successful
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Videos
+drwxr-xr-x  2 sri  sri   4096 Dec 27 20:42 .vim
+-rw-------  1 sri  sri  14258 Dec 29 19:37 .viminfo
+-rw-rw-r--  1 sri  sri   1260 Dec 26 10:43 .vimrc
+drwxrwxr-x  4 sri  sri   4096 Dec 21 17:15 .vscode
 ```
 This will display all files, including hidden ones, in a long listing format.
 
@@ -374,8 +719,14 @@ This will display all files, including hidden ones, in a long listing format.
 
 The `-F` option appends a symbol to each file or directory to indicate its type. Here's how it works:
 ```bash
-$ ls -F
-Desktop/  Documents/  Downloads/  link-to-to-do@  Music/  program*  to-do.txt
+$ ls -aF
+./                .cache/     .gnupg/    Public/                    .vim/
+../               .config/    .lesshst   .python_history            .viminfo
+.aspell.en.prepl  Desktop/    .local/    snap/                      .vimrc
+.aspell.en.pws    Documents/  Music/     .ssh/                      .vscode/
+.bash_history     .dotnet/    Pictures/  .sudo_as_admin_successful
+.bash_logout      Downloads/  .pki/      Templates/
+.bashrc           .gitconfig  .profile   Videos/
 ```
 - `/` indicates a **directory**.
 - `@` indicates a **symbolic link**.
@@ -386,14 +737,16 @@ Desktop/  Documents/  Downloads/  link-to-to-do@  Music/  program*  to-do.txt
 For a long listing with file type indicators:
 ```bash
 $ ls -lF
-total 24
-drwxrwxr-x 2 jason users 4096 May 3 08:33 Desktop/
-drwxrwxr-x 2 jason users 4096 May 3 08:35 Documents/
-drwxrwxr-x 2 jason users 4096 May 3 08:38 Downloads/
-lrwxrwxrwx 1 jason users 9 Jun 22 21:01 link-to-to-do -> to-do.txt
-drwxrwxr-x 3 jason users 4096 Jun 21 21:16 Music/
--rwxr-xr-x 1 jason users 13 Jun 22 21:02 program*
--rw-r--r-- 1 jason users 73 Jun 22 19:34 to-do.txt
+total 36
+drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop/
+drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents/
+drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads/
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music/
+drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures/
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public/
+drwx------  7 sri sri 4096 Dec 25 16:08 snap/
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates/
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos/
 ```
 
 ### Example File Type Indicators
@@ -419,11 +772,33 @@ Here, `link-to-to-do` is a symlink pointing to `to-do.txt`.
 To list files sorted by their modification time, use the `-t` option:
 ```bash
 $ ls -t
-program  link-to-to-do  to-do.txt  Music  Downloads  Documents  Desktop
+Desktop  Documents  Downloads  snap  Pictures  Music  Public  Templates  Videos
+
+$ ls -lt
+total 36
+drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop
+drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
+drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads
+drwx------  7 sri sri 4096 Dec 25 16:08 snap
+drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos
 ```
 To reverse the order (show the oldest files first), use `-r`:
 ```bash
-$ ls -lt
+$ ls -ltr
+total 36
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music
+drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures
+drwx------  7 sri sri 4096 Dec 25 16:08 snap
+drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads
+drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
+drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop
 ```
 
 ## Recursive Listing with `-R`
@@ -452,7 +827,14 @@ giant-steps.mp3
 
 ## Tree Command for Visual Directory Structure
 
-The `tree` command provides a more visually appealing way to view directory structures. You can use it as follows:
+The `tree` command provides a more visually appealing way to view directory structures. 
+
+`tree` is not installed by default: 
+```bash
+$ sudo apt install tree
+```
+
+You can use it as follows:
 ```bash
 $ tree
 .
@@ -481,14 +863,14 @@ $ tree -d
 5 directories
 ```
 
-To colorize the output, use `-C`:
+To colorize the output, use `-C` (by deafult this option is used):
 ```bash
 $ tree -C
 ```
 
 ## Working with Directories Using `-d`
 
-If you want to list the directory itself (without showing its contents), use the `-d` option:
+If you want to list the **directory itself** (without showing its contents), use the `-d` option:
 ```bash
 $ ls -d Music/
 Music/
@@ -502,7 +884,7 @@ drwxrwxr-x 3 jason users 4096 Jun 21 21:16 Music/
 
 ## Colorized Output with `--color`
 
-To add color to the `ls` output, use the `--color` option. This helps differentiate file types:
+To add color to the `ls` output, use the `--color` option. This is present by default. This helps differentiate file types:
 ```bash
 $ ls --color
 Desktop  Documents  Downloads  link-to-to-do  Music  program  to-do.txt
@@ -510,7 +892,7 @@ Desktop  Documents  Downloads  link-to-to-do  Music  program  to-do.txt
 
 ## Escaping Special Characters in Filenames
 
-Files or directories with spaces or special characters in their names require special handling. You can either use quotes or escape the characters with a backslash.
+Files or directories with spaces or special characters in their names require special handling. You can either use quotes or escape the characters with a backslash (`\ ` - escapes the whitespace).
 
 ### Example with Spaces:
 ```bash
@@ -527,39 +909,26 @@ $ ls -b
 -rw-r--r-- 1 jason users 73 Jun 22 22:16 my\ to\ do\ list
 ```
 
-## Commonly Used `ls` Options
-
-| Option       | Description                                      |
-|--------------|--------------------------------------------------|
-| `-a`         | Display all files, including hidden files.       |
-| `--color`    | Colorize the output to differentiate file types. |
-| `-d`         | List directories, not their contents.           |
-| `-l`         | Use the long listing format.                    |
-| `-r`         | Reverse the order.                              |
-| `-R`         | List files recursively.                         |
-| `-t`         | Sort by modification time.                      |
-
 ## Summary of File and Directory Commands
 
-Here's a markdown table summarizing the key `ls` options and examples from the chapter:
-
-| Option      | Description                                      | Example Command                       | Example Output                                               |
-|-------------|--------------------------------------------------|---------------------------------------|-------------------------------------------------------------|
-| `-l`        | Long listing format                              | `ls -l`                               | `drwxrwxr-x 2 jason users 4096 May 3 08:33 Desktop`          |
-| `-a`        | Display all files, including hidden files        | `ls -a`                               | `. .. .bash_history .bashrc Desktop Documents`               |
-| `-la`       | Combine long listing and show hidden files       | `ls -la`                              | `drwxr-xr-x 7 jason users 4096 Jun 22 20:36 .`                |
-| `-F`        | Append file type indicators                      | `ls -F`                               | `Desktop/ Documents/ Downloads/ program* to-do.txt`           |
-| `-t`        | Sort by modification time                        | `ls -t`                               | `program link-to-to-do to-do.txt Music`                      |
-| `-r`        | Reverse the order of listing                     | `ls -tr`                              | `Desktop Documents Downloads Music`                          |
-| `-R`        | Recursive listing of directories and subdirs      | `ls -R`                               | `./Desktop: ./Documents: cat.jpg report.txt`                  |
-| `-d`        | List directories themselves, not contents        | `ls -d`                               | `Desktop/ Documents/ Music/`                                  |
-| `--color`   | Colorize the output to differentiate file types   | `ls --color`                          | (Colored output showing directories in blue, executables in green) |
-| `-b`        | Escape special characters in filenames           | `ls -b`                               | `my\ to\ do\ list`                                            |
-| `-lF`       | Long listing with file type indicators           | `ls -lF`                              | `drwxrwxr-x 2 jason users 4096 May 3 08:33 Desktop/`          |
-| `-al`       | Display all files in long listing format         | `ls -al`                              | `drwxrwxr-x 2 jason users 4096 May 3 08:33 Desktop/`          |
-| `-d` (dir)  | List a directory's name, not its contents        | `ls -d Music/`                        | `Music/`                                                      |
-| `-ld`       | Long listing of a directory's details            | `ls -ld Music/`                       | `drwxrwxr-x 3 jason users 4096 Jun 21 21:16 Music/`           |
-| `-lR`       | Long listing with recursive output               | `ls -lR`                              | `./Desktop: ./Documents: cat.jpg report.txt`                  |
+| **Command**                     | **Description**                                                                 |
+|----------------------------------|---------------------------------------------------------------------------------|
+| `ls`                             | Lists the contents of a directory.                                                |
+| `ls -l`                          | Lists files and directories with detailed information (long format).             |
+| `ls -a`                          | Lists all files, including hidden files (files starting with a dot).             |
+| `ls -al` or `ls -a -l`           | Combines `-a` and `-l` options to list all files with detailed information.      |
+| `ls -F`                          | Appends a character to file names to indicate the file type (`/` for directories, `*` for executables). |
+| `ls -t`                          | Sorts files by modification time, with the most recent first.                    |
+| `ls -r`                          | Reverses the order of the output (e.g., reverse alphabetical order).             |
+| `ls -R`                          | Lists directories and their contents recursively.                                |
+| `tree`                           | Displays a tree structure of directories and their contents.                     |
+| `tree -d`                        | Displays a tree structure showing only directories, not files.                   |
+| `tree -C`                        | Displays a tree structure with color coding for different file types.            |
+| `ls -d`                          | Lists directories themselves, not their contents.                                |
+| `ls --color`                     | Displays directory contents with color coding.                                  |
+| `ls "file name with space.txt"`  | Lists a file with spaces in its name, using quotes around the file name.         |
+| `ls file\ name\ with\ space.txt` | Lists a file with spaces in its name, escaping the spaces with backslashes.      |
+| `ls -b`                          | Prints filenames with non-printing characters (e.g., spaces) escaped with backslashes. |
 
 
 # Permissions 
