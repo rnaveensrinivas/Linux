@@ -1,32 +1,31 @@
 # Table of Contents
 * [Introduction](#Introduction)
 * [Linux Directory Structure](#Linux-Directory-Structure)
-  * [Summary of Introduction](#Summary-of-Linux-Directory-Structure)
+  * [Summary](#Summary-of-Linux-Directory-Structure)
 * [Command Line Interface](#Command-Line-Interface)
 * [Basic Commands](#Basic-Commands)
-  * [Summary of Basic Commands](#Summary-of-Basic-Commands)
+  * [Summary ](#Summary-of-Basic-Commands)
 * [Directories](#Directories)
-  * [Summary of Directory Commands](#Summary-of-Directory-Commands)
+  * [Summary](#Summary-of-Directory-Commands)
 * [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
-  * [Summary of Permissions Commands](#Summary-of-Permissions-Commands)
-  * [Summary of Viewing files](#Summary-of-Viewing-files)
+  * [Summary](#Summary-of-Permissions-Commands)
 * [Permissions](#Permissions)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
-  * [Summary of Vim Commands](#Summary-of-Vim-Commands)
+  * [Summary](#Summary-of-Vim-Commands)
 * [Deleting, Moving, and Renaming Files and Directories](#deleting-moving-and-renaming-files-and-directories)
-  * [Summary of Deleting, Moving, and Renaming Files and Directories Commands](#Summary-of-Deleting-Moving-and-Renaming-Files-and-Directories-Commands)
+  * [Summary](#Summary-of-Deleting-Moving-and-Renaming-Files-and-Directories-Commands)
 * [Finding, Sorting, and Comparing Files and Directories](#finding-sorting-and-comparing-files-and-directories)
-  * [Summary of Finding, Sorting, and Comparing Files and Directories](#Summary-of-Finding-Sorting-and-Comparing-Files-and-Directories)
+  * [Summary](#Summary-of-Finding-Sorting-and-Comparing-Files-and-Directories)
 * [I/O Redirection](#io-redirection)
-  * [Summary of I/O Redirection Commands](#Summary-of-IO-Redirection-Commands)
+  * [Summary](#Summary-of-IO-Redirection-Commands)
 * [Additional Command Line Concepts](#Additional-Command-Line-Concepts)
-  * [Summary of Additional Command Line Concept Commands](#Summary-of-Additional-Command-Line-Concept-Commands)
+  * [Summary](#Summary-of-Additional-Command-Line-Concept-Commands)
 * [Processes and Jobs](#Processes-and-Jobs)
-  * [Summary of Process and Job Control Commands](#Summary-of-Process-and-Job-Control-Commands)
+  * [Summary](#Summary-of-Processes-and-Jobs-Control-Commands)
 * [Switching Users](#Switching-Users)
-  * [Summary of Switching User Commands](#Summary-of-Switching-User-Commands)
+  * [Summary](#Summary-of-Switching-User-Commands)
 * [Installing Software](#Installing-Software)
-  * [Summary of Installing Software Commands](#Summary-of-Installing-Software-Commands)
+  * [Summary](#Summary-of-Installing-Software-Commands)
 
 # Introduction
 
@@ -2729,47 +2728,45 @@ The continued lines will be prefixed with the greater-than symbol (`>`).
 | `Tab`                 | Auto-complete a command or file path.              | `ls /ho` (press Tab to complete)               |
 | `\`                   | Line continuation character for multi-line commands. | `echo "This is a long line \`                   |
 
+---
 
 # Processes and Jobs 
 
-## Overview
+## Processes
 
-In Linux, processes are the running instances of commands, applications, or programs. The `ps` command is a key tool for viewing information about currently running processes. You can also use other commands like `top`, `htop`, and `pstree` to monitor and manage processes. This chapter covers the `ps` command, which is used for viewing processes, as well as other tools and options to manage and track system activities.
+### What is a Process?  
+
+A **process** is a program that is being executed by the operating system. It has a unique **process ID (PID)** and represents the actual execution of code in the system. Processes are managed by the Linux kernel, not the shell. While each job corresponds to one or more processes, not all processes are jobs.  
+
+For example, system processes like `systemd` or `cron` are started by the operating system and are not initiated by the shell, so they aren’t considered jobs.  
+
+The `ps` command gives information about currently running processes. Other commands to monitor and manage processes are `top`, `htop`, and `pstree` .
+
+---
 
 ## The `ps` Command
 
-The `ps` (process status) command provides a snapshot of the currently running processes on your system. By default, `ps` shows processes associated with your current terminal session.
+The `ps` (**process status**) command provides a snapshot of the currently running processes on your system. By default, `ps` shows processes associated with your current terminal session.
 
-### Basic Usage of `ps`
+```bash
+# Syntax
+$ ps
 
-- **Running `ps` without arguments**:
-  When you run `ps` without any arguments, it shows processes related to your current terminal session:
-  ```bash
-  ps
-  ```
-  Example output:
-  ```
+# Example
+$ ps
   PID TTY          TIME CMD
-  1234 pts/0    00:00:05 bash
-  5678 pts/0    00:00:00 ps
-  ```
-
-- **Display all running processes for your user**:
-  To display all processes running under your username, use the following command:
+ 3264 pts/0    00:00:00 bash
+23102 pts/0    00:00:00 ps
+```
+* **`pts/0`** means, ***pseudo terminal 0***, which denotes a terminal session. 
+* Open a new terminal tab and type the command `ps` again. 
   ```bash
-  ps -u username
+  $ ps
+      PID TTY          TIME CMD
+    27301 pts/1    00:00:00 bash
+    27308 pts/1    00:00:00 ps  
   ```
-  Example:
-  ```bash
-  ps -u john
-  ```
-
-- **Display every process running on the system**:
-  To see all processes running on the system, regardless of the user or terminal, use:
-  ```bash
-  ps -e
-  ```
-  This shows all processes running across all users and terminals.
+  * We have `pts/1` here, because this is a new terminal session. 
 
 ### Commonly Used Options with `ps`
 
@@ -2784,194 +2781,351 @@ The `ps` command has several options to control the level of detail displayed in
 | Display processes in a hierarchical format (tree) | `-H` |
 | Display processes in a tree format using ASCII art | `--forest` |
 
-#### Example Commands
+### Commonly Used `ps` Commands
 
-- **Display all processes:**
-  ```bash
-  ps -e
-  ```
+| **Command**          | **Description**                                                 |
+|------------------|-------------------------------------------------------------|
+| ps -e           | Display all processes.                                       |
+| ps -ef          | Display all processes using a full format listing.           |
+| ps -eH          | Display all processes in a tree format.                      |
+| ps -e --forest  | Display all processes in a tree format with ASCII art.       |
+| ps -u <username> | Display processes running for username.                     |
+| ps -fp <PID>    | Display a full-format listing for process ID (PID).          |
 
-- **Display all processes with a full format listing:**
-  ```bash
-  ps -ef
-  ```
 
-- **Display processes in a hierarchical (tree) format:**
-  ```bash
-  ps -eH
-  ```
+#### Display every process running on the system:
+To see all processes running on the system, regardless of the user or terminal, use:
+```bash
+# Syntax
+$ ps -e
 
-- **Display all processes in a tree format with ASCII art:**
-  ```bash
-  ps -e --forest
-  ```
+# Example
+$ ps -e
+  PID TTY          TIME CMD
+    1 ?        00:00:03 systemd
+    2 ?        00:00:00 kthreadd
+    3 ?        00:00:00 pool_workqueue_release
+    4 ?        00:00:00 kworker/R-rcu_g
+    5 ?        00:00:00 kworker/R-rcu_p
+    6 ?        00:00:00 kworker/R-slub_
+    7 ?        00:00:00 kworker/R-netns
+...
+```
 
-- **Display processes for a specific user:**
-  ```bash
-  ps -u <username>
-  ```
+#### Display all processes with a full format listing:
+```bash
+# Syntax
+$ ps -e
 
-- **Display information for a specific process ID (PID):**
-  ```bash
-  ps -p 1234
-  ```
+# Example
+$ ps -ef
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           1       0  0 05:02 ?        00:00:03 /sbin/init splash
+root           2       0  0 05:02 ?        00:00:00 [kthreadd]
+root           3       2  0 05:02 ?        00:00:00 [pool_workqueue_release]
+root           4       2  0 05:02 ?        00:00:00 [kworker/R-rcu_g]
+root           5       2  0 05:02 ?        00:00:00 [kworker/R-rcu_p]
+root           6       2  0 05:02 ?        00:00:00 [kworker/R-slub_]
+root           7       2  0 05:02 ?        00:00:00 [kworker/R-netns]
+...
+
+```
+
+#### Display all running processes for your user:
+To display all processes running under your username, use the following command:
+```bash
+# Syntax
+$ ps -u username
+
+# Example
+$ ps -u sri
+  PID TTY          TIME CMD
+ 2189 ?        00:00:07 systemd
+ 2194 ?        00:00:00 (sd-pam)
+ 2209 ?        00:00:05 pipewire
+ 2210 ?        00:00:00 pipewire
+ 2214 ?        00:00:00 wireplumber
+ 2216 ?        00:00:06 pipewire-pulse
+ 2218 ?        00:00:00 gnome-keyring-d
+```
+
+#### Display information for a specific process ID (PID):
+```bash
+# Syntax
+$ ps -p <pid>
+
+# Example
+$ ps -p 10
+    PID TTY          TIME CMD
+     10 ?        00:00:00 kworker/0:0H-events_highpri
+
+$ ps -pf 10
+error: process ID list syntax error
+
+Usage:
+ ps [options]
+
+ Try 'ps --help <simple|list|output|threads|misc|all>'
+  or 'ps --help <s|l|o|t|m|a>'
+ for additional help text.
+
+For more details see ps(1).
+
+$ ps -fp 10
+UID          PID    PPID  C STIME TTY          TIME CMD
+root          10       2  0 05:02 ?        00:00:00 [kworker/0:0H-events_highpri]
+```
+
+#### Display processes in a hierarchical (tree) format:
+```bash
+# Syntax
+$ ps -eH
+
+# Example
+$ ps -Hu sri
+    PID TTY          TIME CMD
+   2291 tty2     00:00:00 gdm-wayland-ses
+   2300 tty2     00:00:00   gnome-session-b
+   2189 ?        00:00:07 systemd
+   2194 ?        00:00:00   (sd-pam)
+   2209 ?        00:00:05   pipewire
+   2210 ?        00:00:00   pipewire
+   2214 ?        00:00:00   wireplumber
+   2216 ?        00:00:06   pipewire-pulse
+   2218 ?        00:00:01   gnome-keyring-d
+   7802 ?        00:00:00     ssh-agent
+   2225 ?        00:00:10   dbus-daemon
+
+```
+
+#### Display all processes in a tree format with ASCII art:
+```bash
+# Syntax
+ps -e --forest
+
+# Example
+$ ps -u sri --forest
+    PID TTY          TIME CMD
+   2291 tty2     00:00:00 gdm-wayland-ses
+   2300 tty2     00:00:00  \_ gnome-session-b
+   2189 ?        00:00:07 systemd
+   2194 ?        00:00:00  \_ (sd-pam)
+   2209 ?        00:00:05  \_ pipewire
+   2210 ?        00:00:00  \_ pipewire
+   2214 ?        00:00:00  \_ wireplumber
+   2216 ?        00:00:06  \_ pipewire-pulse
+   2218 ?        00:00:01  \_ gnome-keyring-d
+   7802 ?        00:00:00  |   \_ ssh-agent
+   2225 ?        00:00:10  \_ dbus-daemon
+   2257 ?        00:00:00  \_ xdg-document-po
+   2261 ?        00:00:00  \_ xdg-permission-
+   2386 ?        00:00:00  \_ gcr-ssh-agent
+   2391 ?        00:00:00  \_ gnome-session-c
+   2413 ?        00:00:00  \_ gvfsd
+   3209 ?        00:00:00  |   \_ gvfsd-trash
+   3365 ?        00:00:00  |   \_ gvfsd-recent
+   3759 ?        00:00:00  |   \_ gvfsd-http
+   7720 ?        00:00:00  |   \_ gvfsd-network
+   7732 ?        00:00:00  |   \_ gvfsd-smb-brows
+   7741 ?        00:00:00  |   \_ gvfsd-dnssd
+   2422 ?        00:00:00  \_ gvfsd-fuse
+```
 
 ## `pstree` Command
 
-The `pstree` command is another tool that displays running processes in a tree-like format. It is similar to the `ps -H` or `ps --forest` command options but with a more visually structured output. Unlike `ps`, `pstree` provides a continuous, updated process tree.
+The `pstree` command is another tool that displays running processes in a tree-like format. It is similar to the `ps -H` or `ps --forest` command options but with a more visually structured output. Unlike `ps`, `pstree` **provides a continuous, updated process tree.**
 
 To use `pstree`:
 ```bash
-pstree
-```
+# Syntax
+$ pstree
 
-This will display all processes in a hierarchical tree structure.
+# Example
+$ pstree -u sri
+gdm-wayland-ses─┬─gnome-session-b───3*[{gnome-session-b}]
+                └─3*[{gdm-wayland-ses}]
 
-### Example:
-```bash
-pstree
-```
-Example output:
-```
-init─┬─bash─┬─ps
-     └─sshd─┬─sshd───bash───pstree
+systemd─┬─(sd-pam)
+        ├─at-spi2-registr───3*[{at-spi2-registr}]
+        ├─chrome_crashpad───2*[{chrome_crashpad}]
+        ├─code─┬─code
+        │      ├─code─┬─code───15*[{code}]
+        │      │      └─code───11*[{code}]
+        │      ├─code───8*[{code}]
+        │      ├─2*[code───15*[{code}]]
+        │      ├─code─┬─code───7*[{code}]
+        │      │      └─15*[{code}]
+        │      ├─code───17*[{code}]
+        │      └─36*[{code}]
+        ├─dbus-daemon
+        ├─dconf-service───3*[{dconf-service}]
+        ├─evolution-addre───6*[{evolution-addre}]
+        ├─evolution-calen───9*[{evolution-calen}]
+        ├─evolution-sourc───4*[{evolution-sourc}]
+        ├─gcr-ssh-agent───2*[{gcr-ssh-agent}]
 ```
 
 ## Real-Time Process Monitoring with `top` and `htop`
 
-While `ps` gives a snapshot of processes at a specific moment, `top` and `htop` are dynamic tools that display processes in real-time, refreshing periodically.
+While `ps` gives a snapshot of processes at a specific moment, `top` and `htop` display processes in real-time, refreshing periodically.
+
+---
 
 ### The `top` Command
 
 `top` is a command-line utility that provides an overview of the system's performance and real-time process monitoring.
 
-- **Basic usage of `top`**:
-  ```bash
-  top
-  ```
-  This displays a continuously updating list of processes sorted by CPU usage by default.
+#### Basic usage of `top`:
+```bash
+$ top
+```
+This displays a continuously updating list of processes sorted by CPU usage by default.
 
-- **Interactive Options in `top`**:
-  While `top` is running, you can press the following keys to interact with the process list:
-  - `P`: Sort processes by CPU usage.
-  - `M`: Sort processes by memory usage.
-  - `k`: Kill a process by specifying its PID.
-  - `q`: Quit `top`.
+#### Interactive Options in `top`:
+While `top` is running, you can press the following keys to interact with the process list:
+- `P`: Sort processes by CPU usage.
+- `M`: Sort processes by memory usage.
+- `k`: Kill a process by specifying its PID.
+- `q`: Quit `top`.
 
-### The `htop` Command
+---
+
+### The `htop` Command - too good!
 
 `htop` is an improved, interactive version of `top` with a more user-friendly interface and additional features like color coding. However, it is not installed by default on all distributions, so you may need to install it first.
 
-- **Install `htop`**:
-  ```bash
-  sudo apt install htop  # For Ubuntu/Debian-based systems
-  sudo yum install htop  # For CentOS/RHEL-based systems
-  ```
+#### Install `htop`:
+```bash
+$ sudo apt install htop -y # For Ubuntu/Debian-based systems
+```
 
-- **Run `htop`**:
-  ```bash
-  htop
-  ```
-
-### Differences between `top` and `htop`
-
-| Feature              | `top`                 | `htop`                   |
-|----------------------|-----------------------|--------------------------|
-| User Interface       | Text-based, simple    | Interactive, colorful UI |
-| Process Tree         | No                    | Yes                      |
-| Sort Process by CPU  | Yes                   | Yes                      |
-| Sort Process by Memory | Yes                  | Yes                      |
-| Kill Processes       | Yes                   | Yes                      |
-| Install by Default   | Yes                   | No (needs installation)  |
+#### Run `htop`:
+```bash
+$ htop
+```
+---
 
 ### Example Workflow for Process Management
 
 1. **List all processes**:
    ```bash
-   ps -e
+   $ ps -e
    ```
 
 2. **Get a detailed view of a specific process (e.g., PID 1234)**:
    ```bash
-   ps -p 1234 -f
+   $ ps -p 1234 -f
    ```
 
 3. **Monitor processes in real-time**:
    ```bash
-   top
+   $ htop
    ```
 
 4. **Kill a process** (for example, PID 5678):
    ```bash
-   kill 5678
+   $ kill 5678
    ```
 
-5. **Monitor system in a more user-friendly way (install and run `htop`)**:
-   ```bash
-   sudo apt install htop
-   htop
-   ```
+---
 
 ## Jobs 
 
-### Overview
+### What is a Job?  
 
-In Linux, when you execute a command at the terminal, it runs in the foreground by default, meaning it occupies the terminal session and prevents you from entering other commands until it finishes. However, sometimes you may want to run a long-running task but continue working on other tasks in the meantime. To achieve this, you can run processes in the background or suspend and manage jobs using job control commands.
+In Linux, a **job** is a task or command initiated in the shell. By default, jobs run in the **foreground**, occupying the terminal session and **blocking further input until they complete**. However, you can also run jobs in the **background**, allowing you to continue using the terminal for other tasks. 
 
-This section covers how to control jobs in a Linux environment, including how to start jobs in the background, manage job statuses, suspend, resume, and kill jobs, and use the `fg`, `bg`, and `kill` commands effectively.
+For instance, running a command like `sleep 10 &` starts the process in the background and assigns it a **job ID**, making it easier to manage.  
+
+To handle tasks more efficiently, Linux offers **job control mechanisms**, enabling you to:  
+
+- Run processes in the background.  
+- Pause (suspend) and resume tasks.  
+- Check the status of running jobs.  
+- Bring background tasks to the foreground.  
+- Terminate unwanted processes.  
+
+---
+
+### Key Differences Between a Job and a Process  
+
+In Linux, a **job** is a shell-level abstraction for managing tasks initiated in the terminal, while a **process** is a broader system-level concept representing any program running on the system. Jobs are specific to the shell and are identified by job IDs, whereas processes are independent of the shell and are identified by PIDs.
+
+| **Aspect**            | **Job**                                | **Process**                            |  
+|------------------------|----------------------------------------|----------------------------------------|  
+| **Scope**             | Managed by the shell.                  | Managed by the Linux kernel.           |  
+| **Identifier**         | Identified by a **job ID** (e.g., `[1]`). | Identified by a **process ID (PID)**. |  
+| **Creation**          | Created when a command is run in the shell. | Created by the operating system for any executed program. |  
+| **Context**           | Tied to the shell session.             | Independent of the shell (can exist outside of a shell). |  
+| **Examples**          | Background commands (`sleep 10 &`).    | System processes (`cron`, `systemd`).  |  
+
+---
 
 ### Running Jobs in the Background
 
-When you start a command in the background, the terminal immediately returns the prompt, allowing you to continue executing other commands. To start a command in the background, you append an ampersand (`&`) to the command:
+When you start a command in the background, **the terminal immediately returns the prompt**, allowing you to continue executing other commands. To start a command in the background, you **append an ampersand (`&`)** to the command:
 
 ```bash
-command &
+# Syntax
+$ command &
+
+# Example
+$ sleep 30 &
+[1] 25837
 ```
+The `sleep` command makes the shell idle for given period of time. In the above example, the `sleep 30` command will run in the background for 30 seconds while you are free to use the terminal for other tasks.
 
-#### Example:
-```bash
-sleep 30 &
-```
-In this example, the `sleep 30` command will run in the background for 30 seconds while you are free to use the terminal for other tasks.
+When a command runs in the background, two pieces of information are displayed: the **job number** and the **process ID (PID)**. The job number is enclosed in square brackets, and the PID is shown next to it. In the example, `1` is the job number, and `25837` is the process ID of the background job.
 
-When a command runs in the background, two pieces of information are displayed: the **job number** and the **process ID (PID)**. The job number is enclosed in square brackets, and the PID is shown next to it.
+#### When Does the Output of a Background Job Appear?
 
-Example output:
-```bash
-[1] 12345
-```
-Here, `1` is the job number, and `12345` is the process ID of the background job.
+The shell ensures that background job output doesn't interrupt your work at the command prompt. It only displays the output when a new prompt appears, keeping the session organized. The `jobs` command will show job statuses just before the prompt is displayed. 
 
-#### Job Control Table
+To check job status, press the **Enter** key. If any jobs are completed, their statuses will be shown before the new prompt.
+
+### Job Control Table
 
 | **Description**                                   | **Command**          |
 |---------------------------------------------------|----------------------|
 | Start command in the background                   | `command &`          |
 | Kill the foreground process                       | `Ctrl-C`             |
-| Suspend the foreground process                    | `Ctrl-Z`             |
+| Suspend(pause) the foreground process             | `Ctrl-Z`             |
+| Background most recent suspended process          | `bg`                 |
 | Background a suspended process                    | `bg [%num]`          |
+| Foreground most recent backgrounded process       | `fg`                 |
 | Foreground a backgrounded process                 | `fg [%num]`          |
 | Kill a process by job number or PID               | `kill [%num]` or `kill <PID>` |
 | List all jobs or a specific job by job number     | `jobs [%num]`        |
+| List all the jobs with process id                 | `jobs -l`            |
 
-### Job Status and Job Numbers
+### Job Status
 
 The `jobs` command lists all the jobs running in the background or suspended. The job numbers are displayed in square brackets. Jobs that are running or stopped are listed with their status.
 
 Example output:
 ```bash
+# Syntax
+$ jobs
+
+# Example
+$ jobs
 [1]+  12345 Running                 sleep 30 &
 [2]-  12346 Stopped                 nano
+
+$ sleep 60 &
+[1] 28633
+$ jobs
+[1]+  Running                 sleep 60 &
+$ jobs -l
+[1]+ 28633 Running                 sleep 60 &
+$ 
+
 ```
 - The job number `[1]` is running (`Running`).
 - The job number `[2]` is stopped (`Stopped`).
-
-#### Understanding the Job Status Symbols
-
 - **`+`**: Indicates the current job.
 - **`-`**: Indicates the previous job.
 
-These symbols help you identify which job is currently active or was last active.
 
 ### Managing Jobs with `fg` and `bg`
 
@@ -2979,51 +3133,76 @@ You can control jobs that are running in the background or that have been suspen
 
 #### Foregrounding a Job
 
-To bring a background job to the foreground, use the `fg` command followed by the job number.
+To bring a background job to the foreground, use the `fg` command followed by the job number, you can also specify `%%` or `%+`. 
 
 ```bash
-fg %1
-```
-
-Alternatively, you can use shorthand notation to refer to the current job using `%%` or `%+` and bring it to the foreground:
-```bash
+# Syntax
+fg %<job_number>
 fg %%
+fg %+
+# bring the most recent bg job to fg
+fg
+
+# Examples
+$ sleep 30 &
+[1] 26056
+$ fg %1
+sleep 30
+
+$ sleep 30 &
+[1] 26056
+$ fg %%
+sleep 30
+
+$ sleep 30 &
+[1] 26056
+$ fg %+
+sleep 30
+
+# bring the most recent bg to fg
+$ sleep 30 &
+[1] 26056
+$ fg
+sleep 30
+
 ```
-This will bring the most recently started or suspended job to the foreground.
 
-#### Backgrounding a Suspended Job
+### Backgrounding a Suspended Job
 
-If a job is suspended (e.g., using `Ctrl-Z`), you can resume it in the background by using the `bg` command followed by the job number.
+If a job is suspended (e.g., using `Ctrl-Z`), you can **resume** it in the background by using the `bg` command followed by the job number.
 
 ```bash
-bg %1
+# Syntax
+$ bg %1
+
+# Example
+$ sleep 10
+^Z
+[1]+  Stopped                 sleep 10
+$ bg %1
+[1]+ sleep 10 &
+$ 
+[1]+  Done                    sleep 10
+$ 
 ```
 
 If you want to resume the most recently suspended job in the background, simply use `bg` without specifying the job number:
 
 ```bash
-bg
+# Syntax
+$ bg
+
+# Example
+$ sleep 10
+^Z
+[1]+  Stopped                 sleep 10
+$ bg
+[1]+ sleep 10 &
+$ 
+[1]+  Done                    sleep 10
+
+$ 
 ```
-
-This will resume the last suspended job in the background.
-
-#### Example:
-
-1. **Suspending a job**:
-   ```bash
-   sleep 30
-   ```
-   Press `Ctrl-Z` to suspend it.
-
-2. **Resume the suspended job in the background**:
-   ```bash
-   bg
-   ```
-
-3. **Bring the background job to the foreground**:
-   ```bash
-   fg
-   ```
 
 ### Killing Jobs
 
@@ -3037,17 +3216,54 @@ To kill a foreground job, you can simply press `Ctrl-C`. This sends the `SIGINT`
 
 To kill a background job, use the `kill` command followed by the job number or process ID (PID). 
 
-To kill a job by job number:
+To kill a job by job **number**:
 ```bash
-kill %1
+# Syntax
+kill %<job_number>
+
+# Example
+$ sleep 100000 &
+[1] 26558
+$ kill %1
+$
 ```
 
-To kill a job by its PID:
+To kill a job by its **PID**:
 ```bash
-kill 12345
+# Syntax
+kill <process_id>
+
+# Example
+$ sleep 100000 &
+[2] 26580
+[1]   Terminated              sleep 100000
+$ kill 26580
+$ ps
+    PID TTY          TIME CMD
+   3264 pts/0    00:00:00 bash
+  26581 pts/0    00:00:00 ps
+[2]+  Terminated              sleep 100000
+$ jobs
+$ 
 ```
 
 You can also use `kill -l` to list all the available signals that can be sent to a process.
+```bash
+$ kill -l
+ 1) SIGHUP	 2) SIGINT	 3) SIGQUIT	 4) SIGILL	 5) SIGTRAP
+ 6) SIGABRT	 7) SIGBUS	 8) SIGFPE	 9) SIGKILL	10) SIGUSR1
+11) SIGSEGV	12) SIGUSR2	13) SIGPIPE	14) SIGALRM	15) SIGTERM
+16) SIGSTKFLT	17) SIGCHLD	18) SIGCONT	19) SIGSTOP	20) SIGTSTP
+21) SIGTTIN	22) SIGTTOU	23) SIGURG	24) SIGXCPU	25) SIGXFSZ
+26) SIGVTALRM	27) SIGPROF	28) SIGWINCH	29) SIGIO	30) SIGPWR
+31) SIGSYS	34) SIGRTMIN	35) SIGRTMIN+1	36) SIGRTMIN+2	37) SIGRTMIN+3
+38) SIGRTMIN+4	39) SIGRTMIN+5	40) SIGRTMIN+6	41) SIGRTMIN+7	42) SIGRTMIN+8
+43) SIGRTMIN+9	44) SIGRTMIN+10	45) SIGRTMIN+11	46) SIGRTMIN+12	47) SIGRTMIN+13
+48) SIGRTMIN+14	49) SIGRTMIN+15	50) SIGRTMAX-14	51) SIGRTMAX-13	52) SIGRTMAX-12
+53) SIGRTMAX-11	54) SIGRTMAX-10	55) SIGRTMAX-9	56) SIGRTMAX-8	57) SIGRTMAX-7
+58) SIGRTMAX-6	59) SIGRTMAX-5	60) SIGRTMAX-4	61) SIGRTMAX-3	62) SIGRTMAX-2
+63) SIGRTMAX-1	64) SIGRTMAX	
+```
 
 #### Sending Specific Signals
 
@@ -3055,113 +3271,44 @@ The `kill` command can send different types of signals. By default, `kill` sends
 
 To send `SIGTERM` (default):
 ```bash
-kill %1
+# Syntax
+$ kill %1
 ```
 
 To send `SIGKILL` to forcefully kill a job:
 ```bash
-kill -9 %1
+# Syntax
+$ kill -9 %1
 ```
 
-#### Listing Signals with `kill -l`
+## Summary of Processes and Jobs Control Commands
 
-To view a list of all available signals, use the `kill -l` command:
-
-```bash
-kill -l
-```
-
-Example output:
-```bash
-1) SIGHUP    2) SIGINT    3) SIGQUIT   9) SIGKILL   15) SIGTERM
-```
-
-You can use these signal names or numbers to control the behavior of the `kill` command.
-
-### Practical Examples of Job Control
-
-#### Example 1: Starting a Process in the Background
-```bash
-sleep 60 &
-```
-
-Output:
-```bash
-[1] 12345
-```
-The `sleep 60` command runs in the background, and its job number is `1` with PID `12345`.
-
-#### Example 2: Listing Jobs
-```bash
-jobs
-```
-
-Output:
-```bash
-[1]+  12345 Running                 sleep 60 &
-[2]-  12346 Stopped                 nano
-```
-
-#### Example 3: Suspending a Job
-Run a command and suspend it:
-```bash
-nano myfile.txt
-```
-Press `Ctrl-Z` to suspend.
-
-#### Example 4: Resume Suspended Job in the Background
-```bash
-bg %2
-```
-
-#### Example 5: Bring Job to Foreground
-```bash
-fg %1
-```
-
-#### Example 6: Kill a Job by Job Number
-```bash
-kill %1
-```
-
-#### Example 7: Kill a Job by PID
-```bash
-kill 12345
-```
-
-#### Example 8: Force Kill a Job
-```bash
-kill -9 %1
-```
-
-## Summary of Process and Job Control Commands
-
-| **Command**               | **Description**                                                                 | **Example**                                               |
-|---------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------|
-| `ps`                       | Lists running processes on the system.                                           | `ps`                                                      |
-| `ps -e`                    | Displays all processes running on the system.                                    | `ps -e`                                                   |
-| `ps -ef`                   | Displays all processes with a full format listing.                               | `ps -ef`                                                  |
-| `ps -eH`                   | Displays processes in a hierarchical (tree) format.                              | `ps -eH`                                                  |
-| `ps -e --forest`           | Displays processes in a tree format using ASCII art.                            | `ps -e --forest`                                          |
-| `ps -u <username>`         | Displays processes running for a specific user.                                 | `ps -u john`                                              |
-| `ps -p <PID>`              | Displays information for a specific process ID (PID).                           | `ps -p 1234`                                              |
-| `pstree`                   | Displays processes in a hierarchical tree format.                               | `pstree`                                                  |
-| `top`                      | Displays a real-time process list with system performance information.          | `top`                                                     |
-| `htop`                     | Interactive and improved version of `top` with a user-friendly interface.       | `htop`                                                    |
-| `kill <PID>`               | Terminates a running process using its process ID (PID).                        | `kill 5678`                                               |
-| `sudo apt install htop`    | Installs `htop` on a Debian-based system.                                        | `sudo apt install htop`                                   |
-| Start a command in the background                 | `command &`                | `sleep 60 &`                                  |
-| Kill the foreground process                       | `Ctrl-C`                   | (Press `Ctrl-C` while the job is in the foreground) |
-| Suspend the foreground process                    | `Ctrl-Z`                   | (Press `Ctrl-Z` while the job is running)     |
-| Resume a suspended job in the background          | `bg [%num]`                | `bg %1`                                       |
-| Resume the most recently suspended job in the background | `bg`                     | `bg`                                          |
-| Bring a backgrounded job to the foreground        | `fg [%num]`                | `fg %1`                                       |
-| Bring the most recent background job to the foreground | `fg`                     | `fg`                                          |
-| Kill a job by job number or PID                   | `kill [%num]` or `kill <PID>` | `kill %1` or `kill 12345`                    |
-| List all jobs or a specific job by job number     | `jobs` or `jobs [%num]`    | `jobs` or `jobs %1`                           |
-| List available signals                            | `kill -l`                  | `kill -l`                                     |
-| Send a specific signal to a job                   | `kill -<signal> %num` or `kill -<signal> <PID>` | `kill -9 %1` or `kill -9 12345`             |
-| Force kill a job (SIGKILL signal)                 | `kill -9`                  | `kill -9 %1`                                  |
+| **Command**                              | **Description**                                                                 | **Example**                                               |
+|------------------------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------|
+| `ps`                                     | Lists running processes on the system.                                          | `ps`                                                      |
+| `ps -e`                                  | Displays all processes running on the system.                                   | `ps -e`                                                   |
+| `ps -ef`                                 | Displays all processes with a full format listing.                              | `ps -ef`                                                  |
+| `ps -eH`                                 | Displays processes in a hierarchical (tree) format.                             | `ps -eH`                                                  |
+| `ps -e --forest`                         | Displays processes in a tree format using ASCII art.                            | `ps -e --forest`                                          |
+| `ps -u <username>`                       | Displays processes running for a specific user.                                 | `ps -u john`                                              |
+| `ps -p <PID>`                            | Displays information for a specific process ID (PID).                           | `ps -p 1234`                                              |
+| `pstree`                                 | Displays processes in a hierarchical tree format.                               | `pstree`                                                  |
+| `top`                                    | Displays a real-time process list with system performance information.          | `top`                                                     |
+| `htop`                                   | Interactive and improved version of `top` with a user-friendly interface.       | `htop`                                                    |
+| `sudo apt install htop`                  | Installs `htop` on a Debian-based system.                                       | `sudo apt install htop`                                   |
+| `kill <PID>`                             | Terminates a running process using its process ID (PID).                        | `kill 5678`                                               |
+| `command &`                              | Starts a command in the background.                                             | `sleep 60 &`                                              |
+| `Ctrl-C`                                 | Kills the foreground process.                                                  | (Press `Ctrl-C` while the job is in the foreground)       |
+| `Ctrl-Z`                                 | Suspends the foreground process.                                               | (Press `Ctrl-Z` while the job is running)                 |
+| `bg [%num]`                              | Resumes a suspended job in the background.                                      | `bg %1`                                                   |
+| `bg`                                     | Resumes the most recently suspended job in the background.                      | `bg`                                                      |
+| `fg [%num]`                              | Brings a backgrounded job to the foreground.                                    | `fg %1`                                                   |
+| `fg`                                     | Brings the most recent background job to the foreground.                        | `fg`                                                      |
+| `kill [%num]` or `kill <PID>`            | Kills a job by job number or PID.                                               | `kill %1` or `kill 12345`                                 |
+| `jobs` or `jobs [%num]`                  | Lists all jobs or a specific job by job number.                                 | `jobs` or `jobs %1`                                       |
+| `kill -l`                                | Lists available signals.                                                        | `kill -l`                                                 |
+| `kill -<signal> %num` or `kill -<signal> <PID>` | Sends a specific signal to a job.                                              | `kill -9 %1` or `kill -9 12345`                           |
+| `kill -9`                                | Force kills a job using the SIGKILL signal.                                     | `kill -9 %1`                                              |
 
 ---
 
@@ -3197,7 +3344,7 @@ The `su` command is used to switch between users in a Linux system. By default, 
 
   In the below example you will have to enter switching user, `ram`'s passowrd. 
   ```bash
-  sri@envy:~/Documents/Linux
+  
   $ su ram
   Password: 
   ram@envy:/home/sri/Documents/Linux$ 
@@ -3208,7 +3355,7 @@ The `su` command is used to switch between users in a Linux system. By default, 
   ```bash
   ram@envy:/home/sri/Documents/Linux$ exit
   exit
-  sri@envy:~/Documents/Linux
+  
   $ 
   ```
   
@@ -3216,7 +3363,7 @@ The `su` command is used to switch between users in a Linux system. By default, 
 
   In the below example you will have to enter current user, `sri`'s password. 
   ```bash
-  sri@envy:~/Documents/Linux
+  
   $ sudo su ram
   [sudo] password for sri: 
   ram@envy:/home/sri/Documents/Linux$ 
@@ -3225,7 +3372,7 @@ The `su` command is used to switch between users in a Linux system. By default, 
 - **Simulate Logging In as a User**:  
   By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user’s home directory. **While the previous method don't change the working directory.** 
   ```bash
-  sri@envy:~/Documents/Linux
+  
   $ sudo su - ram
   [sudo] password for sri: 
   ram@envy:~$ 
@@ -3233,24 +3380,24 @@ The `su` command is used to switch between users in a Linux system. By default, 
 - **Excuting command as another user**: 
   By using `-c` option with `su` we can execute command as another user. 
   ```bash
-  sri@envy:~/Documents/Linux
+  
   $ su - ram # swtiching to ram
   Password: 
   ram@envy:~$ echo "I am ram" > a.txt # creating a file
   ram@envy:~$ exit # switch back to sri
   logout
   # this below command will not work, since it logins and stays in /home/sri/Documents/Linux
-  sri@envy:~/Documents/Linux
+  
   $ su ram -c "cat a.txt" 
   Password: 
   cat: a.txt: No such file or directory
 
   # this below command will WORK, since it logins and stays in ~ram
-  sri@envy:~/Documents/Linux
+  
   $ su ram -c "cat ~/a.txt"
   Password: 
   I am ram
-  sri@envy:~/Documents/Linux # haven't switched to ram, still in sri
+   # haven't switched to ram, still in sri
   $ 
   ```
 ---
