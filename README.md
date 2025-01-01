@@ -12,6 +12,8 @@
 * [Permissions](#Permissions)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
   * [Summary](#Summary-of-Vim-Commands)
+* [The Vim Editor](#the-vim-editor)
+  * [Summary](#summary-of-vim-commands)
 * [Deleting, Moving, and Renaming Files and Directories](#deleting-moving-and-renaming-files-and-directories)
   * [Summary](#Summary-of-Deleting-Moving-and-Renaming-Files-and-Directories-Commands)
 * [Finding, Sorting, and Comparing Files and Directories](#finding-sorting-and-comparing-files-and-directories)
@@ -838,9 +840,34 @@ sri@envy:/bin
 $ man mv
 sri@envy:/bin
 $ 
-
 ```
-### Clearing the terminal screen.
+
+### Know what a command does with `whatis`
+```bash
+# Syntax
+$ whatis [command]
+
+# Example
+sri@envy:~/Documents
+$ whatis ln
+ln (1)               - make links between files
+sri@envy:~/Documents
+$ whatis ls
+ls (1)               - list directory contents
+sri@envy:~/Documents
+$ whatis cd
+cd: nothing appropriate.
+sri@envy:~/Documents
+$ whatis man
+man (1)              - an interface to the system reference manuals
+sri@envy:~/Documents
+$ whatis whatis
+whatis (1)           - display one-line manual page descriptions
+sri@envy:~/Documents
+$ 
+```
+
+## Clearing the terminal screen.
 Screen can be cleared using 
 
 #### `clear` command
@@ -855,7 +882,7 @@ $ ^l
 ```
 ---
 
-### Creating files
+## Creating files
 To create an empty files use `touch`
 ```bash
 # Syntax
@@ -905,6 +932,7 @@ $
 | `man -k keyword`     | Returns all man pages containing the specified keyword. |
 | `apropos keyword`    | Searches for the keyword in the manual page descriptions. |
 | `[command] --help`     | Displays a help message for the specified command. |
+| `whatis [command]`    | Display one-line manual page descriptions |
 | `clear`                | Clears the entire terminal screen. |
 | `^L` or `^l`           | Clears the terminal window (history still accessible via scroll). |
 | `touch file(s)`      | Creates empty file(s). |
@@ -1227,51 +1255,86 @@ In Linux, the `ls` command is used to list files and directories, but it can als
 
 The `ls` command by itself will simply list the files and directories in the current directory:
 ```bash
+# Syntax
 $ ls
-Desktop  Documents  Downloads  Music  to-do.txt
+
+# Example
+sri@envy:~
+$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  snap  Templates  Videos
+sri@envy:~
+$ 
 ```
 
-## Using `ls -l` for Detailed Listings
+### Using `ls -l` for Detailed Listings
 
-The `-l` option provides a long listing format that gives detailed information about each file or directory. Here's an example:
+The `ls -l` command provides a long listing format that shows detailed information about files and directories. 
 
 ```bash
+# Syntax
 $ ls -l
-total 20
-drwxrwxr-x 2 sri users 4096 May 3 08:33 Desktop
-drwxrwxr-x 2 sri users 4096 May 3 08:35 Documents
-drwxrwxr-x 2 sri users 4096 May 3 08:38 Downloads
-drwxrwxr-x 3 sri users 4096 Jun 21 21:16 Music
--rw-r--r-- 1 sri users 73 Jun 22 19:34 to-do.txt
+
+# Example
+sri@envy:~
+$ ls -l
+total 36
+drwxr-xr-x  2 sri sri 4096 Jan  1 12:11 Desktop
+drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
+drwxr-xr-x  2 sri sri 4096 Dec 31 20:15 Downloads
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music
+drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public
+drwx------  8 sri sri 4096 Dec 31 18:07 snap
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos
+sri@envy:~
+$
 ```
 
-### Breakdown of the Output
+### Breakdown of `ls -l` Output
 
-The detailed output from `ls -l` is split into several columns:
-- **Permissions**: The first column indicates the file's permissions.
-- **Number of Links**: The second column shows how many links point to the file.
-- **Owner**: The third column shows the owner of the file.
-- **Group**: The fourth column shows the group associated with the file.
-- **File Size**: The fifth column shows the size of the file in bytes.
-- **Modification Time**: The sixth column displays the last modification date and time.
-- **File/Directory Name**: The final column shows the name of the file or directory.
+Each line in the output contains several columns with specific information:
+
+| **Field**              | **Description**                                          | **Example**            |
+|------------------------|----------------------------------------------------------|------------------------|
+| **Permissions**         | Indicates file type and access permissions.             | `drwxr-xr-x`           |
+| **Links**               | Number of hard links to the file or directory.          | `2`                    |
+| **Owner**               | Name of the user who owns the file or directory.        | `sri`                  |
+| **Group**               | Group associated with the file or directory.            | `sri`                  |
+| **File Size**           | Size of the file in bytes.                              | `4096`                 |
+| **Modification Time**   | Last modification date and time.                        | `Jan  1 12:11`         |
+| **Name**                | Name of the file or directory.                          | `Desktop`              |
+
+---
 
 ### Example Breakdown
+
+For a specific file:
 ```bash
--rw-r--r-- 1 sri users 73 Jun 22 19:34 to-do.txt
+-rw-r--r-- 1 sri sri 512 Dec 31 21:00 shopping-list.txt
+drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
+
 ```
-- `-rw-r--r--`: File permissions
-- `1`: Number of links
-- `sri`: Owner of the file
-- `users`: Group associated with the file
-- `73`: Size in bytes
-- `Jun 22 19:34`: Modification date and time
-- `to-do.txt`: Name of the file
+
+| **Field**              | **Value**           | **Explanation**                                      |
+|------------------------|---------------------|-----------------------------------------------------|
+| **Permissions**         | `drwxr-xr-x`       | Regular directory with read/write/execute for owner, read and execute for group and others. |
+| **Links**               | `13`                | Single hard link.|
+| **Owner**               | `sri`              | File is owned by the user `sri`.|
+| **Group**               | `sri`              | Associated group is `sri`.|
+| **File Size**           | `4096`              | File is 4096 bytes in size.|
+| **Modification Time**| `Dec 29 18:04`| File was last modified on Dec 31 at 9:00 PM.|
+| **Name**                | `Document`| Name of the directory is `Document`.|
 
 ## Displaying Hidden Files
 
 By default, `ls` does not show hidden files (files that begin with a dot `.`). To display hidden files, use the `-a` option:
 ```bash
+# Syntax
+$ ls -a
+
+# Example
+sri@envy:~
 $ ls -a
 .                 .cache      .gnupg    Public                     .vim
 ..                .config     .lesshst  .python_history            .viminfo
@@ -1280,136 +1343,343 @@ $ ls -a
 .bash_history     .dotnet     Pictures  .sudo_as_admin_successful
 .bash_logout      Downloads   .pki      Templates
 .bashrc           .gitconfig  .profile  Videos
+sri@envy:~
+$ 
 ```
+
 To list hidden files with details, use both the `-a` and `-l` options:
+
 ```bash
-$ ls -a -l # or -al
-total 160
-drwxr-x--- 20 sri  sri   4096 Dec 30 11:38 .
-drwxr-xr-x  3 root root  4096 Dec 28 16:16 ..
--rw-rw-r--  1 sri  sri     24 Dec 23 13:01 .aspell.en.prepl
--rw-rw-r--  1 sri  sri    108 Dec 23 13:01 .aspell.en.pws
--rw-------  1 sri  sri  20019 Dec 30 11:37 .bash_history
+sri@envy:~
+$ ls -al
+total 164
+drwxr-x--- 20 sri  sri   4096 Jan  1 11:58 .
+drwxr-xr-x  3 root root  4096 Dec 30 14:41 ..
+-rw-rw-r--  1 sri  sri     24 Dec 30 18:03 .aspell.en.prepl
+-rw-rw-r--  1 sri  sri    183 Dec 30 18:03 .aspell.en.pws
+-rw-------  1 sri  sri  25677 Jan  1 07:14 .bash_history
 -rw-r--r--  1 sri  sri    220 Mar 31  2024 .bash_logout
 -rw-r--r--  1 sri  sri   4316 Dec 29 18:48 .bashrc
 drwx------ 19 sri  sri   4096 Dec 25 20:21 .cache
-drwx------ 21 sri  sri   4096 Dec 25 16:17 .config
-drwxr-xr-x  2 sri  sri   4096 Dec 29 20:45 Desktop
+drwx------ 23 sri  sri   4096 Dec 31 16:12 .config
+drwxr-xr-x  2 sri  sri   4096 Jan  1 12:11 Desktop
 drwxr-xr-x 13 sri  sri   4096 Dec 29 18:04 Documents
 drwxrwxr-x  3 sri  sri   4096 Dec 21 17:15 .dotnet
-drwxr-xr-x  2 sri  sri   4096 Dec 29 18:02 Downloads
+drwxr-xr-x  2 sri  sri   4096 Dec 31 20:15 Downloads
 -rw-rw-r--  1 sri  sri    152 Dec 21 17:40 .gitconfig
-drwx------  2 sri  sri   4096 Dec 30 11:37 .gnupg
--rw-------  1 sri  sri     63 Dec 30 11:38 .lesshst
+drwx------  2 sri  sri   4096 Jan  1 11:50 .gnupg
+-rw-------  1 sri  sri     90 Jan  1 11:58 .lesshst
 drwx------  4 sri  sri   4096 Dec 21 16:45 .local
 drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Music
 drwxr-xr-x  3 sri  sri   4096 Dec 23 15:41 Pictures
 drwx------  3 sri  sri   4096 Dec 21 17:15 .pki
 -rw-r--r--  1 sri  sri    807 Mar 31  2024 .profile
 drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Public
--rw-------  1 sri  sri    242 Dec 30 06:31 .python_history
-drwx------  7 sri  sri   4096 Dec 25 16:08 snap
+-rw-------  1 sri  sri    329 Dec 31 12:34 .python_history
+drwx------  8 sri  sri   4096 Dec 31 18:07 snap
 drwx------  2 sri  sri   4096 Dec 21 17:29 .ssh
 -rw-r--r--  1 sri  sri      0 Dec 21 16:45 .sudo_as_admin_successful
 drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Templates
 drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Videos
 drwxr-xr-x  2 sri  sri   4096 Dec 27 20:42 .vim
--rw-------  1 sri  sri  14258 Dec 29 19:37 .viminfo
+-rw-------  1 sri  sri  15521 Dec 31 11:22 .viminfo
 -rw-rw-r--  1 sri  sri   1260 Dec 26 10:43 .vimrc
 drwxrwxr-x  4 sri  sri   4096 Dec 21 17:15 .vscode
+sri@envy:~
+$ 
 ```
-This will display all files, including hidden ones, in a long listing format.
+
+## Colorized Output with `--color`
+
+To add color to the `ls` output, use the `--color` option. This is **present by default**. This helps differentiate file types:
+```bash
+# Syntax
+$ ls --color
+```
 
 ## File Type Indicators with `-F`
 
 The `-F` option appends a symbol to each file or directory to indicate its type. Here's how it works:
 ```bash
+# Syntax
 $ ls -aF
-./                .cache/     .gnupg/    Public/                    .vim/
-../               .config/    .lesshst   .python_history            .viminfo
-.aspell.en.prepl  Desktop/    .local/    snap/                      .vimrc
-.aspell.en.pws    Documents/  Music/     .ssh/                      .vscode/
-.bash_history     .dotnet/    Pictures/  .sudo_as_admin_successful
-.bash_logout      Downloads/  .pki/      Templates/
-.bashrc           .gitconfig  .profile   Videos/
+
+# Example
+sri@envy:~
+$ ls -aF
+./                .config/    .local/          .sudo_as_admin_successful
+../               Desktop/    Music/           Templates/
+a.out*            Documents/  Pictures/        Videos/
+.aspell.en.prepl  .dotnet/    .pki/            .vim/
+.aspell.en.pws    Downloads/  .profile         .viminfo
+.bash_history     .gitconfig  Public/          .vimrc
+.bash_logout      .gnupg/     .python_history  .vscode/
+.bashrc           hello.c     snap/
+.cache/           .lesshst    .ssh/
+sri@envy:~
+$ 
 ```
-- `/` indicates a **directory**.
-- `@` indicates a **symbolic link**.
-- `*` indicates an **executable** file.
-- `|` indicates a **named pipe**.
-- `=` indicates a **socket**.
 
 For a long listing with file type indicators:
 ```bash
-$ ls -lF
-total 36
-drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop/
-drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents/
-drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads/
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music/
-drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures/
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public/
-drwx------  7 sri sri 4096 Dec 25 16:08 snap/
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates/
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos/
+# Syntax
+$ ls -alf
+
+sri@envy:~
+$ ls -alF
+total 184
+drwxr-x--- 20 sri  sri   4096 Jan  1 13:20 ./
+drwxr-xr-x  3 root root  4096 Dec 30 14:41 ../
+-rwxrwxr-x  1 sri  sri  15960 Jan  1 13:20 a.out*
+-rw-rw-r--  1 sri  sri     24 Dec 30 18:03 .aspell.en.prepl
+-rw-rw-r--  1 sri  sri    183 Dec 30 18:03 .aspell.en.pws
+-rw-------  1 sri  sri  25677 Jan  1 07:14 .bash_history
+-rw-r--r--  1 sri  sri    220 Mar 31  2024 .bash_logout
+-rw-r--r--  1 sri  sri   4316 Dec 29 18:48 .bashrc
+drwx------ 19 sri  sri   4096 Dec 25 20:21 .cache/
+drwx------ 23 sri  sri   4096 Dec 31 16:12 .config/
+drwxr-xr-x  2 sri  sri   4096 Jan  1 12:11 Desktop/
+drwxr-xr-x 13 sri  sri   4096 Dec 29 18:04 Documents/
+drwxrwxr-x  3 sri  sri   4096 Dec 21 17:15 .dotnet/
+drwxr-xr-x  2 sri  sri   4096 Dec 31 20:15 Downloads/
+-rw-rw-r--  1 sri  sri    152 Dec 21 17:40 .gitconfig
+drwx------  2 sri  sri   4096 Jan  1 11:50 .gnupg/
+-rw-rw-r--  1 sri  sri     72 Jan  1 13:20 hello.c
+-rw-------  1 sri  sri     90 Jan  1 11:58 .lesshst
+drwx------  4 sri  sri   4096 Dec 21 16:45 .local/
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Music/
+drwxr-xr-x  3 sri  sri   4096 Dec 23 15:41 Pictures/
+drwx------  3 sri  sri   4096 Dec 21 17:15 .pki/
+-rw-r--r--  1 sri  sri    807 Mar 31  2024 .profile
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Public/
+-rw-------  1 sri  sri    329 Dec 31 12:34 .python_history
+drwx------  8 sri  sri   4096 Dec 31 18:07 snap/
+drwx------  2 sri  sri   4096 Dec 21 17:29 .ssh/
+-rw-r--r--  1 sri  sri      0 Dec 21 16:45 .sudo_as_admin_successful
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Templates/
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Videos/
+drwxr-xr-x  2 sri  sri   4096 Dec 27 20:42 .vim/
+-rw-------  1 sri  sri  14641 Jan  1 13:20 .viminfo
+-rw-rw-r--  1 sri  sri   1260 Dec 26 10:43 .vimrc
+drwxrwxr-x  4 sri  sri   4096 Dec 21 17:15 .vscode/
+sri@envy:~
+$ 
 ```
 
-### Example File Type Indicators
-| File Type | Symbol |
-|-----------|--------|
-| Directory | `/`    |
-| Symlink   | `@`    |
-| Executable | `*`    |
-| Socket    | `=`    |
-| Named pipe| `\|`    |
+Here’s a list of file type indicators used in Linux with the `ls` command:
+
+| **Symbol in Permission String** | **File Type**           | **Description**                                                                                                                                           | **Default Color**   |
+|------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
+| `-`        | Regular file             | Standard files that contain data, such as text, images, videos, or executables.                                                                            | Default (white)     |
+| `b`        | Block special file       | Files that represent hardware devices capable of data storage, such as hard drives or USB drives, accessed in fixed-size blocks.                           | Yellow with bold    |
+| `c`        | Character special file   | Files that represent hardware devices, such as keyboards or terminals, accessed character by character. Interfaces with devices that transfer data in streams. | Yellow with bold    |
+| `d`        | Directory                | Containers for files and other directories, forming a hierarchical structure in the file system.                                                           | Blue                |
+| `l`        | Symbolic link            | Special files that act as shortcuts, pointing to another file or directory.                                                                                | Cyan (light blue)   |
+| `p`        | FIFO (named pipe)        | Used in IPC. Files that act as conduits, allowing two processes to communicate by writing and reading data in a first-in, first-out (FIFO) order.           | Yellow (brown)      |
+| `s`        | Socket                   | Special files used for inter-process communication (IPC), typically for network services or local socket connections. Enables bidirectional communication. | Magenta (purple)    |
+| `?`        | Unknown file type        | Files that do not match any recognized file type.                                                                                                          | N/A                 |
+| `*`        | Executable               | Files that can be executed as programs or scripts.                                                                                                        | Green               |
+| `/`        | Directory (Indicator)    | Indicates a directory in file listings.                                                                                                                   | Blue                |
+| `@`        | Symlink (Symbolic link)  | Indicates a symbolic link in file listings.                                                                                                               | Cyan (light blue)   |
+| `=`        | Socket (Indicator)       | Indicates a socket in file listings.                                                                                                                      | Magenta (purple)    |
+| `\|`       | Named pipe (FIFO) (Indicator) | Indicates a named pipe in file listings.                                                                                                                  | Yellow (brown)      |
+
+
+### Notes
+The colors shown above are defaults in most Linux distributions. These may vary based on user configuration (`~/.bashrc`, `~/.zshrc`) or terminal settings. - Colors can be customized using the `LS_COLORS` environment variable. To check the current configuration, run:
+```bash
+sri@envy:~
+$ echo $LS_COLORS 
+rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:
+```
+The `$LS_COLORS` variable defines the colors and styles for file types and extensions in `ls --color` output. It's a series of `key=value` pairs separated by colons (`:`):  
+
+- **Keys**: File types (`di`=directory, `ln`=symlink, `pi`=pipe, etc.) or extensions (`*.tar`, `*.zip`).  
+- **Values**: Style codes (`00`=default, `01`=bold) and colors (`31`=red, `34`=blue, `40`=black background, etc.).  
+
+### Examples
+- `di=01;34`: Directories are bold blue.  
+- `ln=01;36`: Symlinks are bold cyan.  
+- `*.tar=01;31`: `.tar` files are bold red.  
+
+Customize with `dircolors` or directly export a new `LS_COLORS` value:
+```bash
+$ export LS_COLORS="di=01;32:ln=01;33"
+```
 
 ## Symbolic Links
 
-A symbolic link (symlink) is a file that points to another file or directory. For example:
+A **symbolic link** (also known as a symlink or soft link) is a special type of file in Linux that points to another file or directory. It acts as a shortcut, redirecting access to the original target file or directory.
+
+### Characteristics of Symbolic Links:
+- **Independent from the target:** If the target file or directory is moved or deleted, the symlink becomes "broken," but the symlink itself remains.
+- **Flexible:** Can link to files or directories located anywhere in the file system, including remote locations.
+- **Different inode:** The symlink has its own inode, separate from the target file.
+
+### Creating a Symbolic Link
+Use the `ln -s` command to create a symbolic link:
 ```bash
-$ ls -l link-to-to-do
-lrwxrwxrwx 1 sri users 9 Jun 22 21:01 link-to-to-do -> to-do.txt
+# Syntax:
+$ ln -s [target] [symlink]
+
+# Example:
+sri@envy:~/Desktop
+$ ln -s /home/sri/Documents/myfile.txt myfilelink
+sri@envy:~/Desktop
+$ ls -F
+myfilelink@
+sri@envy:~/Desktop
+$
 ```
-Here, `link-to-to-do` is a symlink pointing to `to-do.txt`.
+This creates a symbolic link `myfilelink` that points to `/home/sri/Documents/myfile.txt`.
+
+### Viewing Symbolic Links
+Use the `ls -l` command to identify symbolic links. The symlink is indicated with an `@` in `ls -F` or displayed with an arrow (`->`) pointing to the target:
+```bash
+# Syntax
+ls -lF
+
+# Example
+sri@envy:~/Desktop
+$ ls -alF
+total 8
+drwxr-xr-x  2 sri sri 4096 Jan  1 13:30 ./
+drwxr-x--- 20 sri sri 4096 Jan  1 13:25 ../
+lrwxrwxrwx  1 sri sri   30 Jan  1 13:30 myfilelink -> /home/sri/Documents/myfile.txt
+sri@envy:~/Desktop
+$ 
+```
+
+### Using a Symbolic Link
+You can use a symbolic link just like the original file or directory. For example:
+- **Open the linked file:**
+  ```bash
+  sri@envy:~/Desktop
+  $ cat myfilelink
+  This is myfile.txt
+  sri@envy:~/Desktop
+  $ 
+  ```
+- **Navigate to a linked directory:**
+  ```bash
+  $ cd mydirlink
+  ```
+
+### Managing Symbolic Links
+- **Remove a symlink:** Use the `rm` command (this removes only the symlink, not the target):
+  ```bash
+  $ rm mylink
+  ```
+- **Edit or recreate a symlink:** Re-run the `ln -s` command with the desired target.
+
+### Broken Symlinks
+A symlink becomes "broken" if the target is moved or deleted. You can identify broken symlinks with:
+```bash
+$ ls -l
+sri@envy:~/Desktop
+$ ls -l
+total 0
+lrwxrwxrwx 1 sri sri 30 Jan  1 13:30 myfilelink -> /home/sri/Documents/myfile.txt (red font and highlighted)
+```
+
+Symbolic links are commonly used for tasks such as creating shortcuts, linking configuration files, or managing library paths efficiently.
 
 ## Sorting Files by Time
 
 To list files sorted by their modification time, use the `-t` option:
 ```bash
+# Syntax
 $ ls -t
-Desktop  Documents  Downloads  snap  Pictures  Music  Public  Templates  Videos
 
-$ ls -lt
-total 36
-drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop
-drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
-drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads
-drwx------  7 sri sri 4096 Dec 25 16:08 snap
-drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos
+# Example
+sri@envy:~
+$ ls -alt
+total 168
+drwxr-xr-x  2 sri  sri   4096 Jan  1 13:36 Desktop
+drwxr-xr-x 13 sri  sri   4096 Jan  1 13:35 Documents
+drwxr-x--- 20 sri  sri   4096 Jan  1 13:25 .
+-rw-------  1 sri  sri  16617 Jan  1 13:25 .viminfo
+-rw-------  1 sri  sri     90 Jan  1 11:58 .lesshst
+drwx------  2 sri  sri   4096 Jan  1 11:50 .gnupg
+-rw-------  1 sri  sri  25677 Jan  1 07:14 .bash_history
+drwxr-xr-x  2 sri  sri   4096 Dec 31 20:15 Downloads
+drwx------  8 sri  sri   4096 Dec 31 18:07 snap
+drwx------ 23 sri  sri   4096 Dec 31 16:12 .config
+-rw-------  1 sri  sri    329 Dec 31 12:34 .python_history
+-rw-rw-r--  1 sri  sri     24 Dec 30 18:03 .aspell.en.prepl
+-rw-rw-r--  1 sri  sri    183 Dec 30 18:03 .aspell.en.pws
+drwxr-xr-x  3 root root  4096 Dec 30 14:41 ..
+-rw-r--r--  1 sri  sri   4316 Dec 29 18:48 .bashrc
+drwxr-xr-x  2 sri  sri   4096 Dec 27 20:42 .vim
+-rw-rw-r--  1 sri  sri   1260 Dec 26 10:43 .vimrc
+drwx------ 19 sri  sri   4096 Dec 25 20:21 .cache
+drwxr-xr-x  3 sri  sri   4096 Dec 23 15:41 Pictures
+-rw-rw-r--  1 sri  sri    152 Dec 21 17:40 .gitconfig
+drwx------  2 sri  sri   4096 Dec 21 17:29 .ssh
+drwxrwxr-x  3 sri  sri   4096 Dec 21 17:15 .dotnet
+drwxrwxr-x  4 sri  sri   4096 Dec 21 17:15 .vscode
+drwx------  3 sri  sri   4096 Dec 21 17:15 .pki
+-rw-r--r--  1 sri  sri      0 Dec 21 16:45 .sudo_as_admin_successful
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Music
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Public
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Videos
+drwx------  4 sri  sri   4096 Dec 21 16:45 .local
+-rw-r--r--  1 sri  sri    220 Mar 31  2024 .bash_logout
+-rw-r--r--  1 sri  sri    807 Mar 31  2024 .profile
+sri@envy:~
+$ 
 ```
 To reverse the order (show the oldest files first), use `-r`:
 ```bash
-$ ls -ltr
-total 36
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Templates
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Public
-drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Music
-drwxr-xr-x  3 sri sri 4096 Dec 23 15:41 Pictures
-drwx------  7 sri sri 4096 Dec 25 16:08 snap
-drwxr-xr-x  2 sri sri 4096 Dec 29 18:02 Downloads
-drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
-drwxr-xr-x  2 sri sri 4096 Dec 29 20:45 Desktop
+# Syntax 
+$ ls -lr
+
+# Example
+sri@envy:~
+$ ls -altr
+total 168
+-rw-r--r--  1 sri  sri    807 Mar 31  2024 .profile
+-rw-r--r--  1 sri  sri    220 Mar 31  2024 .bash_logout
+drwx------  4 sri  sri   4096 Dec 21 16:45 .local
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Videos
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Templates
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Public
+drwxr-xr-x  2 sri  sri   4096 Dec 21 16:45 Music
+-rw-r--r--  1 sri  sri      0 Dec 21 16:45 .sudo_as_admin_successful
+drwx------  3 sri  sri   4096 Dec 21 17:15 .pki
+drwxrwxr-x  4 sri  sri   4096 Dec 21 17:15 .vscode
+drwxrwxr-x  3 sri  sri   4096 Dec 21 17:15 .dotnet
+drwx------  2 sri  sri   4096 Dec 21 17:29 .ssh
+-rw-rw-r--  1 sri  sri    152 Dec 21 17:40 .gitconfig
+drwxr-xr-x  3 sri  sri   4096 Dec 23 15:41 Pictures
+drwx------ 19 sri  sri   4096 Dec 25 20:21 .cache
+-rw-rw-r--  1 sri  sri   1260 Dec 26 10:43 .vimrc
+drwxr-xr-x  2 sri  sri   4096 Dec 27 20:42 .vim
+-rw-r--r--  1 sri  sri   4316 Dec 29 18:48 .bashrc
+drwxr-xr-x  3 root root  4096 Dec 30 14:41 ..
+-rw-rw-r--  1 sri  sri    183 Dec 30 18:03 .aspell.en.pws
+-rw-rw-r--  1 sri  sri     24 Dec 30 18:03 .aspell.en.prepl
+-rw-------  1 sri  sri    329 Dec 31 12:34 .python_history
+drwx------ 23 sri  sri   4096 Dec 31 16:12 .config
+drwx------  8 sri  sri   4096 Dec 31 18:07 snap
+drwxr-xr-x  2 sri  sri   4096 Dec 31 20:15 Downloads
+-rw-------  1 sri  sri  25677 Jan  1 07:14 .bash_history
+drwx------  2 sri  sri   4096 Jan  1 11:50 .gnupg
+-rw-------  1 sri  sri     90 Jan  1 11:58 .lesshst
+-rw-------  1 sri  sri  16617 Jan  1 13:25 .viminfo
+drwxr-x--- 20 sri  sri   4096 Jan  1 13:25 .
+drwxr-xr-x 13 sri  sri   4096 Jan  1 13:35 Documents
+drwxr-xr-x  2 sri  sri   4096 Jan  1 13:36 Desktop
+sri@envy:~
+$ 
 ```
 
 ## Recursive Listing with `-R`
 
 To list all files and directories recursively, use the `-R` option:
 ```bash
+# Syntax
 $ ls -R
 .:
 Desktop  Documents  Downloads  link-to-to-do  Music  program  to-do.txt
@@ -1430,6 +1700,65 @@ JohnColtrane
 giant-steps.mp3
 ```
 
+## Working with Directories Using `-d`
+
+If you want to list the **directory itself** (without showing its contents), use the `-d` option:
+```bash
+# Syntax
+$ ls -d [Directory]
+
+# Example
+sri@envy:~
+$ ls -d Music/
+Music/
+sri@envy:~
+$ ls -ld Music/
+drwxr-xr-x 2 sri sri 4096 Dec 21 16:45 Music/
+sri@envy:~
+$ 
+```
+
+## Escaping Special Characters in Filenames
+
+Files or directories with spaces or special characters in their names require special handling. You can either **use quotes** or **escape the characters with a backslash** (`\ ` - escapes the whitespace).
+
+```bash
+# Syntax
+$ ls "file name with space"
+$ ls file\ name\ with\ space
+
+# Example
+sri@envy:~
+$ touch "my to do list"
+sri@envy:~
+$ ls -b
+Desktop    Downloads  my\ to\ do\ list  Public  Templates
+Documents  Music      Pictures          snap    Videos
+sri@envy:~
+$ ls -l my\ to\ do\ list 
+-rw-rw-r-- 1 sri sri 0 Jan  1 14:11 'my to do list'
+sri@envy:~
+$ ls -l "my to do list" 
+-rw-rw-r-- 1 sri sri 0 Jan  1 14:11 'my to do list'
+sri@envy:~
+$ 
+```
+
+### Using `-b` to View Escaped Names:
+```bash
+# Syntax
+$ ls -b
+
+# Example
+sri@envy:~
+$ ls -b
+Desktop    Downloads  my\ to\ do\ list  Public  Templates
+Documents  Music      Pictures          snap    Videos
+sri@envy:~
+$
+```
+
+
 ## Tree Command for Visual Directory Structure
 
 The `tree` command provides a more visually appealing way to view directory structures. 
@@ -1441,6 +1770,7 @@ $ sudo apt install tree
 
 You can use it as follows:
 ```bash
+# Syntax
 $ tree
 .
 |-- Desktop
@@ -1458,6 +1788,7 @@ $ tree
 
 For only directories, use `-d`:
 ```bash
+# Syntax
 $ tree -d
 .
 |-- Desktop
@@ -1466,74 +1797,72 @@ $ tree -d
 |-- Music
 |-- JohnColtrane
 5 directories
+
+# Example
+sri@envy:~
+$ tree -d
+.
+├── Desktop
+├── Documents
+│   ├── Git
+│   ├── Introduction-to-Vedanta
+│   │   ├── Audio
+│   │   └── Summary
+│   ├── Linux
+│   ├── Markdown
+│   ├── Nitya-Karma
+│   │   ├── Sandhyavandanam
+│   │   ├── Shlokas
+│   │   └── Stotrams
+│   │       ├── Hanuman_Chalisa
+│   │       ├── Nama_Ramayanam
+│   │       └── Vishnu_Sahasranamam
+│   ├── Power-Of-Posture
+│   ├── Python
+│   ├── Python-DSA
+│   │   ├── Chapter-01
+│   │   │   └── Question-10
+│   │   │       └── __pycache__
+│   │   ├── Chapter-02
+│   │   │   ├── Programming-Exercises
+│   │   │   ├── Self-Check
+│   │   │   └── TimeitExperiments
+│   │   ├── Chapter-03
+│   │   │   ├── Deque
+│   │   │   │   └── __pycache__
 ```
 
 To colorize the output, use `-C` (by deafult this option is used):
 ```bash
+# Syntax
 $ tree -C
 ```
 
-## Working with Directories Using `-d`
-
-If you want to list the **directory itself** (without showing its contents), use the `-d` option:
-```bash
-$ ls -d Music/
-Music/
-```
-
-For a long listing of the directory:
-```bash
-$ ls -ld Music/
-drwxrwxr-x 3 sri users 4096 Jun 21 21:16 Music/
-```
-
-## Colorized Output with `--color`
-
-To add color to the `ls` output, use the `--color` option. This is present by default. This helps differentiate file types:
-```bash
-$ ls --color
-Desktop  Documents  Downloads  link-to-to-do  Music  program  to-do.txt
-```
-
-## Escaping Special Characters in Filenames
-
-Files or directories with spaces or special characters in their names require special handling. You can either use quotes or escape the characters with a backslash (`\ ` - escapes the whitespace).
-
-### Example with Spaces:
-```bash
-$ ls "my to do list"
--rw-r--r-- 1 sri users 73 Jun 22 22:16 my to do list
-
-$ ls my\ to\ do\ list
--rw-r--r-- 1 sri users 73 Jun 22 22:16 my to do list
-```
-
-### Using `-b` to View Escaped Names:
-```bash
-$ ls -b
--rw-r--r-- 1 sri users 73 Jun 22 22:16 my\ to\ do\ list
-```
-
 ## Summary of File and Directory Commands
-
-| **Command**                     | **Description**                                                                 |
-|----------------------------------|---------------------------------------------------------------------------------|
-| `ls`                             | Lists the contents of a directory.                                                |
-| `ls -l`                          | Lists files and directories with detailed information (long format).             |
-| `ls -a`                          | Lists all files, including hidden files (files starting with a dot).             |
-| `ls -al` or `ls -a -l`           | Combines `-a` and `-l` options to list all files with detailed information.      |
-| `ls -F`                          | Appends a character to file names to indicate the file type (`/` for directories, `*` for executables). |
-| `ls -t`                          | Sorts files by modification time, with the most recent first.                    |
-| `ls -r`                          | Reverses the order of the output (e.g., reverse alphabetical order).             |
-| `ls -R`                          | Lists directories and their contents recursively.                                |
-| `tree`                           | Displays a tree structure of directories and their contents.                     |
-| `tree -d`                        | Displays a tree structure showing only directories, not files.                   |
-| `tree -C`                        | Displays a tree structure with color coding for different file types.            |
-| `ls -d`                          | Lists directories themselves, not their contents.                                |
-| `ls --color`                     | Displays directory contents with color coding.                                  |
-| `ls "file name with space.txt"`  | Lists a file with spaces in its name, using quotes around the file name.         |
-| `ls file\ name\ with\ space.txt` | Lists a file with spaces in its name, escaping the spaces with backslashes.      |
-| `ls -b`                          | Prints filenames with non-printing characters (e.g., spaces) escaped with backslashes. |
+| Command                         | Description                                                                                  |
+|---------------------------------|----------------------------------------------------------------------------------------------|
+| `$ ls`                          | Lists files and directories in the current directory.                                        |
+| `$ ls -l`                       | Lists files and directories with detailed information (long format).                        |
+| `$ ls -a`                       | Lists all files, including hidden files (starting with `.`).                                |
+| `$ ls --color`                  | Displays files with color-coded output (for file types).                                    |
+| `$ ls -F`                       | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.          |
+| `$ ls -t`                       | Lists files sorted by modification time (most recent first).                                |
+| `$ ls -r`                       | Reverses the order of the file list.                                                        |
+| `$ ls -R`                       | Recursively lists all files and directories.                                                |
+| `$ ls -d [Directory]`           | Displays information about directories, not their contents.                                 |
+| `$ ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes.                             |
+| `$ ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`).             |
+| `$ ls -b`                       | Displays file names with non-printable characters as escape sequences.                      |
+| `$ ls -alf`                     | Combines options: lists all files, including hidden ones, in long format.                   |
+| `$ ls -altr`                    | Lists all files, including hidden ones, in long format, sorted by time in reverse order.    |
+| `$ echo $LS_COLORS`             | Displays the current color settings for the `ls` command.                                   |
+| `$ export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).      |
+| `$ ln -s [target] [symlink]`    | Creates a symbolic link named `[symlink]` pointing to `[target]`.                           |
+| `$ cat myfilelink`              | Displays the contents of the file pointed to by the symbolic link `myfilelink`.             |
+| `$ cd mydirlink`                | Changes the current directory to the one pointed to by the symbolic link `mydirlink`.       |
+| `$ tree`                        | Displays the directory structure as a tree.                                                |
+| `$ tree -d`                     | Displays only directories in the tree structure.                                           |
+| `$ tree -C`                     | Displays the tree structure with color-coded output.                                       |
 
 
 # Permissions 
@@ -1542,27 +1871,17 @@ $ ls -b
 
 The `ls -l` command displays long listings of files and directories, including the file types. The first character of the permission string indicates the file type. Here are the common file types:
 
-| **Symbol** | **File Type**       |
-|------------|---------------------|
-| `-`        | Regular file        |
-| `b`        | Block special file  |
-| `c`        | Character special file |
-| `d`        | Directory           |
-| `l`        | Symbolic link       |
-| `p`        | FIFO (named pipe)   |
-| `s`        | Socket              |
-| `?`        | Unknown file type   |
+| **Symbol** | **File Type** | **Example** |
+|------------|---------------|-------------|
+| `-`| Regular file| `-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data`|
+| `b`| Block special file  | `brw-rw---- 1 root disk 8, 0 Jan  1 00:00 sda`|
+| `c`| Character special file | `crw-rw-rw- 1 root tty 4, 1 Jan  1 00:00 tty1`|
+| `d`| Directory| `drwxr-xr-x 2 sri users 4096 Jun 14 09:31 documents`|
+| `l`| Symbolic link| `lrwxrwxrwx 1 sri users   11 Jun 14 09:31 mylink -> /etc/hosts`|
+| `p`| FIFO (named pipe)| `prw-r--r-- 1 sri users    0 Jun 14 09:31 mypipe`|
+| `s`| Socket| `srw-rw-rw- 1 sri users    0 Jun 14 09:31 mysocket`|
+| `?`| Unknown file type| `?-????????? ? ?    ?       ?            ? unknownfile`|
 
-### Example:
-
-```bash
-$ ls -l sales.data
--rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
-```
-
-In this example:
-- The first character `-` indicates that `sales.data` is a regular file.
-- The rest of the string shows the permissions and file metadata.
 
 ## File Permissions
 
@@ -1591,8 +1910,9 @@ For directories, the meanings differ slightly:
 ### Example:
 
 ```bash
-$ ls -l /home/sri
-drwxr-xr-x 2 sri users 4096 Jan 10 10:21 Documents
+sri@envy:~
+$ ls -ld /home/sri/Documents/
+drwxr-xr-x 13 sri sri 4096 Jan  1 13:35 /home/sri/Documents/
 ```
 
 In this case:
@@ -1633,8 +1953,33 @@ Here:
 To see which groups you belong to, you can run the following commands:
 
 ```bash
+# Syntax
 $ groups
+
+# Example
+sri@envy:~
+$ groups
+sri adm cdrom sudo dip plugdev users lpadmin
+sri@envy:~
+$ 
+
+# Syntax
+$ id
+$ id -G
 $ id -Gn
+
+# Examples
+sri@envy:~
+$ id
+uid=1000(sri) gid=1000(sri) groups=1000(sri),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),114(lpadmin)
+sri@envy:~
+$ id -G
+1000 4 24 27 30 46 100 114
+sri@envy:~
+$ id -Gn
+sri adm cdrom sudo dip plugdev users lpadmin
+sri@envy:~
+$ 
 ```
 
 For another user:
@@ -1647,287 +1992,216 @@ These commands display the groups the user belongs to, which help in determining
 
 ## Changing Permissions
 
-Linux provides the `chmod` command to modify file permissions. Permissions can be changed either using symbolic or numeric (octal) modes.
+Linux provides the `chmod` (**change mode**) command to modify file permissions. Permissions can be changed either using **symbolic** or **numeric (octal) modes**.
+Certainly! Here's an elaboration on **symbolic mode** for changing file permissions using the `chmod` command:
 
-### Symbolic Mode:
+---
 
-In symbolic mode, you can assign or remove permissions using the following syntax:
+### Symbolic Mode Permissions
 
+In **symbolic mode**, you can modify file or directory permissions in a human-readable format. The symbolic notation allows you to specify **who** the change applies to, **what action** to perform, and **which permissions** to apply or remove.
+
+#### Syntax
 ```bash
-chmod [user][operation][permissions] [file]
+$ chmod [user][operation][permissions] [file]
 ```
 
-Where:
-- `[user]` is one of `u` (user), `g` (group), or `o` (others).
-- `[operation]` is either `+` (add), `-` (remove), or `=` (set exactly).
-- `[permissions]` are `r`, `w`, `x`.
+#### Components
+1. **[user]:** Specifies which set of users the change applies to:
+   - `u`: The owner of the file (user).
+   - `g`: The group associated with the file.
+   - `o`: All other users (others).
+   - `a`: All users (shorthand for `u`, `g`, and `o`).
 
-#### Examples:
-- Add execute permission for the user:
-  ```bash
-  chmod u+x myscript.sh
-  ```
-- Remove write permission for the group:
-  ```bash
-  chmod g-w myscript.sh
-  ```
-- Set read-only permission for others:
-  ```bash
-  chmod o=r file.txt
-  ```
+2. **[operation]:** Defines what action to take:
+   - `+`: Add the specified permissions.
+   - `-`: Remove the specified permissions.
+   - `=`: Set the permissions exactly as specified, overriding existing ones.
 
-### Numeric Mode:
+3. **[permissions]:** The type of access being granted or removed:
+   - `r`: Read permission (view file contents).
+   - `w`: Write permission (modify file contents).
+   - `x`: Execute permission (run the file as a program/script).
 
-In numeric (octal) mode, permissions are represented by three digits. Each digit is a sum of the permissions for user, group, and others:
-- `r = 4`
-- `w = 2`
-- `x = 1`
+---
 
-#### Permissions Table:
+#### Examples
 
-| **Permission** | **Numeric Value** |
-|----------------|-------------------|
-| `rwx`          | 7                 |
-| `rw-`          | 6                 |
-| `r-x`          | 5                 |
-| `r--`          | 4                 |
-| `-wx`          | 3                 |
-| `-w-`          | 2                 |
-| `--x`          | 1                 |
-| `---`          | 0                 |
-
-#### Examples:
-- Give the user full permissions, and the group and others read-only:
-  ```bash
-  chmod 744 myfile.txt
-  ```
-- Give the user read and write permissions, and the group and others no permissions:
-  ```bash
-  chmod 600 myfile.txt
-  ```
-
-
-
-## Decoding Permissions and Changing Modes
-
-### Understanding File Permission Strings
-
-In Linux, file permissions are displayed using the `ls -l` command, and they follow a specific format that helps you understand the file's type, owner, group, and access permissions. The format of a permissions string looks like this:
-
+##### 1. Add execute permission for the user (owner):
+```bash
+$ chmod u+x myscript.sh
 ```
--rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
+- Adds execute (`x`) permission for the file's owner (`u`).
+- After this, the owner can run the script as a program.
+
+##### 2. Remove write permission for the group:
+```bash
+$ chmod g-w myscript.sh
 ```
+- Removes write (`w`) permission for the file's group (`g`).
+- Members of the group can no longer modify the file.
 
-#### Breaking Down the Permissions String:
-
-1. **File Type**: The first character indicates the type of file.
-   - `-`: Regular file
-   - `d`: Directory
-   - `l`: Symbolic link
-   - `b`: Block special file
-   - `c`: Character special file
-   - `p`: FIFO (named pipe)
-   - `s`: Socket
-   - `?`: Unknown file type
-
-   Example: `-rw-r--r--` means it's a regular file.
-
-2. **User (Owner) Permissions**: The next three characters show the permissions for the file's owner (user).
-   - `r`: Read permission
-   - `w`: Write permission
-   - `x`: Execute permission
-   - `-`: Permission is not granted
-
-   Example: `rw-` means the owner can read and write, but cannot execute.
-
-3. **Group Permissions**: The next three characters represent the permissions for the group.
-   - Example: `r--` means the group can read the file, but cannot write or execute.
-
-4. **Others Permissions**: The last three characters represent the permissions for all others.
-   - Example: `r--` means others can read the file, but cannot write or execute.
-
-#### Example Breakdown:
+##### 3. Set read-only permission for others:
+```bash
+$ chmod o=r file.txt
 ```
-$ ls -l sales.data
--rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
+- Sets the permission for others (`o`) to read-only (`r`).
+- Removes any existing write or execute permissions for others.
+
+##### 4. Allow all users to execute a file:
+```bash
+$ chmod a+x program.sh
 ```
+- Adds execute permission for all users (`a`), including owner, group, and others.
 
-- **File type**: `-` (regular file)
-- **User (Owner)**: `rw-` (read and write)
-- **Group**: `r--` (read only)
-- **Others**: `r--` (read only)
-- **Owner**: `sri`
-- **Group**: `users`
-
-If there are extra symbols like a period (`.`) or plus sign (`+`) at the end of the string, it means that advanced access control methods (SELinux or ACLs) are in use, which are rarely seen in typical systems.
-
-#### Example with SELinux:
+##### 5. Set exact permissions for the group:
+```bash
+$ chmod g=rw myfile.txt
 ```
--rw-r--r--. 1 sri users 10400 Jun 14 09:31 sales.data
+- Sets the group (`g`) permissions to read (`r`) and write (`w`) only.
+- Removes any execute or other permissions previously set for the group.
+
+##### 6. Remove all permissions for others:
+```bash
+$ chmod o= mydoc.txt
 ```
+- Removes all permissions for others (`o`), making the file inaccessible to them.
 
-- **Trailing period (`.`)** indicates the use of SELinux security contexts.
-
-### Changing File Permissions
-
-Permissions in Linux can be modified using the `chmod` (change mode) command. There are two primary ways to specify permissions: **symbolic mode** and **numeric mode**. This section focuses on symbolic mode.
-
-#### Symbolic Mode Syntax:
-
-```
-chmod user_category operator permission file
-```
-
-Where:
-- **user_category**: Specifies who the permission applies to:
-  - `u`: User (Owner)
-  - `g`: Group
-  - `o`: Others
-  - `a`: All (user, group, and others)
-  
-- **operator**: Defines the change to apply:
-  - `+`: Add permission
-  - `-`: Remove permission
-  - `=`: Set permission explicitly (overwrite existing)
-
-- **permission**: The permission being set:
-  - `r`: Read
-  - `w`: Write
-  - `x`: Execute
-
-#### Examples:
-
-1. **Add Write Permission to Group**:
-   ```
-   chmod g+w sales.data
-   ```
-   This adds write permission for the group. The permissions string changes from:
-   ```
-   -rw-r--r--  to  -rw-rw-r-- 
-   ```
-   Now the group has both read and write permissions.
-
-2. **Remove Write Permission from Group**:
-   ```
-   chmod g-w sales.data
-   ```
-   This removes the write permission for the group. The permissions string changes from:
-   ```
-   -rw-rw-r--  to  -rw-r--r-- 
-   ```
-
-3. **Add Execute Permission to Group and Others**:
-   ```
-   chmod go+x sales.data
-   ```
-   This command adds execute permission for both the group and others. The permissions string changes from:
-   ```
-   -rw-r--r--  to  -rw-r--r-x 
-   ```
-
-4. **Set Permissions for User and Group**:
-   ```
-   chmod ug+wx sales.data
-   ```
-   This adds both write and execute permissions for the user and group. If the user already had write permission, only execute permissions are added. The permissions string changes from:
-   ```
-   -rw-r--r--  to  -rwxrwxr-- 
-   ```
-
-5. **Set Permissions Explicitly for User, Group, and Others**:
-   ```
-   chmod u=rwx,g+x,a=r file.txt
-   ```
-   This sets the permissions as follows:
-   - **User**: rwx (read, write, execute)
-   - **Group**: +x (execute)
-   - **Others**: =r (read only)
-
-   Resulting permissions string:
-   ```
-   -rwxr-xr--  (User: rwx, Group: rx, Others: r)
-   ```
-
-6. **Set Read-Only Permissions for Everyone**:
-   ```
-   chmod a=r file.txt
-   ```
-   This sets read-only permissions for everyone (user, group, and others). Any write or execute permissions will be removed. The permissions string changes from:
-   ```
-   -rw-r--r--  to  -r--r--r-- 
-   ```
-
-7. **Removing All Permissions for Others**:
-   ```
-   chmod o-rwx file.txt
-   ```
-   This removes all permissions (read, write, execute) for others, resulting in the following permissions:
-   ```
-   -rw-r--r--  to  -rw-------
-   ```
 
 #### Advanced Permissions Modifications:
 
-- **Multiple Changes in One Command**:
-  You can modify permissions for different categories simultaneously. For example:
-  ```
-  chmod u+x,g-w,o=r file.txt
-  ```
-  This command adds execute permission for the user, removes write permission for the group, and sets read-only permission for others. The resulting permissions string will look like:
-  ```
-  -rwxr--r-- 
-  ```
-
-- **Explicit Permission Setting**:
-  The equal sign (`=`) can be used to overwrite existing permissions for a user category:
-  ```
-  chmod u=rwx file.txt
-  ```
-  This sets the user’s permissions to read, write, and execute, overriding any existing permissions for the user category. The resulting permissions string will look like:
-  ```
-  -rwxr--r-- 
-  ```
-
-## Numeric Based Permissions
-
-In Linux, file permissions can be specified using either symbolic mode or octal (numeric) mode. While symbolic mode is more readable, numeric mode is often faster and more efficient for experienced users. Numeric mode uses octal (base-10) representation to specify file permissions based on the binary values for read, write, and execute permissions.
-
-### Octal Mode (Numeric Mode) Overview
-
-In numeric mode, each file permission is represented by a three-digit octal (base-10) number. These digits correspond to read, write, and execute permissions. The binary representation for each permission type is:
-
-- **Read (r)**: `4`
-- **Write (w)**: `2`
-- **Execute (x)**: `1`
-
-The value for each permission type is added to calculate the numeric permission for each user category (user, group, others). Here's how the permissions break down:
-
-#### Binary and Decimal Conversion
-Permissions are represented in a 3-bit binary system, where each bit corresponds to a permission type:
-
-| **Permission Type** | **Binary** | **Decimal Value** |
-|---------------------|------------|-------------------|
-| No permissions       | `000`      | `0`               |
-| Execute only         | `001`      | `1`               |
-| Write only           | `010`      | `2`               |
-| Write and Execute    | `011`      | `3`               |
-| Read only            | `100`      | `4`               |
-| Read and Execute     | `101`      | `5`               |
-| Read and Write       | `110`      | `6`               |
-| Read, Write, Execute | `111`      | `7`               |
-
-#### Example:
-To represent `rwxr-xr--` permissions:
-- **User (owner)**: `rwx` → `7`
-- **Group**: `r-x` → `5`
-- **Others**: `r--` → `4`
-
-The corresponding octal representation is `754`, and the command to set these permissions would be:
+##### Multiple Changes in One Command:
+You can modify permissions for different categories simultaneously. For example:
 ```bash
-chmod 754 filename
+chmod u+x,g-w,o=r file.txt
+```
+This command adds execute permission for the user, removes write permission for the group, and sets read-only permission for others. The resulting permissions string will look like:
+```bash
+-rwxr--r-- 
 ```
 
-### Common Octal Permissions
+##### Explicit Permission Setting:
+The equal sign (`=`) can be used to overwrite existing permissions for a user category:
+```bash
+chmod u=rwx file.txt
+```
+This sets the user’s permissions to read, write, and execute, overriding any existing permissions for the user category. The resulting permissions string will look like:
+```bash
+-rwxr--r-- 
+```
+
+---
+
+#### Practical Usage
+
+Symbolic mode is especially helpful for fine-tuning permissions without needing to know the numeric representation (e.g., `chmod 755`). You can use it to incrementally modify permissions, such as granting temporary access to a script or restricting access to sensitive files.
+
+
+### Numeric Mode Permissions
+
+In **numeric (octal) mode**, file permissions are represented using a three-digit number, where each digit specifies the permissions for a different category of users: **owner (user)**, **group**, and **others**. Each digit is the sum of the numeric values assigned to the permissions:
+
+- `r` (read) = **4**
+- `w` (write) = **2**
+- `x` (execute) = **1**
+- No permission = **0**
+
+By adding these values together, you can represent any combination of permissions numerically.
+
+---
+
+#### Permissions Table
+
+The following table shows how the numeric values correspond to permission combinations:
+
+| **Permissions** | **Numeric Value** | **Description**                     |
+|------------------|-------------------|-------------------------------------|
+| `rwx`            | 7                 | Read, write, and execute            |
+| `rw-`            | 6                 | Read and write                      |
+| `r-x`            | 5                 | Read and execute                    |
+| `r--`            | 4                 | Read only                           |
+| `-wx`            | 3                 | Write and execute                   |
+| `-w-`            | 2                 | Write only                          |
+| `--x`            | 1                 | Execute only                        |
+| `---`            | 0                 | No permissions                      |
+
+---
+
+#### How It Works
+
+1. **Structure of Permissions**:
+   - The **first digit** applies to the file **owner**.
+   - The **second digit** applies to the **group**.
+   - The **third digit** applies to **others** (everyone else).
+
+   For example:
+   - `chmod 754` assigns:
+     - **7** (rwx): Owner has full permissions (read, write, execute).
+     - **5** (r-x): Group can read and execute, but not write.
+     - **4** (r--): Others can only read.
+
+2. **Calculating the Numeric Value**:
+   - Add the numeric values for the desired permissions.
+   - Example: `rw-` (read + write) = `4 + 2 = 6`.
+
+---
+
+#### Examples of chmod in Numeric Mode
+
+##### 1. Give the owner full permissions, and the group and others read-only:
+   ```bash
+   chmod 744 myfile.txt
+   ```
+   - **7** (rwx): Owner can read, write, and execute.
+   - **4** (r--): Group can only read.
+   - **4** (r--): Others can only read.
+
+##### 2. Give the owner read and write permissions, and no permissions to the group and others:
+   ```bash
+   chmod 600 myfile.txt
+   ```
+   - **6** (rw-): Owner can read and write.
+   - **0** (---): Group has no permissions.
+   - **0** (---): Others have no permissions.
+
+##### 3. Give everyone execute permission only:
+   ```bash
+   chmod 111 script.sh
+   ```
+   - **1** (--x): Owner can only execute.
+   - **1** (--x): Group can only execute.
+   - **1** (--x): Others can only execute.
+
+##### 4. Set permissions for a shared script:
+   ```bash
+   chmod 775 shared_script.sh
+   ```
+   - **7** (rwx): Owner can read, write, and execute.
+   - **7** (rwx): Group can read, write, and execute.
+   - **5** (r-x): Others can read and execute, but not write.
+
+##### 5. Make a file readable and writable by everyone:
+   ```bash
+   chmod 666 openfile.txt
+   ```
+   - **6** (rw-): Owner can read and write.
+   - **6** (rw-): Group can read and write.
+   - **6** (rw-): Others can read and write.
+
+##### 6. Remove all permissions (lock a file):
+   ```bash
+   chmod 000 secretfile.txt
+   ```
+   - **0** (---): Owner, group, and others have no access.
+
+#### Key Benefits of Numeric Mode
+- **Precision**: Numeric mode explicitly defines all permissions at once.
+- **Efficiency**: A single command can adjust permissions for all user categories.
+- **Control**: You can quickly lock or open a file for specific users.
+
+---
+
+#### Common Octal Permissions
 
 Here are some commonly used permission sets and their symbolic, binary, and octal representations:
 
@@ -1942,20 +2216,18 @@ Here are some commonly used permission sets and their symbolic, binary, and octa
 #### Example:
 To set the permission `-rwxr-xr-x` for a file, use:
 ```bash
-chmod 755 filename
+$ chmod 755 filename
+```
+**Set permissions to `700`**: Only the owner can read, write, and execute the file; others have no access.
+```bash
+chmod 700 confidential_file
+```
+**Set permissions to `644`**: The owner can read and write the file, while everyone else can only read it.
+```bash
+chmod 644 public_document
 ```
 
-#### More Examples:
-- **Set permissions to `700`**: Only the owner can read, write, and execute the file; others have no access.
-  ```bash
-  chmod 700 confidential_file
-  ```
-- **Set permissions to `644`**: The owner can read and write the file, while everyone else can only read it.
-  ```bash
-  chmod 644 public_document
-  ```
-
-### Understanding Security Risks with Permissions
+## Understanding Security Risks with Permissions
 
 It's crucial to avoid overly permissive permissions, such as `777` and `666`. These allow anyone on the system to read, write, or execute the file, which poses significant security risks. Some of the potential issues include:
 
@@ -1963,14 +2235,10 @@ It's crucial to avoid overly permissive permissions, such as `777` and `666`. Th
 - **Privilege Escalation**: Malicious users could modify a script or program, introduce harmful code, and cause it to execute when someone else runs the file.
 - **Data Destruction**: With `777` or `666` permissions, malicious or careless users can delete or corrupt important data.
 
-#### Example of Over-Permissive Permissions:
-If a script has `777` permissions, anyone on the system can modify and execute the file. This is an undesirable security practice:
-```bash
-chmod 777 risky_script
-```
-
-#### Best Practice:
-Use appropriate permissions for different users and groups. Limit access to sensitive files and make use of groups to provide controlled access. Avoid using `777` or `666` permissions unless absolutely necessary. For example, if multiple users need write access, use groups and restrict permissions for others.
+### Best Practice:
+* Use appropriate permissions for different users and groups. 
+* Limit access to sensitive files and make use of groups to provide controlled access. 
+* Avoid using `777` or `666` permissions unless absolutely necessary. For example, if multiple users need write access, use groups and restrict permissions for others.
 
 ## Working with Groups and Special Modes
 
@@ -1982,14 +2250,14 @@ When multiple users need to access and modify a file, the `chgrp` command can be
 If a file `sales.report` needs to be shared by a sales team, you can change the group ownership of the file to the `sales` group:
 
 ```bash
-chgrp sales sales.report
+$ chgrp sales sales.report
 ```
 
 #### Example 2: Setting Permissions for Group Access
 To allow the members of the `sales` group to read and write the file, while others on the system should have read-only access, set the file permissions to `664`:
 
 ```bash
-chmod 664 sales.report
+$ chmod 664 sales.report
 ```
 This translates to:
 - Owner: `rw-`
@@ -1999,7 +2267,7 @@ This translates to:
 If no access should be granted to users outside the `sales` group, set permissions to `660`:
 
 ```bash
-chmod 660 sales.report
+$ chmod 660 sales.report
 ```
 This means:
 - Owner: `rw-`
@@ -2011,8 +2279,8 @@ If you want all team members to access files from a common location, create a sh
 
 ```bash
 mkdir /usr/local/sales
-chgrp sales /usr/local/sales
-chmod 770 /usr/local/sales
+$ chgrp sales /usr/local/sales
+$ chmod 770 /usr/local/sales
 ```
 
 This gives full access to the sales team, while no access is granted to others. Permissions are:
@@ -2020,49 +2288,174 @@ This gives full access to the sales team, while no access is granted to others. 
 - Group: `rwx`
 - Others: `---`
 
-### Directory Permissions
+### Directory Permissions: An In-depth Explanation
 
-Directory permissions are often misunderstood. Incorrect directory permissions can prevent file access and execution.
+Directory permissions are critical in controlling access to files and subdirectories within the directory. While file permissions dictate how a file can be read, written, or executed, directory permissions determine how the files and subdirectories inside it are accessed, listed, or modified.
 
-#### Example 4: Checking Directory Permissions
-To check the permissions of a directory and its files, use `ls -ld` for the directory and `ls -l` for files:
+#### Understanding Directory Permissions
 
+The permissions for directories are interpreted differently compared to regular files. Here's what each permission means for a directory:
+
+| **Permission** | **Effect on Directory** |
+|----------------|-------------------------|
+| `r` (read)     | Allows viewing the names of the files and subdirectories inside the directory (e.g., `ls` command).          |
+| `w` (write)    | Allows creating, deleting, or renaming files and subdirectories within the directory.                        |
+| `x` (execute)  | Allows entering the directory (e.g., `cd` command) and accessing files or subdirectories if permissions allow. |
+
+---
+
+#### **Permission Combinations for Directories**
+
+| **Permissions** | **Effect** |
+|-----------------|------------|
+| `---`            | No access to the directory.|
+| `--x`            | Allows entering the directory but not listing its contents (you must know file names explicitly to access).   |
+| `r--`            | Allows viewing the directory's contents but not accessing files or entering the directory.                   |
+| `r-x`            | Allows viewing and accessing files, but modifications (e.g., adding or deleting files) are not allowed.      |
+| `rw-`            | Allows viewing and modifying the directory's contents but not entering it.|
+| `rwx`            | Full access: viewing, modifying, and entering the directory.|
+
+---
+
+#### Examples of Directory Permissions in Action
+
+##### 1. Checking Directory Permissions
+
+Use `ls -ld` to view the permissions of a directory:
 ```bash
 ls -ld directory/
 drwxr-xr-x 2 sri users 4096 Sep 29 22:02 directory/
+```
+
+- `drwxr-xr-x`: 
+  - `d`: Indicates it's a directory.
+  - `rwx` (user): The owner can read, write, and execute (full control).
+  - `r-x` (group): Group members can read and execute but not write.
+  - `r-x` (others): Others can read and execute but not write.
+
+Use `ls -l` to view the contents and their permissions:
+```bash
 ls -l directory/
 -rwxr--r-- 1 sri users 0 Sep 29 22:02 testprog
 ```
 
-#### Example 5: Changing Directory Permissions
-If a directory's permissions are set incorrectly (e.g., `400`), files within the directory might be inaccessible:
+---
 
+##### 2. Removing Read and Execute Permissions
+
+If you remove read (`r`) and execute (`x`) permissions for the directory, access to its contents becomes restricted:
 ```bash
-chmod 400 directory
+chmod 300 directory/
 ls -ld directory/
-dr-------- 2 sri users 4096 Sep 29 22:02 directory/
+d-wx------ 2 sri users 4096 Sep 29 22:02 directory/
 ```
 
-This restricts access to the directory, causing permission issues when trying to access files within:
+- The owner can write to the directory (e.g., delete files) but cannot list its contents or enter it.
 
+Trying to list the contents will fail:
 ```bash
-ls -l directory/
-ls: cannot access directory/testprog: Permission denied
+ls directory/
+ls: cannot open directory: Permission denied
 ```
 
-Changing the directory permissions to `500` grants the owner execute permissions:
+---
 
+##### **3. Restricting Access with No Execute Permission
+
+When the execute (`x`) permission is missing:
+```bash
+chmod 600 directory/
+ls -ld directory/
+drw------- 2 sri users 4096 Sep 29 22:02 directory/
+```
+
+- **Read-only without execute:** You can view the directory contents but cannot enter it or access individual files:
+  ```bash
+  ls directory/
+  file1 file2 file3
+  cd directory/
+  bash: cd: directory: Permission denied
+  ```
+
+---
+
+##### 4. Changing Permissions to Grant Access
+
+To allow viewing and accessing the directory contents, you need to grant both read (`r`) and execute (`x`) permissions:
 ```bash
 chmod 500 directory/
 ls -ld directory/
 dr-x------ 2 sri users 4096 Sep 29 22:02 directory/
 ```
 
-The file `testprog` can now be accessed and executed:
+- The owner can now list (`ls`) and access (`cd`) the directory but cannot modify its contents.
 
+---
+
+### **Examples of Specific Directory Permission Scenarios**
+
+#### **Scenario 1: A Public Directory**
+To make a directory accessible to everyone without allowing modifications:
 ```bash
-directory/testprog
+chmod 755 public/
+ls -ld public/
+drwxr-xr-x 2 sri users 4096 Sep 29 22:02 public/
 ```
+- **Owner**: Full control (read, write, execute).
+- **Group and Others**: Can read and execute but not write.
+
+---
+
+#### **Scenario 2: A Private Directory**
+To make a directory private to the owner:
+```bash
+chmod 700 private/
+ls -ld private/
+drwx------ 2 sri users 4096 Sep 29 22:02 private/
+```
+- Only the owner can list, modify, and access the directory.
+
+---
+
+#### **Scenario 3: Locking a Directory**
+To lock a directory completely:
+```bash
+chmod 000 locked/
+ls -ld locked/
+d--------- 2 sri users 4096 Sep 29 22:02 locked/
+```
+- No one, including the owner, can list, access, or modify the directory without changing its permissions.
+
+---
+
+### **Common Commands for Managing Directory Permissions**
+
+1. **Grant execute permission for the owner:**
+   ```bash
+   chmod u+x directory/
+   ```
+
+2. **Remove write permission for group and others:**
+   ```bash
+   chmod go-w directory/
+   ```
+
+3. **Set permissions to read-only for all users:**
+   ```bash
+   chmod 555 directory/
+   ```
+
+4. **Restore full permissions for the owner and restrict others:**
+   ```bash
+   chmod 700 directory/
+   ```
+
+---
+
+### **Important Notes**
+- **Removing execute permission** prevents entering the directory even if read permission is granted.
+- **Removing write permission** prevents modifications to the directory but allows viewing or accessing files.
+- Always carefully manage directory permissions to avoid accidentally locking yourself out of important directories.
 
 ### Default Permissions and the File Creation Mask
 
@@ -2120,7 +2513,7 @@ To enable `setuid`:
 
 #### Example 9: Setting Setuid
 ```bash
-chmod 4755 /usr/bin/passwd
+$ chmod 4755 /usr/bin/passwd
 ```
 This enables `setuid` for the `passwd` command, allowing it to run with superuser privileges.
 
@@ -2133,13 +2526,13 @@ To enable `setgid`:
 
 #### Example 10: Setting Setgid
 ```bash
-chmod 2755 /usr/bin/locate
+$ chmod 2755 /usr/bin/locate
 ```
 This enables `setgid` on the `locate` command.
 
 #### Example 11: Setting Setgid on a Directory
 ```bash
-chmod 2770 /usr/local/sales
+$ chmod 2770 /usr/local/sales
 ```
 This ensures that all new files created in `/usr/local/sales` will inherit the `sales` group.
 
@@ -2152,12 +2545,9 @@ To enable the sticky bit:
 
 #### Example 12: Setting the Sticky Bit
 ```bash
-chmod 1777 /tmp
+$ chmod 1777 /tmp
 ```
 This allows everyone to write to `/tmp`, but only the owner of a file can delete it.
-
-
-
 
 ## Summary of Permissions Commands
 
@@ -2211,29 +2601,64 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 
 ### `cat` - Concatenate and Display the Entire File
 
-The `cat` command displays the entire contents of a file. It is useful for smaller files but can be overwhelming for large files.
+The `cat` command displays the entire contents of a file in the command prompt itself. It is useful for smaller files but can be overwhelming for large files.
 
-**Example**:
 ```bash
-cat goals.txt
+# Syntax
+$ cat [file]
+
+# Example
+sri@envy:~/Documents/Linux
+$ cat README.md 
+# Table of Contents
+* [Introduction](#Introduction)
+* [Linux Directory Structure](#Linux-Directory-Structure)
+  * [Summary](#Summary-of-Linux-Directory-Structure)
+* [Command Line Interface](#Command-Line-Interface)
+* [Basic Commands](#Basic-Commands)
+...
 ```
-This will display the full content of `goals.txt`.
 
 ---
 
 ### `more` - Browse Through a Text File
 
-The `more` command allows you to view a file one page at a time, which is useful for larger files.
+The more command is a **terminal pager program used**. It allows users to view the contents of a file one screen at a time, making it easier to read long files that don't fit within the terminal window. more is typically used for viewing large text files without loading the entire file into memory at once.
 
-- **Spacebar**: Move forward by one page.
-- **Enter**: Move forward by one line.
-- **q**: Quit viewing the file.
-
-**Example**:
+To open a file using `more`:
 ```bash
-more goals.txt
+# Syntax
+$ more file_name
+
+# Example
+sri@envy:~/Documents/Linux
+$ more README.md 
 ```
-This will display the content of `goals.txt`, allowing you to scroll through it.
+Once you enter `more` pager program, you can use the following commands to navigate around:
+
+| **Key** | **Action** |
+|---------|------------|
+| `<space>`| Display next k lines of text (current screen size)            |
+| `z`| Display next k lines of text (current screen size)            |
+| `<return>`| Display next k lines of text (1 line)                         |
+| `d` or `ctrl-D`| Scroll k lines (current scroll size, initially 11)            |
+| `q` or `Q` or `<interrupt>`  | Exit from more|
+| `s`| Skip forward k lines of text (1 line)                         |
+| `f`| Skip forward k screenfuls of text (1 screenful)               |
+| `b` or `ctrl-B`| Skip backwards k screenfuls of text (1 screenful)             |
+| `'`| Go to place where previous search started                     |
+| `=`| Display current line number                                    |
+| `/<regular expression>`      | Search for kth occurrence of regular expression (1 occurrence) |
+| `n`| Search for kth occurrence of last regular expression (1 occurrence) |
+| `!<cmd>` or `:!<cmd>`| Execute `<cmd>` in a subshell                                  |
+| `v`                          | Start up '/usr/bin/vi' at current line|
+| `ctrl-L`                     | Redraw screen|
+| `:n`                         | Go to kth next file (1 file)|
+| `:p`| Go to kth previous file (1 file)                               |
+| `:f`| Display current file name and line number                      |
+| `.`| Repeat previous command                                        |
+
+`more` is often contrasted with the less command, which offers more advanced features like scrolling backward and forward through a file more efficiently.
 
 ---
 
@@ -2241,19 +2666,52 @@ This will display the content of `goals.txt`, allowing you to scroll through it.
 
 The `less` command is similar to `more`, but it offers additional functionality like backward navigation and searching.
 
-- **Spacebar**: Move forward by one page.
-- **b**: Move backward by one page.
-- **/pattern**: Search for a specific pattern forward in the file.
-  - **`n`** to go to find
-  - **`N`** to go to previous find
-- **?pattern**: Search for a specific pattern backward in the file.
-- **F**: Follow the file as it grows.
-
-**Example**:
+To open a file using `less`:
 ```bash
-less goals.txt
+# Syntax
+$ less file_name
+
+# Example
+sri@envy:~/Documents/Linux
+$ less README.md 
 ```
 You can scroll up and down through the file, search for patterns, and use other advanced features like following the file.
+
+Here’s a table summarizing the useful `less` commands:
+
+| **Command**                  | **Description**                                                       |
+|------------------------------|-----------------------------------------------------------------------|
+| **Space** or **f**            | Move forward one screen.                                              |
+| **b** or **Ctrl-B**           | Move backward one screen.                                             |
+| **Enter** or **j**            | Move forward one line.                                                |
+| **k**                         | Move backward one line.                                               |
+| **g**                         | Go to the beginning of the file.                                      |
+| **G**                         | Go to the end of the file.                                            |
+| **<number>g**                 | Go to a specific line number (e.g., `50g` goes to line 50).           |
+| **/pattern**                  | Search forward for the pattern.                                       |
+| **?pattern**                  | Search backward for the pattern.                                      |
+| **n**                         | Go to the next occurrence of the search pattern.                      |
+| **N**                         | Go to the previous occurrence of the search pattern.                  |
+| **/pattern[Enter]**           | Find the next match of the pattern.                                   |
+| **?pattern[Enter]**           | Find the previous match of the pattern.                               |
+| **{**                         | Jump to the previous search result.                                   |
+| **}**                         | Jump to the next search result.                                       |
+| **&pattern**                  | Show only the lines matching the given pattern.                       |
+| **Ctrl-F**                    | Scroll forward by one screen.                                         |
+| **Ctrl-B**                    | Scroll backward by one screen.                                        |
+| **v**                         | Open the file in the `vi` editor at the current location.             |
+| **=**                         | Display the current line number.                                      |
+| **:f**                        | Show the current filename and line number.                            |
+| **:p**                        | Display the previous file (when viewing multiple files).              |
+| **:n**                        | Display the next file (when viewing multiple files).                  |
+| **q** or **Ctrl-C**           | Exit `less`.                                                          |
+| **Ctrl-D**                    | Scroll down half a screen.                                            |
+| **Ctrl-U**                    | Scroll up half a screen.                                              |
+| **h**                         | Show the help screen with all the commands.                           |
+| **m**                         | Mark the current location.                                            |
+| **`**                         | Jump back to the last marked location.                                |
+| **s**                         | Sort the file (requires sorting support in `less`).                   |
+  
 
 ### Philosophy: *less is more*
 
@@ -2263,15 +2721,36 @@ You can scroll up and down through the file, search for patterns, and use other 
 
 The `head` command shows the first 10 lines of a file by default. You can also specify how many lines to display using `-N`, where `N` is the number of lines.
 
-**Example**:
 ```bash
-$ head goals.txt
-```
-This will display the first 10 lines of `goals.txt`.
+# Syntax
+$ head file_name
+$ head -N file_name
 
-To display only the first line of a file:
-```bash
-$ head -1 goals.txt
+# Examples
+sri@envy:~/Documents/Linux
+$ head README.md 
+# Table of Contents
+* [Introduction](#Introduction)
+* [Linux Directory Structure](#Linux-Directory-Structure)
+  * [Summary](#Summary-of-Linux-Directory-Structure)
+* [Command Line Interface](#Command-Line-Interface)
+* [Basic Commands](#Basic-Commands)
+  * [Summary](#Summary-of-Basic-Commands)
+* [Directories](#Directories)
+  * [Summary](#Summary-of-Directory-Commands)
+* [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
+sri@envy:~/Documents/Linux
+$ 
+
+sri@envy:~/Documents/Linux
+$ head -5 README.md 
+# Table of Contents
+* [Introduction](#Introduction)
+* [Linux Directory Structure](#Linux-Directory-Structure)
+  * [Summary](#Summary-of-Linux-Directory-Structure)
+* [Command Line Interface](#Command-Line-Interface)
+sri@envy:~/Documents/Linux
+$ 
 ```
 
 ---
@@ -2280,15 +2759,34 @@ $ head -1 goals.txt
 
 The `tail` command shows the last 10 lines of a file by default. You can specify the number of lines with `-N`, where `N` is the number of lines you want to display.
 
-**Example**:
 ```bash
-$ tail goals.txt
-```
-This will display the last 10 lines of `goals.txt`.
+# Syntax
+$ tail file_name
+$ tail -N file_name
 
-To display only the last line of a file:
-```bash
-$ tail -1 goals.txt
+# Examples
+sri@envy:~/Documents/Linux
+$ tail README.md 
+| `sudo apt full-upgrade`| Perform an upgrade with more aggressive handlin...
+| `dpkg -l`| List all installed packages.| `dpkg -l`|
+| `dpkg -S /path/to/file`| Find the package that provides a specific file...
+| `sudo dpkg -i package.deb`| Install a package from a `.deb` file.| ...
+| Install a `.deb` package| Install a `.deb` file.| `sudo dpkg -i package.deb`|
+| `dpkg -l`| List all installed packages.| `dpkg -l`|
+| Fix broken dependencies| Fix unmet dependencies after installing a  ...
+| Install a `.deb` package| Install a `.deb` file.| `sudo dpkg -i package.deb`|
+| List installed files for a package | View which files a package has ...
+| Find a package by file | Identify which package install ...
+
+sri@envy:~/Documents/Linux
+$ tail -5 README.md 
+| **Example Workflow with `dpkg`** | **Description**| **Command**|
+| Install a `.deb` package| Install a `.deb` file.    | `sudo dpkg -i package.deb`|
+| Fix broken dependencies| Fix unmet dependencies after installing a `.deb` package.    | `sudo apt install -f`|
+| List installed files for a package | View which files a package has installed.| `dpkg -L <package>`  |
+| Find a package by file | Identify which package installed a specific file.  | `dpkg -S /path/to/file`   |sri@envy:~/Documents/Linux
+$ 
+
 ```
 
 ---
@@ -2297,212 +2795,225 @@ $ tail -1 goals.txt
 
 The `-f` flag with `tail` allows you to view a file as it is updated in real time. This is particularly useful for log files.
 
-**Example**:
 ```bash
-$ tail -f /var/log/syslog
+# Syntax
+$ tail -f file_name
+
+# Example
+sri@envy:~/Documents/Linux
+$ tail -f /var/log/syslog 
+2025-01-01T15:21:43.811326+05:30 envy tracker-miner-fs-3[28389]: (tracker-extract-3:28389): GLib-GIO-WARNING **: 15:21:43.810: Error creating IO channel for /proc/self/mountinfo: Invalid argument (g-io-error-quark, 13)
+2025-01-01T15:25:01.297920+05:30 envy CRON[28505]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+2025-01-01T15:29:33.800610+05:30 envy tracker-miner-fs-3[28786]: (tracker-extract-3:28786): GLib-GIO-WARNING **: 15:29:33.799: Error creating IO channel for /proc/self/mountinfo: Invalid argument (g-io-error-quark, 13)
+2025-01-01T15:30:01.255458+05:30 envy CRON[28803]: (root) CMD ([ -x /etc/init.d/anacron ] && if [ ! -d /run/systemd/system ]; then /usr/sbin/invoke-rc.d anacron start >/dev/null; fi)
+2025-01-01T15:30:26.021481+05:30 envy systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+2025-01-01T15:30:26.029645+05:30 envy systemd[1]: sysstat-collect.service: Deactivated successfully.
+2025-01-01T15:30:26.029955+05:30 envy systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
+2025-01-01T15:33:26.086757+05:30 envy systemd[1]: anacron.service - Run anacron jobs was skipped because of an unmet condition check (ConditionACPower=true).
+2025-01-01T15:35:01.270010+05:30 envy CRON[29102]: (root) CMD (command -v debian-sa1 > /dev/null && debian-sa1 1 1)
+2025-01-01T15:37:18.046559+05:30 envy systemd-timesyncd[687]: Contacted time server [2620:2d:4000:1::3f]:123 (ntp.ubuntu.com).
+
 ```
 This will show the contents of `syslog` as it gets updated.
 
-Alternatively, after opening a file with `less`, you can type `F` to start following the file as it grows.
+**Alternatively**, after opening a file with **`less`**, you can **type `F`** to start following the file as it grows.
 
-**Example**:
 ```bash
-less goals.txt
+# Syntax
+$ less file # Press 'f' after opening
+
+# Example
+2025-01-01T15:37:18.046559+05:30 envy systemd-timesyncd[687]: Contacted time server [2620:2d:4000:1::3f]:123 (ntp.ubuntu.com).
+2025-01-01T15:39:39.969450+05:30 envy wpa_supplicant[1001]: wlo1: CTRL-EVENT-SIGNAL-CHANGE above=1 signal=-54 noise=9999 txrate=292500
+2025-01-01T15:40:00.803620+05:30 envy wpa_supplicant[1001]: wlo1: WPA: Group rekeying completed with d8:07:b6:ec:8c:3f [GTK=CCMP]
+2025-01-01T15:40:13.262665+05:30 envy systemd[1]: Starting sysstat-collect.service - system activity accounting tool...
+2025-01-01T15:40:13.316440+05:30 envy systemd[1]: sysstat-collect.service: Deactivated successfully.
+2025-01-01T15:40:13.316630+05:30 envy systemd[1]: Finished sysstat-collect.service - system activity accounting tool.
+
+# below line is the status bar
+Waiting for data... (interrupt to abort)
 ```
-Then, type `F` to follow the file in real-time.
 
 ## Summary of Viewing files
 
-| **Command**          | **Description**                                                                            | **Example**                                   |
-|----------------------|--------------------------------------------------------------------------------------------|-----------------------------------------------|
-| `cat [file]`         | Displays the entire contents of a file. Useful for smaller files.                          | `cat goals.txt`                              |
-| `more [file]`        | Displays a file one page at a time. Useful for larger files.                               | `more goals.txt`                             |
-| `less [file]`        | Allows backward navigation and searching within a file.                                   | `less goals.txt`                             |
-| `head [file]`        | Displays the first 10 lines of a file.                                                     | `head goals.txt`                             |
-| `head -N [file]`     | Displays the first N lines of a file.                                                      | `head -5 goals.txt`                          |
-| `tail [file]`        | Displays the last 10 lines of a file.                                                      | `tail goals.txt`                             |
-| `tail -N [file]`     | Displays the last N lines of a file.                                                       | `tail -5 goals.txt`                          |
-| `tail -f [file]`     | Displays the last lines of a file and follows it as it grows (useful for logs).           | `tail -f /var/log/syslog`                    |
-| `less [file]` + `F`  | Follow a file as it grows in real-time within `less`.                                      | `less goals.txt` then type `F`               |
+| **Command**| **Description**| **Example**|
+|------------|----------------|------------|
+| `cat [file]`| Displays the entire contents of a file. Useful for smaller files.| `cat goals.txt`|
+| `more [file]`| Displays a file one page at a time. Useful for larger files.| `more goals.txt`|
+| `less [file]`| Allows backward navigation and searching within a file.| `less goals.txt`|
+| `head [file]`| Displays the first 10 lines of a file.| `head goals.txt`|
+| `head -N [file]`| Displays the first N lines of a file.| `head -5 goals.txt`|
+| `tail [file]`| Displays the last 10 lines of a file.| `tail goals.txt`|
+| `tail -N [file]`| Displays the last N lines of a file.| `tail -5 goals.txt`|
+| `tail -f [file]`| Displays the last lines of a file and follows it as it grows (useful for logs).| `tail -f /var/log/syslog`|
+| `less [file]` + `F`  | Follow a file as it grows in real-time within `less`.| `less goals.txt` then type `F`|
+
+---
+Here’s a refined and well-structured version of the explanation for a better flow:
 
 ---
 
-## The Vim Editor
+# The Vim Editor
 
-Vim is a highly powerful and efficient text editor that is often used in Linux and Unix systems. It is an improvement on the original `vi` editor, adding advanced features such as syntax highlighting, multi-level undo/redo, network file editing, and screen splitting. Vim is often available by default on many Linux distributions, and when you run `vi`, you are usually running Vim.
+Vim is a powerful and versatile text editor widely used in Linux and Unix systems. It is an enhanced version of the `vi` editor, offering advanced features like syntax highlighting, multi-level undo/redo, network file editing, and screen splitting. When you run `vi` on many systems, you are likely using Vim.
 
-Vim's main feature is its use of different **modes** to manage interaction with the file, providing a powerful and efficient way to navigate and edit text.
+The core strength of Vim lies in its use of **modes**, which allow for efficient and intuitive navigation, editing, and command execution.
 
-### Modes in Vim
+---
 
-#### 1. Command Mode
+## Understanding Vim Modes
 
-Vim starts in **Command Mode**, where keystrokes are interpreted as commands, not text input. In this mode, you can navigate, search, delete, copy, paste, and perform many other actions without directly typing into the file.
+Vim operates in various modes, each designed for specific tasks:
 
-- **Return to Command Mode**: Press `Esc` at any time.
+### 1. Command Mode
+Vim starts in **Command Mode**, where every keystroke is interpreted as a command rather than input text. In this mode, you can navigate, delete, copy, paste, and perform many editing actions.
 
-**Navigation Keys in Command Mode**:
-| Action                              | Key  |
-|-------------------------------------|------|
-| Move up one line                    | `k`  |
-| Move down one line                  | `j`  |
-| Move left one character             | `h`  |
-| Move right one character            | `l`  |
-| Move right one word                 | `w`  |
-| Move left one word                  | `b`  |
-| Move to the beginning of the line   | `^`  |
-| Move to the end of the line         | `$`  |
-| Move to the beginning of the file   | `gg` |
-| Move to the end of the file         | `G`  |
-
-**Example**:
-- To move the cursor 3 lines down, type `3j`.
-- To move to the start of the file, type `gg`.
-- To move to the end of the file, type `G`.
-
-#### 2. Insert Mode
-
-In **Insert Mode**, you can type text into the file. To enter Insert Mode from Command Mode, press:
-- `i` to insert at the current position.
-- `I` to insert at the beginning of the line.
-- `a` to append text after the cursor.
-- `A` to append at the end of the line.
-
-Once you have finished typing, press `Esc` to return to Command Mode.
-
-**Example**:
-- Press `i` to enter Insert Mode at the current cursor position and start typing.
-- Press `A` to start typing at the end of the line.
-
-#### 3. Line Mode
-
-Line Mode (also called Command Line Mode) is accessed from Command Mode by typing `:`. In Line Mode, you can issue commands to save, quit, replace text, and perform some forms of navigation.
-
-| Action                             | Key   |
-|------------------------------------|-------|
-| Save the file                      | `:w`  |
-| Save the file even if permissions are not set | `:w!` |
-| Quit the editor                    | `:q`  |
-| Quit without saving changes        | `:q!` |
-| Save and quit                      | `:wq` or `:x` |
-| Go to line `n`                     | `:n`  |
-| Go to the last line of the file    | `:$`  |
-| Enable line numbers                | `:set nu` |
-| Disable line numbers               | `:set nonu` |
-| Access help documentation          | `:help` |
+#### Key Features in Command Mode:
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Move up one line                   | `k`         |
+| Move down one line                 | `j`         |
+| Move left one character            | `h`         |
+| Move right one character           | `l`         |
+| Move right one word                | `w`         |
+| Move left one word                 | `b`         |
+| Move to the beginning of the line  | `^`         |
+| Move to the end of the line        | `$`         |
+| Move to the beginning of the file  | `gg`        |
+| Move to the end of the file        | `G`         |
 
 **Examples**:
-- To save a file, type `:w`.
-- To quit Vim, type `:q`.
-- To go to line 20, type `:20`.
-- To enable line numbering, type `:set nu`.
+- Move 3 lines down: `3j`
+- Go to the start of the file: `gg`
+- Go to the end of the file: `G`
+
+---
+
+### 2. Insert Mode
+Insert Mode allows you to input text directly into the file. You can enter Insert Mode from Command Mode using the following keys:
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Insert at the current position     | `i`         |
+| Insert at the beginning of the line | `I`        |
+| Append after the current position  | `a`         |
+| Append at the end of the line      | `A`         |
+
+Once you’re done typing, press `Esc` to return to Command Mode.
+
+**Examples**:
+- Start typing at the current cursor: `i`
+- Append text to the end of the line: `A`
+
+---
+
+### 3. Line Mode (Command Line Mode)
+Line Mode is accessed by typing `:` in Command Mode. Here, you can execute commands for saving, quitting, searching, and more.
+
+#### Common Commands in Line Mode:
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Save the file                      | `:w`        |
+| Quit the editor                    | `:q`        |
+| Save and quit                      | `:wq` or `:x` |
+| Quit without saving                | `:q!`       |
+| Go to line `n`                     | `:n`        |
+| Enable line numbers                | `:set nu`   |
+| Disable line numbers               | `:set nonu` |
+| Access help                        | `:help`     |
+
+**Examples**:
+- Save the file: `:w`
+- Quit without saving changes: `:q!`
+- Jump to line 20: `:20`
+- Enable line numbering: `:set nu`
+
+---
+
+## Editing Commands in Command Mode
+
+### 1. Deleting Text
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Delete a character                 | `x`         |
+| Delete a word                      | `dw`        |
+| Delete a line                      | `dd`        |
+| Delete from cursor to line end     | `D`         |
+
+**Examples**:
+- Delete a character: `x`
+- Delete a word: `dw`
+- Delete an entire line: `dd`
+
+---
+
+### 2. Changing Text
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Replace the current character      | `r`         |
+| Change the current word            | `cw`        |
+| Change the current line            | `cc`        |
+| Change to the line's end           | `c$`        |
+
+**Examples**:
+- Replace a character with `d`: `rd`
+- Change a word: `cw`, then type the new word.
+
+---
+
+### 3. Copying and Pasting Text
+Vim uses the `yank` command to copy and `p` to paste.
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Yank the current line              | `yy`        |
+| Yank a word                        | `yw`        |
+| Paste the yanked text              | `p`         |
+
+**Examples**:
+- Yank a line: `yy`
+- Paste it below the current line: `p`
+
+---
+
+### 4. Undo and Redo
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Undo the last change               | `u`         |
+| Redo the last undone change        | `Ctrl + r`  |
+
+**Examples**:
+- Undo: `u`
+- Redo: `Ctrl + r`
+
+---
+
+### 5. Searching in Vim
+Search for patterns in the text efficiently.
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Search forward for a pattern       | `/pattern`  |
+| Search backward for a pattern      | `?pattern`  |
+| Move to the next occurrence        | `n`         |
+| Move to the previous occurrence    | `N`         |
+
+**Examples**:
+- Search for "example": `/example`
+- Search backward for "test": `?test`
+
+---
+
+## Advanced Actions
 
 ### Repeating Commands
+Many commands can be repeated by prefixing them with a number.
+- Delete 5 lines: `5dd`
+- Insert "Hello" 10 times: `10iHello`, then press `Esc`.
 
-In Vim, many commands can be repeated by prefixing them with a number. For example:
-- To move down three lines, type `3j`.
-- To insert the word "Hello" twenty times, type `20iHello` and press `Esc`.
+---
 
-**Example**:
-- To delete 5 lines, type `5dd`.
-
-### Additional Command Mode Actions
-
-Vim provides a wide range of commands for modifying and managing text efficiently.
-
-#### Deleting Text
-
-| Action                             | Key  |
-|------------------------------------|------|
-| Delete a character                 | `x`  |
-| Delete a word                      | `dw` |
-| Delete a line                      | `dd` |
-| Delete from the current position to the end of the line | `D` |
-
-**Examples**:
-- To delete a single character, move the cursor over it and press `x`.
-- To delete a word, place the cursor at the beginning of the word and press `dw`.
-- To delete an entire line, press `dd`.
-
-#### Changing Text
-
-| Action                             | Key  |
-|------------------------------------|------|
-| Replace the current character      | `r`  |
-| Change the current word            | `cw` |
-| Change the current line            | `cc` |
-| Change from the current position to the end of the line | `c$` |
-
-**Examples**:
-- To replace the current character with `d`, type `rd`.
-- To change the current word, press `cw` and type the new word.
-- To change the entire line, type `cc` and then type the new content.
-
-#### Copying and Pasting Text
-
-Vim's `yank` command allows you to copy text, and the `p` command allows you to paste it.
-
-| Action                             | Key  |
-|------------------------------------|------|
-| Yank (copy) the current line       | `yy` |
-| Yank a word                        | `yw` |
-| Paste the most recent yanked text  | `p`  |
-
-**Examples**:
-- To copy (yank) the current line, type `yy`.
-- To paste the copied line, type `p`.
-
-#### Undo and Redo
-
-Vim allows you to undo and redo changes.
-
-| Action                             | Key       |
-|------------------------------------|-----------|
-| Undo the last change               | `u`       |
-| Redo the last undone change        | `Ctrl + r`|
-
-**Examples**:
-- To undo the last change, type `u`.
-- To redo the undone change, press `Ctrl + r`.
-
-#### Searching in Vim
-
-You can search for patterns within the file in Vim.
-
-| Action                             | Key              |
-|------------------------------------|------------------|
-| Start a forward search for `<pattern>` | `/pattern`       |
-| Start a reverse search for `<pattern>` | `?pattern`      |
-
-**Examples**:
-- To search for the word "hello", type `/hello` and press `Enter`.
-- To search backward for "hello", type `?hello` and press `Enter`.
-
-#### Case Changing
-
-Vim allows you to change the case of letters.
-
-| Action                             | Key  |
-|------------------------------------|------|
-| Reverse the case of the current character | `~`  |
-
-**Example**:
-- To change the case of the current character, type `~`.
-
-#### Other Useful Commands
-
-| Action                             | Key  |
-|------------------------------------|------|
-| Move the cursor to the next word   | `w`  |
-| Move the cursor to the previous word | `b` |
-| Move the cursor to the beginning of the line | `^` |
-| Move the cursor to the end of the line | `$` |
-| Move the cursor to the next match of a search | `n` |
-| Move the cursor to the previous match of a search | `N` |
-
-**Example**:
-- To move to the next word, type `w`.
-- To move to the previous word, type `b`.
+## Case Manipulation
+| **Action**                        | **Command** |
+|------------------------------------|-------------|
+| Toggle case of the current character | `~`         |
 
 ---
 
@@ -2565,62 +3076,161 @@ Vim allows you to change the case of letters.
 
 ## Deleting Files and Directories
 
-The `rm` command is used to remove files and directories. It is a powerful tool, and with great power comes great responsibility, so it is important to understand its options thoroughly.
+The `rm` command is used to remove files and directories. 
 
 ### Basic Usage
 
-- **Remove a file**:
-  ```bash
-  rm file
-  ```
-  This command will delete the specified file. For example:
-  ```bash
-  rm test.txt
-  ```
-  This will delete the file `test.txt` in the current directory.
+#### Remove a file:
+```bash
+# Syntax
+rm file
 
-- **Remove a directory**:
-  The `-r` option is required to remove a directory recursively, including its contents (files and subdirectories).
-  ```bash
-  rm -r directory
-  ```
-  Example:
-  ```bash
-  rm -r my_folder
-  ```
-  This command deletes the directory `my_folder` and all of its contents.
+# Example
+sri@envy:~/Documents/Linux
+$ rm temp_file 
+sri@envy:~/Documents/Linux
+$ 
+```
 
-- **Force remove a file**:
-  The `-f` option forces the removal of a file without prompting for confirmation, even if the file is write-protected.
-  ```bash
-  rm -f file
-  ```
-  Example:
-  ```bash
-  rm -f old_backup.txt
-  ```
-  This will remove `old_backup.txt` without asking for confirmation.
+#### Remove a directory:
+The `-r` option is **required** to remove a directory. The option `-r` recursively removes the contents (files and subdirectories).
+```bash
+# Syntax
+rm -r file_or_directory
+
+# Example
+sri@envy:~/Documents/Linux
+$ ls
+empty_dir  Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~/Documents/Linux
+$ rm -r empty_dir/
+sri@envy:~/Documents/Linux
+$ 
+```
+
+
+#### **Force remove a file or directory**:
+The `-f` option forces the removal of a file or directory **without prompting for confirmation**, even if the file is write-protected.
+```bash
+# Syntax
+rm -rf file_or_directory
+
+# Example
+sri@envy:~/Documents/Linux
+$ touch write_protected_file
+# Creating a touch protected file
+sri@envy:~/Documents/Linux
+$ chmod 444 write_protected_file 
+sri@envy:~/Documents/Linux
+$ rm write_protected_file 
+rm: remove write-protected regular empty file 'write_protected_file'? ^C
+sri@envy:~/Documents/Linux
+$ rm -f write_protected_file 
+sri@envy:~/Documents/Linux
+$ 
+
+```
 
 ### Using Wildcards with `rm`
 
 Wildcards are useful for matching multiple files or directories at once.
 
-- **Asterisk (`*`)**: Matches any string of characters, including none.
-  ```bash
-  rm *.txt
-  ```
-  This command deletes all `.txt` files in the current directory.
+#### Asterisk (`*`): 
+Matches any string of characters, including none.
+```bash
+# Syntax
+$ rm *.txt
 
-- **Question mark (`?`)**: Matches exactly one character.
-  ```bash
-  rm file?.txt
-  ```
-  This command deletes files like `file1.txt`, `file2.txt`, but not `file10.txt`.
+# Example:
+sri@envy:~/Documents/Linux
+$ touch a.txt b.txt c.txt
+sri@envy:~/Documents/Linux
+$ ls
+a.txt  c.txt                                              Linux_Succinctly.pdf
+b.txt  Linux_command_line_for_you_and_me_Release_0.1.pdf  README.md
+sri@envy:~/Documents/Linux
+$ rm *.txt
+sri@envy:~/Documents/Linux
+$ ls
+Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~/Documents/Linux
+$ 
+```
 
-- **Hidden files**: Files and directories that begin with a period (`.`) are considered hidden. To remove hidden files, you need to specify the period in your search pattern.
-  ```bash
-  rm .hidden_file
-  ```
+Another example, deleting files and folders: 
+```bash
+sri@envy:~/Desktop
+$ ls
+adir  afile  bfile
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  afile  bfile
+
+./adir:
+afile
+sri@envy:~/Desktop
+$ rm * -r
+sri@envy:~/Desktop
+$ ls -R
+.:
+sri@envy:~/Desktop
+$ 
+
+```
+
+#### Question mark (`?`): 
+Matches exactly one character.
+```bash
+# Syntax
+$ rm file?.txt
+
+# Example
+sri@envy:~/Documents/Linux
+$ touch a.txt b.txt cc.txt
+sri@envy:~/Documents/Linux
+$ ls
+a.txt  cc.txt                                             Linux_Succinctly.pdf
+b.txt  Linux_command_line_for_you_and_me_Release_0.1.pdf  README.md
+sri@envy:~/Documents/Linux
+$ rm ?.txt
+sri@envy:~/Documents/Linux
+$ ls
+cc.txt  Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~/Documents/Linux
+$ 
+```
+
+#### Hidden files: 
+Files and directories that begin with a period (`.`) are considered hidden. To remove hidden files, **you need to specify the period in your search pattern**. The wild card character don't include hidden files unless explicity mentioned. 
+
+```bash
+# Syntax
+$ rm .hidden_file_pattern
+
+# Example
+sri@envy:~/Documents/Linux
+$ touch .a.txt .b.txt
+sri@envy:~/Documents/Linux
+$ ls -a
+.   .a.txt  .git                                               Linux_Succinctly.pdf
+..  .b.txt  Linux_command_line_for_you_and_me_Release_0.1.pdf  README.md
+sri@envy:~/Documents/Linux
+$ rm *.txt
+rm: cannot remove '*.txt': No such file or directory
+sri@envy:~/Documents/Linux
+$ ls -a
+.   .a.txt  .git                                               Linux_Succinctly.pdf
+..  .b.txt  Linux_command_line_for_you_and_me_Release_0.1.pdf  README.md
+sri@envy:~/Documents/Linux
+$ rm .*.txt
+sri@envy:~/Documents/Linux
+$ ls -a
+.   .git                                               Linux_Succinctly.pdf
+..  Linux_command_line_for_you_and_me_Release_0.1.pdf  README.md
+sri@envy:~/Documents/Linux
+$ 
+```
 
 ## Copying Files and Directories
 
@@ -2628,56 +3238,151 @@ The `cp` command is used to copy files and directories. You can create duplicate
 
 ### Basic Usage
 
-- **Copy a file**:
-  ```bash
-  cp source_file destination_file
-  ```
-  Example:
-  ```bash
-  cp document.txt backup.txt
-  ```
-  This copies the contents of `document.txt` to `backup.txt`.
+#### Copy a file:
+```bash
+# Syntax
+$ cp source_file destination_file_directory
 
-- **Copy multiple files to a directory**:
-  ```bash
-  cp source_file1 [source_fileN ...] destination_directory
-  ```
-  Example:
-  ```bash
-  cp file1.txt file2.txt /backup/
-  ```
-  This copies `file1.txt` and `file2.txt` into the `/backup/` directory.
+# Examples
+sri@envy:~/Desktop
+$ ls
+adir  afile
+sri@envy:~/Desktop
+$ cp afile bfile
+sri@envy:~/Desktop
+$ ls
+adir  afile  bfile
+sri@envy:~/Desktop
+$ diff afile bfile        # no diff
+sri@envy:~/Desktop
+$ cp afile adir
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  afile  bfile
 
-### Interactive Mode
+./adir:
+afile
+sri@envy:~/Desktop
+$ diff afile adir/afile   # no diff
+sri@envy:~/Desktop
+$ 
+```
 
-- **Interactive copy**: Use the `-i` option to **prompt before overwriting** existing files.
-  ```bash
-  cp -i source_file destination_file
-  ```
-  Example:
-  ```bash
-  cp -i file1.txt file2.txt
-  ```
-  If `file2.txt` exists, `cp` will ask if you want to overwrite it.
-  **Always try to use interactive copy**.
+#### Copy multiple files to a directory:
+```bash
+# Syntax
+$ cp source_file1 [source_fileN ...] destination_directory
+
+# Example
+sri@envy:~/Desktop
+$ ls -R
+.:
+a  b  c  dir
+
+./dir:
+sri@envy:~/Desktop
+$ cp a b c dir
+sri@envy:~/Desktop
+$ ls -R
+.:
+a  b  c  dir
+
+./dir:
+a  b  c
+sri@envy:~/Desktop
+$ 
+```
+### Interactive Copy
+
+Use the `-i` option to **prompt before overwriting** existing files.
+```bash
+# Syntax
+$ cp -i source_file destination_file_folder
+
+# Example
+sri@envy:~/Desktop
+$ ls -R
+.:
+a  b  c  dir
+
+./dir:
+a  b  c
+sri@envy:~/Desktop
+$ cp -i a b c dir 
+cp: overwrite 'dir/a'? y
+cp: overwrite 'dir/b'? n
+cp: overwrite 'dir/c'? y
+sri@envy:~/Desktop
+$ 
+
+```
+
 
 ### Copying Directories
 
-- **Copy a directory recursively**: Use the `-r` option to copy a directory and its contents.
-  ```bash
-  cp -r source_directory destination_directory
-  ```
-  Example:
-  ```bash
-  cp -r project_folder /backup/
-  ```
-  This copies the entire `project_folder` to `/backup/`.
+Use the `-r` option to copy a directory and its contents.
+```bash
+# Syntax
+$ cp -r source_directory destination_directory
 
-  If you don't use `-r` when dealing with directories, you will get error. 
-  ```bash
-  $ cp source_directory destination_directory
-  cp: -r not specified; omitting directory 'source_directory'
-  ```
+# Example 1 - copying a directory into already existing directory
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  bdir
+
+./adir:
+a  b  c
+
+./bdir:
+
+# not mentioning -r
+sri@envy:~/Desktop 
+$ cp adir/ bdir/
+cp: -r not specified; omitting directory 'adir/'
+
+# mentioning -r
+sri@envy:~/Desktop
+$ cp -r adir/ bdir/
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  bdir
+
+./adir:
+a  b  c
+
+./bdir:
+adir
+
+./bdir/adir:
+a  b  c
+
+# Example 2 - copying a directory to a new directory
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir
+
+./adir:
+a  b  c
+sri@envy:~/Desktop
+$ cp -r adir/ bdir
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  bdir
+
+./adir:
+a  b  c
+
+./bdir:
+a  b  c
+sri@envy:~/Desktop
+$ 
+
+```
 
 ## Moving and Renaming Files and Directories
 
@@ -2685,124 +3390,138 @@ The `mv` command is used to **move files and directories** from one location to 
 
 ### Basic Usage
 
-- **Move a file**:
-  ```bash
-  mv source destination
-  ```
-  Example:
-  ```bash
-  mv test.txt /home/user/backup/
-  ```
-  This moves `test.txt` to the `/home/user/backup/` directory.
+#### Move a file:
+```bash
+# Syntax
+$ mv source destination
 
-- **Move and rename a file**:
-  ```bash
-  mv old_name new_name
-  ```
-  Example:
-  ```bash
-  mv document.txt new_document.txt
-  ```
-  This renames `document.txt` to `new_document.txt`.
+# Example
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  d
 
-- **Move a file into a directory**:
-  If the destination is a directory, the file will be moved inside that directory.
-  ```bash
-  mv file1.txt /path/to/directory/
-  ```
-  Example:
-  ```bash
-  mv image.jpg /home/user/photos/
-  ```
-  This moves `image.jpg` into the `photos` directory.
+./adir:
+a  b  c
+sri@envy:~/Desktop
+$ mv d adir/
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir
+
+./adir:
+a  b  c  d
+sri@envy:~/Desktop
+$ 
+```
+
+#### Move and rename a file:
+```bash
+# Syntax
+$ mv old_name new_name
+
+# Example
+sri@envy:~/Desktop
+$ touch f
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  f
+
+./adir:
+a  b  c  d
+sri@envy:~/Desktop
+$ mv f adir/e
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir
+
+./adir:
+a  b  c  d  e
+sri@envy:~/Desktop
+$ 
+```
 
 ### Interactive Mode
 
-- **Interactive move**: The `-i` option prompts for confirmation before overwriting an existing file.
-  ```bash
-  mv -i source destination
-  ```
-  Example:
-  ```bash
-  mv -i old_document.txt new_document.txt
-  ```
-  If `new_document.txt` exists, `mv` will ask whether you want to overwrite it.
-  **Always try to use interactive move.**
+The `-i` option prompts for confirmation before overwriting an existing file.
+```bash
+# Syntax
+$ mv -i source destination
+
+# Example
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  e
+
+./adir:
+a  b  c  d  e
+sri@envy:~/Desktop
+$ mv -i e adir/
+mv: overwrite 'adir/e'? n
+sri@envy:~/Desktop
+$ 
+```
 
 ### Renaming a Directory
 
 You can use `mv` to rename a directory in the same way you would rename a file.
 
-- **Rename a directory**:
-  ```bash
-  mv old_directory_name new_directory_name
-  ```
-  Example:
-  ```bash
-  mv old_project new_project
-  ```
-  This renames the directory `old_project` to `new_project`.
+```bash
+# Syntax
+$ mv old_directory_name new_directory_name
 
-## Examples: Renaming and Moving Files
+# Example
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir
 
-Let’s take a closer look at some real-world examples.
+./adir:
+a  b  c  d  e
+sri@envy:~/Desktop
+$ mv adir bdir
+sri@envy:~/Desktop
+$ ls -R
+.:
+bdir
 
-### Example 1: Renaming and Moving a Directory
+./bdir:
+a  b  c  d  e
+sri@envy:~/Desktop
+$ 
 
-1. **Rename a directory**:
-   ```bash
-   mv 1dir 1dir-renamed
-   ```
-   This renames the directory `1dir` to `1dir-renamed`.
-
-2. **Rename a file and move it into the renamed directory**:
-   ```bash
-   mv 1file 1dir-renamed/file1
-   ```
-   This renames `1file` to `file1` and moves it into the `1dir-renamed` directory.
-
-3. **Move a file into a new directory, overwriting if necessary**:
-   ```bash
-   mv file1.txt 2file.txt
-   ```
-   This renames `file1.txt` to `2file.txt` in the current directory.
-
-4. **Move a file interactively**:
-   ```bash
-   mv -i 2file.txt file1.txt
-   ```
-   If `file1.txt` exists, this command will ask for confirmation before overwriting it.
-
----
+```
+----
 
 ## Summary of Deleting, Moving, and Renaming Files and Directories Commands
+Here's the updated table including the commands you provided:
 
-| **Command**| **Description**| **Example**|
-|------------|----------------|------------|
-| `rm file`| Remove a file.| `rm test.txt` - Removes `test.txt`.|
-| `rm -r directory`| Remove a directory recursively, including its contents (files and subdirectories).
-| `rm -r my_folder` - Removes the `my_folder` directory and all its contents.|
-| `rm -f file`| Force removal of a file without confirmation, even if the file is write-protected.| `rm -f old_backup.txt` - Forces removal of `old_backup.txt` without prompting.|
-| `rm *`| Use wildcard to match all files with the specified extension or pattern.| `rm *.txt` - Deletes all `.txt` files in the current directory.|
-| `rm ?`| Use wildcard to match a single character.| `rm file?.txt` - Deletes files like `file1.txt`, `file2.txt`, but not `file10.txt`.|
-| `rm .hidden_file`| Remove hidden files (files starting with a dot).| `rm .env` - Removes the hidden file `.env`.|
-| `cp source_file destination_file`| Copy a file to a new file.| `cp document.txt backup.txt` - Copies `document.txt` to `backup.txt`.|
-| `cp source_file1 [source_fileN ...] destination_directory` | Copy multiple files to a directory.| `cp file1.txt file2.txt /backup/` - Copies `file1.txt` and `file2.txt` to `/backup/` directory.|
-| `cp -i source_file destination_file`              | Interactive copy; prompts for confirmation if the destination file exists.| `cp -i file1.txt file2.txt` - Asks for confirmation before overwriting `file2.txt`.|
-| `cp -r source_directory destination_directory`     | Recursively copy a directory and its contents.| `cp -r project_folder /backup/` - Copies `project_folder` to `/backup/` directory.|
-| `mv source destination`| Move a file or directory to a new location, or rename it if the destination is a file.| `mv file1.txt /home/user/backup/` - Moves `file1.txt` to `/home/user/backup/` directory.|
-| `mv old_name new_name`| Rename a file or directory.| `mv old_project new_project` - Renames `old_project` to `new_project`.|
-| `mv source destination_directory`| Move a file into a directory. If the destination is a directory, the file is moved there.| `mv image.jpg /home/user/photos/` - Moves `image.jpg` to `/home/user/photos/` directory.|
-| `mv -i source destination`| Interactive move; prompts for confirmation if the destination file exists and will be overwritten.| `mv -i old_document.txt new_document.txt` - Asks for confirmation before overwriting `new_document.txt`.|
-| `mv 1dir 1dir-renamed`| Rename a directory.| `mv 1dir 1dir-renamed` - Renames `1dir` to `1dir-renamed`.|
-| `mv file1.txt 1dir-renamed/file1`| Rename a file and move it into another directory.| `mv 1file 1dir-renamed/file1` - Renames `1file` to `file1` and moves it into `1dir-renamed` directory.|
-| `mv file1.txt 2file.txt`| Rename a file without prompt (can overwrite).| `mv file1.txt 2file.txt` - Renames `file1.txt` to `2file.txt`.|
-| `mv -i 2file.txt file1.txt`| Interactive move; prompts before overwriting an existing file.| `mv -i 2file.txt file1.txt` - Prompts before overwriting `file1.txt`.|
+| **Command**                           | **Description**                                                                                     | **Example**                                                                                     |
+|---------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| `rm file`                             | Remove a file.                                                                                      | `rm test.txt` - Removes `test.txt`.                                                            |
+| `rm -r file_or_directory`             | Remove a directory or file recursively, including its contents.                                     | `rm -r my_folder` - Removes the `my_folder` directory and all its contents.                   |
+| `rm -rf file_or_directory`            | Forcefully remove a directory or file recursively without confirmation.                             | `rm -rf temp_folder` - Forces removal of `temp_folder` and its contents without prompts.       |
+| `chmod 444 write_protected_file`      | Make a file write-protected (read-only for all users).                                              | `chmod 444 my_file` - Makes `my_file` read-only.                                               |
+| `rm *.txt`                            | Use a wildcard to remove all `.txt` files in the current directory.                                 | `rm *.txt` - Deletes all `.txt` files.                                                         |
+| `rm * -r`                             | Remove all files and directories recursively in the current directory.                              | `rm * -r` - Deletes everything in the current directory recursively.                           |
+| `rm file?.txt`                        | Remove files matching a single-character wildcard pattern.                                          | `rm file?.txt` - Deletes files like `file1.txt`, `file2.txt`, but not `file10.txt`.            |
+| `rm .hidden_file_pattern`             | Remove hidden files matching a specific pattern.                                                    | `rm .myhiddenfile` - Removes the hidden file `.myhiddenfile`.                                  |
+| `rm .*.txt`                           | Remove hidden files with a `.txt` extension.                                                        | `rm .*.txt` - Deletes hidden `.txt` files.                                                     |
+| `cp source_file destination_file_directory` | Copy a file to a specific directory.                                                               | `cp report.pdf /documents/` - Copies `report.pdf` to the `/documents/` directory.              |
+| `cp source_file1 [source_fileN ...] destination_directory` | Copy multiple files to a directory.                                                               | `cp file1.txt file2.txt /backup/` - Copies `file1.txt` and `file2.txt` to `/backup/`.          |
+| `cp -i source_file destination_directory` | Copy a file interactively, prompting before overwriting.                                           | `cp -i file1.txt /backup/` - Asks for confirmation before overwriting files in `/backup/`.     |
+| `cp -r source_directory destination_directory` | Recursively copy a directory and its contents.                                                    | `cp -r project_folder /backup/` - Copies `project_folder` and its contents to `/backup/`.      |
+| `mv source destination`               | Move a file or directory to a new location.                                                        | `mv file.txt /home/user/documents/` - Moves `file.txt` to `/home/user/documents/`.             |
+| `mv old_name new_name`                | Rename a file or directory.                                                                        | `mv old_project new_project` - Renames `old_project` to `new_project`.                         |
+| `mv -i source destination`            | Move a file or directory interactively, prompting before overwriting.                              | `mv -i file.txt /home/user/documents/` - Prompts before overwriting an existing file.          |
 
 ### Notes:
-- The `-i` flag is useful for confirming file overwrites to prevent accidental deletion or overwriting.
-- The `-r` flag is necessary for copying or deleting directories and their contents recursively.
-- Wildcards (`*`, `?`) allow you to match files based on patterns, providing a powerful way to work with multiple files at once.
+- The `rm` command is powerful; **use `-rf` cautiously** as it can delete critical files/directories without confirmation.
+- The **`cp` and `mv` commands with the `-i` flag are highly recommended** to prevent accidental overwrites.
 
 ---
 
