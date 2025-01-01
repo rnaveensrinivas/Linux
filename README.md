@@ -3529,168 +3529,589 @@ Here's the updated table including the commands you provided:
 
 ## Finding Files and Directories
 
-### find Command
+### `find` Command
 The `find` command is used to recursively search for files and directories based on different criteria, such as name, size, owner, or modification time.
 
-#### Syntax:
-```
-find [path...] [expression]
+```bash 
+# Syntax
+$ find [path...] [options] [expression]
 ```
 - `path`: The directory path to start the search (defaults to the current directory if omitted).
+- `options`: based on what should we find the file.
 - `expression`: The condition used to filter the files.
 
-#### Common `find` Options and Examples:
+### `find` Options
 
-| **Command**                                   | **Description**                                             | **Example**                                                                 |
-|-----------------------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `find . -name pattern`                        | Display items whose names match a pattern (case-sensitive)   | `find . -name "*.txt"` - Finds all `.txt` files in the current directory and subdirectories. |
-| `find . -iname pattern`                       | Same as `-name`, but case-insensitive                        | `find . -iname "*.jpg"` - Finds all `.jpg` files, case-insensitive.        |
-| `find . -ls`                                  | Perform an `-ls` operation on each found item                | `find . -ls` - Lists detailed information for all files in the current directory and subdirectories. |
-| `find . -mtime number_of_days`                | Display items that are a specific number of days old         | `find . -mtime 7` - Finds files modified 7 days ago.                        |
-| `find . -size number`                         | Display items that match a size criterion                    | `find . -size +10M` - Finds files larger than 10MB.                          |
-| `find . -newer file`                          | Display items newer than a specified file                    | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
-| `find . -exec command {} \;`                   | Run a command on each found item                             | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files found.    |
+This table explains different variations of the `find` command in Linux, used to locate files and directories based on specific criteria. Here's a detailed explanation with examples:
 
-#### Combining `find` Options
-You can combine multiple expressions to refine your search. For example, to find `.txt` files modified in the last 7 days:
+---
+
+#### 1. `find . -name pattern`
+Searches for files or directories in the current directory (and subdirectories) whose names match a specific pattern. The search is case-sensitive.
+
+```bash
+# Syntax
+$ find . -name name_pattern
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~ -name a_file_in_linux_dir
+/home/sri/Documents/Linux/a_file_in_linux_dir
+sri@envy:~/Documents/Linux
+$ 
+
 ```
-find . -name "*.txt" -mtime -7
+---
+
+#### 2. `find . -iname pattern`
+Similar to `-name`, but performs a case-insensitive search.
+
+```bash
+# Syntax
+$ find . -iname name_pattern
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~ -name a_FiLe_iN_lInUx_DiR
+sri@envy:~/Documents/Linux
+$ find ~ -iname a_FiLe_iN_lInUx_DiR
+/home/sri/Documents/Linux/a_file_in_linux_dir
+sri@envy:~/Documents/Linux
+$ 
+```
+---
+
+#### 3. `find . -ls`
+Executes an `ls` command for every item found, displaying detailed information like permissions, size, and timestamps.
+```bash
+# Syntax
+$ find ~ -name name_pattern -ls
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~ -name a_dir_in_linux_dir -ls
+ 18881987      4 drwxrwxr-x   2 sri      sri          4096 Jan  1 17:43 /home/sri/Documents/Linux/a_dir_in_linux_dir
+sri@envy:~/Documents/Linux
+$ 
+```
+
+In the output of the `find` command, the numbers **18881987** and **4** have specific meanings:
+
+1. **18881987**: This number represents the **inode number** of the directory. An inode is a data structure on a filesystem that stores information about a file or directory, such as its size, owner, permissions, and location on disk. Each file and directory has a unique inode number within its filesystem, which is used by the operating system to manage files.
+
+2. **4**: This number indicates the **number of blocks** allocated to the directory. In this context, it means that the directory `/home/sri/Documents/Linux/a_dir_in_linux_dir` occupies 4 blocks on disk. Given that many Linux filesystems use a block size of 4096 bytes (4 KB), this suggests that the directory uses approximately 16 KB of disk space.
+
+---
+
+#### 4. `find . -mtime number_of_days`
+Searches for files that were last modified a specific number of days ago.
+```bash
+# Syntax
+$ find . -mtime [+-]number_of_days
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~/Documents/ -mtime 1
+/home/sri/Documents/Nitya-Karma/README.md
+/home/sri/Documents/Linux/.git/objects/b6
+/home/sri/Documents/Linux/.git/objects/b6/f84a695e4cdfee5e278b2539fa04e2026777a0
+...
+
+sri@envy:~/Documents/Linux
+$ find ~/Documents/ -mtime -1
+/home/sri/Documents/
+/home/sri/Documents/Linux
+/home/sri/Documents/Linux/.git
+/home/sri/Documents/Linux/.git/objects
+/home/sri/Documents/Linux/.git/objects/ff
+/home/sri/Documents/Linux/.git/objects/ff/b9ab4b04d3d9290a5c8d02536b35f2982b0fb5
+...
+```
+Finds all files that were modified exactly 1 day ago. If you want files modified more than 7 days ago, use `+1`. For files modified less than 7 days ago, use `-1`.
+
+---
+
+#### 5. `find . -size number`
+Searches for files based on their size.
+```bash
+# Syntax
+$ find . -size [+-]size
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~/Documents/ -size +10M
+/home/sri/Documents/Git/.git/objects/pack/pack-352f1a32c1df039e3e03794f8f234b2e924294c0.pack
+/home/sri/Documents/RIMADA/.git/objects/pack/pack-4da118e4df46c8ddf8c921dd3af165798d354ab2.pack
+/home/sri/Documents/RIMADA/References/08-AIPA An Adversarial Imperceptible Patch Attack on Medical Datasets and its Interpretability.pdf
+/home/sri/Documents/Introduction-to-Vedanta/.git/objects/pack/pack-18530d5e45ecc7bc0e5fbb9b66c100d02e162b2d.pack
+/home/sri/Documents/Introduction-to-Vedanta/Audio/01-Purushaartha.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/09-Sadhana_Chatusaya.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/10-Sariratrayam.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/08-Bhakthi.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/11-Avasthatrayam_Pancakosa.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/07-Jnana_Yoga.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/03-Varna_Dharma.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/04-Ashrama_Dharma.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/06-Upasana_Yoga.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/05-Karma_Yoga.mp3
+/home/sri/Documents/Introduction-to-Vedanta/Audio/02-Shastram.mp3
+/home/sri/Documents/Linux/.git/objects/pack/pack-125077c9ae94eb1ba567006b90b7f870c96e55d5.pack
+sri@envy:~/Documents/Linux
+$ 
+
+```
+Finds files larger than 10MB in size. Use `-10M` to find files smaller than 10MB or `10M` to find files exactly 10MB in size.
+
+---
+
+#### 6. `find . -newer file`
+Finds files that were modified more recently than a specified file.
+```bash
+# Syntax
+$ find . -newer file_or_directory
+
+# Example
+sri@envy:~/Documents/Linux
+$ touch afile
+sri@envy:~/Documents/Linux
+$ echo hello > bfile
+sri@envy:~/Documents/Linux
+$ find ~/Documents -newer afile
+/home/sri/Documents/Linux
+/home/sri/Documents/Linux/bfile
+sri@envy:~/Documents/Linux
+$ 
+
+```
+
+---
+
+#### 7. `find . -exec command {} \;`
+Executes a specific command on each item found. The `{}` placeholder represents the found file, and `\;` indicates the end of the command.
+```bash
+# Syntax
+$ find . -name name_pattern -exec some_commadns {} \;
+
+# Example
+sri@envy:~/Documents/Linux
+$ find ~ -name bfile -exec cat {} \;
+hello
+sri@envy:~/Documents/Linux
+$ 
+
+```
+
+---
+
+### Combining `find` Options
+You can combine multiple expressions to refine your search.
+```bash
+sri@envy:~/Documents/Linux
+$ find ~ -name bfile -mtime -1 -exec cat {} \;
+hello
+sri@envy:~/Documents/Linux
+$ 
 ```
 
 ### locate Command
-The `locate` command is faster than `find` because it uses an index database updated by the `updatedb` process. However, it does not include recently created files.
+The `locate` command is faster than `find` because it uses an **index database** updated by the `updatedb` process. However, it does not include recently created files. Also, worthy to mention the point that `find` **searches all the files in real time**, hence slower. For eg. `find ~` will run through every single file.  
 
-#### Syntax:
-```
-locate pattern
-```
+```bash
+# Syntax
+$ locate pattern
 
-#### Example:
-```
-locate example.txt
+# Example
+$ locate example.txt
 ```
 - Finds all instances of `example.txt` in the system based on the pre-built index.
 
-**Note:** Since `locate` relies on an index, it won't find files created since the last `updatedb` run (usually updated daily).
+**Note:** Since `locate` relies on an index, it won't find files created since the last `updatedb` run (**usually updated daily**).
+
+---
 
 ## Sorting Files
 
-The `sort` command is used to sort the contents of a file or input in various ways, such as by **key**, in **reverse order**, or uniquely.
+The `sort` command is a versatile tool for sorting the contents of a file or input based on various criteria, such as by specific fields, in reverse order, or by removing duplicates. We'll demonstrate its usage using a generated table, `table.txt`.
+
+---
+
+### Creating a Demo Table
+
+First, create the `table.txt` file using the following Python code:
+
+```python
+import random
+
+with open("table.txt", "w") as f:
+    rows = []
+    for i in range(100): 
+        row = f"{i:3}\t{random.randrange(1,100):3}\t{random.randrange(1,100):3}"
+        rows.append(row)
+    
+    f.write("\n".join(rows))
+```
+
+Running this script generates `table.txt` with 100 rows of data. The file contains three columns, separated by tabs, as shown in the first 10 rows below:
+
+```bash
+$ head table.txt
+  0	 88	 56
+  1	 96	 53
+  2	 71	 47
+  3	 12	 59
+  4	 56	 64
+  5	 20	 14
+  6	 45	 15
+  7	 53	 57
+  8	 40	 77
+  9	 40	 48
+```
+
+We will use this `table.txt` for the examples below.
+
+---
 
 ### Common `sort` Options and Examples:
 
-| **Command**| **Description**| **Option**| **Example**|
-|------------|----------------|-----------|------------|
-| `sort file`| Sort the contents of a file **line by line**| `file`| `sort mylist.txt` - Sorts the lines in `mylist.txt` in ascending order. |
-| `sort -k FIELD_NUM`  | Sort by a specific field/column| `-k FIELD_NUM`| `sort -k 2 mylist.txt` - Sorts by the second column in `mylist.txt`.   |
-| `sort -r`| Sort in reverse order| `-r`| `sort -r mylist.txt` - Sorts the lines in `mylist.txt` in descending order. |
-| `sort -u`| Sort uniquely (no duplicates)| `-u`| `sort -u mylist.txt` - Sorts `mylist.txt` and removes duplicates.|
+| **Command**                                   | **Description**                                    | **Option**       | **Example**                                                                 |
+|-----------------------------------------------|---------------------------------------------------|------------------|-----------------------------------------------------------------------------|
+| `sort file`                                   | Sorts the contents of a file **line by line**     | `file`           | `sort table.txt` - Sorts all rows in `table.txt` by their first column.     |
+| `sort -k FIELD_NUM`                           | Sorts by a specific field/column                 | `-k FIELD_NUM`   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column.             |
+| `sort -r`                                     | Sorts in reverse order                           | `-r`             | `sort -r table.txt` - Sorts `table.txt` by the first column in descending order. |
+| `sort -u`                                     | Sorts uniquely (removing duplicates)             | `-u`             | `sort -u table.txt` - Removes duplicate rows while sorting `table.txt`.     |
 
-#### Sorting by Multiple Keys:
-To sort by multiple keys (columns), you can use multiple `-k` options:
+---
+
+#### Basic Sort
+The method sorts the file and returns ouptut into standard output. 
 ```bash
-sort -k 2 -k 1 mylist.txt
-```
-This sorts first by the second column and then by the first column.
+# Syntax
+$ sort file
 
-### Example of Sorting with Specific Keys:
-Suppose `mylist.txt` contains the following data:
+# Example
+sri@envy:~/Desktop
+$ sort table.txt 
+  0	 88	 56
+ 10	 67	 99
+ 11	 52	 98
+ 12	 38	 49
+ 13	 24	 41
+ 14	 13	 54
+ 15	 65	 86
+ 16	 60	 25
+ 17	 18	 51
+ 18	 24	 79
+  1	 96	 53
+ 19	 93	 89
+
 ```
-John 28
-Alice 22
-Bob 25
-Alice 25
+Notice something different about the sorted output? The sort is considering the **rows as strings**.
+
+To make it consier as number you need to use `-n` option. 
+```bash
+# Syntax
+$ sort -n file
+
+# Example
+sri@envy:~/Desktop
+$ sort -n table.txt
+  0	 88	 56
+  1	 96	 53
+  2	 71	 47
+  3	 12	 59
+  4	 56	 64
+  5	 20	 14
+  6	 45	 15
+  7	 53	 57
+  8	 40	 77
+  9	 40	 48
+ 10	 67	 99
+ 11	 52	 98
+ 12	 38	 49
+ 13	 24	 41
 ```
-Running the command:
+
+#### Sorting based on a column
+```bash
+# Syntax
+$ sort -k column_number file
+
+# Example
+sri@envy:~/Desktop
+$ sort -nk 2 table.txt 
+ 76	  1	 52
+ 43	  2	 96
+ 45	  2	 51
+ 65	  3	 53
+ 67	  5	 43
+ 83	  7	 79
+ 33	  9	 10
+ 61	  9	  1
+ 57	 11	 94
+ 23	 12	  9
+  3	 12	 59
+ 14	 13	 54
+ 44	 13	  3
+ 28	 15	 22
+ 37	 15	 85
 ```
-sort -k 2 -k 1 mylist.txt
+
+#### Sorting in Descending Order
+By default sort is in **ascending** order. To sort in descending order, use `-r` option.
+
+```bash
+# Syntax
+$ sort -r table.txt
+
+sri@envy:~/Desktop # option order matters.
+$ sort -nkr 2 table.txt 
+sort: invalid number at field start: invalid count at start of ‘r’
+sri@envy:~/Desktop
+$ sort -nrk 2 table.txt 
+ 80	 99	 15
+ 31	 96	 18
+  1	 96	 53
+ 81	 95	 44
+ 32	 95	 81
+ 21	 95	 81
+ 58	 94	 31
+ 52	 94	 22
+ 40	 93	 82
+ 39	 93	 26
+ 19	 93	 89
+ 53	 92	 54
+ 34	 92	 64
+
 ```
-Would output:
+
+#### Sorting by Multiple Columns
+
+To sort by multiple fields, use multiple `-k` options multiple times.
+
+```bash
+# Syntax
+$ sort [-k number]+ filename
+
+# Example
+sri@envy:~/Desktop
+$ sort -n -k 2 -k 1 table.txt 
+ 76	  1	 52
+ 43	  2	 96
+ 45	  2	 51
+ 65	  3	 53
+ 67	  5	 43
+ 83	  7	 79
+ 33	  9	 10
+ 61	  9	  1
+ 57	 11	 94
+  3	 12	 59
+ 23	 12	  9
+
 ```
-Alice 22
-Alice 25
-Bob 25
-John 28
+- This sorts the table first by the second column, then by the first column if there are ties in the second column.
+
+#### Sorting rows uniquely
+
+```bash
+# Syntax
+$ sort -n -u file_name
+
+# Example - Uniquely sort based on column 2
+sri@envy:~/Desktop
+$ sort -n -k 2 -u table.txt
+ 76	  1	 52
+ 43	  2	 96
+ 65	  3	 53
+ 67	  5	 43
+ 83	  7	 79
+ 33	  9	 10
+ 57	 11	 94
+  3	 12	 59
+ 14	 13	 54
+ 28	 15	 22
+ 59	 17	 63
+ 17	 18	 51
+  5	 20	 14
+ 77	 22	 84
+ 13	 24	 41
+
 ```
+- In the above example, we have **uniquely** sorted the table based column 2, i.e., we removed duplicate rows based on column 2. 
+
+---
+
+
+The `sort` command is highly flexible and powerful, making it an essential tool for working with structured text data.
 
 ## Comparing Files
 
 The `diff`, `sdiff`, and `vimdiff` commands are used to compare files and directories, displaying differences in their contents.
 
 ### diff Command
-The `diff` command shows the differences between two files.
+The `diff` command shows the differences between two files or directories.
 
-#### Syntax:
-```
-diff file1 file2
-```
 
-#### Example:
-```
-diff old_version.txt new_version.txt
-```
-Output:
-```
-1c1
-< Old line
+```bash
+# Syntax
+$ diff file_or_dir file_or_dir
+
+# Example - directory
+sri@envy:~/Desktop
+$ ls -R
+.:
+a  b
+
+./a:
+f1  f2
+
+./b:
+f2  f3
+sri@envy:~/Desktop
+$ diff a b
+Only in a: f1
+Only in b: f3
+sri@envy:~/Desktop
+$ 
+
+# Example - file
+sri@envy:~/Desktop
+$ cat a
+This is line one
+
+This is line three
+sri@envy:~/Desktop
+$ cat b
+This is line one
+This is line two
+sri@envy:~/Desktop
+$ diff a b
+2,3c2
+< 
+< This is line three
 ---
-> New line
+> This is line two
+sri@envy:~/Desktop
+$ 
+
 ```
 - The `<` symbol indicates the line from the first file, and `>` represents the line from the second file.
-- `c` means "change" (line 1 was changed).
+- `c` means "change" (line 2 was changed).
 
 ### sdiff Command
 The `sdiff` command displays files side-by-side, highlighting differences.
 
-#### Syntax:
-```
-sdiff file1 file2
-```
+```bash
+# Syntax
+$ sdiff file_or_dir file_or_dir
 
-#### Example:
-```
-sdiff old_version.txt new_version.txt
-```
-Output:
-```
-Old line     | New line
-Another line | Another line
+# Example - directory
+
+# Example - file 
+sri@envy:~/Desktop
+$ sdiff a b
+This is line one						This is line one
+							      |	This is line two
+This is line three					      <
+sri@envy:~/Desktop
+$ 
+
+# Example - directory - not very intuitive
+sri@envy:~/Desktop
+$ ls -R
+.:
+adir  afile  bdir  bfile
+
+./adir:
+a  b
+
+./bdir:
+a  c
+sri@envy:~/Desktop
+$ sdiff adir/ bdir/
+diff -y -- adir/a bdir/a
+Only in adir/: b
+Only in bdir/: c
+sri@envy:~/Desktop
+$ 
+
 ```
 - Differences are shown in two columns with a pipe (`|`) separating them.
 
 ### vimdiff Command
 The `vimdiff` command uses the `vim` editor to show the differences between files in a split screen.
 
-#### Syntax:
-```
-vimdiff file1 file2
+**This is so cool!**
+```bash
+# Syntax
+$ vimdiff file1 file2
+
+# Example - file
+sri@envy:~/Desktop
+$ cat afile 
+This is line one
+
+This is line three
+sri@envy:~/Desktop
+$ cat bfile 
+This is line one
+This is line two
+sri@envy:~/Desktop
+$ vimdiff afile bfile 
+2 files to edit
+sri@envy:~/Desktop
+$ 
+
+# Example - directory
+sri@envy:~/Desktop
+$ cat afile 
+This is line one
+
+This is line three
+sri@envy:~/Desktop
+$ cat bfile 
+This is line one
+This is line two
+sri@envy:~/Desktop
+$ vimdiff afile bfile 
+2 files to edit
+sri@envy:~/Desktop
+$ vimdiff adir/ bdir/
+2 files to edit
+sri@envy:~/Desktop
+$ 
+
 ```
 
-#### Example:
-```
-vimdiff old_version.txt new_version.txt
-```
 - The files will be displayed side by side within `vim`, with differences highlighted.
+
+---
 
 ## Summary of Finding, Sorting, and Comparing Files and Directories
 
-| **Command** | **Description** | **Example** |
-|-------------|-----------------|-------------|
-| `find` | Recursively searches for files and directories based on specified conditions. | `find . -name "*.txt"` - Finds all `.txt` files in the current directory and subdirectories. |
-| `find . -iname pattern` | Same as `-name`, but case-insensitive search. | `find . -iname "*.jpg"` - Finds `.jpg` files, case-insensitive. |
-| `find . -ls` | Lists detailed information for all files found. | `find . -ls` - Lists detailed info for files in the current directory and subdirectories. |
-| `find . -mtime number_of_days` | Finds files modified a specific number of days ago. | `find . -mtime 7` - Finds files modified 7 days ago. |
-| `find . -size number` | Finds files of a specific size. | `find . -size +10M` - Finds files larger than 10MB. |
-| `find . -newer file` | Finds files modified after a specific file. | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
-| `find . -exec command {} \;` | Runs a command on each file found. | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files found. |
-| `locate` | Searches for files using an indexed database (faster than `find`). | `locate example.txt` - Finds all instances of `example.txt` in the system. |
-| `sort` | Sorts the contents of a file. | `sort mylist.txt` - Sorts the lines in `mylist.txt` in ascending order. |
-| `sort -k FIELD_NUM` | Sorts by a specific column. | `sort -k 2 mylist.txt` - Sorts by the second column in `mylist.txt`. |
-| `sort -r` | Sorts the contents in reverse order. | `sort -r mylist.txt` - Sorts the lines in `mylist.txt` in descending order. |
-| `sort -u` | Sorts and removes duplicates. | `sort -u mylist.txt` - Sorts `mylist.txt` and removes duplicates. |
-| `diff` | Compares two files and shows their differences. | `diff old_version.txt new_version.txt` - Compares `old_version.txt` and `new_version.txt`. |
-| `sdiff` | Compares two files side by side, showing differences. | `sdiff old_version.txt new_version.txt` - Displays a side-by-side comparison. |
-| `vimdiff` | Compares two files in the Vim editor with differences highlighted. | `vimdiff old_version.txt new_version.txt` - Displays differences in `vim`. |
+| **Command**                                   | **Description**                                                              | **Example**                                                                 |
+|-----------------------------------------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `find [path...] [options] [expression]`       | General syntax of the `find` command.                                         | `find . -name "*.txt"` - Finds all `.txt` files in the current directory.  |
+| `find . -name name_pattern`                   | Find files by name (case-sensitive).                                          | `find . -name "*.txt"` - Finds files named with a `.txt` extension.        |
+| `find . -iname name_pattern`                  | Find files by name (case-insensitive).                                       | `find . -iname "*.jpg"` - Finds files named with a `.jpg` extension.       |
+| `find ~ -name name_pattern -ls`               | Find files by name and list their details.                                    | `find ~ -name "*.pdf" -ls` - Lists details for `.pdf` files in home directory. |
+| `find . -mtime [+-]number_of_days`            | Find files modified within a specific number of days.                         | `find . -mtime -7` - Finds files modified in the last 7 days.              |
+| `find . -size [+-]size`                       | Find files by size (e.g., +10M for files larger than 10MB).                   | `find . -size +10M` - Finds files larger than 10MB.                         |
+| `find . -newer file_or_directory`             | Find files that are newer than a specific file or directory.                 | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
+| `find . -name name_pattern -exec some_commands {} \;` | Execute a command on each found item.                                        | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files.          |
+| `find ~ -name bfile -mtime -1 -exec cat {} \;` | Combine `find` options: find files modified in the last day and display their content. | `find ~ -name "*.txt" -mtime -1 -exec cat {} \;` - Displays contents of `.txt` files modified in the last day. |
+| `locate pattern`                              | Locate files by pattern using an indexed database.                           | `locate myfile.txt` - Locates `myfile.txt` using the database.             |
+| `sort file`                                   | Sort the contents of a file line by line.                                     | `sort table.txt` - Sorts rows in `table.txt` by the first column.          |
+| `sort -n file`                                | Sort the contents of a file numerically.                                     | `sort -n table.txt` - Sorts rows in `table.txt` numerically by the first column. |
+| `sort -k column_number file`                  | Sort by a specific column.                                                   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column.            |
+| `sort -r table.txt`                           | Sort the contents of a file in reverse order.                                | `sort -r table.txt` - Sorts `table.txt` in reverse order.                  |
+| `sort [-k number]+ filename`                  | Sort based on a specific column or columns.                                  | `sort -k 2 -k 3 table.txt` - Sorts by column 2, then column 3.             |
+| `sort -n -u file_name`                        | Sort uniquely by numeric order (removes duplicates).                         | `sort -n -u table.txt` - Removes duplicate rows while sorting numerically. |
+| `sort -n -k 2 -u table.txt`                   | Sort uniquely based on column 2 (numeric).                                   | `sort -n -k 2 -u table.txt` - Sorts `table.txt` uniquely by the second column. |
+| `diff file_or_dir file_or_dir`                | Compare two files or directories line by line.                               | `diff file1.txt file2.txt` - Shows the differences between `file1.txt` and `file2.txt`. |
+| `sdiff file_or_dir file_or_dir`               | Side-by-side comparison of files or directories.                             | `sdiff file1.txt file2.txt` - Displays a side-by-side comparison of the two files. |
+| `vimdiff file1 file2`                         | Compare two files using `vimdiff` in Vim editor.                             | `vimdiff file1.txt file2.txt` - Opens a side-by-side diff view of `file1.txt` and `file2.txt`. |
+
+---
 
 # I/O Redirection
 
