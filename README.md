@@ -27,65 +27,74 @@
 * [Installing Software](#Installing-Software)
   * [Summary](#Summary-of-Installing-Software-Commands)
 
-# Introduction
+---
 
-## What is Linux?
-Linux is a **Unix-like open-source operating system** renowned for its flexibility, security, and extensive community support. At its core is the **Linux kernel**, a fundamental component that bridges the gap between applications and hardware. The kernel manages system resources, ensures hardware-software communication, and provides essential services like memory management and process control.
+# Introduction  
 
-Key characteristics of Linux:
-- **Unix-like**: Shares architectural and conceptual similarities with Unix.
-- **Open Source**: Freely available for use, modification, and distribution.
-- **Kernel-Centric**: The kernel serves as the operating system's foundation.
+## What is Linux?  
+Linux is a **Unix-like open-source operating system** renowned for its flexibility, security, and extensive community support. At its core is the **[Linux kernel](https://github.com/torvalds/linux)**, the foundational component that bridges the gap between applications and hardware. The kernel manages system resources, ensures hardware-software communication, and provides essential services like memory management and process control.  
+
+### Key Characteristics of Linux  
+- **Unix-like**: Shares architectural and conceptual similarities with Unix.  
+- **Open Source**: Freely available for use, modification, and distribution.  
+- **Kernel-Centric**: The kernel serves as the foundation of the operating system.  
 
 ---
 
-## Linux Distributions
-A **Linux distribution (distro)** is a complete operating system built around the Linux kernel. It bundles essential software, tools, and utilities tailored for various purposes, creating a cohesive and usable environment.
+## A Brief History of Linux  
+Linux was created in **1991** by **Linus Torvalds**, a Finnish computer science student, as a personal project to develop a free and open-source alternative to proprietary Unix systems. Inspired by **Minix**, a Unix-like system for educational purposes, Torvalds initially released the kernel under a proprietary license but soon adopted the **GNU General Public License (GPL)**. This move aligned Linux with the **GNU Project**, initiated by **Richard Stallman**, which aimed to create a completely free operating system.  
 
-### Features of Linux Distributions:
-1. **Shared Core**: The Linux kernel is consistent across distributions.
-2. **Custom Software**: Each distribution includes different default software, tools, and configurations based on its focus.
-3. **Versatile Applications**: Applicable to desktops, servers, and specialized systems.
-4. **Community vs. Corporate**: Some distributions are maintained by volunteers, while others are backed by companies offering paid support.
-5. **Desktop vs. Server**: Some distribution are exclusive for PC, Linux Desktops, eg. Linux Mint. While others are exclusive for Servers, eg. CentOS, RHEL. And some distro serves both Desktop and Server users, eg. Ubuntu..
+Since its inception, Linux has evolved through collaboration between Torvalds and a global community of developers. Today, it powers desktops, servers, embedded systems, and supercomputers, becoming one of the most versatile and widely used operating systems.  
+
+---
+
+## Linux Distributions  
+A **Linux distribution (distro)** is a complete operating system built around the Linux kernel. Distributions bundle essential software, tools, and utilities tailored to various purposes, creating a cohesive and usable environment.  
+
+### Features of Linux Distributions  
+1. **Shared Core**: All distributions are built on the Linux kernel.  
+2. **Custom Software**: Each distribution bundles software, tools, and configurations based on its focus.  
+3. **Targeted Use Cases**: Some distributions cater to **desktops** (e.g., Linux Mint), others to **servers** (e.g., CentOS, RHEL), while some serve both (e.g., Ubuntu).  
+4. **Support Models**: Distributions are maintained by either **community** volunteers or **corporations** offering professional support.  
 
 ### Popular Linux Distributions  
 
-This table categorizes popular Linux distributions based on their primary usage (Desktop vs. Server) and support model (Community vs. Corporate).  
-
-| **Distribution**        | **Primary Usage** | **Support Model** | **Notes**                                                                 |
-|--------------------------|-------------------|-------------------|---------------------------------------------------------------------------|
-| **Linux Mint**           | Desktop           | Community         | User-friendly, great for beginners.                                       |
-| **Ubuntu**               | Both              | Community         | Widely used, offers LTS versions for stability.                           |
-| **Debian**               | Both              | Community         | Stable and reliable, widely used for servers.                             |
-| **Fedora**               | Both              | Community         | Cutting-edge features, upstream for RHEL.                                 |
-| **openSUSE**             | Both              | Community/Corporate | Offers both Leap (stable) and Tumbleweed (rolling release) versions.     |
-| **Arch Linux**           | Desktop           | Community         | Minimalist and highly customizable.                                       |
-| **CentOS**               | Server            | Community         | RHEL-based, stable, and enterprise-ready.                                 |
-| **Red Hat Enterprise Linux (RHEL)** | Server            | Corporate         | Commercial support for enterprise environments.                           |
-| **Manjaro**              | Desktop           | Community         | Arch-based with user-friendly tools.                                      |
-| **Elementary OS**        | Desktop           | Community         | Aesthetically pleasing, great for newcomers.                              |
-| **Kali Linux**           | Desktop           | Community         | Specialized for penetration testing and security tasks.                   |
-| **Zorin OS**             | Desktop           | Community         | Aimed at users transitioning from Windows.                                |
-| **Pop!_OS**              | Desktop           | Community         | Developer and gamer-friendly, based on Ubuntu.                           |
-| **AlmaLinux**            | Server            | Community         | RHEL clone, focused on enterprise users.                                  |
-| **Slackware**            | Both              | Community         | Simple, traditional UNIX-like experience.                                 |
-| **MX Linux**             | Desktop           | Community         | Lightweight, efficient, and great for older hardware.                     |
-| **Deepin**               | Desktop           | Community         | Focuses on an elegant and intuitive desktop environment.                  |
-| **Void Linux**           | Desktop           | Community         | Independent and minimalist, with a unique package manager (`xbps`).       |
+| **Distribution**        | **Primary Usage** | **Support Model**    | **Notes**                                                                 |
+|--------------------------|-------------------|-----------------------|---------------------------------------------------------------------------|
+| **Linux Mint**           | Desktop           | Community             | User-friendly, ideal for beginners.                                       |
+| **Ubuntu**               | Both              | Community             | Widely used with LTS versions for stability.                              |
+| **Debian**               | Both              | Community             | Stable and reliable, popular for servers.                                 |
+| **Fedora**               | Both              | Community             | Cutting-edge features, upstream for RHEL.                                 |
+| **openSUSE**             | Both              | Community/Corporate   | Offers Leap (stable) and Tumbleweed (rolling release) versions.           |
+| **Arch Linux**           | Desktop           | Community             | Minimalist and highly customizable.                                       |
+| **CentOS**               | Server            | Community             | RHEL-based, stable, enterprise-ready.                                     |
+| **RHEL**                 | Server            | Corporate             | Commercial support for enterprise environments.                           |
+| **Manjaro**              | Desktop           | Community             | Arch-based with user-friendly tools.                                      |
+| **Elementary OS**        | Desktop           | Community             | Aesthetic design, excellent for newcomers.                                |
+| **Kali Linux**           | Desktop           | Community             | Specialized for penetration testing and security tasks.                   |
+| **Zorin OS**             | Desktop           | Community             | Perfect for users transitioning from Windows.                             |
+| **Pop!_OS**              | Desktop           | Community             | Developer- and gamer-friendly, based on Ubuntu.                           |
+| **AlmaLinux**            | Server            | Community             | RHEL clone, focused on enterprise users.                                  |
+| **Slackware**            | Both              | Community             | Traditional UNIX-like experience.                                         |
+| **MX Linux**             | Desktop           | Community             | Lightweight and efficient for older hardware.                             |
 
 **Legend**:  
-- **Desktop**: Primarily tailored for personal or workstation use.  
+- **Desktop**: Tailored for personal or workstation use.  
 - **Server**: Designed for stability, often used in enterprise or hosting environments.  
-- **Community**: Developed and maintained by a community of volunteers.  
-- **Corporate**: Backed by a company providing commercial support.  
+- **Community**: Developed and maintained by volunteers.  
+- **Corporate**: Backed by companies providing commercial support.  
 
 ---
 
-### Why Learn Linux?
-While the software bundled with each distribution varies, the **core principles and functionalities of Linux remain universal**. Mastering Linux concepts ensures you can adapt to any distribution and leverage its power effectively. Whether you are a system administrator, developer, or enthusiast, understanding Linux is a vital skill in today's technology-driven world.
+## Why Learn Linux?  
+The core principles and functionalities of Linux remain consistent across distributions, making it a universal skill for tech enthusiasts and professionals. Linux powers:  
+- **90% of the world’s supercomputers**,  
+- **96.3% of the top 1 million web servers**,  
+- **74% of smartphones (via Android)**.  
 
----
+Its unmatched flexibility, security, and open-source nature have made Linux a cornerstone of modern technology. Learning Linux opens doors to diverse career opportunities and empowers you to work efficiently in today's computing environments.  
+
+---  
 
 # Linux Directory Structure
 
@@ -3314,7 +3323,7 @@ $ kill -9 %1
 
 # Switching Users
 
-In Linux, switching between users or performing administrative tasks requires specific commands. Let's look at two important commands: `su` (Switch User) and `sudo` (Super User Do).
+In Linux, switching between users or performing administrative tasks requires specific commands: `su` (Switch User) and `sudo` (Super User Do).
 
 ## Switching Users with `su` (Switch User)
 
@@ -3322,84 +3331,90 @@ The `su` command is used to switch between users in a Linux system. By default, 
 
 ### Common `su` Usage
 
-- **Switch to Root**:  
-  The `su` command without any arguments switches to the root user.
-  ```bash
-  $ su
-  ```
-  The above command may give error: 
-  ```bash
-  $ su
-  Password: 
-  su: Authentication failure
-  ```
-  On many modern Linux distributions, the root account is disabled by default for security reasons. In this case, you might need to use sudo to gain root privileges instead of su. Ensure to enter the current user's password and not the superuser.
-  ```bash
-  $ sudo su
-  root@envy:/home/sri/Documents/Linux# 
+#### **Switch to Root**:  
+The `su` command without any arguments switches to the root user.
+```bash
+sri@envy:~/Documents/Linux
+$ su
+```
+The above command may give error: 
+
+```bash
+$ su
+Password: 
+su: Authentication failure
+```
+On many modern Linux distributions, the root account is disabled by default for security reasons. In this case, you might need to use sudo to gain root privileges instead of su. Ensure to enter the current user's password and not the superuser.
+
+```bash
+$ sudo su
+root@envy:/home/sri/Documents/Linux# 
+```
+
+#### **Switch to a Specific User**:  
+To switch to a specific user, use the command `su [username]`. Enter the **switching user**'s password and not current user's password. 
+
+In the below example you will have to enter switching user, `ram`'s passowrd. 
+```bash
+sri@envy:~/Documents/Linux
+$ su ram
+Password: 
+ram@envy:/home/sri/Documents/Linux$ 
+```
+Also notice that you are still the same directory as before. 
+
+To quit from this user (`ram`) account: 
+```bash
+ram@envy:/home/sri/Documents/Linux$ exit
+exit
+sri@envy:~/Documents/Linux
+$ 
+```
+  
+Another way of logging to another user is through `sudo su [username]`, use the **current user**'s password. If the current user is in sudoers group, they will be able to login to another user's account.
+
+In the below example you will have to enter current user, `sri`'s password. 
+```bash
+sri@envy:~/Documents/Linux
+$ sudo su ram
+[sudo] password for sri: 
+ram@envy:/home/sri/Documents/Linux$ 
   ```
 
-- **Switch to a Specific User**:  
-  To switch to a specific user, use the command `su [username]`. Enter the **switching user**'s password and not current user's password. 
+#### **Simulate Logging In as a User**:  
+By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user’s home directory. **While the previous method don't change the working directory.** 
+```bash
+sri@envy:~/Documents/Linux
+$ sudo su - ram
+[sudo] password for sri: 
+ram@envy:~$ 
+```
 
-  In the below example you will have to enter switching user, `ram`'s passowrd. 
-  ```bash
-  
-  $ su ram
-  Password: 
-  ram@envy:/home/sri/Documents/Linux$ 
-  ```
-  Also notice that you are still the same directory as before. 
+#### **Excuting command as another user**: 
+By using `-c` option with `su` we can execute command as another user. 
+```bash
+sri@envy:~/Documents/Linux
+$ su - ram # swtiching to ram
+Password: 
+ram@envy:~$ echo "I am ram" > a.txt # creating a file
+ram@envy:~$ exit # switch back to sri
+logout
 
-  To quit from this user (`ram` here) account: 
-  ```bash
-  ram@envy:/home/sri/Documents/Linux$ exit
-  exit
-  
-  $ 
-  ```
-  
-  Another way of logging to another user is through `sudo su [username]`, use the **current user**'s password. 
+# this below command will not work, since it logins and stays in /home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ su ram -c "cat a.txt" 
+Password: 
+cat: a.txt: No such file or directory
 
-  In the below example you will have to enter current user, `sri`'s password. 
-  ```bash
-  
-  $ sudo su ram
-  [sudo] password for sri: 
-  ram@envy:/home/sri/Documents/Linux$ 
-  ```
-
-- **Simulate Logging In as a User**:  
-  By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user’s home directory. **While the previous method don't change the working directory.** 
-  ```bash
-  
-  $ sudo su - ram
-  [sudo] password for sri: 
-  ram@envy:~$ 
-  ```
-- **Excuting command as another user**: 
-  By using `-c` option with `su` we can execute command as another user. 
-  ```bash
-  
-  $ su - ram # swtiching to ram
-  Password: 
-  ram@envy:~$ echo "I am ram" > a.txt # creating a file
-  ram@envy:~$ exit # switch back to sri
-  logout
-  # this below command will not work, since it logins and stays in /home/sri/Documents/Linux
-  
-  $ su ram -c "cat a.txt" 
-  Password: 
-  cat: a.txt: No such file or directory
-
-  # this below command will WORK, since it logins and stays in ~ram
-  
-  $ su ram -c "cat ~/a.txt"
-  Password: 
-  I am ram
-   # haven't switched to ram, still in sri
-  $ 
-  ```
+# this below command will WORK, since it logins and stays in ~ram
+sri@envy:~/Documents/Linux
+$ su ram -c "cat ~/a.txt"
+Password: 
+I am ram
+# haven't switched to ram, still in sri
+sri@envy:~/Documents/Linux
+$ 
+```
 ---
 
 ### Common `su` Options
@@ -3420,14 +3435,16 @@ We can also prefix the above commands with **sudo**, where we will use **current
 
 To check which user you are currently working as, use the `whoami` command:
 ```bash
+sri@envy:~/Documents/Linux
 $ whoami
-# Output: jason
+# Output: sri
 ```
 After switching to another user with `su`, `whoami` will show the new user:
 ```bash
+sri@envy:~/Documents/Linux
 $ su ram
 Password:
-whoami
+ram@envy:/home/sri/Documents/Linux$ whoami
 # Output: ram
 ```
 
@@ -3435,7 +3452,7 @@ whoami
 
 ## `sudo` (Super User Do)
 
-The `sudo` command allows a permitted user to execute a command as another user, typically the root user, without switching users entirely. It’s often used for administrative tasks, such as installing software or managing system services, that require superuser privileges.
+The `sudo` command allows a **permitted user** to execute a command as another user, typically the root user, without switching users entirely. It’s often used for administrative tasks, such as installing software or managing system services, that require superuser privileges.
 
 ---
 
@@ -3454,7 +3471,7 @@ The `sudo` command allows a permitted user to execute a command as another user,
 |--------|------------|--------|
 | `sudo -l`| List commands that can be run with `sudo`| `sudo -l`|
 | `sudo command`| Run a command with superuser privileges| `sudo apt update`|
-| `sudo -u user command`| Run a command as a specific user (other than root)| `sudo -u ram whoami`|
+| `sudo -u user command`| Run a command as a specific user (other than root) similar to `sudo su user -c "command"` | `sudo -u ram whoami`|
 | `sudo su`| Switch to the superuser account (root)| `sudo su`|
 | `sudo su -`| Switch to the **superuser account (root)** with the user's environment| `sudo su -`|
 | `sudo su - username`| Switch to a **specific user’s account** with that user's environment| `sudo su - ram`|
@@ -3471,7 +3488,7 @@ The `sudo` command allows a permitted user to execute a command as another user,
 
 2. **Run a Command as Another User**:
    ```bash
-   sudo -u fred /opt/fredsApp/bin/start
+   sudo -u ram /opt/ramsApp/bin/start
    # Output: Fred's app started as user fred.
    ```
 
@@ -3508,8 +3525,8 @@ The `sudo` command allows a permitted user to execute a command as another user,
 
 | Command| Description| Example Usage|
 |--------|------------|--------------|
-| `su`| Switch to the superuser (root) or another specified user.| `su` or `su ram`|
-| `su -`| Switch to the specified user with their environment (login shell).     | `su - ram`|
+| `su [user]`| Switch to the superuser (root) or another specified user.| `su` or `su ram`|
+| `su - [user]`| Switch to the specified user with their environment (login shell).     | `su -` or `su - ram`|
 | `su -c 'command'`| Run a command as another user, with their environment.| `su -c 'echo $ram_HOME' ram`           |
 | `whoami`| Display the current user’s name.| `whoami`|
 | `sudo`| Execute a command with superuser privileges or as another user.        | `sudo ls`|
