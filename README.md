@@ -927,105 +927,295 @@ $
 ---
 
 # Directories
-In linux, we call **folder** as **directory**.
+In linux, we call **folder** as **directory**. In Linux, directories end with a trailing forward slash.
 
 ## Absolute vs Relative Paths
-### **Absolute Path**: 
+### Absolute Path: 
 Starts with a `/` and points to a location from the root of the file system.
 ```bash
-$ cd /home/sri/Music   # Absolute path to the Music directory
+sri@envy:~/Documents/Linux
+$ cd /home/sri/Music/
+sri@envy:~/Music
+$ 
 ```
 
-### **Relative Path**: 
+### Relative Path: 
 Doesn't start with a `/` and is relative to the current working directory.
 ```bash
-$ cd Music   # Relative path, assuming you are already in /home/sri
+sri@envy:~/Documents/Linux
+$ cd ../../Music/
+sri@envy:~/Music
+$ 
 ```
 
 ## Home Directory
 There are many ways to go to user's home directory from anywhere. 
 ```bash
+# 1. using "cd"
+sri@envy:~/Documents/Linux
+$ cd 
 sri@envy:~
+$ 
+
+# 2. using "cd ~"
+sri@envy:~/Documents/Linux
 $ cd ~
-
 sri@envy:~
+$ 
+
+# 3. using "cd ~sri"
+sri@envy:~/Documents/Linux
 $ cd ~sri
-
 sri@envy:~
+$ 
+
+# using "cd /home/sri"
+sri@envy:~/Documents/Linux
 $ cd /home/sri
-
 sri@envy:~
-$ cd
-
-sri@envy:~
-$
+$ 
 ```
 
 ## Special Directory References
 - `.` represents the **current directory**.
   ```bash
+  # Syntax
   $ cd .   # Stays in the current directory
+
+  # Example
+  sri@envy:~/Documents/Linux
+  $ cd .
+  sri@envy:~/Documents/Linux
+  $
   ```
 
 - `..` represents the **parent directory**.
   ```bash
+  # Syntax
   $ cd ..   # Moves up one level to the parent directory
+  
+  # Example
+  sri@envy:~/Documents/Linux
+  $ cd ..
+  sri@envy:~/Documents
+  $ 
   ```
 
 ## Navigating Directories
-### **Change directories using `cd`**: 
+### Change directories using `cd`: 
 ```bash
-$ cd ~/Music   # Changes to the Music directory
-$ pwd        # Shows the current directory, which should now be /home/sri/Music
+# Syntax
+$ cd [directory]
+
+# Example
+sri@envy:~/Documents/Linux
+$ cd ~/Music/
+sri@envy:~/Music
+$ pwd
 /home/sri/Music
+sri@envy:~/Music
+$ 
 ```
 
-### **Return to the previous directory with `cd -`**:
+### Return to the previous directory with `cd -`:
 ```bash
-$ cd /home/sri/Music   # Change to Music
-$ cd -   # Goes back to the previous directory
+# Syntax:
+$ cd -
+
+# Example
+sri@envy:~/Documents/Linux
+$ cd ~/Music/
+sri@envy:~/Music
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
 ```
+
+Note using `cd .` affects the navigation of `cd -`.
+```bash
+sri@envy:~
+$ cd ~/Documents/Linux/     # going to Linux
+sri@envy:~/Documents/Linux
+$ cd -                      # going to home
+/home/sri
+sri@envy:~
+$ cd -                      # going to Linux
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ cd .                      # Staying in Linux
+sri@envy:~/Documents/Linux
+$ cd -                      # Staying in Linux itself
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
+```
+The loop happens because `cd -` toggles between the current directory and the last visited directory. When you use `cd .`, it doesn’t change the directory, so the "previous directory" remains the same. Repeatedly using `cd -` in the same location keeps toggling to the same directory, causing the apparent loop.
 
 ## Creating and Removing Directories
-### **Create a directory with `mkdir`**:
+### Create a directory with `mkdir`:
 ```bash
+# Syntax
 $ mkdir newdir   # Creates a new directory called newdir
+
+# Example
+sri@envy:~/Desktop
+$ ls 
+sri@envy:~/Desktop
+$ mkdir dir
+sri@envy:~/Desktop
+$ ls
+dir
+sri@envy:~/Desktop
+$ ls -ld dir
+drwxrwxr-x 2 sri sri 4096 Jan  1 12:00 dir
+sri@envy:~/Desktop
+$ 
 ```
 
-### **Create directories with `mkdir -p`** (including intermediate directories):
+### Create directories with `mkdir -p` (including intermediate directories):
 ```bash
+# Syntax
 $ mkdir -p newdir/one/two   # Creates newdir, then one, and then two inside it
+
+# Example
+sri@envy:~/Desktop
+$ ls
+sri@envy:~/Desktop
+$ mkdir dir/sub-dir/sub-sub-dir
+mkdir: cannot create directory ‘dir/sub-dir/sub-sub-dir’: No such file or directory
+sri@envy:~/Desktop
+$ mkdir -p dir/sub-dir/sub-sub-dir
+sri@envy:~/Desktop
+$ tree dir
+dir
+└── sub-dir
+    └── sub-sub-dir
+
+3 directories, 0 files
+sri@envy:~/Desktop
+$ 
+
 ```
 
-### **Remove an empty directory with `rmdir`**:
+### Remove an empty directory with `rmdir`:
 ```bash
+# Syntax
 $ rmdir newdir   # Removes the empty directory newdir
+
+# Example
+sri@envy:~/Desktop
+$ ls
+dir
+sri@envy:~/Desktop
+$ ls -l dir # Empty directory
+total 0
+sri@envy:~/Desktop
+$ rmdir dir
+sri@envy:~/Desktop
+$ ls
+sri@envy:~/Desktop
+$ 
+
+sri@envy:~/Desktop
+$ ls
+dir
+sri@envy:~/Desktop
+$ ls -l dir # Empty directory
+total 0
+sri@envy:~/Desktop
+$ rm -r dir
+sri@envy:~/Desktop
+$ ls
+sri@envy:~/Desktop
+$ 
+
 ```
 
-### **Forcefully remove a directory and its contents with `rm -rf`**:
+### Forcefully remove a directory and its contents with `rm -rf`:
+
+Consider this setup to demonstrate the need for forcefull removal of directory. We creating a temporary git repository. 
 ```bash
-$ rm -rf newdir   # Deletes the newdir directory and all of its contents
+sri@envy:~/Desktop
+$ mkdir temp_repo
+sri@envy:~/Desktop
+$ cd temp_repo/
+sri@envy:~/Desktop/temp_repo
+$ touch a
+sri@envy:~/Desktop/temp_repo
+$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/sri/Desktop/temp_repo/.git/
+sri@envy:~/Desktop/temp_repo
+$ git add .
+sri@envy:~/Desktop/temp_repo
+$ git commit -m "sample commit"
+[master (root-commit) 681a648] sample commit
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 a
+```
+
+Now, let's try to delete this directory with `rm -r`
+```bash
+sri@envy:~/Desktop/temp_repo
+$ cd .. 
+sri@envy:~/Desktop
+$ rm -r temp_repo/
+rm: remove write-protected regular file 'temp_repo/.git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391'? 
+```
+There will be lot of warnings, requesting us about deletion. The input `y` has to be given repeatedly to delete the directory entirely. Here is where `-f` option comes in, it allows us to delete the directory in one go, without any warnings. But this can be dangerous, since there is **no reversion** of a wrong delete. 
+
+```bash
+# Syntax
+$ rm -rf newdir   # Deletes the newdir directory and all of its contents FORCEFULLY
+
+# Example
+sri@envy:~/Desktop
+$ rm -rf temp_repo/
+sri@envy:~/Desktop
+$ 
 ```
 
 ## Summary of Directory Commands
 
-| **Command**          | **Description**                                                             | **Example Usage**                                  |
-|-----------------------|-----------------------------------------------------------------------------|----------------------------------------------------|
-| `pwd`                | Prints the current working directory.                                      | `pwd`                                              |
-| `cd [directory]`     | Changes the current directory to the specified one.                        | `cd /home/sri`                                   |
-| `cd ..`              | Moves up one directory level (to the parent directory).                    | `cd ..`                                            |
-| `cd -`               | Returns to the previous working directory.                                 | `cd -`                                             |
-| `cd`               | Changes to the home directory of the current user.                        | `cd`                                             |
-| `cd ~`               | Changes to the home directory of the current user.                        | `cd ~`                                             |
-| `cd ~[username]`     | Changes to the home directory of the specified user.                      | `cd ~sri`                                          |
-| `mkdir [directory]`  | Creates a new directory.                                                   | `mkdir newdir`                                     |
-| `mkdir -p [dir]`     | Creates a directory and any necessary parent directories.                  | `mkdir -p newdir/one/two`                         |
-| `rmdir [directory]`  | Removes an empty directory.                                                | `rmdir newdir`                                     |
-| `rm -rf [directory]` | Recursively and forcefully removes a directory and its contents.           | `rm -rf newdir`                                    |
-| `.`                  | Represents the current directory.                                          | `cd .`                                             |
-| `..`                 | Represents the parent directory.                                           | `cd ..`                                            |
-| `/`                  | Root directory (absolute path starts here).                               | `cd /home/sri`                                   |
-| `~`                  | Shortcut for the home directory.                                           | `cd ~/Music`                                       |
+| Command                  | Description                                                                                           |
+|--------------------------|-------------------------------------------------------------------------------------------------------|
+| `cd [directory]`         | Changes the current directory to the specified directory.                                            |
+| `cd -`                   | Returns to the previous directory.                                                                   |
+| `cd`                     | Changes to the home directory.                                                                       |
+| `cd ~`                   | Changes to the home directory (shortcut).                                                            |
+| `cd ~[username]`         | Changes to the home directory of the specified user.                                                 |
+| `cd /home/[username]`    | Changes to the absolute path of the specified user’s home directory.                                 |
+| `cd .`                   | Stays in the current directory.                                                                      |
+| `cd ..`                  | Moves up one level to the parent directory.                                                          |
+| `mkdir [directory]`      | Creates a new directory with the specified name.                                                     |
+| `mkdir -p [path]`        | Creates nested directories, including intermediate ones, if they don’t exist.                        |
+| `rmdir [directory]`      | Removes an empty directory.                                                                          |
+| `rm -r [directory]`      | Removes a directory and its contents recursively, prompting for confirmation for protected files.    |
+| `rm -rf [directory]`     | Removes a directory and its contents forcefully, without any prompts or confirmation.                |
+| `pwd`                    | Displays the present working directory.                                                              |
+| `ls [path]`              | Lists the contents of the specified directory.                                                       |
+| `ls`                     | Lists the contents of the current directory.                                                        |
+| `tree [directory]`       | Displays the directory structure in a tree format.                                                   |
+| `touch [file]`           | Creates an empty file with the specified name.                                                       |
+| `git init`               | Initializes a new Git repository in the current directory.                                           |
+| `git add .`              | Stages all changes in the current directory for the next commit.                                     |
+| `git commit -m [message]`| Creates a commit with the specified message.                                                         |
 
 ---
 
