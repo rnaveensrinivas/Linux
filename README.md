@@ -4,7 +4,7 @@
   * [Summary](#Summary-of-Linux-Directory-Structure)
 * [Command Line Interface](#Command-Line-Interface)
 * [Basic Commands](#Basic-Commands)
-  * [Summary ](#Summary-of-Basic-Commands)
+  * [Summary](#Summary-of-Basic-Commands)
 * [Directories](#Directories)
   * [Summary](#Summary-of-Directory-Commands)
 * [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
@@ -477,132 +477,378 @@ The **shell** is a program that accepts commands and directs the operating syste
 ## Shell Prompt
 The **shell prompt** provides information about the user, system, and current directory. For example:
 ```bash
-jason@linuxsvr:~$
+sri@envy:~$
 ```
-- `jason`: Username
-- `linuxsvr`: Hostname
-- `~`: Current directory (home directory, e.g., `/home/jason`)
+- `sri`: Username
+- `envy`: Hostname
+- `~`: Current directory (home directory, e.g., `/home/sri`)
 
-The prompt can vary in format, and users can customize it. Special symbols like `~` refer to the user's home directory. For example, `~john` expands to `/home/john`.
+The prompt can vary in format, and users can customize it. Special symbols like `~` (tilde) refer to the user's home directory. For example, `~sri` expands to `/home/sri`.
 
-## Examples of Shell Prompts:
-- `[jason@linuxsvr /tmp]$`
-- `linuxsvr:/home/jason>`
-- `jason@linuxsvr:~>`
+### Examples of Shell Prompts:
+- `[sri@envy /tmp]$`
+- `envy:/home/sri>`
+- `sri@envy:~>`
 
 Shell prompts can also span multiple lines, showing additional information like time and session details. 
+```bash
+sri@envy:~/Document/Linux
+$
+```
+## What is the difference between terminal and shell?
+
+The terms **terminal** and **shell** are often used interchangeably, but they refer to different components of a Linux or Unix-based system. Here’s the distinction:
+
+### Terminal:
+- A **terminal** is a program or interface that allows the user to interact with the computer by entering text-based commands. It provides the environment where you can type and execute commands, and it displays the output of those commands.
+- **Terminal** is essentially the window or emulator where the user interacts with the system's shell.
+- In the past, a **terminal** referred to physical hardware (like a teletype machine or a console), but today, it usually refers to terminal emulator software (like `gnome-terminal`, `xterm`, or `Konsole`) that runs on modern graphical desktop environments.
+
+**Example**: `gnome-terminal`, `xterm`, `Konsole`, etc.
+
+### Shell:
+- The **shell** is a program that interprets and executes the commands you type in the terminal. It acts as a command-line interface (CLI) between the user and the operating system.
+- The shell processes the commands you type, interprets them, and sends them to the operating system for execution. It also handles tasks like piping commands, file redirection, environment variables, and script execution.
+- Common types of shells in Linux include:
+ - **Bash** (Bourne Again Shell)
+ - **Zsh** (Z Shell)
+ - **Fish** (Friendly Interactive Shell)
+ - **Tcsh** (an enhanced version of the C shell)
+
+**Example**: `bash`, `zsh`, `fish`, `sh`, etc.
+
+### Key Differences:
+- **Terminal**:  
+  - The **interface** or **emulator** where commands are entered and output is displayed.
+  - It’s a window or program that allows interaction with the system.
+  
+- **Shell**:  
+  - The **program** that interprets and executes commands typed into the terminal.
+  - It’s the command processor that runs inside the terminal and interacts with the operating system.
+
+### Example to Illustrate the Difference:
+- When you open a **terminal** (like `gnome-terminal`), you're launching a program that displays a window.
+- Inside that terminal window, a **shell** (like `bash`) is running, and it waits for you to type commands.
+- When you type a command in the terminal, the **shell** processes and executes it.
+
+In short, the **terminal** is the interface you use to interact with the system, and the **shell** is the program that interprets the commands you input in that interface.
 
 ---
 
 # Basic Commands
 
-In Linux, commands are **case-sensitive** and typically in lowercase. Items surrounded by square brackets are optional. 
+In Linux, commands are **case-sensitive** and typically in **lowercase**. Items surrounded by square brackets are optional. 
 
 ## Navigation Commands:
-- **pwd**: Displays the present working directory.
-  ```bash
-  $ pwd
-  /home/jason
-  ```
-- **cd [directory]**: Changes the current directory to the specified directory. Without an argument, it changes to the home directory.
-  ```bash
-  $ cd /home
-  $ pwd
-  /home
-  ```
-* Going to home directory using cd
-  ```bash
-  sri@envy:~
-  $ cd ~
+### `pwd` Command
+Displays the present working directory.
+```bash
+# Syntax
+$ pwd
 
-  sri@envy:~
-  $ cd ~sri
-  
-  sri@envy:~
-  $ cd /home/sri
-  
-  sri@envy:~
-  $ cd
-  
-  sri@envy:~
-  $
-  ```
+# Example 
+sri@envy:~/Documents/Linux
+$ pwd
+/home/sri/Documents/Linux
+```
+### `cd` Command 
+Changes the current directory to the specified directory. Without an argument, it changes to the home directory.
+```bash
+# Syntax
+$ cd [directory]
+
+# Example
+sri@envy:~/Documents/Linux
+$ cd /home
+sri@envy:/home
+$ pwd
+/home
+```
+
+If you want to go to previous directory use `cd -`, it's like a back button.
+```bash
+# Syntax 
+$ cd -
+
+# Example
+sri@envy:~
+$ cd Documents/Linux/
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri
+sri@envy:~
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
+```
+
+
+You can get to the user's home directory in **four** differnet ways using `cd`. 
+
+```bash
+# 1. using "cd"
+sri@envy:~/Documents/Linux
+$ cd 
+sri@envy:~
+$ 
+
+# 2. using "cd ~"
+sri@envy:~/Documents/Linux
+$ cd ~
+sri@envy:~
+$ 
+
+# 3. using "cd ~sri"
+sri@envy:~/Documents/Linux
+$ cd ~sri
+sri@envy:~
+$ 
+
+# using "cd /home/sri"
+sri@envy:~/Documents/Linux
+$ cd /home/sri
+sri@envy:~
+$ 
+```
 
 ## Listing and Viewing Files:
-- **ls**: Lists the contents of a directory.
-  ```bash
-  $ ls
-  Desktop Documents Downloads Music Pictures to-do.txt
-  ```
-- **cat [file]**: Displays the contents of a file.
-  ```bash
-  $ cat to-do.txt
-  This file contains my to-do list.
-  * Mow the lawn.
-  * Take over the world.
-  ```
+### `ls` Command
+Lists the contents of a directory.
+```bash
+# Syntax
+$ ls [path]
+
+# Examples
+sri@envy:~
+$ ls
+Desktop  Documents  Downloads  Music  Pictures  Public  snap  Templates  Videos
+sri@envy:~
+$ 
+
+# Using relative path
+sri@envy:~
+$ ls Documents/Linux/
+Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~
+$ 
+
+# Using absolute path
+sri@envy:~
+$ ls /home/sri/Documents/Linux/
+Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~
+$ 
+
+```
+### `cat` Command 
+Displays the contents of a **file**.
+```bash
+# Syntax
+$ cat [file]
+
+# Example
+sri@envy:~
+$ cat /home/sri/Documents/Linux/README.md 
+# Table of Contents
+* [Introduction](#Introduction)
+* [Linux Directory Structure](#Linux-Directory-Structure)
+  * [Summary](#Summary-of-Linux-Directory-Structure)
+* [Command Line Interface](#Command-Line-Interface)
+* [Basic Commands](#Basic-Commands)
+  * [Summary](#Summary-of-Basic-Commands)
+
+# Without any arguments
+$ cat
+This will just repeat whatever I type in standard input.
+This will just repeat whatever I type in standard input.
+To quit press, Ctrl+c
+To quit press, Ctrl+c
+^C
+sri@envy:~
+$ 
+```
 
 ## Exiting the Shell:
-- **exit**, **logout**, or **Ctrl-D**: Exits the shell or current session.
-  ```bash
-  $ exit
-  ```
-  ```bash
-  $ logout 
-  bash: logout: not login shell: use `exit'
-  ```
-  ```bash
-  $ ^D
-  ```
 
+### `exit` Command
+Exit the current shell. 
+```bash
+sri@envy:~
+$ exit
+```
+### `logout` Command
+Exit from current login session.
+```bash
+# Not available in Ubuntu 24.04 Desktop
+$ logout 
+bash: logout: not login shell: use `exit'
+```
+### `CTRL + d` Shortcut
+Exit from shell using the shortcut, `CTRL + d` or `CTRL + D`.
+```bash
+$ ^D
+```
 
 ## Command Line Help:
-Linux provides built-in documentation through **man** pages:
-- **man [command]**: Displays the manual page for a command.
-  ```bash
-  $ man ls
-  ```
-- **man -k [keyword]**: Searches for commands related to a keyword.
-  ```bash
-  $ man -k reboot # returns all the man files which contain word 'reboot'
-  grub-reboot (8)      - set the default boot entry for GRUB, for the next boot only
-  halt (8)             - Power off, reboot, or halt the machine
-  poweroff (8)         - Power off, reboot, or halt the machine
-  reboot (2)           - reboot or enable/disable Ctrl-Alt-Del
-  reboot (8)           - Power off, reboot, or halt the machine
-  shutdown (8)         - Halt, power off or reboot the machine
-  systemd-pcrlock-secureboot-authority.service (8) - Analyze and predict TPM2 PCR states and ...
-  systemd-pcrlock-secureboot-policy.service (8) - Analyze and predict TPM2 PCR states and gen...
-  systemd-reboot.service (8) - System shutdown logic
-  systemd-soft-reboot.service (8) - Userspace reboot operation
-  systemd-sysupdate-reboot.service (8) - Automatically Update OS or Other Resources
-  systemd-sysupdate-reboot.timer (8) - Automatically Update OS or Other Resources
-  ```
-- **[command] --help**: Displays a help message for a command.
-  ```bash
-  $ ls --help
-  $ cd --help
-  ```
+Linux provides built-in documentation through **man** pages, detailing options, example usage and arugments of a specified command.
+
+### `man` Command 
+Displays the manual page for a command.
+```bash
+# Syntax
+$ man command
+
+# Example
+sri@envy:~
+$ man ls
+```
+
+#### Navigating man pages
+
+| Key                   | Action                      |
+|-----------------------|-----------------------------|
+| Enter, Down Arrow     | Move down one line.         |
+| Up Arrow              | Move up one line.           |
+| Spacebar, Page Down   | Move down one page.         |
+| Page Up               | Move up one page.           |
+| `g`                   | Go to the start or top.     |
+| `G`                   | Go to the end or bottom.    |
+| `h`                   | Display help.               |
+| `j`                   | Move down one line.         |
+| `k`                   | Move up one line.           |
+| `q`                   | Quit.                       |
+
+
+#### Searching man pages
+
+##### `man -k` Command
+Returns all the man pages that contain the **keyword**.
+```bash
+sri@envy:~
+# Syntax 
+$ man -k [keyword]
+
+# Example
+sri@envy:~
+$ man -k reboot
+grub-reboot (8)      - set the default boot entry for GRUB, for the next boot only
+halt (8)             - Power off, reboot, or halt the machine
+poweroff (8)         - Power off, reboot, or halt the machine
+reboot (2)           - reboot or enable/disable Ctrl-Alt-Del
+reboot (8)           - Power off, reboot, or halt the machine
+shutdown (8)         - Halt, power off or reboot the machine
+systemd-pcrlock-secureboot-authority.service (8) - Analyze and predict TPM2 PCR states and ...
+systemd-pcrlock-secureboot-policy.service (8) - Analyze and predict TPM2 PCR states and gen...
+systemd-reboot.service (8) - System shutdown logic
+systemd-soft-reboot.service (8) - Userspace reboot operation
+systemd-sysupdate-reboot.service (8) - Automatically Update OS or Other Resources
+systemd-sysupdate-reboot.timer (8) - Automatically Update OS or Other Resources
+sri@envy:~
+$ 
+```
+##### `apropos` Command
+Work similar to `man -k [keyword]`.
+
+```bash
+# Syntax
+$ apropos [keyword]
+
+# Example
+sri@envy:~
+$ apropos reboot
+grub-reboot (8)      - set the default boot entry for GRUB, for the next boot only
+halt (8)             - Power off, reboot, or halt the machine
+poweroff (8)         - Power off, reboot, or halt the machine
+reboot (2)           - reboot or enable/disable Ctrl-Alt-Del
+reboot (8)           - Power off, reboot, or halt the machine
+shutdown (8)         - Halt, power off or reboot the machine
+systemd-pcrlock-secureboot-authority.service (8) - Analyze and predict TPM2 PCR states and ...
+systemd-pcrlock-secureboot-policy.service (8) - Analyze and predict TPM2 PCR states and gen...
+systemd-reboot.service (8) - System shutdown logic
+systemd-soft-reboot.service (8) - Userspace reboot operation
+systemd-sysupdate-reboot.service (8) - Automatically Update OS or Other Resources
+systemd-sysupdate-reboot.timer (8) - Automatically Update OS or Other Resources
+sri@envy:~
+$ 
+```
+
+### `--help` option
+Displays a help message for a command.
+```bash
+# Syntax
+$ command --help
+
+# Example
+sri@envy:~
+$ ls --help
+Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                  do not ignore entries starting with .
+  -A, --almost-all           do not list implied . and ..
+      --author               with -l, print the author of each file
+...
+
+sri@envy:~
+$ cd --help
+cd: cd [-L|[-P [-e]] [-@]] [dir]
+    Change the shell working directory.
+    
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable. If DIR is "-", it is converted to $OLDPWD.
+    
+    The variable CDPATH defines the search path for the directory containing
+    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+    A null directory name is the same as the current directory.  If DIR begins
+    with a slash (/), then CDPATH is not used.
+...
+```
 
 ## Exploring Commands:
 You can explore commands in directories like `/bin` and `/usr/bin` using `ls` and `man` to learn their functions.
 ```bash
+sri@envy:~
 $ cd /bin
+sri@envy:/bin
 $ ls
-awk diff cal cat cp date du echo grep groups less more
-$ man date
+'['                                   mpris-proxy
+ aa-enabled                           mpstat
+ aa-exec                              mscompress
+ aa-features-abi                      msexpand
+ aconnect                             mt
+ acpidbg                              mt-gnu
+ add-apt-repository                   mtr
+ addpart                              mtrace
+ addr2line                            mtr-packet
+ airscan-discover                     mv
+ alsabat                              namei
+ alsaloop                             nano
+ alsamixer                            nautilus
+ alsatplg                             nautilus-autorun-software
+ alsaucm                              nautilus-sendto
+ amidi                                nawk
+ amixer                               nc
+ apg                                  nc.openbsd
+ apgbfm                               neqn
+ aplay                                netaddr
+sri@envy:/bin
+$ man mv
+sri@envy:/bin
+$ 
+
 ```
 ### Clearing the terminal screen.
 Screen can be cleared using 
-1. `clear` command
-2. `CTRL + l` shortcut
-   
-#### 1. `clear` command
+
+#### `clear` command
 The below command clears the entire terminal. Gives a fresh terminal.
 ```bash
 $ clear
 ```
-#### 2. `CTRL + l` Shortcut
+#### `CTRL + l` Shortcut
 This doesn't doesn't clear the terminal, but clears the Window. If you scroll up you can see the previous commands. 
 ```bash
 $ ^l
@@ -612,26 +858,71 @@ $ ^l
 ### Creating files
 To create an empty files use `touch`
 ```bash
-touch file[s]
+# Syntax
+$ touch file[s]
+
+# Example
+sri@envy:~
+$ ls
+Desktop    Downloads  Pictures  snap       Videos
+Documents  Music      Public    Templates
+sri@envy:~
+$ touch random_file
+sri@envy:~
+$ ls
+Desktop    Downloads  Pictures  random_file  Templates
+Documents  Music      Public    snap         Videos
+sri@envy:~down
+$ touch random1 randome2
+sri@envy:~
+$ ls
+Desktop    Downloads  Pictures  random1   random_file  Templates
+Documents  Music      Public    randome2  snap         Videos
+sri@envy:~
+$ 
 ```
 ---
 
 ## Summary of Basic Commands
 
-| **Command**        | **Description**                                                   | **Example Output**                                                                  |
-|---------------------|-------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| **pwd**            | Displays the present working directory.                          | `/home/jason`                                                                       |
-| **cd [directory]** | Changes the current directory to the specified directory.        | Changes to `/home` if `cd /home` is used.                                           |
-| **ls**             | Lists the contents of a directory.                               | `Desktop Documents Downloads Music Pictures to-do.txt`                              |
-| **cat [file]**     | Displays the contents of a file.                                 | Displays contents of `to-do.txt` like "Mow the lawn, Take over the world."          |
-| **exit**           | Exits the shell or current session.                              | Logs out or ends the session.                                                       |
-| **CTRL + d**       | Shortcut to log out of the shell or end the current input.       | Ends the terminal session if pressed at the command line.                           |
-| **man [command]**  | Displays the manual (help) page for a command.                   | Shows documentation for `ls` or other commands.                                     |
-| **man -k [keyword]**| Searches for a keyword in all man pages.                        | Lists all man pages related to "reboot" or other keywords.                          |
-| **[command] --help**| Displays a help message for a command.                          | `ls --help` shows options for the `ls` command.                                     |
-| **clear**          | Clears the terminal screen.                                      | Clears terminal output for a fresh screen.                                          |
-| **CTRL + l**       | Clears the terminal window without erasing previous output.      | Scroll up to see previous commands after using this shortcut.                       |
-| **touch [file]**   | Creates a new empty file or updates the timestamp of an existing file. | Creates `newfile.txt` or updates its timestamp.                                     |
+| Command                | Description |
+|------------------------|-------------|
+| `pwd`                  | Displays the present working directory. |
+| `cd [directory]`       | Changes the current directory to the specified directory. |
+| `cd -`                 | Changes to the previous directory. |
+| `cd`                   | Changes to the user's home directory. |
+| `cd ~`                 | Changes to the user's home directory. |
+| `cd ~user`              | Changes to the home directory of the user `user`. |
+| `cd /home/user`         | Changes to the directory `/home/user`. |
+| `ls [path]`            | Lists the contents of the specified path. |
+| `ls`                   | Lists the contents of the current directory. |
+| `cat [file]`           | Displays the contents of a specified file. |
+| `cat`                  | Reads from the standard input and displays the input. |
+| `exit`                 | Exits the current shell. |
+| `logout`               | Exits the current login session (not available in all shells). |
+| `^D` or `^d`           | Exits the shell using the shortcut `CTRL+D`. |
+| `man command`        | Displays the manual page for a command. |
+| `man -k keyword`     | Returns all man pages containing the specified keyword. |
+| `apropos keyword`    | Searches for the keyword in the manual page descriptions. |
+| `[command] --help`     | Displays a help message for the specified command. |
+| `clear`                | Clears the entire terminal screen. |
+| `^L` or `^l`           | Clears the terminal window (history still accessible via scroll). |
+| `touch file(s)`      | Creates empty file(s). |
+
+### Navigating man pages
+
+| Key                  | Action                               |
+|----------------------|--------------------------------------|
+| Enter, Down Arrow     | Move down one line.                 |
+| Up Arrow, `k`         | Move up one line.                   |
+| Spacebar, Page Down   | Move down one page.                 |
+| `g`                   | Go to the start or top.             |
+| `G`                   | Go to the end or bottom.            |
+| `h`                   | Display help.                       |
+| `j`                   | Move down one line.                 |
+| `k`                   | Move up one line.                   |
+| `l`                   | Move right (scroll horizontally).   |
+| `q`                   | Quit.                               |
 
 ---
 
@@ -642,13 +933,13 @@ In linux, we call **folder** as **directory**.
 ### **Absolute Path**: 
 Starts with a `/` and points to a location from the root of the file system.
 ```bash
-$ cd /home/jason/Music   # Absolute path to the Music directory
+$ cd /home/sri/Music   # Absolute path to the Music directory
 ```
 
 ### **Relative Path**: 
 Doesn't start with a `/` and is relative to the current working directory.
 ```bash
-$ cd Music   # Relative path, assuming you are already in /home/jason
+$ cd Music   # Relative path, assuming you are already in /home/sri
 ```
 
 ## Home Directory
@@ -691,7 +982,7 @@ $ pwd        # Shows the current directory, which should now be /home/sri/Music
 
 ### **Return to the previous directory with `cd -`**:
 ```bash
-$ cd /home/jason/Music   # Change to Music
+$ cd /home/sri/Music   # Change to Music
 $ cd -   # Goes back to the previous directory
 ```
 
@@ -721,7 +1012,7 @@ $ rm -rf newdir   # Deletes the newdir directory and all of its contents
 | **Command**          | **Description**                                                             | **Example Usage**                                  |
 |-----------------------|-----------------------------------------------------------------------------|----------------------------------------------------|
 | `pwd`                | Prints the current working directory.                                      | `pwd`                                              |
-| `cd [directory]`     | Changes the current directory to the specified one.                        | `cd /home/jason`                                   |
+| `cd [directory]`     | Changes the current directory to the specified one.                        | `cd /home/sri`                                   |
 | `cd ..`              | Moves up one directory level (to the parent directory).                    | `cd ..`                                            |
 | `cd -`               | Returns to the previous working directory.                                 | `cd -`                                             |
 | `cd`               | Changes to the home directory of the current user.                        | `cd`                                             |
@@ -733,7 +1024,7 @@ $ rm -rf newdir   # Deletes the newdir directory and all of its contents
 | `rm -rf [directory]` | Recursively and forcefully removes a directory and its contents.           | `rm -rf newdir`                                    |
 | `.`                  | Represents the current directory.                                          | `cd .`                                             |
 | `..`                 | Represents the parent directory.                                           | `cd ..`                                            |
-| `/`                  | Root directory (absolute path starts here).                               | `cd /home/jason`                                   |
+| `/`                  | Root directory (absolute path starts here).                               | `cd /home/sri`                                   |
 | `~`                  | Shortcut for the home directory.                                           | `cd ~/Music`                                       |
 
 ---
@@ -757,11 +1048,11 @@ The `-l` option provides a long listing format that gives detailed information a
 ```bash
 $ ls -l
 total 20
-drwxrwxr-x 2 jason users 4096 May 3 08:33 Desktop
-drwxrwxr-x 2 jason users 4096 May 3 08:35 Documents
-drwxrwxr-x 2 jason users 4096 May 3 08:38 Downloads
-drwxrwxr-x 3 jason users 4096 Jun 21 21:16 Music
--rw-r--r-- 1 jason users 73 Jun 22 19:34 to-do.txt
+drwxrwxr-x 2 sri users 4096 May 3 08:33 Desktop
+drwxrwxr-x 2 sri users 4096 May 3 08:35 Documents
+drwxrwxr-x 2 sri users 4096 May 3 08:38 Downloads
+drwxrwxr-x 3 sri users 4096 Jun 21 21:16 Music
+-rw-r--r-- 1 sri users 73 Jun 22 19:34 to-do.txt
 ```
 
 ### Breakdown of the Output
@@ -887,7 +1178,7 @@ drwxr-xr-x  2 sri sri 4096 Dec 21 16:45 Videos/
 A symbolic link (symlink) is a file that points to another file or directory. For example:
 ```bash
 $ ls -l link-to-to-do
-lrwxrwxrwx 1 jason users 9 Jun 22 21:01 link-to-to-do -> to-do.txt
+lrwxrwxrwx 1 sri users 9 Jun 22 21:01 link-to-to-do -> to-do.txt
 ```
 Here, `link-to-to-do` is a symlink pointing to `to-do.txt`.
 
@@ -1003,7 +1294,7 @@ Music/
 For a long listing of the directory:
 ```bash
 $ ls -ld Music/
-drwxrwxr-x 3 jason users 4096 Jun 21 21:16 Music/
+drwxrwxr-x 3 sri users 4096 Jun 21 21:16 Music/
 ```
 
 ## Colorized Output with `--color`
@@ -1021,16 +1312,16 @@ Files or directories with spaces or special characters in their names require sp
 ### Example with Spaces:
 ```bash
 $ ls "my to do list"
--rw-r--r-- 1 jason users 73 Jun 22 22:16 my to do list
+-rw-r--r-- 1 sri users 73 Jun 22 22:16 my to do list
 
 $ ls my\ to\ do\ list
--rw-r--r-- 1 jason users 73 Jun 22 22:16 my to do list
+-rw-r--r-- 1 sri users 73 Jun 22 22:16 my to do list
 ```
 
 ### Using `-b` to View Escaped Names:
 ```bash
 $ ls -b
--rw-r--r-- 1 jason users 73 Jun 22 22:16 my\ to\ do\ list
+-rw-r--r-- 1 sri users 73 Jun 22 22:16 my\ to\ do\ list
 ```
 
 ## Summary of File and Directory Commands
@@ -1076,7 +1367,7 @@ The `ls -l` command displays long listings of files and directories, including t
 
 ```bash
 $ ls -l sales.data
--rw-r--r-- 1 jason users 10400 Jun 14 09:31 sales.data
+-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
 ```
 
 In this example:
@@ -1110,13 +1401,13 @@ For directories, the meanings differ slightly:
 ### Example:
 
 ```bash
-$ ls -l /home/jason
-drwxr-xr-x 2 jason users 4096 Jan 10 10:21 Documents
+$ ls -l /home/sri
+drwxr-xr-x 2 sri users 4096 Jan 10 10:21 Documents
 ```
 
 In this case:
 - `drwxr-xr-x`: Indicates a directory (`d` at the beginning).
-- The permissions `rwxr-xr-x` mean that the owner (`jason`) can read, write, and execute; the group (`users`) can read and execute, but not write; others can also read and execute but cannot write.
+- The permissions `rwxr-xr-x` mean that the owner (`sri`) can read, write, and execute; the group (`users`) can read and execute, but not write; others can also read and execute but cannot write.
 
 ## User Categories for Permissions
 
@@ -1139,11 +1430,11 @@ When modifying file permissions, these categories are referenced to define who g
 
 ```bash
 $ ls -l sales.data
--rw-r--r-- 1 jason users 10400 Jun 14 09:31 sales.data
+-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
 ```
 
 Here:
-- **User** (`jason`) is the file owner.
+- **User** (`sri`) is the file owner.
 - **Group** (`users`) is the group owner.
 - **Others** are anyone else who is not the owner or part of the group.
 
@@ -1234,7 +1525,7 @@ In numeric (octal) mode, permissions are represented by three digits. Each digit
 In Linux, file permissions are displayed using the `ls -l` command, and they follow a specific format that helps you understand the file's type, owner, group, and access permissions. The format of a permissions string looks like this:
 
 ```
--rw-r--r-- 1 jason users 10400 Jun 14 09:31 sales.data
+-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
 ```
 
 #### Breaking Down the Permissions String:
@@ -1268,21 +1559,21 @@ In Linux, file permissions are displayed using the `ls -l` command, and they fol
 #### Example Breakdown:
 ```
 $ ls -l sales.data
--rw-r--r-- 1 jason users 10400 Jun 14 09:31 sales.data
+-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
 ```
 
 - **File type**: `-` (regular file)
 - **User (Owner)**: `rw-` (read and write)
 - **Group**: `r--` (read only)
 - **Others**: `r--` (read only)
-- **Owner**: `jason`
+- **Owner**: `sri`
 - **Group**: `users`
 
 If there are extra symbols like a period (`.`) or plus sign (`+`) at the end of the string, it means that advanced access control methods (SELinux or ACLs) are in use, which are rarely seen in typical systems.
 
 #### Example with SELinux:
 ```
--rw-r--r--. 1 jason users 10400 Jun 14 09:31 sales.data
+-rw-r--r--. 1 sri users 10400 Jun 14 09:31 sales.data
 ```
 
 - **Trailing period (`.`)** indicates the use of SELinux security contexts.
@@ -1548,9 +1839,9 @@ To check the permissions of a directory and its files, use `ls -ld` for the dire
 
 ```bash
 ls -ld directory/
-drwxr-xr-x 2 jason users 4096 Sep 29 22:02 directory/
+drwxr-xr-x 2 sri users 4096 Sep 29 22:02 directory/
 ls -l directory/
--rwxr--r-- 1 jason users 0 Sep 29 22:02 testprog
+-rwxr--r-- 1 sri users 0 Sep 29 22:02 testprog
 ```
 
 #### Example 5: Changing Directory Permissions
@@ -1559,7 +1850,7 @@ If a directory's permissions are set incorrectly (e.g., `400`), files within the
 ```bash
 chmod 400 directory
 ls -ld directory/
-dr-------- 2 jason users 4096 Sep 29 22:02 directory/
+dr-------- 2 sri users 4096 Sep 29 22:02 directory/
 ```
 
 This restricts access to the directory, causing permission issues when trying to access files within:
@@ -1574,7 +1865,7 @@ Changing the directory permissions to `500` grants the owner execute permissions
 ```bash
 chmod 500 directory/
 ls -ld directory/
-dr-x------ 2 jason users 4096 Sep 29 22:02 directory/
+dr-x------ 2 sri users 4096 Sep 29 22:02 directory/
 ```
 
 The file `testprog` can now be accessed and executed:
@@ -1687,7 +1978,7 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 | `chmod`          | Changes file permissions.                                        | `chmod u+x myscript.sh`                                      |
 | `groups`         | Displays the groups a user belongs to.                           | `groups`                                                    |
 | `id -Gn`         | Shows the list of groups for a specific user.                    | `id -Gn john`                                               |
-| `ls -l` (example)| Displays detailed file listing with permissions for `sales.data`.| `-rw-r--r-- 1 jason users 10400 Jun 14 09:31 sales.data`      |
+| `ls -l` (example)| Displays detailed file listing with permissions for `sales.data`.| `-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data`      |
 | `chmod 744`      | Sets permissions using numeric mode (user read/write, group/others read only). | `chmod 744 file.txt`                                         |
 | `chmod u+x`      | Adds execute permission for the user.                            | `chmod u+x myscript.sh`                                      |
 | `chmod g-w`      | Removes write permission for the group.                         | `chmod g-w myscript.sh`                                      |
