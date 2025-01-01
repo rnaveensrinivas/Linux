@@ -98,14 +98,15 @@ Its unmatched flexibility, security, and open-source nature have made Linux a co
 
 # Linux Directory Structure
 
-The Linux directory structure is hierarchical, resembling an inverted tree with the root (`/`) as its base. All directories branch off from the root, with forward slashes (`/`) separating directories.
+The Linux directory structure is hierarchical, resembling an inverted tree with the **root** or **trunk** (`/`) as its base. All directories branch off from the root, with forward slashes (`/`) separating directories.
 
 **Directory** is nothing but a linux jargon for **folder**.
 
 ## Common Top-Level Directories
 
 ### `/` Root Directory
-The starting point of the Linux file system. All files and directories reside under `/`. Additional storage devices are mounted as subdirectories like `/mnt` or `/media`.
+The root of the Linux file system, often referred to as the **slash (/)** or the **trunk**, serves as the starting point for all files and directories. Everything in Linux resides under `/`. This is similar to `C:\` in Windows. However, unlike Windows, where additional storage is assigned drive letters like `D:\`, Linux mounts additional storage devices as subdirectories, typically under locations like `/mnt` or `/media`.
+
 ```bash
 $ ls /
 bin                dev   lib64              mnt   run                 srv       usr
@@ -115,7 +116,7 @@ cdrom              lib   media              root  snap                tmp
 ```
 
 ### `/bin` Binaries
-Contains essential executable programs (e.g., basic commands like `ls`, `cp`). Additional non-essential binaries are found in `/usr/bin`.
+Contains **essential executable programs** (e.g., basic commands like `ls`, `cp`). Additional non-essential binaries like graphical apps, mail, and trivial cmd utitlies are found in `/usr/bin`.
 ```bash
 $ ls /bin
 '['                                   mpris-proxy
@@ -131,7 +132,7 @@ $ ls /bin
 ```
 
 ### `/etc` System Configuration Files
-Houses configuration files for the system and applications (e.g., boot modes, nareetwork settings).
+Houses **configuration files** that controls how the operating system and applications (e.g., boot modes, nareetwork settings) behave.
 ```bash
 $ ls /etc
 adduser.conf            fuse.conf             logrotate.d          rsyslog.d
@@ -155,14 +156,14 @@ binfmt.d                gshadow               network              ssl
 ```
 
 ### `/home` Home Directories
-User-specific directories containing personal files, configurations, and data. Example: `/home/user`.
+Each user on a Linux system has a subdirectory dedicated to their account in the /home directory. For example,Example: `/home/sri`.
 ```bash
 $ ls /home/
 sri
 ```
 
 ### `/opt` Optional or Third-Party Software
-Used for software not bundled with the operating system, like Google Chrome.
+Used for **software not bundled with the operating system**, like Google Chrome.
 
 **Fact** - Firefox comes builtin with the operating system. 
 ```bash
@@ -171,7 +172,7 @@ firefox: /usr/bin/firefox /snap/bin/firefox
 ```
 
 ### `/tmp` Temporary Files
-Temporary workspace for applications and users. Files here are cleared at boot time.
+Temporary workspace for applications and users. Files here are **cleared at boot time**.
 ```bash
 $ ls /tmp
 snap-private-tmp
@@ -182,11 +183,11 @@ systemd-private-9e8bed51413f4d929422b8d7d854bbcd-ModemManager.service-ItsVvS
 ...
 ```
 
-### `/usr` User-Related Data
-Contains user-related programs and **read-only data**. Subdirectories include:
+### `/usr` - User-Related Data  
+The `/usr` directory contains user-related programs and **read-only data**, which are not essential for the operating system's core functionality. Subdirectories include:
 - `/usr/bin`: Executable programs.
 - `/usr/lib`: Libraries.
-- `/usr/share`: Shared documentation and resources.
+- `/usr/share/doc`: Shared documentation and resources.
 
 #### `/usr`
 ```bash
@@ -222,33 +223,30 @@ binfmt.d                   kernel                                polkit-1
 brltty                     klibc                                 pppd
 ...
 ```
-#### `/usr/share`
+#### `/usr/share/doc`
 ```bash
-$ ls /usr/share/
-accountsservice              gnome-tweaks                    pam-configs
-aclocal                      gnupg                           perl
-alsa                         groff                           perl5
-alsa-base                    grub                            perl-openssl-defaults
-alsa-card-profile            gst-plugins-base                pipewire
-applications                 gstreamer-1.0                   pixmaps
-apport                       gtk-3.0                         pkgconfig
-appstream                    gtk-4.0                         plymouth
-aspell                       gtk-engines                     pnm2ppa
-avahi                        gtksourceview-2.0               pocketsphinx
-backgrounds                  gtksourceview-3.0               polkit-1
-base-files                   gtksourceview-4                 poppler
-base-passwd                  gtksourceview-5                 ppd
-bash-completion              gupnp-av                        ppdc
-binfmts                      gupnp-dlna-2.0                  ppp
+$ ls /usr/share/doc
+accountsservice                                libmpc3
+acl                                            libmpcdec6
+adduser                                        libmpeg2-4
+adwaita-icon-theme                             libmpfr6
+alsa-base                                      libmpg123-0t64
+alsa-topology-conf                             libmsgraph-0-1
+alsa-ucm-conf                                  libmtdev1t64
+alsa-utils                                     libmtp9t64
+amd64-microcode                                libmtp-common
+anacron                                        libmtp-runtime
+apg                                            libmutter-14-0
+apparmor                                       libmysofa1
+apport                                         libnautilus-extension4
+apport-core-dump-handler                       libncurses6
+apport-gtk                                     libncursesw6
 ...
 ```
+
 ### What is the difference between `/bin` and `/usr/bin`?
 
-The directories `/bin` and `/usr/bin` are part of the Linux filesystem hierarchy and are used to store executable files. However, they differ in purpose and historical usage.
-
----
-
-#### **1. `/bin` (Essential User Binaries)**
+#### `/bin` (Essential Binaries)
 - **Purpose**: Contains essential binaries required for the system to function, especially during boot or when the system is in single-user mode.
 - **Availability**: These binaries are available even if the `/usr` directory is not mounted.
 - **Usage**: Includes basic commands that are needed for system recovery, maintenance, and basic user interaction.
@@ -258,10 +256,9 @@ The directories `/bin` and `/usr/bin` are part of the Linux filesystem hierarchy
   - `mv`: Move files
   - `cat`: Concatenate and display file contents
   - `bash`: The Bourne Again Shell
-  
----
 
-#### **2. `/usr/bin` (Non-Essential User Binaries)**
+
+#### `/usr/bin` (Non-Essential User Binaries)
 - **Purpose**: Contains binaries for general use by all users, but these are not essential for booting or repairing the system.
 - **Availability**: Typically resides on a separate partition and may not be available if `/usr` is not mounted (e.g., during early boot stages or recovery modes).
 - **Usage**: Includes a broader range of applications and tools that are not critical to the core system operation.
@@ -271,22 +268,30 @@ The directories `/bin` and `/usr/bin` are part of the Linux filesystem hierarchy
   - `python`: Python interpreter
   - `git`: Version control system
 
----
-
-#### **Key Differences**
-| Aspect             | `/bin`                              | `/usr/bin`                          |
-|--------------------|-------------------------------------|-------------------------------------|
-| **Purpose**         | Essential commands for the system  | General-purpose commands and tools |
-| **Availability**    | Always available, even in recovery | May not be available in early boot |
-| **Examples**        | `ls`, `cat`, `bash`                | `vim`, `python`, `git`             |
-| **System Dependence** | Required for booting and recovery | Not required for core boot         |
-
----
-
 #### **Historical Context**
 - In older UNIX systems, `/bin` was designed for essential commands, while `/usr/bin` held supplementary tools. Over time, `/usr/bin` grew to contain a significant portion of system utilities.
-- Modern Linux systems often include `/bin` and `/usr/bin` as part of the same filesystem, and some distributions have unified these directories, symlinking `/bin` to `/usr/bin` for simplicity.
+- Modern Linux systems often include `/bin` and `/usr/bin` as part of the same filesystem, and some distributions have unified these directories, **symlinking `/bin` to `/usr/bin`** for simplicity.
+- 
+---
 
+### What is the difference between `/usr/bin` and `/opt`?
+
+#### **`/usr/bin`**
+This directory contains user binaries (executable files) that are part of the core system software (not for OS but for system users). These are programs and utilities that are necessary for normal system operations and user tasks. They are typically installed by the distribution's package manager and are shared across all users on the system.
+
+#### **`/opt`**
+This directory is used for installing optional software packages that are **not part of the default system installation**. Software in `/opt` is typically self-contained, meaning it may include all necessary libraries and dependencies. It is often used for third-party software or larger applications that don't conform to the standard Linux directory structure. E.g. Google Chromee, Microsoft Edge. 
+
+#### Key Differences:
+- **Purpose**:  
+  - `/usr/bin` is for essential, system-wide binaries required by the OS and users.  
+  - `/opt` is for optional, third-party software that is installed separately from the core system.
+  
+- **Installation**:  
+  - Binaries in `/usr/bin` are generally installed by the system package manager.  
+  - Software in `/opt` is often manually installed or provided by vendors as standalone packages.
+
+---
 
 ### `/var` Variable Data
 Stores variable and runtime data, like log files in `/var/log`.
@@ -301,11 +306,98 @@ backups  cache  crash  lib  local  lock  log  mail  metrics  opt  run  snap  spo
 - `/boot`: Files required for system booting.
 - `/dev`: Device files representing hardware.
 - `/lib` and `/lib64`: Shared libraries.
+- `/lost+found`: Used by the file system to store recovered files after a file system check has been performed.
 - `/mnt` and `/media`: Mount points for external file systems or media.
 - `/proc` and `/sys`: Virtual filesystems for process and system information.
 - `/sbin`: System administration binaries.
 - `/srv`: Data served by the system, e.g., web or FTP files.
 - `/root`: Home directory for the root user.
+
+---
+
+### Library in Linux:
+
+In Linux, a **library** is a collection of precompiled, reusable code that provides specific functionality for programs. Libraries contain functions or routines that programs can call to perform common tasks, such as handling files, performing mathematical operations, or managing network connections. Rather than each program writing its own code for these tasks, it can instead link to a library, saving time, reducing redundancy, and ensuring consistency across programs.
+
+There are two main types of libraries in Linux:
+
+#### Static Libraries (`.a` files):  
+   These are collections of compiled object files that are embedded directly into the executable at compile time. When a program links to a static library, the library’s code becomes part of the program itself, making the executable larger but eliminating the need for the library to be present at runtime.
+
+#### Dynamic Libraries (`.so` files):  
+   These libraries are loaded into memory at runtime when the program is executed. They are not part of the program's executable file but are instead shared by multiple programs. This reduces memory usage because the library is only loaded into memory once. Dynamic libraries can be updated independently of the programs using them, providing greater flexibility.
+)**:
+### Difference Between `/bin` and `/lib`:
+
+#### `/bin` (Binaries):  
+  The `/bin` directory contains **essential system binaries** (executable programs) required for the basic functionality of the system. These are crucial programs that both the operating system and regular users need to perform system tasks. Examples of binaries in `/bin` include commands like `ls`, `cp`, and `mkdir`. These binaries are essential for the system to operate and for users to interact with the system.
+
+#### `/lib` (Libraries):  
+  The `/lib` directory contains **shared libraries** that provide essential support for the binaries in `/bin` (and other directories). These libraries contain the compiled code needed by system programs to execute specific tasks. For example, the C standard library (`libc.so`) is stored in `/lib` and provides fundamental functions like input/output handling and memory management. The files in `/lib` are not executable on their own but are used by the binaries to run efficiently.
+
+#### Key Differences:
+- **Purpose**:  
+  - `/bin` contains **executable programs** (binaries) required for system operation.  
+  - `/lib` contains **shared libraries** that provide support for these programs to run.
+  
+- **Content**:  
+  - `/bin` holds essential **commands** for both system administrators and regular users.  
+  - `/lib` holds **shared code** that is needed by these commands and other applications to function.
+
+- **Functionality**:  
+  - Programs in `/bin` execute tasks directly, while programs in `/lib` provide the necessary libraries that programs in `/bin` rely on to perform their functions.
+
+---
+
+## Finding binary, source, and manual pages
+
+The `whereis` command in Linux is used to locate the **binary, source, and manual page** files for a command or program. It's a helpful tool for finding the location of executables, their associated documentation, and related source code.
+
+### Syntax:
+```bash
+whereis [options] <command_name>
+```
+
+### Common Options:
+- **`-b`**: Search only for binary files (executable files).
+- **`-m`**: Search only for manual pages.
+- **`-s`**: Search only for source code.
+- **`-u`**: Locate unlinked files (files that don't have a corresponding entry in the database).
+- **`-B <path>`**: Specify a directory to search for binaries.
+- **`-M <path>`**: Specify a directory to search for manual pages.
+- **`-S <path>`**: Specify a directory to search for source files.
+
+### Example Usage:
+
+1. **Locate all files related to the `ls` command**:
+   ```bash
+   $ whereis ls
+   ls: /usr/bin/ls /usr/share/man/man1/ls.1.gz
+   ```
+   This will return locations for the `ls` binary, its manual page, and possibly its source code.
+
+2. **Find the binary for `gcc` only**:
+   ```bash
+   $ whereis -b gcc
+   gcc: /usr/bin/gcc /usr/lib/gcc /usr/libexec/gcc /usr/share/gcc
+   ```
+   This will only return the location of the `gcc` binary.
+
+3. **Find the manual page for `bash`**:
+   ```bash
+   $ whereis -m bash
+   bash: /usr/share/man/man1/bash.1.gz
+   ```
+   This will return the location of the `bash` manual page.
+
+### How It Works:
+- The `whereis` command searches through predefined directories set in system configuration files (like `/usr/bin`, `/bin`, `/usr/local/bin`, etc.).
+- It uses a database to speed up the process of locating files, unlike the `which` command, which only returns the location of the executable in the directories specified in the `$PATH` environment variable.
+
+### Use Cases:
+- Quickly finding the path to an executable, manual page, or source code.
+- Verifying whether a specific command or tool is installed on the system.
+- Locating specific documentation or source code for a program.
 
 ---
 
@@ -354,12 +446,23 @@ Applications can also share common directory spaces. For instance, Apache might 
 | `/usr`           | Secondary hierarchy for user programs and data.                           | Subdirectories like `/usr/bin`, `/usr/lib`, `/usr/share`.                                               |
 | `/var`           | Variable data files that change during operation.                         | Logs (`/var/log`), spools (`/var/spool`), caches (`/var/cache`).                                         |
 
----
-
 ### Notes:
 1. Some directories like `/media` or `/mnt` might not have content unless specifically used.
 2. On modern systems, certain directories like `/bin` and `/sbin` may be symlinks to `/usr/bin` and `/usr/sbin`.
 3. The layout and contents of these directories can vary slightly between Linux distributions.
+
+| Commands                          | Description                                                       |
+|-----------------------------------|-------------------------------------------------------------------|
+| `ls [dir]`                        | Lists the contents of a directory.                                |
+| `whereis -b [command]`            | Searches for the binary (executable) file of a command.           |
+| `whereis -m [command]`            | Searches for the manual page of a command.                        |
+| `whereis -s [command]`            | Searches for the source code of a command.                        |
+| `whereis -u [command]`            | Finds unlinked files (files not listed in the system's database). |
+| `whereis -B <path> [command]`     | Specifies a directory to search for binaries.                     |
+| `whereis -M <path> [command]`     | Specifies a directory to search for manual pages.                 |
+| `whereis -S <path> [command]`     | Specifies a directory to search for source files.                 | 
+
+This table now includes the `whereis` command, along with its options and descriptions.
 
 ---
 
