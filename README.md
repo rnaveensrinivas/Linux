@@ -61,24 +61,24 @@ A **Linux distribution (distro)** is a complete operating system built around th
 
 ### Popular Linux Distributions  
 
-| **Distribution**        | **Primary Usage** | **Support Model**    | **Notes**                                                                 |
+| **Distribution**| **Primary Usage** | **Support Model**| **Notes** |
 |--------------------------|-------------------|-----------------------|---------------------------------------------------------------------------|
-| **Linux Mint**           | Desktop           | Community             | User-friendly, ideal for beginners.                                       |
-| **Ubuntu**               | Both              | Community             | Widely used with LTS versions for stability.                              |
-| **Debian**               | Both              | Community             | Stable and reliable, popular for servers.                                 |
-| **Fedora**               | Both              | Community             | Cutting-edge features, upstream for RHEL.                                 |
-| **openSUSE**             | Both              | Community/Corporate   | Offers Leap (stable) and Tumbleweed (rolling release) versions.           |
-| **Arch Linux**           | Desktop           | Community             | Minimalist and highly customizable.                                       |
-| **CentOS**               | Server            | Community             | RHEL-based, stable, enterprise-ready.                                     |
-| **RHEL**                 | Server            | Corporate             | Commercial support for enterprise environments.                           |
-| **Manjaro**              | Desktop           | Community             | Arch-based with user-friendly tools.                                      |
-| **Elementary OS**        | Desktop           | Community             | Aesthetic design, excellent for newcomers.                                |
-| **Kali Linux**           | Desktop           | Community             | Specialized for penetration testing and security tasks.                   |
-| **Zorin OS**             | Desktop           | Community             | Perfect for users transitioning from Windows.                             |
-| **Pop!_OS**              | Desktop           | Community             | Developer- and gamer-friendly, based on Ubuntu.                           |
-| **AlmaLinux**            | Server            | Community             | RHEL clone, focused on enterprise users.                                  |
-| **Slackware**            | Both              | Community             | Traditional UNIX-like experience.                                         |
-| **MX Linux**             | Desktop           | Community             | Lightweight and efficient for older hardware.                             |
+| **Linux Mint**   | Desktop   | Community | User-friendly, ideal for beginners.   |
+| **Ubuntu**   | Both  | Community | Widely used with LTS versions for stability.  |
+| **Debian**   | Both  | Community | Stable and reliable, popular for servers. |
+| **Fedora**   | Both  | Community | Cutting-edge features, upstream for RHEL. |
+| **openSUSE** | Both  | Community/Corporate   | Offers Leap (stable) and Tumbleweed (rolling release) versions.   |
+| **Arch Linux**   | Desktop   | Community | Minimalist and highly customizable.   |
+| **CentOS**   | Server| Community | RHEL-based, stable, enterprise-ready. |
+| **RHEL** | Server| Corporate | Commercial support for enterprise environments.   |
+| **Manjaro**  | Desktop   | Community | Arch-based with user-friendly tools.  |
+| **Elementary OS**| Desktop   | Community | Aesthetic design, excellent for newcomers.|
+| **Kali Linux**   | Desktop   | Community | Specialized for penetration testing and security tasks.   |
+| **Zorin OS** | Desktop   | Community | Perfect for users transitioning from Windows. |
+| **Pop!_OS**  | Desktop   | Community | Developer- and gamer-friendly, based on Ubuntu.   |
+| **AlmaLinux**| Server| Community | RHEL clone, focused on enterprise users.  |
+| **Slackware**| Both  | Community | Traditional UNIX-like experience. |
+| **MX Linux** | Desktop   | Community | Lightweight and efficient for older hardware. |
 
 **Legend**:  
 - **Desktop**: Tailored for personal or workstation use.  
@@ -90,7 +90,7 @@ A **Linux distribution (distro)** is a complete operating system built around th
 
 ## Why Learn Linux?  
 The core principles and functionalities of Linux remain consistent across distributions, making it a universal skill for tech enthusiasts and professionals. Linux powers:  
-- **90% of the world’s supercomputers**,  
+- **90% of the world's supercomputers**,  
 - **96.3% of the top 1 million web servers**,  
 - **74% of smartphones (via Android)**.  
 
@@ -324,7 +324,7 @@ In Linux, a **library** is a collection of precompiled, reusable code that provi
 There are two main types of libraries in Linux:
 
 #### Static Libraries (`.a` files):  
-   These are collections of compiled object files that are embedded directly into the executable at compile time. When a program links to a static library, the library’s code becomes part of the program itself, making the executable larger but eliminating the need for the library to be present at runtime.
+   These are collections of compiled object files that are embedded directly into the executable at compile time. When a program links to a static library, the library's code becomes part of the program itself, making the executable larger but eliminating the need for the library to be present at runtime.
 
 #### Dynamic Libraries (`.so` files):  
    These libraries are loaded into memory at runtime when the program is executed. They are not part of the program's executable file but are instead shared by multiple programs. This reduces memory usage because the library is only loaded into memory once. Dynamic libraries can be updated independently of the programs using them, providing greater flexibility.
@@ -429,40 +429,40 @@ Applications can also share common directory spaces. For instance, Apache might 
 
 | **Directory**   | **Purpose**| **Key Contents**|
 |------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
-| `/bin`           | Essential binaries for system operation and recovery.                      | Basic commands like `ls`, `cp`, `mv`, `cat`, `bash`.                                                     |
-| `/boot`          | Contains bootloader files and the kernel.                                  | Kernel images, `grub` configuration files.                                                              |
-| `/dev`           | Device files representing hardware and virtual devices.                    | Files like `/dev/sda` (disk), `/dev/null`, `/dev/tty` (terminals).                                       |
-| `/etc`           | System-wide configuration files.                                           | Configs for services like `ssh`, `passwd`, `fstab`.                                                      |
-| `/home`          | User home directories.                                                     | Personal files and directories for users (e.g., `/home/naveen`).                                         |
-| `/lib`           | Essential shared libraries and kernel modules.                             | Libraries used by programs in `/bin` and `/sbin`.                                                       |
-| `/media`         | Mount points for removable media.                                          | Subdirectories for CDs, USB drives (e.g., `/media/usb`).                                                |
-| `/mnt`           | Temporary mount point for filesystems.                                     | Used for mounting partitions during maintenance or temporary usage.                                      |
-| `/opt`           | Optional software packages installed outside standard directories.         | Third-party apps like `/opt/google`.                                                                    |
-| `/proc`          | Virtual filesystem providing process and system information.               | Files like `/proc/cpuinfo`, `/proc/meminfo`.                                                            |
-| `/root`          | Home directory for the root user.                                          | Files specific to the `root` superuser.                                                                 |
-| `/run`           | Runtime files like process IDs (PIDs) and sockets.                        | Files such as `/run/sshd.pid`.                                                                          |
-| `/sbin`          | System binaries for administrative tasks.                                  | Commands like `fsck`, `shutdown`, `mount`.                                                              |
-| `/srv`           | Data served by the system, such as web server or FTP server files.         | E.g., `/srv/www` for websites.                                                                          |
-| `/sys`           | Virtual filesystem for device and system configuration.                   | Hardware information and control files (e.g., `/sys/class`).                                            |
-| `/tmp`           | Temporary files, often cleared on reboot.                                 | Session data, temporary downloads.                                                                      |
-| `/usr`           | Secondary hierarchy for user programs and data.                           | Subdirectories like `/usr/bin`, `/usr/lib`, `/usr/share`.                                               |
-| `/var`           | Variable data files that change during operation.                         | Logs (`/var/log`), spools (`/var/spool`), caches (`/var/cache`).                                         |
+| `/bin`   | Essential binaries for system operation and recovery.  | Basic commands like `ls`, `cp`, `mv`, `cat`, `bash`. |
+| `/boot`  | Contains bootloader files and the kernel.  | Kernel images, `grub` configuration files.  |
+| `/dev`   | Device files representing hardware and virtual devices.| Files like `/dev/sda` (disk), `/dev/null`, `/dev/tty` (terminals).   |
+| `/etc`   | System-wide configuration files.   | Configs for services like `ssh`, `passwd`, `fstab`.  |
+| `/home`  | User home directories. | Personal files and directories for users (e.g., `/home/naveen`). |
+| `/lib`   | Essential shared libraries and kernel modules. | Libraries used by programs in `/bin` and `/sbin`.   |
+| `/media` | Mount points for removable media.  | Subdirectories for CDs, USB drives (e.g., `/media/usb`).|
+| `/mnt`   | Temporary mount point for filesystems. | Used for mounting partitions during maintenance or temporary usage.  |
+| `/opt`   | Optional software packages installed outside standard directories. | Third-party apps like `/opt/google`.|
+| `/proc`  | Virtual filesystem providing process and system information.   | Files like `/proc/cpuinfo`, `/proc/meminfo`.|
+| `/root`  | Home directory for the root user.  | Files specific to the `root` superuser. |
+| `/run`   | Runtime files like process IDs (PIDs) and sockets.| Files such as `/run/sshd.pid`.  |
+| `/sbin`  | System binaries for administrative tasks.  | Commands like `fsck`, `shutdown`, `mount`.  |
+| `/srv`   | Data served by the system, such as web server or FTP server files. | E.g., `/srv/www` for websites.  |
+| `/sys`   | Virtual filesystem for device and system configuration.   | Hardware information and control files (e.g., `/sys/class`).|
+| `/tmp`   | Temporary files, often cleared on reboot. | Session data, temporary downloads.  |
+| `/usr`   | Secondary hierarchy for user programs and data.   | Subdirectories like `/usr/bin`, `/usr/lib`, `/usr/share`.   |
+| `/var`   | Variable data files that change during operation. | Logs (`/var/log`), spools (`/var/spool`), caches (`/var/cache`). |
 
 ### Notes:
 1. Some directories like `/media` or `/mnt` might not have content unless specifically used.
 2. On modern systems, certain directories like `/bin` and `/sbin` may be symlinks to `/usr/bin` and `/usr/sbin`.
 3. The layout and contents of these directories can vary slightly between Linux distributions.
 
-| Commands                          | Description                                                       |
+| Commands  | Description   |
 |-----------------------------------|-------------------------------------------------------------------|
-| `ls [dir]`                        | Lists the contents of a directory.                                |
-| `whereis -b [command]`            | Searches for the binary (executable) file of a command.           |
-| `whereis -m [command]`            | Searches for the manual page of a command.                        |
-| `whereis -s [command]`            | Searches for the source code of a command.                        |
-| `whereis -u [command]`            | Finds unlinked files (files not listed in the system's database). |
-| `whereis -B <path> [command]`     | Specifies a directory to search for binaries.                     |
-| `whereis -M <path> [command]`     | Specifies a directory to search for manual pages.                 |
-| `whereis -S <path> [command]`     | Specifies a directory to search for source files.                 | 
+| `ls [dir]`| Lists the contents of a directory.|
+| `whereis -b [command]`| Searches for the binary (executable) file of a command.   |
+| `whereis -m [command]`| Searches for the manual page of a command.|
+| `whereis -s [command]`| Searches for the source code of a command.|
+| `whereis -u [command]`| Finds unlinked files (files not listed in the system's database). |
+| `whereis -B <path> [command]` | Specifies a directory to search for binaries. |
+| `whereis -M <path> [command]` | Specifies a directory to search for manual pages. |
+| `whereis -S <path> [command]` | Specifies a directory to search for source files. | 
 
 This table now includes the `whereis` command, along with its options and descriptions.
 
@@ -499,7 +499,7 @@ $
 ```
 ## What is the difference between terminal and shell?
 
-The terms **terminal** and **shell** are often used interchangeably, but they refer to different components of a Linux or Unix-based system. Here’s the distinction:
+The terms **terminal** and **shell** are often used interchangeably, but they refer to different components of a Linux or Unix-based system. Here's the distinction:
 
 ### Terminal:
 - A **terminal** is a program or interface that allows the user to interact with the computer by entering text-based commands. It provides the environment where you can type and execute commands, and it displays the output of those commands.
@@ -522,11 +522,11 @@ The terms **terminal** and **shell** are often used interchangeably, but they re
 ### Key Differences:
 - **Terminal**:  
   - The **interface** or **emulator** where commands are entered and output is displayed.
-  - It’s a window or program that allows interaction with the system.
+  - It's a window or program that allows interaction with the system.
   
 - **Shell**:  
   - The **program** that interprets and executes commands typed into the terminal.
-  - It’s the command processor that runs inside the terminal and interacts with the operating system.
+  - It's the command processor that runs inside the terminal and interacts with the operating system.
 
 ### Example to Illustrate the Difference:
 - When you open a **terminal** (like `gnome-terminal`), you're launching a program that displays a window.
@@ -708,18 +708,18 @@ $ man ls
 
 #### Navigating man pages
 
-| Key                   | Action                      |
+| Key   | Action  |
 |-----------------------|-----------------------------|
-| Enter, Down Arrow     | Move down one line.         |
-| Up Arrow              | Move up one line.           |
-| Spacebar, Page Down   | Move down one page.         |
-| Page Up               | Move up one page.           |
-| `g`                   | Go to the start or top.     |
-| `G`                   | Go to the end or bottom.    |
-| `h`                   | Display help.               |
-| `j`                   | Move down one line.         |
-| `k`                   | Move up one line.           |
-| `q`                   | Quit.                       |
+| Enter, Down Arrow | Move down one line. |
+| Up Arrow  | Move up one line.   |
+| Spacebar, Page Down   | Move down one page. |
+| Page Up   | Move up one page.   |
+| `g`   | Go to the start or top. |
+| `G`   | Go to the end or bottom.|
+| `h`   | Display help.   |
+| `j`   | Move down one line. |
+| `k`   | Move up one line.   |
+| `q`   | Quit.   |
 
 
 #### Searching man pages
@@ -1119,7 +1119,7 @@ $ cd -
 sri@envy:~/Documents/Linux
 $ 
 ```
-The loop happens because `cd -` toggles between the current directory and the last visited directory. When you use `cd .`, it doesn’t change the directory, so the "previous directory" remains the same. Repeatedly using `cd -` in the same location keeps toggling to the same directory, causing the apparent loop.
+The loop happens because `cd -` toggles between the current directory and the last visited directory. When you use `cd .`, it doesn't change the directory, so the "previous directory" remains the same. Repeatedly using `cd -` in the same location keeps toggling to the same directory, causing the apparent loop.
 
 ## Creating and Removing Directories
 ### Create a directory with `mkdir`:
@@ -1152,7 +1152,7 @@ sri@envy:~/Desktop
 $ ls
 sri@envy:~/Desktop
 $ mkdir dir/sub-dir/sub-sub-dir
-mkdir: cannot create directory ‘dir/sub-dir/sub-sub-dir’: No such file or directory
+mkdir: cannot create directory ‘dir/sub-dir/sub-sub-dir': No such file or directory
 sri@envy:~/Desktop
 $ mkdir -p dir/sub-dir/sub-sub-dir
 sri@envy:~/Desktop
@@ -1263,11 +1263,11 @@ $
 | `cd`                     | Changes to the home directory.                                                                       |
 | `cd ~`                   | Changes to the home directory (shortcut).                                                            |
 | `cd ~[username]`         | Changes to the home directory of the specified user.                                                 |
-| `cd /home/[username]`    | Changes to the absolute path of the specified user’s home directory.                                 |
+| `cd /home/[username]`    | Changes to the absolute path of the specified user's home directory.                                 |
 | `cd .`                   | Stays in the current directory.                                                                      |
 | `cd ..`                  | Moves up one level to the parent directory.                                                          |
 | `mkdir [directory]`      | Creates a new directory with the specified name.                                                     |
-| `mkdir -p [path]`        | Creates nested directories, including intermediate ones, if they don’t exist.                        |
+| `mkdir -p [path]`        | Creates nested directories, including intermediate ones, if they don't exist.                        |
 | `rmdir [directory]`      | Removes an empty directory.                                                                          |
 | `rm -r [directory]`      | Removes a directory and its contents recursively, prompting for confirmation for protected files.    |
 | `rm -rf [directory]`     | Removes a directory and its contents forcefully, without any prompts or confirmation.                |
@@ -1501,7 +1501,7 @@ sri@envy:~
 $ 
 ```
 
-Here’s a list of file type indicators used in Linux with the `ls` command:
+Here's a list of file type indicators used in Linux with the `ls` command:
 
 | **Symbol in Permission String** | **File Type**           | **Description**                                                                                                                                           | **Default Color**   |
 |------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
@@ -2120,7 +2120,7 @@ The equal sign (`=`) can be used to overwrite existing permissions for a user ca
 ```bash
 chmod u=rwx file.txt
 ```
-This sets the user’s permissions to read, write, and execute, overriding any existing permissions for the user category. The resulting permissions string will look like:
+This sets the user's permissions to read, write, and execute, overriding any existing permissions for the user category. The resulting permissions string will look like:
 ```bash
 -rwxr--r-- 
 ```
@@ -2553,7 +2553,7 @@ $ chmod 4755 /usr/bin/passwd
 This enables `setuid` for the `passwd` command, allowing it to run with superuser privileges.
 
 #### Setgid (Set Group ID)
-The `setgid` permission allows a program to run with the group of the file instead of the executing user's group. Additionally, when `setgid` is used on a directory, all files created within that directory inherit the directory’s group.
+The `setgid` permission allows a program to run with the group of the file instead of the executing user's group. Additionally, when `setgid` is used on a directory, all files created within that directory inherit the directory's group.
 
 To enable `setgid`:
 - Octal mode: Prepend `2`
@@ -2609,7 +2609,7 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 | `chmod a=r file`                  | Sets read-only permissions for everyone (user, group, and others).                               | `chmod a=r sales.data`                                   |
 | `chmod o-rwx file`                | Removes all permissions (read, write, execute) for others.                                       | `chmod o-rwx sales.data`                                 |
 | `chmod u+x,g-w,o=r file`          | Adds execute permission for the user, removes write permission for the group, and sets read-only permissions for others. | `chmod u+x,g-w,o=r sales.data`                           |
-| `chmod u=rwx file`                | Explicitly sets the user’s permissions to read, write, and execute, overwriting any existing user permissions. | `chmod u=rwx sales.data`                                 |
+| `chmod u=rwx file`                | Explicitly sets the user's permissions to read, write, and execute, overwriting any existing user permissions. | `chmod u=rwx sales.data`                                 |
 | `chmod 700 filename`     | Sets full control for the owner, and no permissions for others.       | Grants owner `rwx` permissions, group and others have no access. |
 | `chmod 755 filename`     | Grants full permissions to the owner, and read and execute permissions to group and others. | Owner: `rwx`, Group: `r-x`, Others: `r-x`. |
 | `chmod 664 filename`     | Grants read and write permissions to the owner and group, and read-only permission to others. | Owner: `rw-`, Group: `rw-`, Others: `r--`. |
@@ -2712,7 +2712,7 @@ $ less README.md
 ```
 You can scroll up and down through the file, search for patterns, and use other advanced features like following the file.
 
-Here’s a table summarizing the useful `less` commands:
+Here's a table summarizing the useful `less` commands:
 
 | **Command**                  | **Description**                                                       |
 |------------------------------|-----------------------------------------------------------------------|
@@ -2884,7 +2884,7 @@ Waiting for data... (interrupt to abort)
 | `less [file]` + `F`  | Follow a file as it grows in real-time within `less`.| `less goals.txt` then type `F`|
 
 ---
-Here’s a refined and well-structured version of the explanation for a better flow:
+Here's a refined and well-structured version of the explanation for a better flow:
 
 ---
 
@@ -2933,7 +2933,7 @@ Insert Mode allows you to input text directly into the file. You can enter Inser
 | Append after the current position  | `a`         |
 | Append at the end of the line      | `A`         |
 
-Once you’re done typing, press `Esc` to return to Command Mode.
+Once you're done typing, press `Esc` to return to Command Mode.
 
 **Examples**:
 - Start typing at the current cursor: `i`
@@ -3900,7 +3900,7 @@ $ sort -r table.txt
 
 sri@envy:~/Desktop # option order matters.
 $ sort -nkr 2 table.txt 
-sort: invalid number at field start: invalid count at start of ‘r’
+sort: invalid number at field start: invalid count at start of ‘r'
 sri@envy:~/Desktop
 $ sort -nrk 2 table.txt 
  80	 99	 15
@@ -5233,7 +5233,7 @@ Once you find the desired command:
 
 #### Key Tips
 - **Stop Searching**: Press `Ctrl-g` or `Ctrl-c` to cancel the reverse search and return to the regular shell prompt.
-- **Partial Search**: You don’t need to type the entire command; even a few characters are sufficient to find a match.
+- **Partial Search**: You don't need to type the entire command; even a few characters are sufficient to find a match.
 - **Repeat Forward Search**: If you overshoot the command you wanted, use `Ctrl-s` to move forward in history (may require enabling with `stty -ixon`).
 
 ---
@@ -6004,15 +6004,20 @@ The `su` command is used to switch between users in a Linux system. By default, 
 
 ### Common `su` Usage
 
-#### **Switch to Root**:  
+#### Switch to Root:  
 The `su` command without any arguments switches to the root user.
 ```bash
+# Syntax
+$ su
+
+# Example
 sri@envy:~/Documents/Linux
 $ su
 ```
 The above command may give error: 
 
 ```bash
+sri@envy:~/Documents/Linux
 $ su
 Password: 
 su: Authentication failure
@@ -6020,15 +6025,24 @@ su: Authentication failure
 On many modern Linux distributions, the root account is disabled by default for security reasons. In this case, you might need to use sudo to gain root privileges instead of su. Ensure to enter the current user's password and not the superuser.
 
 ```bash
+# Syntax
+$ sudo su
+
+# Example
+sri@envy:~/Documents/Linux
 $ sudo su
 root@envy:/home/sri/Documents/Linux# 
 ```
 
-#### **Switch to a Specific User**:  
+#### Switch to a Specific User:  
 To switch to a specific user, use the command `su [username]`. Enter the **switching user**'s password and not current user's password. 
 
 In the below example you will have to enter switching user, `ram`'s passowrd. 
 ```bash
+# Syntax
+$ sudo username
+
+# Example
 sri@envy:~/Documents/Linux
 $ su ram
 Password: 
@@ -6036,36 +6050,67 @@ ram@envy:/home/sri/Documents/Linux$
 ```
 Also notice that you are still the same directory as before. 
 
-To quit from this user (`ram`) account: 
+**To quit** from this user (`ram`) account: 
 ```bash
+# Syntax
+$ exit
+
+# Example
 ram@envy:/home/sri/Documents/Linux$ exit
 exit
 sri@envy:~/Documents/Linux
 $ 
+
+# logout doesn't work
+sri@envy:~/Documents/Linux
+$ sudo su
+[sudo] password for sri: 
+root@envy:/home/sri/Documents/Linux# logout
+bash: logout: not login shell: use `exit'
+root@envy:/home/sri/Documents/Linux# exit
+exit
+sri@envy:~/Documents/Linux
+$ 
+
 ```
   
 Another way of logging to another user is through `sudo su [username]`, use the **current user**'s password. If the current user is in sudoers group, they will be able to login to another user's account.
 
 In the below example you will have to enter current user, `sri`'s password. 
 ```bash
+# Syntax
+$ sudo su username
+
+# Example
 sri@envy:~/Documents/Linux
 $ sudo su ram
 [sudo] password for sri: 
 ram@envy:/home/sri/Documents/Linux$ 
-  ```
+```
 
-#### **Simulate Logging In as a User**:  
-By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user’s home directory. **While the previous method don't change the working directory.** 
+#### Simulate Logging In as a User:  
+By adding a hyphen (`-`), you simulate logging in directly as that user. This changes your environment variables and your working directory to the user's home directory. **While the previous method don't change the working directory.** 
 ```bash
+# Syntax
+$ su - username
+$ sudo su - username
+
+# Example
 sri@envy:~/Documents/Linux
 $ sudo su - ram
 [sudo] password for sri: 
 ram@envy:~$ 
 ```
 
-#### **Excuting command as another user**: 
+#### Excuting command as another user: 
 By using `-c` option with `su` we can execute command as another user. 
 ```bash
+# Syntax
+$ su -c command
+$ sudo su -c command
+$ sudo -u command
+
+# Example
 sri@envy:~/Documents/Linux
 $ su - ram # swtiching to ram
 Password: 
@@ -6108,6 +6153,10 @@ We can also prefix the above commands with **sudo**, where we will use **current
 
 To check which user you are currently working as, use the `whoami` command:
 ```bash
+# Syntax
+$ whoami
+
+# Example
 sri@envy:~/Documents/Linux
 $ whoami
 # Output: sri
@@ -6125,7 +6174,7 @@ ram@envy:/home/sri/Documents/Linux$ whoami
 
 ## `sudo` (Super User Do)
 
-The `sudo` command allows a **permitted user** to execute a command as another user, typically the root user, without switching users entirely. It’s often used for administrative tasks, such as installing software or managing system services, that require superuser privileges.
+The `sudo` command allows a **permitted user** to execute a command as another user, typically the root user, without switching users entirely. It's often used for administrative tasks, such as installing software or managing system services, that require superuser privileges.
 
 ---
 
@@ -6147,7 +6196,7 @@ The `sudo` command allows a **permitted user** to execute a command as another u
 | `sudo -u user command`| Run a command as a specific user (other than root) similar to `sudo su user -c "command"` | `sudo -u ram whoami`|
 | `sudo su`| Switch to the superuser account (root)| `sudo su`|
 | `sudo su -`| Switch to the **superuser account (root)** with the user's environment| `sudo su -`|
-| `sudo su - username`| Switch to a **specific user’s account** with that user's environment| `sudo su - ram`|
+| `sudo su - username`| Switch to a **specific user's account** with that user's environment| `sudo su - ram`|
 
 ---
 
@@ -6185,31 +6234,34 @@ The `sudo` command allows a **permitted user** to execute a command as another u
 
 ## Summary of Differences Between `su` and `sudo`
 
-| Feature             | `su`                                                | `sudo`                                             |
+| Feature | `su`| `sudo` |
 |---------------------|------------------------------------------------------|----------------------------------------------------|
-| **Password Prompt**  | Requires the target user’s password (e.g., root).    | Requires the current user’s password.              |
-| **Command Scope**    | Changes the current shell to the target user’s shell. | Runs a single command as the specified user.       |
-| **Security**        sudo su ram | Requires sharing of passwords for different users.   | Provides better control and logging of commands.   |
-| **Usage**            | Best for switching users to run multiple commands.   | Best for executing one-off commands with elevated privileges. |
+| **Password Prompt**  | Requires the target user's password (e.g., root).| Requires the current user's password.  |
+| **Command Scope**| Changes the current shell to the target user's shell. | Runs a single command as the specified user.   |
+| **Security**sudo su ram | Requires sharing of passwords for different users.   | Provides better control and logging of commands.   |
+| **Usage**| Best for switching users to run multiple commands.   | Best for executing one-off commands with elevated privileges. |
 
 `sudo` is generally preferred over `su` for security reasons, as it reduces the risk of exposing root passwords and provides better auditing and control over user actions.
 
 ## Summary of Switching User Commands
 
-| Command| Description| Example Usage|
-|--------|------------|--------------|
-| `su [user]`| Switch to the superuser (root) or another specified user.| `su` or `su ram`|
-| `su - [user]`| Switch to the specified user with their environment (login shell).     | `su -` or `su - ram`|
-| `su -c 'command'`| Run a command as another user, with their environment.| `su -c 'echo $ram_HOME' ram`           |
-| `whoami`| Display the current user’s name.| `whoami`|
-| `sudo`| Execute a command with superuser privileges or as another user.        | `sudo ls`|
-| `sudo -l`| List the commands available to run with `sudo`.| `sudo -l`|
-| `sudo command`| Run a command with superuser privileges.| `sudo apt-get update`|
-| `sudo -u user command`| Run a command as another user (other than root).| `sudo -u fred /opt/fredsApp/bin/start`       |
-| `sudo su`| Switch to the superuser account (root) with the current shell.         | `sudo su`|
-| `sudo su -`| Switch to the superuser account (root) with a login shell.| `sudo su -`|
-| `sudo su - username`| Switch to the specified user's account with a login shell.| `sudo su - ram`|
-| `sudo visudo`| Edit the sudoers file for configuration.| `sudo visudo`|
+| Command | Description | Example Usage |
+|---------|-------------|---------------|
+| `su`| Switch to the root user account. Prompts for the root password. | `su`   |
+| `su [user]` | Switch to the specified user account. Prompts for the user's password.  | `su john`  |
+| `su -`  | Switch to the root user and simulate a fresh login shell.   | `su -` |
+| `su - [user]`   | Switch to the specified user and simulate a fresh login shell.  | `su - alice`   |
+| `su -c [command]`   | Execute a single command as the root user.  | `su -c "ls /root"` |
+| `sudo command`  | Execute a command as the root user. Prompts for the user's password.| `sudo apt update`  |
+| `sudo -l`   | List the commands the user is allowed to execute with `sudo`.   | `sudo -l`  |
+| `sudo su`   | Switch to the root user using `sudo`.   | `sudo su`  |
+| `sudo su -` | Switch to the root user and simulate a fresh login shell using `sudo`.  | `sudo su -`|
+| `sudo su [user]`| Switch to another user using `sudo`.| `sudo su alice`|
+| `sudo su - [user]`  | Switch to another user and simulate a fresh login shell using `sudo`.   | `sudo su - alice`  |
+| `sudo su user -c [command]` | Execute a command as another user using `sudo`.  | `sudo su alice -c "ls ~"`  |
+| `sudo -u user [command]` | Execute a command as the specified user using `sudo`.| `sudo -u alice ls /home/alice` |
+| `whoami`| Display the current user's username.| `whoami`   |
+| `exit`| Exit the current shell or logout of the current user session.| `exit`|
 
 ---
 
@@ -6225,82 +6277,244 @@ Linux distributions based on Debian use the DEB package format. Popular Debian-b
 
 Here's the table converted to use only `sudo apt` commands:
 
-| Command                      | Description                                                                         | Example                          |
+| Command  | Description | Example  |
 |------------------------------|-------------------------------------------------------------------------------------|----------------------------------|
-| `sudo apt update`                 | Update package list and metadata from repositories                                | `sudo apt update`                |
-| `sudo apt upgrade`                | Upgrade all installed packages to the latest available versions                   | `sudo apt upgrade`               |
-| `sudo apt autoremove`             | Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove`     |
-| `sudo apt clean`                  | Clear the local repository cache to free up space                                 | `sudo apt clean`                 |
-| `sudo apt search search-pattern` | Search for packages matching the search pattern                                   | `sudo apt search web browser`    |
-| `sudo apt install package`        | Install a package| `sudo apt install firefox`       |
-| `sudo apt install -y package`     | Install a package and automatically answer "yes" to prompts                       | `sudo apt install -y firefox`    |
-| `sudo apt remove package`         | Remove a package, leaving behind configuration files                              | `sudo apt remove firefox`        |
-| `sudo apt purge package`          | Remove a package, including its configuration files                               | `sudo apt purge firefox`         |
-| `sudo apt show package`           | Display detailed information about a package                                      | `sudo apt show firefox`          |
-| `sudo apt full-upgrade`           | Perform an upgrade with more aggressive handling of dependencies                   | `sudo apt full-upgrade`          |
+| `sudo apt update` | Update package list and metadata from repositories| `sudo apt update`|
+| `sudo apt upgrade`| Upgrade all installed packages to the latest available versions   | `sudo apt upgrade`   |
+| `sudo apt autoremove` | Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove` |
+| `sudo apt clean`  | Clear the local repository cache to free up space | `sudo apt clean` |
+| `sudo apt search search-pattern` | Search for packages matching the search pattern   | `sudo apt search web browser`|
+| `sudo apt install package`| Install a package| `sudo apt install firefox`   |
+| `sudo apt install -y package` | Install a package and automatically answer "yes" to prompts   | `sudo apt install -y firefox`|
+| `sudo apt remove package` | Remove a package, leaving behind configuration files  | `sudo apt remove firefox`|
+| `sudo apt purge package`  | Remove a package, including its configuration files   | `sudo apt purge firefox` |
+| `sudo apt show package`   | Display detailed information about a package  | `sudo apt show firefox`  |
+| `sudo apt full-upgrade`   | Perform an upgrade with more aggressive handling of dependencies   | `sudo apt full-upgrade`  |
 
 ### Example Workflow: Installing and Managing GIMP (GNU Image Manipulation Program)
 
-1. **Update package list**:  
-   Before installing or managing any package, ensure the package list is up to date:
-   ```bash
-   $ sudo apt update
-   $ sudo apt upgrade -y
-   ```
+**Update package list**:  
+Before installing or managing any package, ensure the package list is up to date:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt update
+[sudo] password for sri: 
+Get:1 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Hit:2 http://in.archive.ubuntu.com/ubuntu noble InRelease
+Get:3 http://in.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://in.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+...
+Get:20 http://in.archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Components [212 B]
+Fetched 2,533 kB in 3s (902 kB/s)                                         
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+sri@envy:~/Documents/Linux
+$ 
 
-2. **Search for a package**:  
-   To search for packages related to "image editor":
-   ```bash
-   $ sudo apt search image editor
-   ```
+sri@envy:~/Documents/Linux
+$ sudo apt upgrade -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  libcjson1 libpostproc57 libavcodec60 libavutil58 libswscale7 libswresample4
+  libavformat60 libavfilter9
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+sri@envy:~/Documents/Linux
+$ 
 
-3. **Display package details**:  
-   To view detailed information about the GIMP package:
-   ```bash
-   $ sudo apt show gimp
-   ```
+```
 
-4. **Install a package**:  
-   To install GIMP:
-   ```bash
-   $ sudo apt install gimp
-   ```
+**Search for a package**:  
+To search for packages related to "image editor":
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt search image editor
+Sorting... Done
+Full Text Search... Done
+android-platform-tools-base/noble 2.2.2-4ubuntu1 all
+  base tools for developing applications for the Android system
 
-5. **Upgrade installed packages**:  
-   To upgrade all installed packages to their latest versions:
-   ```bash
-   $ sudo apt upgrade
-   ```
+briquolo-data/noble 0.5.7-11build2 all
+  data files for the fast paced 3d Breakout game Briquolo
 
-6. **Full upgrade (handle dependencies)**:  
-   To perform an upgrade with more aggressive dependency handling:
-   ```bash
-   $ sudo apt full-upgrade
-   ```
+charactermanaj/noble 0.998+git20190331.e45260e3-3 all
+  avatar editor application
 
-7. **Remove a package**:  
-   To remove GIMP while keeping its configuration files:
-   ```bash
-   $ sudo apt remove gimp
-   ```
+chntpw/noble 140201-1 amd64
+  NT SAM password recovery utility
 
-8. **Purge a package**:  
-   To completely remove GIMP along with its configuration files:
-   ```bash
-   $ sudo apt purge gimp
-   ```
+...
 
-9. **Clean up unnecessary packages**:  
-   To remove packages that are no longer needed as dependencies:
-   ```bash
-   $ sudo apt autoremove
-   ```
+zim/noble 0.75.2-1 all
+  graphical text editor based on wiki technologies
 
-10. **Clear the package cache**:  
-    To free up disk space by clearing the local repository cache:
-    ```bash
-    $ sudo apt clean
-    ```
+sri@envy:~/Documents/Linux
+$
+```
+
+**Display package details**:  
+To view detailed information about the GIMP package:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt show gimp
+Package: gimp
+Version: 2.10.36-3ubuntu0.24.04.1
+Priority: optional
+Section: universe/graphics
+Origin: Ubuntu
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+...
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Install a package**:  
+To install GIMP:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt install gimp -y 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  fonts-liberation2 gimp-data graphviz libamd3 libann0 libbabl-0.1-0 libcamd3 libccolamd3
+  libcdt5 libcgraph6 libcholmod5 libcolamd3 libgegl-0.4-0t64 libgegl-common libgimp2.0t64
+  libgts-0.7-5t64 libgts-bin libgvc6 libgvpr2 libimath-3-1-29t64 liblab-gamut1 libmng2
+  libmypaint-1.5-1 libmypaint-common libopenexr-3-1-30 libpathplan4 libraw23t64
+  libsuitesparseconfig7 libumfpack6
+...
+Processing triggers for libc-bin (2.39-0ubuntu8.3) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for desktop-file-utils (0.27-2build1) ...
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Upgrade installed packages**:  
+To upgrade all installed packages to their latest versions:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  libcjson1 libpostproc57 libavcodec60 libavutil58 libswscale7 libswresample4
+  libavformat60 libavfilter9
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Full upgrade (handle dependencies)**:  
+To perform an upgrade with more aggressive dependency handling:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt full-upgrade
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  libcjson1 libpostproc57 libavcodec60 libavutil58 libswscale7 libswresample4
+  libavformat60 libavfilter9
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Remove a package**:  
+To remove GIMP while keeping its configuration files:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt remove gimp -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  fonts-liberation2 gimp-data graphviz libamd3 libann0 libbabl-0.1-0 libcamd3 libccolamd3
+  libcdt5 libcgraph6 libcholmod5 libcolamd3 libgegl-0.4-0t64 libgegl-common libgimp2.0t64
+  libgts-0.7-5t64 libgts-bin libgvc6 libgvpr2 libimath-3-1-29t64 liblab-gamut1 libmng2
+  libmypaint-1.5-1 libmypaint-common libopenexr-3-1-30 libpathplan4 libraw23t64
+  libsuitesparseconfig7 libumfpack6
+Use 'sudo apt autoremove' to remove them.
+The following packages will be REMOVED:
+  gimp
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+After this operation, 20.0 MB disk space will be freed.
+(Reading database ... 162947 files and directories currently installed.)
+Removing gimp (2.10.36-3ubuntu0.24.04.1) ...
+Processing triggers for gnome-menus (3.36.0-1.1ubuntu3) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for desktop-file-utils (0.27-2build1) ...
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Purge a package**:  
+To completely remove GIMP along with its configuration files:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt purge gimp
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Package 'gimp' is not installed, so not removed
+The following packages were automatically installed and are no longer required:
+  fonts-liberation2 gimp-data graphviz libamd3 libann0 libbabl-0.1-0 libcamd3 libccolamd3
+  libcdt5 libcgraph6 libcholmod5 libcolamd3 libgegl-0.4-0t64 libgegl-common libgimp2.0t64
+  libgts-0.7-5t64 libgts-bin libgvc6 libgvpr2 libimath-3-1-29t64 liblab-gamut1 libmng2
+  libmypaint-1.5-1 libmypaint-common libopenexr-3-1-30 libpathplan4 libraw23t64
+  libsuitesparseconfig7 libumfpack6
+Use 'sudo apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Clean up unnecessary packages**:  
+To remove packages that are no longer needed as dependencies:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt autoremove -y
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages will be REMOVED:
+  fonts-liberation2 gimp-data graphviz libamd3 libann0 libbabl-0.1-0 libcamd3 libccolamd3
+  libcdt5 libcgraph6 libcholmod5 libcolamd3 libgegl-0.4-0t64 libgegl-common libgimp2.0t64
+  libgts-0.7-5t64 libgts-bin libgvc6 libgvpr2 libimath-3-1-29t64 liblab-gamut1 libmng2
+  libmypaint-1.5-1 libmypaint-common libopenexr-3-1-30 libpathplan4 libraw23t64
+  libsuitesparseconfig7 libumfpack6
+0 upgraded, 0 newly installed, 29 to remove and 0 not upgraded.
+After this operation, 129 MB disk space will be freed.
+(Reading database ... 162663 files and directories currently installed.)
+Removing fonts-liberation2 (1:2.1.5-3) ...
+Removing gimp-data (2.10.36-3ubuntu0.24.04.1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.3) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Processing triggers for hicolor-icon-theme (0.17-2) ...
+sri@envy:~/Documents/Linux
+$ 
+```
+
+**Clear the package cache**:  
+To free up disk space by clearing the local repository cache:
+```bash
+sri@envy:~/Documents/Linux
+$ sudo apt clean
+sri@envy:~/Documents/Linux
+$ 
+
+```
 ---
 
 ### What is the difference between `apt upgrade` and `apt full-upgrade`?
@@ -6323,23 +6537,23 @@ Here's the table converted to use only `sudo apt` commands:
 
 ### What is the difference between `apt` and `apt-get`?
 
-| **Feature**               | **`apt`**                             | **`apt-get`**                        |
+| **Feature** | **`apt`** | **`apt-get`**|
 |---------------------------|---------------------------------------|--------------------------------------|
-| **User Focus**            | Designed for end-users with a simpler and cleaner interface. | Designed for scripts and advanced users. |
-| **Default Output**        | Provides a more user-friendly and colored output. | Outputs detailed but less formatted information. |
-| **Commands**              | Combines commands like `install`, `remove`, `update`, `upgrade`, etc. | Requires separate commands for some actions, like `apt-get` and `apt-cache`. |
-| **Introduced In**         | Ubuntu 16.04+ / Debian 8+             | Older tool, part of APT package manager since inception. |
-| **Use Case**              | Recommended for interactive use.       | Recommended for scripting and backward compatibility. |
+| **User Focus**| Designed for end-users with a simpler and cleaner interface. | Designed for scripts and advanced users. |
+| **Default Output**| Provides a more user-friendly and colored output. | Outputs detailed but less formatted information. |
+| **Commands**  | Combines commands like `install`, `remove`, `update`, `upgrade`, etc. | Requires separate commands for some actions, like `apt-get` and `apt-cache`. |
+| **Introduced In** | Ubuntu 16.04+ / Debian 8+ | Older tool, part of APT package manager since inception. |
+| **Use Case**  | Recommended for interactive use.   | Recommended for scripting and backward compatibility. |
 
 #### **Key Commands Comparison**
 
-| Task                     | `apt` Command          | `apt-get` Command     |
+| Task | `apt` Command  | `apt-get` Command |
 |--------------------------|------------------------|-----------------------|
-| Install a package        | `sudo apt install`     | `sudo apt-get install` |
-| Remove a package         | `sudo apt remove`      | `sudo apt-get remove` |
-| Update package list      | `sudo apt update`      | `sudo apt-get update` |
+| Install a package| `sudo apt install` | `sudo apt-get install` |
+| Remove a package | `sudo apt remove`  | `sudo apt-get remove` |
+| Update package list  | `sudo apt update`  | `sudo apt-get update` |
 | Upgrade installed packages | `sudo apt upgrade`   | `sudo apt-get upgrade` |
-| Full system upgrade      | `sudo apt full-upgrade` | `sudo apt-get dist-upgrade` |
+| Full system upgrade  | `sudo apt full-upgrade` | `sudo apt-get dist-upgrade` |
 
 **Summary**: Use `apt` for day-to-day tasks and `apt-get` for scripting or advanced operations.
 
@@ -6349,12 +6563,12 @@ Here's the table converted to use only `sudo apt` commands:
 
 While `apt` is the most common tool for package management, you can interact directly with the **DEB package manager** using `dpkg`.  
 
-| Command                     | Description                                                     |
+| Command | Description |
 |-----------------------------|-----------------------------------------------------------------|
-| `dpkg -l`                  | List all installed packages.                                    |
-| `dpkg -S /path/to/file`    | Find the package that provides a specific file.                 |
-| `sudo dpkg -i package.deb` | Install a package from a `.deb` file.                          |
-| `dpkg -L <package>`         | List all files installed by a package.                         |
+| `dpkg -l`  | List all installed packages.|
+| `dpkg -S /path/to/file`| Find the package that provides a specific file. |
+| `sudo dpkg -i package.deb` | Install a package from a `.deb` file.  |
+| `dpkg -L <package>` | List all files installed by a package. |
 
 #### Example Workflow with `dpkg`
 
@@ -6386,37 +6600,38 @@ While `apt` is the most common tool for package management, you can interact dir
 
 ### What is the difference between `apt` and `dpkg`?
 
-| **Feature**               | **`apt`**                                 | **`dpkg`**                             |
+| **Feature**   | **`apt`** | **`dpkg`** |
 |---------------------------|-------------------------------------------|---------------------------------------|
-| **Purpose**               | High-level package manager for managing packages (installing, upgrading, searching, etc.) with dependency resolution. | Low-level package manager for installing, removing, and inspecting `.deb` packages without resolving dependencies. |
+| **Purpose**   | High-level package manager for managing packages (installing, upgrading, searching, etc.) with dependency resolution. | Low-level package manager for installing, removing, and inspecting `.deb` packages without resolving dependencies. |
 | **Dependency Handling**   | Automatically handles dependencies during package installation and removal. | Does not manage dependencies; errors occur if dependencies are missing. |
-| **Interface**             | User-friendly commands like `install`, `update`, `upgrade`, etc. | Requires direct interaction with `.deb` files using precise commands. |
-| **Use Case**              | Used for managing packages from repositories and performing system-wide package management. | Used for manual installation or troubleshooting specific `.deb` files. |
-| **Example Commands**      | `sudo apt install firefox`                | `sudo dpkg -i firefox.deb`           |
+| **Interface** | User-friendly commands like `install`, `update`, `upgrade`, etc. | Requires direct interaction with `.deb` files using precise commands. |
+| **Use Case**  | Used for managing packages from repositories and performing system-wide package management. | Used for manual installation or troubleshooting specific `.deb` files. |
+| **Example Commands**  | `sudo apt install firefox`| `sudo dpkg -i firefox.deb`   |
 
 **Summary**: Use `apt` for general package management and `dpkg` for direct `.deb` file manipulation or troubleshooting.
 
 ## Summary of Installing Software Commands
 
-| **Command**                     | **Description**                                                        | **Example**                          |
-|----------------------------------|------------------------------------------------------------------------|--------------------------------------|
-| `sudo apt update`                | Update package list and metadata from repositories                     | `sudo apt update`                   |
-| `sudo apt upgrade`               | Upgrade all installed packages to the latest available versions        | `sudo apt upgrade`                  |
-| `sudo apt autoremove`            | Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove`            |
-| `sudo apt clean`                 | Clear the local repository cache to free up space                      | `sudo apt clean`                    |
-| `sudo apt search search-pattern` | Search for packages matching the search pattern                        | `sudo apt search web browser`       |
-| `sudo apt install package`       | Install a package                                                      | `sudo apt install firefox`          |
-| `sudo apt install -y package`    | Install a package and automatically answer "yes" to prompts            | `sudo apt install -y firefox`       |
-| `sudo apt remove package`        | Remove a package, leaving behind configuration files                   | `sudo apt remove firefox`           |
-| `sudo apt purge package`         | Remove a package, including its configuration files                    | `sudo apt purge firefox`            |
-| `sudo apt show package`          | Display detailed information about a package                           | `sudo apt show firefox`             |
-| `sudo apt full-upgrade`          | Perform an upgrade with more aggressive handling of dependencies        | `sudo apt full-upgrade`             |
-| `dpkg -l`                        | List all installed packages.                                           | `dpkg -l`                           |
-| `dpkg -S /path/to/file`          | Find the package that provides a specific file.                        | `dpkg -S /path/to/file`             |
-| `sudo dpkg -i package.deb`       | Install a package from a `.deb` file.                                  | `sudo dpkg -i package.deb`          |
-| `dpkg -L <package>`              | List all files installed by a package.                                 | `dpkg -L <package>`                 |
-| **Example Workflow with `dpkg`** | **Description**                                                        | **Command**                          |
-| Install a `.deb` package         | Install a `.deb` file.                                                 | `sudo dpkg -i package.deb`          |
-| Fix broken dependencies          | Fix unmet dependencies after installing a `.deb` package.              | `sudo apt install -f`               |
-| List installed files for a package | View which files a package has installed.                              | `dpkg -L <package>`                 |
-| Find a package by file           | Identify which package installed a specific file.                      | `dpkg -S /path/to/file`             |
+| **Command** | **Description** | **Example**  |
+|-------------|-----------------|--------------|
+| `sudo apt update`| Update package list and metadata from repositories | `sudo apt update`   |
+| `sudo apt upgrade`   | Upgrade all installed packages to the latest available versions| `sudo apt upgrade`  |
+| `sudo apt autoremove`| Remove unnecessary packages that were installed as dependencies but are no longer needed | `sudo apt autoremove`|
+| `sudo apt clean` | Clear the local repository cache to free up space  | `sudo apt clean`|
+| `sudo apt search search-pattern` | Search for packages matching the search pattern| `sudo apt search web browser`   |
+| `sudo apt install package`   | Install a package  | `sudo apt install firefox`  |
+| `sudo apt install -y package`| Install a package and automatically answer "yes" to prompts| `sudo apt install -y firefox`   |
+| `sudo apt remove package`| Remove a package, leaving behind configuration files   | `sudo apt remove firefox`   |
+| `sudo apt purge package` | Remove a package, including its configuration files| `sudo apt purge firefox`|
+| `sudo apt show package`  | Display detailed information about a package   | `sudo apt show firefox` |
+| `sudo apt full-upgrade`  | Perform an upgrade with more aggressive handling of dependencies| `sudo apt full-upgrade` |
+| `-y` |  'yes' to all the upcoming download requests | `sudo apt install gimp -y` | 
+| `dpkg -l`| List all installed packages.   | `dpkg -l`   |
+| `dpkg -S /path/to/file`  | Find the package that provides a specific file.| `dpkg -S /path/to/file` |
+| `sudo dpkg -i package.deb`   | Install a package from a `.deb` file.  | `sudo dpkg -i package.deb`  |
+| `dpkg -L <package>`  | List all files installed by a package. | `dpkg -L <package>` |
+| **Example Workflow with `dpkg`** | **Description**| **Command**  |
+| Install a `.deb` package | Install a `.deb` file. | `sudo dpkg -i package.deb`  |
+| Fix broken dependencies  | Fix unmet dependencies after installing a `.deb` package.  | `sudo apt install -f`   |
+| List installed files for a package | View which files a package has installed.  | `dpkg -L <package>` |
+| Find a package by file   | Identify which package installed a specific file.  | `dpkg -S /path/to/file` |
