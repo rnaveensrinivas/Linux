@@ -1083,6 +1083,41 @@ $ cd -
 /home/sri/Documents/Linux
 sri@envy:~/Documents/Linux
 $ 
+
+# Internally uses $OLDPWD
+# When you use "cd .", 
+# $OLDPWD gets modified.
+
+sri@envy:~
+$ cd ~/Documents/Linux/
+sri@envy:~/Documents/Linux
+$ echo $OLDPWD
+/home/sri
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri
+sri@envy:~
+$ echo $OLDPWD
+/home/sri/Documents/Linux
+sri@envy:~
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ echo $OLDPWD
+/home/sri
+sri@envy:~/Documents/Linux
+$ cd .
+sri@envy:~/Documents/Linux
+$ echo $OLDPWD
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ cd -
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
 ```
 The loop happens because `cd -` toggles between the current directory and the last visited directory. When you use `cd .`, it doesn’t change the directory, so the "previous directory" remains the same. Repeatedly using `cd -` in the same location keeps toggling to the same directory, causing the apparent loop.
 
@@ -4761,7 +4796,7 @@ $
 # Additional Command Line Concepts
 
 ## Environment Variables
-Environment variables are name-value pairs that provide information to processes about the environment in which they run. These variables help programs adjust their behavior based on the environment. They are case-sensitive and typically written in uppercase letters.
+Environment variables are name-value pairs that provide information to processes about the environment in which they run. These variables help programs adjust their behavior based on the environment. They are **case-sensitive** and typically written in **uppercase letters separated by underscore**.
 
 ### Common Environment Variables
 | **Variable** | **Description**  |
@@ -4777,25 +4812,152 @@ Environment variables are name-value pairs that provide information to processes
 | `PWD`        | The present working directory. |
 
 ### Viewing Environment Variables
-- Use `echo $VAR_NAME` to view the value of a specific environment variable.
-- Alternatively, you can use the `printenv` command: `printenv VAR_NAME` to print the value of the variable.
+
+Use `echo $VAR_NAME` to view the value of a specific environment variable.
+
+```bash
+# Syntax
+$ echo $ENVIRONMENT_VARIABLE
+
+# Example
+sri@envy:~/Documents/Linux
+$ echo $OLDPWD 
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
+```
+
+Alternatively, you can use the `printenv` command: `printenv VAR_NAME` to print the value of the variable.
+
+```bash
+# Syntax
+$ printenv ENVIRONMENT_VARIABLE
+
+# Example
+sri@envy:~/Documents/Linux
+$ printenv OLDPWD 
+/home/sri/Documents/Linux
+sri@envy:~/Documents/Linux
+$ 
+```
+
 - To display all environment variables, simply run `env` or `printenv` without arguments.
 
+```bash
+# Syntax
+$ printev
+$ env
+
+# Examples
+sri@envy:~/Documents/Linux
+$ printenv
+SHELL=/bin/bash
+COLORTERM=truecolor
+XDG_MENU_PREFIX=gnome-
+DESKTOP_SESSION=ubuntu
+PWD=/home/sri/Documents/Linux
+LOGNAME=sri
+XDG_SESSION_DESKTOP=ubuntu
+sri@envy:~/Documents/Linux
+$ env**case-sensitive**
+...
+```
+
 ### Setting and Exporting Variables
-- You can set an environment variable using:  
-  ```bash
-  VAR_NAME=value
-  ```
-- To make the variable available to subprocesses, export it using:
-  ```bash
-  export VAR_NAME
-  ```
+You can set an environment variable using:  
+```bash
+# Syntax
+$ VAR_NAME=value
+
+# Example
+sri@envy:~/Documents/Linux
+$ A_NEW_ENV_VAR="hello"
+sri@envy:~/Documents/Linux
+$ echo $A_NEW_ENV_VAR 
+hello
+sri@envy:~/Documents/Linux
+$
+```
+Do not include `$` at the start. 
+
+In Linux and Unix-like systems, variables set in a shell are by default **local to that shell** and are not available to subprocesses (child processes) or commands invoked from the shell. To make a variable accessible to subprocesses, you need to **export** it.
+
+The `export` command marks a variable to be passed into the environment of subprocesses, ensuring they can access it.
+
+```bash
+# Syntax
+$ export VAR_NAME=value
+# OR
+$ VAR_NAME=value
+$ export VAR_NAME
+
+# Example
+sri@envy:~/Documents/Linux
+$ A_NEW_ENV_VAR='hello'
+sri@envy:~/Documents/Linux
+$ echo $A_NEW_ENV_VAR 
+hello
+```
+
+---
+
+#### How It Works
+
+##### Without `export`:
+```bash
+sri@envy:~/Documents/Linux
+$ A_NEW_ENV_VAR='hello'
+sri@envy:~/Documents/Linux
+$ echo $A_NEW_ENV_VAR 
+hello
+sri@envy:~/Documents/Linux      # outputs nothing
+$ bash -c 'echo $A_NEW_ENV_VAR'
+
+sri@envy:~/Documents/Linux
+$ 
+
+```
+The variable `VAR_NAME` is not available in the child `bash` process.
+
+##### With `export`:
+```bash
+sri@envy:~/Documents/Linux
+$ export A_NEW_ENV_VAR 
+sri@envy:~/Documents/Linux      # outputs hello
+$ bash -c 'echo $A_NEW_ENV_VAR'
+hello
+sri@envy:~/Documents/Linux
+$ 
+
+```
+The `export` command ensures `VAR_NAME` is included in the environment of the child process.
+
+---
+
+#### Key Points
+1. **Persistent in Child Processes**: Exported variables are available only to the child processes of the shell that set them. They are not automatically preserved across login sessions or new shells unless stored in shell configuration files like `.bashrc` or `.profile`.
+
+2. **Environment Variables**: Exported variables become **environment variables**, accessible to scripts, commands, and other processes.
+
+3. **Temporary for Session**: Exported variables exist only for the duration of the shell session unless added to configuration files.
+
+---
+
 
 ### Removing Environment Variables
-- To remove an environment variable, use the `unset` command:
-  ```bash
-  unset VAR_NAME
-  ```
+To remove an environment variable, use the `unset` command:
+```bash
+# Syntax
+$ unset VAR_NAME
+
+# Example
+sri@envy:~/Documents/Linux
+$ unset A_NEW_ENV_VAR 
+sri@envy:~/Documents/Linux
+$ printenv A_NEW_ENV_VAR
+sri@envy:~/Documents/Linux
+$ 
+```
 
 ---
 
@@ -4803,40 +4965,76 @@ Environment variables are name-value pairs that provide information to processes
 Aliases allow you to create shortcuts for commands that you frequently use, saving you time and reducing the need for long or complex commands.
 
 ### Creating and Managing Aliases
-- To create an alias:
-  ```bash
-  alias alias_name='command'
-  ```
-  For example, to create an alias for `ls -l`:
-  ```bash
-  alias ll='ls -l'
-  ```
 
-- To list all current aliases:
-  ```bash
-  alias
-  ```
-
-- To remove an alias:
-  ```bash
-  unalias alias_name
-  ```
-
-- To remove all aliases:
-  ```bash
-  unalias -a
-  ```
-
-#### Example Alias Usage:
+#### To create an alias
 ```bash
-# Create an alias for long listing of files
-alias ll='ls -lh'
+# Syntax
+$ alias alias_name='command'
 
-# List all aliases
+# Example
+sri@envy:~/Documents/Linux
+$ alias ll='ls -l'
+
+sri@envy:~/Documents/Linux
+$ ll
+total 3248
+-rw-rw-r-- 1 sri sri  734199 Dec 21 17:42 Linux_command_line_for_you_and_me_Release_0.1.pdf
+-rw-rw-r-- 1 sri sri 2349921 Dec 21 17:42 Linux_Succinctly.pdf
+-rw-rw-r-- 1 sri sri  237289 Jan  2 06:53 README.md
+sri@envy:~/Documents/Linux
+$ 
+```
+
+#### To list all current aliases:
+```bash
+# Syntax
 alias
 
-# Remove the 'll' alias
-unalias ll
+# Example
+sri@envy:~/Documents/Linux
+$ alias
+alias calendar='open https://calendar.google.com/'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias firefox='firefox & disown'
+alias gpt='open https://chatgpt.com/'
+alias grep='grep --color=auto'
+alias ls='ls --color=auto'
+alias python='python3'
+sri@envy:~/Documents/Linux
+$ 
+```
+
+#### To remove an alias:
+```bash
+# Syntax
+$ unalias alias_name
+
+# Example
+sri@envy:~/Documents/Linux
+$ unalias ll
+sri@envy:~/Documents/Linux
+$ ll
+ll: command not found
+sri@envy:~/Documents/Linux
+$ 
+```
+
+#### To remove all aliases:
+```bash
+# Syntax
+$ unalias -a
+
+# Example
+sri@envy:~/Documents/Linux
+$ unalias -a
+sri@envy:~/Documents/Linux
+$ gpt
+Command 'gpt' not found, but can be installed with:
+sudo apt install gpt
+sri@envy:~/Documents/Linux
+$ 
+
 ```
 
 ### Persistent Aliases
@@ -4845,13 +5043,13 @@ Aliases are only available for the current session. To make them persistent, add
 ---
 
 ## Personal Initialization Files
-Personal initialization files are used to save customizations to your shell environment.
+Personal initialization files are used to save customizations to your shell environment. Personal initialization files are often referred to as "**dot files**."
 
 ### Files Used for Customization
 - `~/.bash_profile`: Read and executed for login shells.
 - `~/.bashrc`: Read and executed for non-login shells (like when opening a new terminal tab).
 
-To make `~/.bash_profile` source `~/.bashrc`, add the following line to `~/.bash_profile`:
+In recent verions of Linux Distros, `.bash_profile` is removed, and `.bashrc` is used. However, if you have both, you can make `~/.bash_profile` source `~/.bashrc`, by adding the following line to `~/.bash_profile`:
 ```bash
 if [ -f ~/.bashrc ]; then
   . ~/.bashrc
@@ -4861,11 +5059,35 @@ fi
 ### Using the `source` Command
 The `source` command allows you to load configurations or scripts into the current shell:
 ```bash
-source ~/.bashrc
+# Syntax
+$ source ~/.bashrc
+
+# Example
+sri@envy:~/Documents/Linux
+$ echo "la='ls -a'" >> ~/.bashrc
+sri@envy:~/Documents/Linux
+$ tail -1 ~/.bashrc
+la='ls -a'
+sri@envy:~/Documents/Linux
+$ alias
+alias l='ls -CF'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+sri@envy:~/Documents/Linux
+$ la
+la: command not found
+sri@envy:~/Documents/Linux
+$ source ~/.bashrc
+sri@envy:~/Documents/Linux
+$ la
+.git  Linux_command_line_for_you_and_me_Release_0.1.pdf  Linux_Succinctly.pdf  README.md
+sri@envy:~/Documents/Linux
+$ 
+
 ```
 Alternatively, you can use a dot (`.`) as a shortcut for `source`:
 ```bash
-. ~/.bashrc
+$ . ~/.bashrc
 ```
 
 ---
@@ -4873,23 +5095,166 @@ Alternatively, you can use a dot (`.`) as a shortcut for `source`:
 ## Shell History
 Bash retains the commands you execute during a session in memory, saving them to `~/.bash_history` when the session ends. You can configure the number of commands stored by setting the `HISTSIZE` environment variable.
 
-### Commands for Managing History
-- `history`: Displays the list of commands from your shell history.
-- `!N`: Repeats the command from line number N in history.
-- `!!`: Repeats the last command executed.
-- `!pattern`: Repeats the most recent command that starts with the specified pattern.
-
-#### Example:
 ```bash
-history             # Show command history
-!100                # Re-run command on line 100
-!!                  # Re-run the last command
-!grep               # Re-run the last command starting with 'grep'
+sri@envy:~/Documents/Linux
+$ echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ 
 ```
 
-### Searching History
-- Press `Ctrl-r` to initiate a reverse search. Keep pressing `Ctrl-r` to continue searching for earlier commands that match the search term.
-- Once you find the command, press `Enter` to execute it again, or press `Esc` to edit it before running.
+### Commands for Managing History
+#### `history`
+Displays the list of commands from your shell history.
+```bash
+# Syntax
+$ history
+
+# Example
+sri@envy:~/Documents/Linux
+$ history
+ 1042  jobs
+ 1043  sleep 30 &
+ 1044  jobs
+ 1045  clear
+ 1046  jobs
+ ...
+ 2037  echo $HISTSIZE
+ 2038  history 
+ 2039  clear
+ 2040  ls -a
+ 2041  history
+```
+
+#### `!N`
+Repeats the command from line number N in history. This will replace the prompt with that command in history, and then execution takes place. Since the prompt is replaced, that particular command will be registerd in history. 
+
+```bash
+# Syntax
+$ !Number_from_history
+
+# Example
+sri@envy:~/Documents/Linux
+$ history
+...
+ 2035  printenv HISTSIZE 
+ 2036  echo $HIST
+ 2037  echo $HISTSIZE
+ 2038  history 
+ 2039  clear
+ 2040  ls -a
+ 2041  history
+sri@envy:~/Documents/Linux
+$ !2037
+echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ history
+ ...
+ 2036  echo $HIST
+ 2037  echo $HISTSIZE
+ 2038  history 
+ 2039  clear
+ 2040  ls -a
+ 2041  history
+ 2042  echo $HISTSIZE # actual command stored instead of !2037
+ 2043  history
+
+```
+
+#### `!!`
+Repeats the last command executed.
+
+```bash
+# Syntax
+$ !!
+
+# Example
+sri@envy:~/Documents/Linux
+$ echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ !!
+echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ 
+```
+
+#### `!pattern` 
+Repeats the most recent command that starts with the specified pattern.
+```bash
+# Syntax
+$ !pattern
+
+# Example
+sri@envy:~/Documents/Linux
+$ echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ !!
+echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ !echo
+echo $HISTSIZE
+1000
+sri@envy:~/Documents/Linux
+$ 
+```
+
+### Searching Command History in Linux Shell
+
+The Linux shell maintains a history of previously executed commands, allowing you to quickly recall and reuse them. One of the most efficient ways to search this history is using **reverse search** with `Ctrl-r`.
+
+---
+
+#### Reverse Search with `Ctrl-r`
+
+##### 1. Initiate Reverse Search
+Press `Ctrl-r` to start a reverse search. The prompt will change to:
+```bash
+(reverse-i-search)`':
+```
+This indicates that you are now in reverse search mode.
+
+#### 2. Type Search Term
+Begin typing a part of the command you want to find. For example, typing `grep` will search for the most recent command containing `grep`.
+
+#### 3. Navigate Through Matches
+If the first match isn't the desired command, press `Ctrl-r` again to search for the next match further back in history.
+
+#### 4. Exit Reverse Search
+Once you find the desired command:
+- **Run the Command**: Press `Enter` to execute it immediately.
+- **Edit Before Running**: Press `Esc` or the arrow keys to exit reverse search mode, allowing you to edit the command in the shell prompt before running it.
+
+---
+
+#### Key Tips
+- **Stop Searching**: Press `Ctrl-g` or `Ctrl-c` to cancel the reverse search and return to the regular shell prompt.
+- **Partial Search**: You don’t need to type the entire command; even a few characters are sufficient to find a match.
+- **Repeat Forward Search**: If you overshoot the command you wanted, use `Ctrl-s` to move forward in history (may require enabling with `stty -ixon`).
+
+---
+
+### Practical Example
+
+Suppose you ran these commands earlier in the session:
+```bash
+$ ls -l /var/log
+$ grep error log.txt
+$ sudo apt update
+$ cat /etc/passwd
+```
+
+Now you want to re-execute the `grep` command:
+1. Press `Ctrl-r` and type `grep`.
+   ```
+   (reverse-i-search)`grep': grep error log.txt
+   ```
+2. If this is the desired command, press `Enter` to execute it. If it is not desired you can add more text by punching in some more keys, or press `Ctrl-r` for another match.
+3. If you want to edit it (e.g., change `error` to `warning`), press `Esc` or an arrow key to modify it before running.
 
 ---
 
@@ -4911,43 +5276,50 @@ To split a long command across multiple lines, use the backslash (`\`) at the en
 
 ### Example:
 ```bash
-echo "This is a very long line \
-that spans multiple lines \
-for better readability."
-```
+# Syntax 
+$ echo "words .. \
+more words "
 
-This will be interpreted as a single command, and the output will be:
+# Example
+sri@envy:~/Documents/Linux
+$ echo "this is line one \
+> this is line two \
+> this is line three"
+this is line one this is line two this is line three
+sri@envy:~/Documents/Linux
+$ 
 ```
-This is a very long line that spans multiple lines for better readability.
-```
-
-The continued lines will be prefixed with the greater-than symbol (`>`).
+This will be interpreted as a single command. The continued lines are prefixed with the greater-than symbol (`>`).
 
 ---
 
 ## Summary of Additional Command Line Concept Commands
+### Command Summary Table
 
-| **Command**          | **Description**                                    | **Example Usage**                              |
-|----------------------|----------------------------------------------------|------------------------------------------------|
-| `echo $VAR_NAME`      | Display the value of an environment variable.      | `echo $HOME`                                   |
-| `printenv VAR_NAME`   | Display the value of an environment variable.      | `printenv PATH`                                |
-| `env`                 | Display all environment variables.                 | `env`                                          |
-| `export VAR_NAME`     | Export an environment variable to be inherited by subprocesses. | `export PAGER=less`                           |
-| `unset VAR_NAME`      | Remove an environment variable.                    | `unset PAGER`                                  |
-| `alias`               | List all current aliases.                          | `alias`                                        |
-| `alias alias_name='command'` | Create an alias for a command.                | `alias ll='ls -l'`                             |
-| `unalias alias_name`  | Remove an alias.                                   | `unalias ll`                                   |
-| `unalias -a`          | Remove all aliases.                                | `unalias -a`                                   |
-| `source ~/.bashrc`    | Execute commands from a file in the current shell. | `source ~/.bashrc`                             |
-| `. ~/.bashrc`         | Same as `source`, execute commands from a file in the current shell. | `. ~/.bashrc`                                  |
-| `history`             | Show a list of commands from shell history.        | `history`                                      |
-| `!N`                  | Repeat the command on line N from history.         | `!100`                                         |
-| `!!`                  | Repeat the last executed command.                  | `!!`                                           |
-| `!pattern`            | Repeat the last command starting with a specific pattern. | `!grep`                                      |
-| `Ctrl-r`              | Initiate a reverse search in shell history.        | `Ctrl-r` (then type part of the command)       |
-| `Tab`                 | Auto-complete a command or file path.              | `ls /ho` (press Tab to complete)               |
-| `\`                   | Line continuation character for multi-line commands. | `echo "This is a long line \`                   |
-
+| Command                                    | Description                                                                 |
+|--------------------------------------------|-----------------------------------------------------------------------------|
+| `$ echo $ENVIRONMENT_VARIABLE`             | Displays the value of the specified environment variable.                   |
+| `$ printenv ENVIRONMENT_VARIABLE`          | Prints the value of the specified environment variable.                     |
+| `$ printenv`                               | Lists all environment variables and their values.                           |
+| `$ env`                                    | Displays the current environment, including variables.                      |
+| `$ VAR_NAME=value`                         | Creates a shell variable `VAR_NAME` with the specified value.               |
+| `$ export A_NEW_ENV_VAR`                   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
+| `$ bash -c 'echo $A_NEW_ENV_VAR'`          | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.              |
+| `$ unset VAR_NAME`                         | Deletes the shell variable or environment variable `VAR_NAME`.              |
+| `$ alias alias_name='command'`             | Creates a shortcut (`alias_name`) for the specified command.                |
+| `$ alias`                                  | Lists all currently defined aliases.                                        |
+| `$ unalias alias_name`                     | Removes the specified alias.                                                |
+| `$ unalias -a`                             | Removes all aliases.                                                        |
+| `$ source ~/.bashrc` or `. ~/.bashrc`      | Reloads the shell configuration file (`.bashrc`).                           |
+| `$ echo $HISTSIZE`                         | Displays the maximum number of commands stored in the shell history.        |
+| `$ history`                                | Lists the command history.                                                  |
+| `$ !Number_from_history`                   | Re-executes the command at the specified history number.                    |
+| `$ !!`                                     | Re-executes the last command.                                               |
+| `$ !pattern`                               | Re-executes the most recent command matching the pattern.                   |
+| `Ctrl + r; pattern; Ctrl + r`              | Initiates reverse search in command history for a matching pattern.         |
+| `Ctrl + c` or `<esc>`                      | Cancels or exits reverse search.                                            |
+| **Tab Completion**                         | Auto-completes commands or file names.                                      |
+| `$ echo "words .. \ more words "`          | Concatenates lines using `\` for multiline command input.                   |
 ---
 
 # Processes and Jobs 
