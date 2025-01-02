@@ -8,7 +8,7 @@
 * [Directories](#Directories)
   * [Summary](#Summary-of-Directory-Commands)
 * [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
-  * [Summary](#Summary-of-Permissions-Commands)
+  * [Summary](#summary-of-viewing-file-and-directory-commands)
 * [Permissions](#Permissions)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
   * [Summary](#Summary-of-Vim-Commands)
@@ -1256,29 +1256,29 @@ $
 
 ## Summary of Directory Commands
 
-| Command                  | Description                                                                                           |
+| Command  | Description   |
 |--------------------------|-------------------------------------------------------------------------------------------------------|
-| `cd [directory]`         | Changes the current directory to the specified directory.                                            |
-| `cd -`                   | Returns to the previous directory.                                                                   |
-| `cd`                     | Changes to the home directory.                                                                       |
-| `cd ~`                   | Changes to the home directory (shortcut).                                                            |
-| `cd ~[username]`         | Changes to the home directory of the specified user.                                                 |
-| `cd /home/[username]`    | Changes to the absolute path of the specified user's home directory.                                 |
-| `cd .`                   | Stays in the current directory.                                                                      |
-| `cd ..`                  | Moves up one level to the parent directory.                                                          |
-| `mkdir [directory]`      | Creates a new directory with the specified name.                                                     |
-| `mkdir -p [path]`        | Creates nested directories, including intermediate ones, if they don't exist.                        |
-| `rmdir [directory]`      | Removes an empty directory.                                                                          |
-| `rm -r [directory]`      | Removes a directory and its contents recursively, prompting for confirmation for protected files.    |
-| `rm -rf [directory]`     | Removes a directory and its contents forcefully, without any prompts or confirmation.                |
-| `pwd`                    | Displays the present working directory.                                                              |
-| `ls [path]`              | Lists the contents of the specified directory.                                                       |
-| `ls`                     | Lists the contents of the current directory.                                                        |
-| `tree [directory]`       | Displays the directory structure in a tree format.                                                   |
-| `touch [file]`           | Creates an empty file with the specified name.                                                       |
-| `git init`               | Initializes a new Git repository in the current directory.                                           |
-| `git add .`              | Stages all changes in the current directory for the next commit.                                     |
-| `git commit -m [message]`| Creates a commit with the specified message.                                                         |
+| `cd [directory]` | Changes the current directory to the specified directory.|
+| `cd -`   | Returns to the previous directory.   |
+| `cd` | Changes to the home directory.   |
+| `cd ~`   | Changes to the home directory (shortcut).|
+| `cd ~[username]` | Changes to the home directory of the specified user. |
+| `cd /home/[username]`| Changes to the absolute path of the specified user's home directory. |
+| `cd .`   | Stays in the current directory.  |
+| `cd ..`  | Moves up one level to the parent directory.  |
+| `mkdir [directory]`  | Creates a new directory with the specified name. |
+| `mkdir -p [path]`| Creates nested directories, including intermediate ones, if they don't exist.|
+| `rmdir [directory]`  | Removes an empty directory.  |
+| `rm -r [directory]`  | Removes a directory and its contents recursively, prompting for confirmation for protected files.|
+| `rm -rf [directory]` | Removes a directory and its contents forcefully, without any prompts or confirmation.|
+| `pwd`| Displays the present working directory.  |
+| `ls [path]`  | Lists the contents of the specified directory.   |
+| `ls` | Lists the contents of the current directory.|
+| `tree [directory]`   | Displays the directory structure in a tree format.   |
+| `touch [file]`   | Creates an empty file with the specified name.   |
+| `git init`   | Initializes a new Git repository in the current directory.   |
+| `git add .`  | Stages all changes in the current directory for the next commit. |
+| `git commit -m [message]`| Creates a commit with the specified message. |
 
 ---
 
@@ -1330,15 +1330,15 @@ $
 
 Each line in the output contains several columns with specific information:
 
-| **Field**              | **Description**                                          | **Example**            |
+| **Field**  | **Description**  | **Example**|
 |------------------------|----------------------------------------------------------|------------------------|
-| **Permissions**         | Indicates file type and access permissions.             | `drwxr-xr-x`           |
-| **Links**               | Number of hard links to the file or directory.          | `2`                    |
-| **Owner**               | Name of the user who owns the file or directory.        | `sri`                  |
-| **Group**               | Group associated with the file or directory.            | `sri`                  |
-| **File Size**           | Size of the file in bytes.                              | `4096`                 |
-| **Modification Time**   | Last modification date and time.                        | `Jan  1 12:11`         |
-| **Name**                | Name of the file or directory.                          | `Desktop`              |
+| **Permissions** | Indicates file type and access permissions. | `drwxr-xr-x`   |
+| **Links**   | Number of hard links to the file or directory.  | `2`|
+| **Owner**   | Name of the user who owns the file or directory.| `sri`  |
+| **Group**   | Group associated with the file or directory.| `sri`  |
+| **File Size**   | Size of the file in bytes.  | `4096` |
+| **Modification Time**   | Last modification date and time.| `Jan  1 12:11` |
+| **Name**| Name of the file or directory.  | `Desktop`  |
 
 ---
 
@@ -1351,15 +1351,15 @@ drwxr-xr-x 13 sri sri 4096 Dec 29 18:04 Documents
 
 ```
 
-| **Field**              | **Value**           | **Explanation**                                      |
+| **Field**  | **Value**   | **Explanation**  |
 |------------------------|---------------------|-----------------------------------------------------|
-| **Permissions**         | `drwxr-xr-x`       | Regular directory with read/write/execute for owner, read and execute for group and others. |
-| **Links**               | `13`                | Single hard link.|
-| **Owner**               | `sri`              | File is owned by the user `sri`.|
-| **Group**               | `sri`              | Associated group is `sri`.|
-| **File Size**           | `4096`              | File is 4096 bytes in size.|
+| **Permissions** | `drwxr-xr-x`   | Regular directory with read/write/execute for owner, read and execute for group and others. |
+| **Links**   | `13`| Single hard link.|
+| **Owner**   | `sri`  | File is owned by the user `sri`.|
+| **Group**   | `sri`  | Associated group is `sri`.|
+| **File Size**   | `4096`  | File is 4096 bytes in size.|
 | **Modification Time**| `Dec 29 18:04`| File was last modified on Dec 31 at 9:00 PM.|
-| **Name**                | `Document`| Name of the directory is `Document`.|
+| **Name**| `Document`| Name of the directory is `Document`.|
 
 ## Displaying Hidden Files
 
@@ -1503,21 +1503,21 @@ $
 
 Here's a list of file type indicators used in Linux with the `ls` command:
 
-| **Symbol in Permission String** | **File Type**           | **Description**                                                                                                                                           | **Default Color**   |
+| **Symbol in Permission String** | **File Type**   | **Description**   | **Default Color**   |
 |------------|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------|
-| `-`        | Regular file             | Standard files that contain data, such as text, images, videos, or executables.                                                                            | Default (white)     |
-| `b`        | Block special file       | Files that represent hardware devices capable of data storage, such as hard drives or USB drives, accessed in fixed-size blocks.                           | Yellow with bold    |
-| `c`        | Character special file   | Files that represent hardware devices, such as keyboards or terminals, accessed character by character. Interfaces with devices that transfer data in streams. | Yellow with bold    |
-| `d`        | Directory                | Containers for files and other directories, forming a hierarchical structure in the file system.                                                           | Blue                |
-| `l`        | Symbolic link            | Special files that act as shortcuts, pointing to another file or directory.                                                                                | Cyan (light blue)   |
-| `p`        | FIFO (named pipe)        | Used in IPC. Files that act as conduits, allowing two processes to communicate by writing and reading data in a first-in, first-out (FIFO) order.           | Yellow (brown)      |
-| `s`        | Socket                   | Special files used for inter-process communication (IPC), typically for network services or local socket connections. Enables bidirectional communication. | Magenta (purple)    |
-| `?`        | Unknown file type        | Files that do not match any recognized file type.                                                                                                          | N/A                 |
-| `*`        | Executable               | Files that can be executed as programs or scripts.                                                                                                        | Green               |
-| `/`        | Directory (Indicator)    | Indicates a directory in file listings.                                                                                                                   | Blue                |
-| `@`        | Symlink (Symbolic link)  | Indicates a symbolic link in file listings.                                                                                                               | Cyan (light blue)   |
-| `=`        | Socket (Indicator)       | Indicates a socket in file listings.                                                                                                                      | Magenta (purple)    |
-| `\|`       | Named pipe (FIFO) (Indicator) | Indicates a named pipe in file listings.                                                                                                                  | Yellow (brown)      |
+| `-`| Regular file | Standard files that contain data, such as text, images, videos, or executables.| Default (white) |
+| `b`| Block special file   | Files that represent hardware devices capable of data storage, such as hard drives or USB drives, accessed in fixed-size blocks.   | Yellow with bold|
+| `c`| Character special file   | Files that represent hardware devices, such as keyboards or terminals, accessed character by character. Interfaces with devices that transfer data in streams. | Yellow with bold|
+| `d`| Directory| Containers for files and other directories, forming a hierarchical structure in the file system.   | Blue|
+| `l`| Symbolic link| Special files that act as shortcuts, pointing to another file or directory.| Cyan (light blue)   |
+| `p`| FIFO (named pipe)| Used in IPC. Files that act as conduits, allowing two processes to communicate by writing and reading data in a first-in, first-out (FIFO) order.   | Yellow (brown)  |
+| `s`| Socket   | Special files used for inter-process communication (IPC), typically for network services or local socket connections. Enables bidirectional communication. | Magenta (purple)|
+| `?`| Unknown file type| Files that do not match any recognized file type.  | N/A |
+| `*`| Executable   | Files that can be executed as programs or scripts.| Green   |
+| `/`| Directory (Indicator)| Indicates a directory in file listings.   | Blue|
+| `@`| Symlink (Symbolic link)  | Indicates a symbolic link in file listings.   | Cyan (light blue)   |
+| `=`| Socket (Indicator)   | Indicates a socket in file listings.  | Magenta (purple)|
+| `\|`   | Named pipe (FIFO) (Indicator) | Indicates a named pipe in file listings.  | Yellow (brown)  |
 
 
 ### Notes
@@ -1873,31 +1873,31 @@ To colorize the output, use `-C` (by deafult this option is used):
 $ tree -C
 ```
 
-## Summary of File and Directory Commands
-| Command                         | Description                                                                                  |
+## Summary of Viewing File and Directory Commands
+| Command | Description  |
 |---------------------------------|----------------------------------------------------------------------------------------------|
-| `$ ls`                          | Lists files and directories in the current directory.                                        |
-| `$ ls -l`                       | Lists files and directories with detailed information (long format).                        |
-| `$ ls -a`                       | Lists all files, including hidden files (starting with `.`).                                |
-| `$ ls --color`                  | Displays files with color-coded output (for file types).                                    |
-| `$ ls -F`                       | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.          |
-| `$ ls -t`                       | Lists files sorted by modification time (most recent first).                                |
-| `$ ls -r`                       | Reverses the order of the file list.                                                        |
-| `$ ls -R`                       | Recursively lists all files and directories.                                                |
-| `$ ls -d [Directory]`           | Displays information about directories, not their contents.                                 |
-| `$ ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes.                             |
-| `$ ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`).             |
-| `$ ls -b`                       | Displays file names with non-printable characters as escape sequences.                      |
-| `$ ls -alf`                     | Combines options: lists all files, including hidden ones, in long format.                   |
-| `$ ls -altr`                    | Lists all files, including hidden ones, in long format, sorted by time in reverse order.    |
-| `$ echo $LS_COLORS`             | Displays the current color settings for the `ls` command.                                   |
-| `$ export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).      |
-| `$ ln -s [target] [symlink]`    | Creates a symbolic link named `[symlink]` pointing to `[target]`.                           |
-| `$ cat myfilelink`              | Displays the contents of the file pointed to by the symbolic link `myfilelink`.             |
-| `$ cd mydirlink`                | Changes the current directory to the one pointed to by the symbolic link `mydirlink`.       |
-| `$ tree`                        | Displays the directory structure as a tree.                                                |
-| `$ tree -d`                     | Displays only directories in the tree structure.                                           |
-| `$ tree -C`                     | Displays the tree structure with color-coded output.                                       |
+| `$ ls`  | Lists files and directories in the current directory.|
+| `$ ls -l`   | Lists files and directories with detailed information (long format).|
+| `$ ls -a`   | Lists all files, including hidden files (starting with `.`).|
+| `$ ls --color`  | Displays files with color-coded output (for file types).|
+| `$ ls -F`   | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.  |
+| `$ ls -t`   | Lists files sorted by modification time (most recent first).|
+| `$ ls -r`   | Reverses the order of the file list.|
+| `$ ls -R`   | Recursively lists all files and directories.|
+| `$ ls -d [Directory]`   | Displays information about directories, not their contents. |
+| `$ ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes. |
+| `$ ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`). |
+| `$ ls -b`   | Displays file names with non-printable characters as escape sequences.  |
+| `$ ls -alf` | Combines options: lists all files, including hidden ones, in long format.   |
+| `$ ls -altr`| Lists all files, including hidden ones, in long format, sorted by time in reverse order.|
+| `$ echo $LS_COLORS` | Displays the current color settings for the `ls` command.   |
+| `$ export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).  |
+| `$ ln -s [target] [symlink]`| Creates a symbolic link named `[symlink]` pointing to `[target]`.   |
+| `$ cat myfilelink`  | Displays the contents of the file pointed to by the symbolic link `myfilelink`. |
+| `$ cd mydirlink`| Changes the current directory to the one pointed to by the symbolic link `mydirlink`.   |
+| `$ tree`| Displays the directory structure as a tree.|
+| `$ tree -d` | Displays only directories in the tree structure.   |
+| `$ tree -C` | Displays the tree structure with color-coded output.   |
 
 
 # Permissions 
@@ -2240,13 +2240,13 @@ The following table shows how the numeric values correspond to permission combin
 
 Here are some commonly used permission sets and their symbolic, binary, and octal representations:
 
-| **Symbolic**   | **Octal** | **Meaning**                                                                                          |
+| **Symbolic**   | **Octal** | **Meaning**  |
 |----------------|-----------|------------------------------------------------------------------------------------------------------|
-| `-rwx------`   | `700`     | Owner has full control over the file; no one else has access.                                         |
-| `-rwxr-xr-x`  | `755`     | Owner has full control; everyone else can execute the file but only the owner can edit it.            |
-| `-rw-rw-r--`  | `664`     | Owner and group members can modify the file; others can only read it.                                |
-| `-rw-rw----`  | `660`     | Owner and group members can modify the file; others have no access.                                  |
-| `-rw-r--r--`  | `644`     | Owner can modify the file; everyone else can only read it.                                            |
+| `-rwx------`   | `700` | Owner has full control over the file; no one else has access. |
+| `-rwxr-xr-x`  | `755` | Owner has full control; everyone else can execute the file but only the owner can edit it.|
+| `-rw-rw-r--`  | `664` | Owner and group members can modify the file; others can only read it.|
+| `-rw-rw----`  | `660` | Owner and group members can modify the file; others have no access.  |
+| `-rw-r--r--`  | `644` | Owner can modify the file; everyone else can only read it.|
 
 #### Example:
 To set the permission `-rwxr-xr-x` for a file, use:
@@ -4123,28 +4123,28 @@ $
 
 ## Summary of Finding, Sorting, and Comparing Files and Directories
 
-| **Command**                                   | **Description**                                                              | **Example**                                                                 |
+| **Command**   | **Description**  | **Example** |
 |-----------------------------------------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
-| `find [path...] [options] [expression]`       | General syntax of the `find` command.                                         | `find . -name "*.txt"` - Finds all `.txt` files in the current directory.  |
-| `find . -name name_pattern`                   | Find files by name (case-sensitive).                                          | `find . -name "*.txt"` - Finds files named with a `.txt` extension.        |
-| `find . -iname name_pattern`                  | Find files by name (case-insensitive).                                       | `find . -iname "*.jpg"` - Finds files named with a `.jpg` extension.       |
-| `find ~ -name name_pattern -ls`               | Find files by name and list their details.                                    | `find ~ -name "*.pdf" -ls` - Lists details for `.pdf` files in home directory. |
-| `find . -mtime [+-]number_of_days`            | Find files modified within a specific number of days.                         | `find . -mtime -7` - Finds files modified in the last 7 days.              |
-| `find . -size [+-]size`                       | Find files by size (e.g., +10M for files larger than 10MB).                   | `find . -size +10M` - Finds files larger than 10MB.                         |
-| `find . -newer file_or_directory`             | Find files that are newer than a specific file or directory.                 | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
-| `find . -name name_pattern -exec some_commands {} \;` | Execute a command on each found item.                                        | `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files.          |
+| `find [path...] [options] [expression]`   | General syntax of the `find` command. | `find . -name "*.txt"` - Finds all `.txt` files in the current directory.  |
+| `find . -name name_pattern`   | Find files by name (case-sensitive).  | `find . -name "*.txt"` - Finds files named with a `.txt` extension.|
+| `find . -iname name_pattern`  | Find files by name (case-insensitive).   | `find . -iname "*.jpg"` - Finds files named with a `.jpg` extension.   |
+| `find ~ -name name_pattern -ls`   | Find files by name and list their details.| `find ~ -name "*.pdf" -ls` - Lists details for `.pdf` files in home directory. |
+| `find . -mtime [+-]number_of_days`| Find files modified within a specific number of days. | `find . -mtime -7` - Finds files modified in the last 7 days.  |
+| `find . -size [+-]size`   | Find files by size (e.g., +10M for files larger than 10MB).   | `find . -size +10M` - Finds files larger than 10MB. |
+| `find . -newer file_or_directory` | Find files that are newer than a specific file or directory. | `find . -newer reference.txt` - Finds files modified after `reference.txt`. |
+| `find . -name name_pattern -exec some_commands {} \;` | Execute a command on each found item.| `find . -name "*.log" -exec rm {} \;` - Deletes all `.log` files.  |
 | `find ~ -name bfile -mtime -1 -exec cat {} \;` | Combine `find` options: find files modified in the last day and display their content. | `find ~ -name "*.txt" -mtime -1 -exec cat {} \;` - Displays contents of `.txt` files modified in the last day. |
-| `locate pattern`                              | Locate files by pattern using an indexed database.                           | `locate myfile.txt` - Locates `myfile.txt` using the database.             |
-| `sort file`                                   | Sort the contents of a file line by line.                                     | `sort table.txt` - Sorts rows in `table.txt` by the first column.          |
-| `sort -n file`                                | Sort the contents of a file numerically.                                     | `sort -n table.txt` - Sorts rows in `table.txt` numerically by the first column. |
-| `sort -k column_number file`                  | Sort by a specific column.                                                   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column.            |
-| `sort -r table.txt`                           | Sort the contents of a file in reverse order.                                | `sort -r table.txt` - Sorts `table.txt` in reverse order.                  |
-| `sort [-k number]+ filename`                  | Sort based on a specific column or columns.                                  | `sort -k 2 -k 3 table.txt` - Sorts by column 2, then column 3.             |
-| `sort -n -u file_name`                        | Sort uniquely by numeric order (removes duplicates).                         | `sort -n -u table.txt` - Removes duplicate rows while sorting numerically. |
-| `sort -n -k 2 -u table.txt`                   | Sort uniquely based on column 2 (numeric).                                   | `sort -n -k 2 -u table.txt` - Sorts `table.txt` uniquely by the second column. |
-| `diff file_or_dir file_or_dir`                | Compare two files or directories line by line.                               | `diff file1.txt file2.txt` - Shows the differences between `file1.txt` and `file2.txt`. |
-| `sdiff file_or_dir file_or_dir`               | Side-by-side comparison of files or directories.                             | `sdiff file1.txt file2.txt` - Displays a side-by-side comparison of the two files. |
-| `vimdiff file1 file2`                         | Compare two files using `vimdiff` in Vim editor.                             | `vimdiff file1.txt file2.txt` - Opens a side-by-side diff view of `file1.txt` and `file2.txt`. |
+| `locate pattern`  | Locate files by pattern using an indexed database.   | `locate myfile.txt` - Locates `myfile.txt` using the database. |
+| `sort file`   | Sort the contents of a file line by line. | `sort table.txt` - Sorts rows in `table.txt` by the first column.  |
+| `sort -n file`| Sort the contents of a file numerically. | `sort -n table.txt` - Sorts rows in `table.txt` numerically by the first column. |
+| `sort -k column_number file`  | Sort by a specific column.   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column.|
+| `sort -r table.txt`   | Sort the contents of a file in reverse order.| `sort -r table.txt` - Sorts `table.txt` in reverse order.  |
+| `sort [-k number]+ filename`  | Sort based on a specific column or columns.  | `sort -k 2 -k 3 table.txt` - Sorts by column 2, then column 3. |
+| `sort -n -u file_name`| Sort uniquely by numeric order (removes duplicates). | `sort -n -u table.txt` - Removes duplicate rows while sorting numerically. |
+| `sort -n -k 2 -u table.txt`   | Sort uniquely based on column 2 (numeric).   | `sort -n -k 2 -u table.txt` - Sorts `table.txt` uniquely by the second column. |
+| `diff file_or_dir file_or_dir`| Compare two files or directories line by line.   | `diff file1.txt file2.txt` - Shows the differences between `file1.txt` and `file2.txt`. |
+| `sdiff file_or_dir file_or_dir`   | Side-by-side comparison of files or directories. | `sdiff file1.txt file2.txt` - Displays a side-by-side comparison of the two files. |
+| `vimdiff file1 file2` | Compare two files using `vimdiff` in Vim editor. | `vimdiff file1.txt file2.txt` - Opens a side-by-side diff view of `file1.txt` and `file2.txt`. |
 
 ---
 
@@ -4160,11 +4160,11 @@ Your keyboard and display are treated as files. As a matter of fact, your keyboa
 
 ## Standard Streams Overview
 
-| **Stream**          | **Abbreviation** | **File Descriptor** |
+| **Stream**  | **Abbreviation** | **File Descriptor** |
 |---------------------|------------------|---------------------|
-| Standard Input      | stdin            | 0                   |
-| Standard Output     | stdout           | 1                   |
-| Standard Error      | stderr           | 2                   |
+| Standard Input  | stdin| 0   |
+| Standard Output | stdout   | 1   |
+| Standard Error  | stderr   | 2   |
 
 ### File Descriptors and EOF
 
@@ -4765,33 +4765,33 @@ $
 
 ### Command Summary
 
-| Command                                | Description                                                                 |
+| Command| Description |
 |----------------------------------------|-----------------------------------------------------------------------------|
-| `$ sort`                               | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.          |
-| `$ command1 \| command2`               | Feeds the output of `command1` as input to `command2`.                      |
-| `grep [options] 'pattern' [file...]`   | Searches for a pattern in the given file(s).                                |
-| `grep -i pattern file`                 | Performs a case-insensitive search for the pattern in the file.             |
-| `grep pattern file[s]`                 | Searches for the pattern in one or more files.                              |
-| `$ grep -i ^a words`                   | Finds lines starting with `a` (case-insensitive) in the file `words`.       |
-| `$ grep -n pattern file`               | Displays line numbers along with matching lines.                            |
-| `$ grep -r pattern file_or_directory`  | Recursively searches for the pattern in files and subdirectories.           |
-| `$ grep -rl pattern file_or_directory` | Lists file names containing the pattern (recursive search).                 |
-| `grep -v pattern file`                 | Displays lines that do not match the pattern.                               |
-| `$ grep -c pattern file`               | Counts the number of lines matching the pattern.                            |
-| `$ grep -w pattern file`               | Matches the whole word pattern in the file.                                 |
-| `$ grep -E pattern file`               | Uses extended regular expressions for pattern matching.                     |
-| `$ command < file`                     | Redirects the content of `file` as input to `command`.                      |
-| `command > file`                       | Redirects the output of `command` to `file` (overwriting if exists).        |
-| `command >> file`                       | Appends the output of `command` to `file`        |
-| `$ command 2> error_file`              | Redirects standard error (stderr) to `error_file`.                          |
-| `$ command 1> output_file`             | Redirects standard output (stdout) to `output_file`.                        |
-| `$ command > file 2>&1`                | Redirects both stdout and stderr to `file`.                                 |
-| `$ ls >> output_file 2>&1`             | Appends both stdout and stderr of `ls` to `output_file`.                    |
-| `$ ls -fsw >> output_file 2>&1`        | Appends `ls` output with flags `-fsw` to `output_file`, including errors.   |
-| `$ command > /dev/null`                | Discards stdout by redirecting it to `/dev/null`.                           |
-| `$ command 2> /dev/null`               | Discards stderr by redirecting it to `/dev/null`.                           |
-| `$ command < file > command`           | Redirects `file` as input and outputs to another `command`.                 |
-| `$ command \| command > file`           | Pipes output from one command and redirects it to a file.                   |
+| `$ sort`   | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.  |
+| `$ command1 \| command2`   | Feeds the output of `command1` as input to `command2`.  |
+| `grep [options] 'pattern' [file...]`   | Searches for a pattern in the given file(s).|
+| `grep -i pattern file` | Performs a case-insensitive search for the pattern in the file. |
+| `grep pattern file[s]` | Searches for the pattern in one or more files.  |
+| `$ grep -i ^a words`   | Finds lines starting with `a` (case-insensitive) in the file `words`.   |
+| `$ grep -n pattern file`   | Displays line numbers along with matching lines.|
+| `$ grep -r pattern file_or_directory`  | Recursively searches for the pattern in files and subdirectories.   |
+| `$ grep -rl pattern file_or_directory` | Lists file names containing the pattern (recursive search). |
+| `grep -v pattern file` | Displays lines that do not match the pattern.   |
+| `$ grep -c pattern file`   | Counts the number of lines matching the pattern.|
+| `$ grep -w pattern file`   | Matches the whole word pattern in the file. |
+| `$ grep -E pattern file`   | Uses extended regular expressions for pattern matching. |
+| `$ command < file` | Redirects the content of `file` as input to `command`.  |
+| `command > file`   | Redirects the output of `command` to `file` (overwriting if exists).|
+| `command >> file`   | Appends the output of `command` to `file`|
+| `$ command 2> error_file`  | Redirects standard error (stderr) to `error_file`.  |
+| `$ command 1> output_file` | Redirects standard output (stdout) to `output_file`.|
+| `$ command > file 2>&1`| Redirects both stdout and stderr to `file`. |
+| `$ ls >> output_file 2>&1` | Appends both stdout and stderr of `ls` to `output_file`.|
+| `$ ls -fsw >> output_file 2>&1`| Appends `ls` output with flags `-fsw` to `output_file`, including errors.   |
+| `$ command > /dev/null`| Discards stdout by redirecting it to `/dev/null`.   |
+| `$ command 2> /dev/null`   | Discards stderr by redirecting it to `/dev/null`.   |
+| `$ command < file > command`   | Redirects `file` as input and outputs to another `command`. |
+| `$ command \| command > file`   | Pipes output from one command and redirects it to a file.   |
 
 # Additional Command Line Concepts
 
@@ -5296,30 +5296,30 @@ This will be interpreted as a single command. The continued lines are prefixed w
 ## Summary of Additional Command Line Concept Commands
 ### Command Summary Table
 
-| Command                                    | Description                                                                 |
+| Command| Description |
 |--------------------------------------------|-----------------------------------------------------------------------------|
-| `$ echo $ENVIRONMENT_VARIABLE`             | Displays the value of the specified environment variable.                   |
-| `$ printenv ENVIRONMENT_VARIABLE`          | Prints the value of the specified environment variable.                     |
-| `$ printenv`                               | Lists all environment variables and their values.                           |
-| `$ env`                                    | Displays the current environment, including variables.                      |
-| `$ VAR_NAME=value`                         | Creates a shell variable `VAR_NAME` with the specified value.               |
-| `$ export A_NEW_ENV_VAR`                   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
-| `$ bash -c 'echo $A_NEW_ENV_VAR'`          | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.              |
-| `$ unset VAR_NAME`                         | Deletes the shell variable or environment variable `VAR_NAME`.              |
-| `$ alias alias_name='command'`             | Creates a shortcut (`alias_name`) for the specified command.                |
-| `$ alias`                                  | Lists all currently defined aliases.                                        |
-| `$ unalias alias_name`                     | Removes the specified alias.                                                |
-| `$ unalias -a`                             | Removes all aliases.                                                        |
-| `$ source ~/.bashrc` or `. ~/.bashrc`      | Reloads the shell configuration file (`.bashrc`).                           |
-| `$ echo $HISTSIZE`                         | Displays the maximum number of commands stored in the shell history.        |
-| `$ history`                                | Lists the command history.                                                  |
-| `$ !Number_from_history`                   | Re-executes the command at the specified history number.                    |
-| `$ !!`                                     | Re-executes the last command.                                               |
-| `$ !pattern`                               | Re-executes the most recent command matching the pattern.                   |
-| `Ctrl + r; pattern; Ctrl + r`              | Initiates reverse search in command history for a matching pattern.         |
-| `Ctrl + c` or `<esc>`                      | Cancels or exits reverse search.                                            |
-| **Tab Completion**                         | Auto-completes commands or file names.                                      |
-| `$ echo "words .. \ more words "`          | Concatenates lines using `\` for multiline command input.                   |
+| `$ echo $ENVIRONMENT_VARIABLE` | Displays the value of the specified environment variable.   |
+| `$ printenv ENVIRONMENT_VARIABLE`  | Prints the value of the specified environment variable. |
+| `$ printenv`   | Lists all environment variables and their values.   |
+| `$ env`| Displays the current environment, including variables.  |
+| `$ VAR_NAME=value` | Creates a shell variable `VAR_NAME` with the specified value.   |
+| `$ export A_NEW_ENV_VAR`   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
+| `$ bash -c 'echo $A_NEW_ENV_VAR'`  | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.  |
+| `$ unset VAR_NAME` | Deletes the shell variable or environment variable `VAR_NAME`.  |
+| `$ alias alias_name='command'` | Creates a shortcut (`alias_name`) for the specified command.|
+| `$ alias`  | Lists all currently defined aliases.|
+| `$ unalias alias_name` | Removes the specified alias.|
+| `$ unalias -a` | Removes all aliases.|
+| `$ source ~/.bashrc` or `. ~/.bashrc`  | Reloads the shell configuration file (`.bashrc`).   |
+| `$ echo $HISTSIZE` | Displays the maximum number of commands stored in the shell history.|
+| `$ history`| Lists the command history.  |
+| `$ !Number_from_history`   | Re-executes the command at the specified history number.|
+| `$ !!` | Re-executes the last command.   |
+| `$ !pattern`   | Re-executes the most recent command matching the pattern.   |
+| `Ctrl + r; pattern; Ctrl + r`  | Initiates reverse search in command history for a matching pattern. |
+| `Ctrl + c` or `<esc>`  | Cancels or exits reverse search.|
+| **Tab Completion** | Auto-completes commands or file names.  |
+| `$ echo "words .. \ more words "`  | Concatenates lines using `\` for multiline command input.   |
 ---
 
 # Processes and Jobs 
@@ -5374,10 +5374,10 @@ $ ps
 
 The `ps` command has several options to control the level of detail displayed in its output.
 
-| **Description**                         | **Option**       |
+| **Description**                         | **Option**   |
 |-----------------------------------------|------------------|
-| Display all processes                   | `-e`             |
-| Use a full-format listing               | `-f`             |
+| Display all processes   | `-e` |
+| Use a full-format listing   | `-f`         |
 | Display processes for a specific user   | `-u <username>`  |
 | Display processes by process ID (PID)   | `-p <PID>`       |
 | Display processes in a hierarchical format (tree) | `-H` |
@@ -5706,13 +5706,13 @@ In Linux, a **job** is a shell-level abstraction for managing tasks initiated in
 While each job corresponds to one or more processes, not all processes are jobs. For example, system processes like `systemd` or `cron` are started by the operating system and are not initiated by the shell, so they aren't considered jobs.  
 
 
-| **Aspect**            | **Job**                                | **Process**                            |  
+| **Aspect**| **Job**| **Process**|  
 |------------------------|----------------------------------------|----------------------------------------|  
-| **Scope**             | Managed by the shell.                  | Managed by the Linux kernel.           |  
-| **Identifier**         | Identified by a **job ID** (e.g., `[1]`). | Identified by a **process ID (PID)**. |  
-| **Creation**          | Created when a command is run in the shell. | Created by the operating system for any executed program. |  
-| **Context**           | Tied to the shell session.             | Independent of the shell (can exist outside of a shell). |  
-| **Examples**          | Background commands (`sleep 10 &`).    | System processes (`cron`, `systemd`).  |  
+| **Scope** | Managed by the shell.  | Managed by the Linux kernel.   |  
+| **Identifier** | Identified by a **job ID** (e.g., `[1]`). | Identified by a **process ID (PID)**. |  
+| **Creation**  | Created when a command is run in the shell. | Created by the operating system for any executed program. |  
+| **Context**   | Tied to the shell session. | Independent of the shell (can exist outside of a shell). |  
+| **Examples**  | Background commands (`sleep 10 &`).| System processes (`cron`, `systemd`).  |  
 
 ---
 
