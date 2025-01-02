@@ -5328,9 +5328,7 @@ This will be interpreted as a single command. The continued lines are prefixed w
 
 ### What is a Process?  
 
-A **process** is a program that is being executed by the operating system. It has a unique **process ID (PID)** and represents the actual execution of code in the system. Processes are managed by the Linux kernel, not the shell. While each job corresponds to one or more processes, not all processes are jobs.  
-
-For example, system processes like `systemd` or `cron` are started by the operating system and are not initiated by the shell, so they aren’t considered jobs.  
+A **process** is a program that is being executed by the operating system. It has a unique **process ID (PID)** and represents the actual execution of code in the system. Processes are **managed by the Linux kernel, not the shell**. 
 
 The `ps` command gives information about currently running processes. Other commands to monitor and manage processes are `top`, `htop`, and `pstree` .
 
@@ -5345,18 +5343,30 @@ The `ps` (**process status**) command provides a snapshot of the currently runni
 $ ps
 
 # Example
+sri@envy:~/Documents/Linux
 $ ps
-  PID TTY          TIME CMD
- 3264 pts/0    00:00:00 bash
-23102 pts/0    00:00:00 ps
+    PID TTY          TIME CMD
+   3151 pts/0    00:00:00 bash
+   3298 pts/0    00:00:08 firefox
+   3458 pts/0    00:00:00 Socket Process
+   3472 pts/0    00:00:03 Isolated Web Co
+   3685 pts/0    00:00:02 WebExtensions
+   3883 pts/0    00:00:00 Utility Process
+   3890 pts/0    00:00:00 Web Content
+   3892 pts/0    00:00:00 Web Content
+   4066 pts/0    00:00:00 Web Content
+   4592 pts/0    00:00:00 ps
 ```
 * **`pts/0`** means, ***pseudo terminal 0***, which denotes a terminal session. 
 * Open a new terminal tab and type the command `ps` again. 
   ```bash
+  sri@envy:~/Documents/Linux
   $ ps
       PID TTY          TIME CMD
-    27301 pts/1    00:00:00 bash
-    27308 pts/1    00:00:00 ps  
+    4613 pts/1    00:00:00 bash
+    4620 pts/1    00:00:00 ps
+  sri@envy:~/Documents/Linux
+  $ 
   ```
   * We have `pts/1` here, because this is a new terminal session. 
 
@@ -5375,14 +5385,14 @@ The `ps` command has several options to control the level of detail displayed in
 
 ### Commonly Used `ps` Commands
 
-| **Command**          | **Description**                                                 |
+| **Command** | **Description** |
 |------------------|-------------------------------------------------------------|
-| ps -e           | Display all processes.                                       |
-| ps -ef          | Display all processes using a full format listing.           |
-| ps -eH          | Display all processes in a tree format.                      |
-| ps -e --forest  | Display all processes in a tree format with ASCII art.       |
-| ps -u <username> | Display processes running for username.                     |
-| ps -fp <PID>    | Display a full-format listing for process ID (PID).          |
+| `ps -e`           | Display all processes.                                       |
+| `ps -ef`          | Display all processes using a full format listing.           |
+| `ps -eH`          | Display all processes in a tree format.                      |
+| `ps -e --forest`  | Display all processes in a tree format with ASCII art.       |
+| `ps -u <username>` | Display processes running for username.                     |
+| `ps -fp <PID>`    | Display a full-format listing for process ID (PID).          |
 
 
 #### Display every process running on the system:
@@ -5392,33 +5402,38 @@ To see all processes running on the system, regardless of the user or terminal, 
 $ ps -e
 
 # Example
+sri@envy:~
 $ ps -e
-  PID TTY          TIME CMD
-    1 ?        00:00:03 systemd
-    2 ?        00:00:00 kthreadd
-    3 ?        00:00:00 pool_workqueue_release
-    4 ?        00:00:00 kworker/R-rcu_g
-    5 ?        00:00:00 kworker/R-rcu_p
-    6 ?        00:00:00 kworker/R-slub_
-    7 ?        00:00:00 kworker/R-netns
+    PID TTY          TIME CMD
+      1 ?        00:00:01 systemd
+      2 ?        00:00:00 kthreadd
+      3 ?        00:00:00 pool_workqueue_release
+      4 ?        00:00:00 kworker/R-rcu_g
+      5 ?        00:00:00 kworker/R-rcu_p
+      6 ?        00:00:00 kworker/R-slub_
+      7 ?        00:00:00 kworker/R-netns
+
 ...
 ```
 
 #### Display all processes with a full format listing:
 ```bash
 # Syntax
-$ ps -e
+$ ps -f
 
 # Example
+sri@envy:~
 $ ps -ef
 UID          PID    PPID  C STIME TTY          TIME CMD
-root           1       0  0 05:02 ?        00:00:03 /sbin/init splash
-root           2       0  0 05:02 ?        00:00:00 [kthreadd]
-root           3       2  0 05:02 ?        00:00:00 [pool_workqueue_release]
-root           4       2  0 05:02 ?        00:00:00 [kworker/R-rcu_g]
-root           5       2  0 05:02 ?        00:00:00 [kworker/R-rcu_p]
-root           6       2  0 05:02 ?        00:00:00 [kworker/R-slub_]
-root           7       2  0 05:02 ?        00:00:00 [kworker/R-netns]
+root           1       0  0 16:44 ?        00:00:01 /sbin/init splash
+root           2       0  0 16:44 ?        00:00:00 [kthreadd]
+root           3       2  0 16:44 ?        00:00:00 [pool_workqueue_release]
+root           4       2  0 16:44 ?        00:00:00 [kworker/R-rcu_g]
+root           5       2  0 16:44 ?        00:00:00 [kworker/R-rcu_p]
+root           6       2  0 16:44 ?        00:00:00 [kworker/R-slub_]
+root           7       2  0 16:44 ?        00:00:00 [kworker/R-netns]
+root           8       2  0 16:44 ?        00:00:00 [kworker/0:0-events]
+root          10       2  0 16:44 ?        00:00:00 [kworker/0:0H-events_highpri]
 ...
 
 ```
@@ -5430,15 +5445,19 @@ To display all processes running under your username, use the following command:
 $ ps -u username
 
 # Example
+sri@envy:~
 $ ps -u sri
-  PID TTY          TIME CMD
- 2189 ?        00:00:07 systemd
- 2194 ?        00:00:00 (sd-pam)
- 2209 ?        00:00:05 pipewire
- 2210 ?        00:00:00 pipewire
- 2214 ?        00:00:00 wireplumber
- 2216 ?        00:00:06 pipewire-pulse
- 2218 ?        00:00:00 gnome-keyring-d
+    PID TTY          TIME CMD
+   2105 ?        00:00:00 systemd
+   2109 ?        00:00:00 (sd-pam)
+   2121 ?        00:00:00 pipewire
+   2122 ?        00:00:00 pipewire
+   2125 ?        00:00:00 wireplumber
+   2132 ?        00:00:00 pipewire-pulse
+   2133 ?        00:00:00 gnome-keyring-d
+   2140 ?        00:00:00 dbus-daemon
+   2170 ?        00:00:00 xdg-document-po
+
 ```
 
 #### Display information for a specific process ID (PID):
@@ -5447,11 +5466,19 @@ $ ps -u sri
 $ ps -p <pid>
 
 # Example
-$ ps -p 10
+sri@envy:~
+$ ps -p 2105
     PID TTY          TIME CMD
-     10 ?        00:00:00 kworker/0:0H-events_highpri
+   2105 ?        00:00:00 systemd
 
-$ ps -pf 10
+
+# Order of arguments matter
+sri@envy:~
+$ ps -p 2105
+    PID TTY          TIME CMD
+   2105 ?        00:00:00 systemd
+sri@envy:~
+$ ps -pf 2105
 error: process ID list syntax error
 
 Usage:
@@ -5462,10 +5489,13 @@ Usage:
  for additional help text.
 
 For more details see ps(1).
-
-$ ps -fp 10
+sri@envy:~
+$ ps -fp 2105
 UID          PID    PPID  C STIME TTY          TIME CMD
-root          10       2  0 05:02 ?        00:00:00 [kworker/0:0H-events_highpri]
+sri         2105       1  0 16:48 ?        00:00:00 /usr/lib/systemd/systemd --user
+sri@envy:~
+$ 
+
 ```
 
 #### Display processes in a hierarchical (tree) format:
@@ -5474,58 +5504,59 @@ root          10       2  0 05:02 ?        00:00:00 [kworker/0:0H-events_highpri
 $ ps -eH
 
 # Example
-$ ps -Hu sri
+sri@envy:~
+$ ps -H -u sri
     PID TTY          TIME CMD
-   2291 tty2     00:00:00 gdm-wayland-ses
-   2300 tty2     00:00:00   gnome-session-b
-   2189 ?        00:00:07 systemd
-   2194 ?        00:00:00   (sd-pam)
-   2209 ?        00:00:05   pipewire
-   2210 ?        00:00:00   pipewire
-   2214 ?        00:00:00   wireplumber
-   2216 ?        00:00:06   pipewire-pulse
-   2218 ?        00:00:01   gnome-keyring-d
-   7802 ?        00:00:00     ssh-agent
-   2225 ?        00:00:10   dbus-daemon
+   2209 tty2     00:00:00 gdm-wayland-ses
+   2217 tty2     00:00:00   gnome-session-b
+   2105 ?        00:00:00 systemd
+   2109 ?        00:00:00   (sd-pam)
+   2121 ?        00:00:00   pipewire
+   2122 ?        00:00:00   pipewire
+   2125 ?        00:00:00   wireplumber
+   2132 ?        00:00:00   pipewire-pulse
+   2133 ?        00:00:00   gnome-keyring-d
+   2140 ?        00:00:00   dbus-daemon
+   2170 ?        00:00:00   xdg-document-po
+   2178 ?        00:00:00   xdg-permission-
+   2307 ?        00:00:00   gcr-ssh-agent
 
 ```
 
 #### Display all processes in a tree format with ASCII art:
 ```bash
 # Syntax
-ps -e --forest
+$ ps -e --forest
 
 # Example
+sri@envy:~
 $ ps -u sri --forest
     PID TTY          TIME CMD
-   2291 tty2     00:00:00 gdm-wayland-ses
-   2300 tty2     00:00:00  \_ gnome-session-b
-   2189 ?        00:00:07 systemd
-   2194 ?        00:00:00  \_ (sd-pam)
-   2209 ?        00:00:05  \_ pipewire
-   2210 ?        00:00:00  \_ pipewire
-   2214 ?        00:00:00  \_ wireplumber
-   2216 ?        00:00:06  \_ pipewire-pulse
-   2218 ?        00:00:01  \_ gnome-keyring-d
-   7802 ?        00:00:00  |   \_ ssh-agent
-   2225 ?        00:00:10  \_ dbus-daemon
-   2257 ?        00:00:00  \_ xdg-document-po
-   2261 ?        00:00:00  \_ xdg-permission-
-   2386 ?        00:00:00  \_ gcr-ssh-agent
-   2391 ?        00:00:00  \_ gnome-session-c
-   2413 ?        00:00:00  \_ gvfsd
-   3209 ?        00:00:00  |   \_ gvfsd-trash
-   3365 ?        00:00:00  |   \_ gvfsd-recent
-   3759 ?        00:00:00  |   \_ gvfsd-http
-   7720 ?        00:00:00  |   \_ gvfsd-network
-   7732 ?        00:00:00  |   \_ gvfsd-smb-brows
-   7741 ?        00:00:00  |   \_ gvfsd-dnssd
-   2422 ?        00:00:00  \_ gvfsd-fuse
+   2209 tty2     00:00:00 gdm-wayland-ses
+   2217 tty2     00:00:00  \_ gnome-session-b
+   2105 ?        00:00:00 systemd
+   2109 ?        00:00:00  \_ (sd-pam)
+   2121 ?        00:00:00  \_ pipewire
+   2122 ?        00:00:00  \_ pipewire
+   2125 ?        00:00:00  \_ wireplumber
+   2132 ?        00:00:00  \_ pipewire-pulse
+   2133 ?        00:00:00  \_ gnome-keyring-d
+   2140 ?        00:00:00  \_ dbus-daemon
+   2170 ?        00:00:00  \_ xdg-document-po
+   2178 ?        00:00:00  \_ xdg-permission-
+   2307 ?        00:00:00  \_ gcr-ssh-agent
+   2308 ?        00:00:00  \_ gnome-session-c
+   2327 ?        00:00:00  \_ gvfsd
+   3098 ?        00:00:00  |   \_ gvfsd-trash
+   3243 ?        00:00:00  |   \_ gvfsd-recent
+   3291 ?        00:00:00  |   \_ gvfsd-http
+   2335 ?        00:00:00  \_ gvfsd-fuse
+
 ```
 
 ## `pstree` Command
 
-The `pstree` command is another tool that displays running processes in a tree-like format. It is similar to the `ps -H` or `ps --forest` command options but with a more visually structured output. Unlike `ps`, `pstree` **provides a continuous, updated process tree.**
+The `pstree` command is another tool that displays running processes in a tree-like format. It is **similar to the `ps -H` or `ps --forest`** command options but with a **more visually structured output**. Unlike `ps`, `pstree` **provides a continuous, updated process tree.**
 
 To use `pstree`:
 ```bash
@@ -5533,6 +5564,7 @@ To use `pstree`:
 $ pstree
 
 # Example
+sri@envy:~
 $ pstree -u sri
 gdm-wayland-ses─┬─gnome-session-b───3*[{gnome-session-b}]
                 └─3*[{gdm-wayland-ses}]
@@ -5541,20 +5573,25 @@ systemd─┬─(sd-pam)
         ├─at-spi2-registr───3*[{at-spi2-registr}]
         ├─chrome_crashpad───2*[{chrome_crashpad}]
         ├─code─┬─code
-        │      ├─code─┬─code───15*[{code}]
-        │      │      └─code───11*[{code}]
+        │      ├─code───code───14*[{code}]
         │      ├─code───8*[{code}]
-        │      ├─2*[code───15*[{code}]]
+        │      ├─code───14*[{code}]
         │      ├─code─┬─code───7*[{code}]
         │      │      └─15*[{code}]
+        │      ├─code───15*[{code}]
         │      ├─code───17*[{code}]
-        │      └─36*[{code}]
+        │      └─34*[{code}]
         ├─dbus-daemon
         ├─dconf-service───3*[{dconf-service}]
+        ├─evince───6*[{evince}]
+        ├─evinced───3*[{evinced}]
         ├─evolution-addre───6*[{evolution-addre}]
         ├─evolution-calen───9*[{evolution-calen}]
         ├─evolution-sourc───4*[{evolution-sourc}]
-        ├─gcr-ssh-agent───2*[{gcr-ssh-agent}]
+        ├─firefox─┬─Isolated Web Co───23*[{Isolated Web Co}]
+        │         ├─Socket Process───5*[{Socket Process}]
+        │         ├─Utility Process───4*[{Utility Process}]
+
 ```
 
 ## Real-Time Process Monitoring with `top` and `htop`
@@ -5569,11 +5606,28 @@ While `ps` gives a snapshot of processes at a specific moment, `top` and `htop` 
 
 #### Basic usage of `top`:
 ```bash
+# Syntax
 $ top
-```
-This displays a continuously updating list of processes sorted by CPU usage by default.
 
-#### Interactive Options in `top`:
+# Example
+sri@envy:~
+$ top
+top - 17:03:03 up 18 min,  1 user,  load average: 0.69, 0.67, 0.45
+Tasks: 279 total,   1 running, 278 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.5 us,  0.4 sy,  0.0 ni, 99.0 id,  0.0 wa,  0.0 hi,  0.1 si,  0.0 st 
+MiB Mem :   7318.3 total,   3221.4 free,   2439.8 used,   1986.5 buff/cache     
+MiB Swap:   4096.0 total,   4096.0 free,      0.0 used.   4878.6 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                
+   2383 sri       20   0 5538112 336256 153032 S   2.7   4.5   0:32.88 gnome-shell            
+   4684 sri       20   0  565244  55492  44632 S   1.0   0.7   0:04.22 gnome-terminal-        
+    209 root     -51   0       0      0      0 S   0.7   0.0   0:03.31 irq/48-SYNA32A0:00     
+    565 root     -51   0       0      0      0 S   0.7   0.0   0:08.29 irq/82-rtw88_pci       
+     17 root      20   0       0      0      0 I   0.3   0.0   0:00.81 rcu_preempt            
+     51 root      20   0       0      0      0 I   0.3   0.0   0:00.32 kworker/u33:0-events_+ 
+   3472 sri       20   0 2614988 190872 100916 S   0.3   2.5   0:05.24 Isolated Web Co     
+```
+
 While `top` is running, you can press the following keys to interact with the process list:
 - `P`: Sort processes by CPU usage.
 - `M`: Sort processes by memory usage.
@@ -5593,7 +5647,13 @@ $ sudo apt install htop -y # For Ubuntu/Debian-based systems
 
 #### Run `htop`:
 ```bash
+# Sytnax
 $ htop
+
+# Example
+sri@envy:~
+$ htop
+
 ```
 ---
 
@@ -5641,7 +5701,10 @@ To handle tasks more efficiently, Linux offers **job control mechanisms**, enabl
 
 ### Key Differences Between a Job and a Process  
 
-In Linux, a **job** is a shell-level abstraction for managing tasks initiated in the terminal, while a **process** is a broader system-level concept representing any program running on the system. Jobs are specific to the shell and are identified by job IDs, whereas processes are independent of the shell and are identified by PIDs.
+In Linux, a **job** is a shell-level abstraction for managing tasks initiated in the terminal, while a **process** is a broader system-level concept representing any program running on the system. **Jobs are specific to the shell** and are identified by job IDs, whereas **processes are independent of the shell** and are identified by PIDs.
+
+While each job corresponds to one or more processes, not all processes are jobs. For example, system processes like `systemd` or `cron` are started by the operating system and are not initiated by the shell, so they aren't considered jobs.  
+
 
 | **Aspect**            | **Job**                                | **Process**                            |  
 |------------------------|----------------------------------------|----------------------------------------|  
@@ -5662,8 +5725,12 @@ When you start a command in the background, **the terminal immediately returns t
 $ command &
 
 # Example
+sri@envy:~
 $ sleep 30 &
-[1] 25837
+[1] 5329
+sri@envy:~
+$ 
+
 ```
 The `sleep` command makes the shell idle for given period of time. In the above example, the `sleep 30` command will run in the background for 30 seconds while you are free to use the terminal for other tasks.
 
@@ -5671,7 +5738,7 @@ When a command runs in the background, two pieces of information are displayed: 
 
 #### When Does the Output of a Background Job Appear?
 
-The shell ensures that background job output doesn't interrupt your work at the command prompt. It only displays the output when a new prompt appears, keeping the session organized. The `jobs` command will show job statuses just before the prompt is displayed. 
+The shell ensures that background job output doesn't interrupt your work at the command prompt. **It only displays the output when a new prompt appears**, keeping the session organized. The `jobs` command will show job statuses just before the prompt is displayed. 
 
 To check job status, press the **Enter** key. If any jobs are completed, their statuses will be shown before the new prompt.
 
@@ -5698,11 +5765,13 @@ Example output:
 ```bash
 # Syntax
 $ jobs
+$ jobs -l # long list format
 
 # Example
+sri@envy:~
 $ jobs
 [1]+  12345 Running                 sleep 30 &
-[2]-  12346 Stopped                 nano
+[2]-  12345 Stopped                 sleep 10 &
 
 $ sleep 60 &
 [1] 28633
@@ -5711,7 +5780,6 @@ $ jobs
 $ jobs -l
 [1]+ 28633 Running                 sleep 60 &
 $ 
-
 ```
 - The job number `[1]` is running (`Running`).
 - The job number `[2]` is stopped (`Stopped`).
@@ -5729,37 +5797,48 @@ To bring a background job to the foreground, use the `fg` command followed by th
 
 ```bash
 # Syntax
-fg %<job_number>
-fg %%
-fg %+
+$ fg %<job_number>
 # bring the most recent bg job to fg
-fg
+$ fg %%
+$ fg %+
+$ fg
+# bring the previous bg job to fg
+$ fg %-
 
 # Examples
+sri@envy:~
 $ sleep 30 &
 [1] 26056
+sri@envy:~
 $ fg %1
 sleep 30
 
+# bring the most recent bg job to fg
+
+sri@envy:~
 $ sleep 30 &
 [1] 26056
+sri@envy:~
 $ fg %%
 sleep 30
 
+sri@envy:~
 $ sleep 30 &
 [1] 26056
+sri@envy:~
 $ fg %+
 sleep 30
 
-# bring the most recent bg to fg
+sri@envy:~
 $ sleep 30 &
 [1] 26056
+sri@envy:~
 $ fg
 sleep 30
 
 ```
 
-### Backgrounding a Suspended Job
+#### Backgrounding a Suspended Job
 
 If a job is suspended (e.g., using `Ctrl-Z`), you can **resume** it in the background by using the `bg` command followed by the job number.
 
@@ -5768,13 +5847,17 @@ If a job is suspended (e.g., using `Ctrl-Z`), you can **resume** it in the backg
 $ bg %1
 
 # Example
+sri@envy:~
 $ sleep 10
 ^Z
 [1]+  Stopped                 sleep 10
+sri@envy:~
 $ bg %1
 [1]+ sleep 10 &
-$ 
+sri@envy:~
+$ # after 10 seconds press <Enter> again
 [1]+  Done                    sleep 10
+sri@envy:~
 $ 
 ```
 
@@ -5785,14 +5868,17 @@ If you want to resume the most recently suspended job in the background, simply 
 $ bg
 
 # Example
+sri@envy:~
 $ sleep 10
 ^Z
 [1]+  Stopped                 sleep 10
+sri@envy:~
 $ bg
 [1]+ sleep 10 &
-$ 
+sri@envy:~
+$ # after 10seconds pressing <Enter>
 [1]+  Done                    sleep 10
-
+sri@envy:~
 $ 
 ```
 
@@ -5811,7 +5897,7 @@ To kill a background job, use the `kill` command followed by the job number or p
 To kill a job by job **number**:
 ```bash
 # Syntax
-kill %<job_number>
+$ kill %<job_number>
 
 # Example
 $ sleep 100000 &
@@ -5823,19 +5909,22 @@ $
 To kill a job by its **PID**:
 ```bash
 # Syntax
-kill <process_id>
+$ kill <process_id>
 
 # Example
-$ sleep 100000 &
-[2] 26580
-[1]   Terminated              sleep 100000
-$ kill 26580
-$ ps
-    PID TTY          TIME CMD
-   3264 pts/0    00:00:00 bash
-  26581 pts/0    00:00:00 ps
-[2]+  Terminated              sleep 100000
+sri@envy:~
+$ sleep 100000
+^Z
+[1]+  Stopped                 sleep 100000
+sri@envy:~
+$ bg
+[1]+ sleep 100000 &
+sri@envy:~
+$ kill -15 %1 # -15                               is optional, it is SIGTERM
+sri@envy:~
 $ jobs
+[1]+  Terminated              sleep 100000
+sri@envy:~
 $ 
 ```
 
@@ -5875,32 +5964,33 @@ $ kill -9 %1
 
 ## Summary of Processes and Jobs Control Commands
 
-| **Command**                              | **Description**                                                                 | **Example**                                               |
-|------------------------------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------|
-| `ps`                                     | Lists running processes on the system.                                          | `ps`                                                      |
-| `ps -e`                                  | Displays all processes running on the system.                                   | `ps -e`                                                   |
-| `ps -ef`                                 | Displays all processes with a full format listing.                              | `ps -ef`                                                  |
-| `ps -eH`                                 | Displays processes in a hierarchical (tree) format.                             | `ps -eH`                                                  |
-| `ps -e --forest`                         | Displays processes in a tree format using ASCII art.                            | `ps -e --forest`                                          |
-| `ps -u <username>`                       | Displays processes running for a specific user.                                 | `ps -u john`                                              |
-| `ps -p <PID>`                            | Displays information for a specific process ID (PID).                           | `ps -p 1234`                                              |
-| `pstree`                                 | Displays processes in a hierarchical tree format.                               | `pstree`                                                  |
-| `top`                                    | Displays a real-time process list with system performance information.          | `top`                                                     |
-| `htop`                                   | Interactive and improved version of `top` with a user-friendly interface.       | `htop`                                                    |
-| `sudo apt install htop`                  | Installs `htop` on a Debian-based system.                                       | `sudo apt install htop`                                   |
-| `kill <PID>`                             | Terminates a running process using its process ID (PID).                        | `kill 5678`                                               |
-| `command &`                              | Starts a command in the background.                                             | `sleep 60 &`                                              |
-| `Ctrl-C`                                 | Kills the foreground process.                                                  | (Press `Ctrl-C` while the job is in the foreground)       |
-| `Ctrl-Z`                                 | Suspends the foreground process.                                               | (Press `Ctrl-Z` while the job is running)                 |
-| `bg [%num]`                              | Resumes a suspended job in the background.                                      | `bg %1`                                                   |
-| `bg`                                     | Resumes the most recently suspended job in the background.                      | `bg`                                                      |
-| `fg [%num]`                              | Brings a backgrounded job to the foreground.                                    | `fg %1`                                                   |
-| `fg`                                     | Brings the most recent background job to the foreground.                        | `fg`                                                      |
-| `kill [%num]` or `kill <PID>`            | Kills a job by job number or PID.                                               | `kill %1` or `kill 12345`                                 |
-| `jobs` or `jobs [%num]`                  | Lists all jobs or a specific job by job number.                                 | `jobs` or `jobs %1`                                       |
-| `kill -l`                                | Lists available signals.                                                        | `kill -l`                                                 |
-| `kill -<signal> %num` or `kill -<signal> <PID>` | Sends a specific signal to a job.                                              | `kill -9 %1` or `kill -9 12345`                           |
-| `kill -9`                                | Force kills a job using the SIGKILL signal.                                     | `kill -9 %1`                                              |
+| **Command** | **Description** | **Example** |
+|-------------|-----------------|-------------|
+| `ps` | Lists running processes on the system.  | `ps`  |
+| `ps -e`  | Displays all processes running on the system.   | `ps -e`   |
+| `ps -ef` | Displays all processes with a full format listing.  | `ps -ef`  |
+| `ps -eH` | Displays processes in a hierarchical (tree) format. | `ps -eH`  |
+| `ps -e --forest` | Displays processes in a tree format using ASCII art.| `ps -e --forest`  |
+| `ps -u <username>`   | Displays processes running for a specific user. | `ps -u john`  |
+| `ps -p <PID>`| Displays information for a specific process ID (PID).   | `ps -p 1234`  |
+| `pstree` | Displays processes in a hierarchical tree format.   | `pstree`  |
+| `top`| Displays a real-time process list with system performance information.  | `top` |
+| `htop`   | Interactive and improved version of `top` with a user-friendly interface.   | `htop`|
+| `sudo apt install htop`  | Installs `htop` on a Debian-based system.   | `sudo apt install htop`   |
+| `kill <PID>` | Terminates a running process using its process ID (PID).| `kill 5678`   |
+| `command &`  | Starts a command in the background. | `sleep 60 &`  |
+| `Ctrl-C` | Kills the foreground process.  | (Press `Ctrl-C` while the job is in the foreground)   |
+| `Ctrl-Z` | Suspends the foreground process.   | (Press `Ctrl-Z` while the job is running) |
+| `bg [%num]`  | Resumes a suspended job in the background.  | `bg %1`   |
+| `bg` | Resumes the most recently suspended job in the background.  | `bg`  |
+| `fg [%num]`  | Brings a backgrounded job to the foreground.| `fg %1`   |
+| `fg` | Brings the most recent background job to the foreground.| `fg`  |
+| `kill [%num]` or `kill <PID>`| Kills a job by job number or PID.   | `kill %1` or `kill 12345` |
+| `jobs` or `jobs [%num]`  | Lists all jobs or a specific job by job number.| `jobs` or `jobs %1`|
+| `kill -l`| Lists available signals.| `kill -l`|
+| `kill -<signal> %num` or `kill -<signal> <PID>` | Sends a specific signal to a job. | `kill -9 %1` or `kill -9 12345`|
+| `kill -9`| Force kills a job using the SIGKILL signal.| `kill -9 %1`|
+| `kill -15`| Kills a job using the SIGTERM signal.| `kill -15 %1`|
 
 ---
 
