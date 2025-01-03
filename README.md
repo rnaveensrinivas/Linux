@@ -913,45 +913,45 @@ $
 
 ## Summary of Basic Commands
 
-| Command                | Description |
+| Command| Description |
 |------------------------|-------------|
-| `pwd`                  | Displays the present working directory. |
-| `cd [directory]`       | Changes the current directory to the specified directory. |
-| `cd -`                 | Changes to the previous directory. |
-| `cd`                   | Changes to the user's home directory. |
-| `cd ~`                 | Changes to the user's home directory. |
-| `cd ~user`              | Changes to the home directory of the user `user`. |
-| `cd /home/user`         | Changes to the directory `/home/user`. |
-| `ls [path]`            | Lists the contents of the specified path. |
-| `ls`                   | Lists the contents of the current directory. |
-| `cat [file]`           | Displays the contents of a specified file. |
-| `cat`                  | Reads from the standard input and displays the input. |
-| `exit`                 | Exits the current shell. |
-| `logout`               | Exits the current login session (not available in all shells). |
-| `^D` or `^d`           | Exits the shell using the shortcut `CTRL+D`. |
-| `man command`        | Displays the manual page for a command. |
-| `man -k keyword`     | Returns all man pages containing the specified keyword. |
-| `apropos keyword`    | Searches for the keyword in the manual page descriptions. |
-| `[command] --help`     | Displays a help message for the specified command. |
-| `whatis [command]`    | Display one-line manual page descriptions |
-| `clear`                | Clears the entire terminal screen. |
-| `^L` or `^l`           | Clears the terminal window (history still accessible via scroll). |
-| `touch file(s)`      | Creates empty file(s). |
+| `pwd`  | Displays the present working directory. |
+| `cd [directory]`   | Changes the current directory to the specified directory. |
+| `cd -` | Changes to the previous directory. |
+| `cd`   | Changes to the user's home directory. |
+| `cd ~` | Changes to the user's home directory. |
+| `cd ~user`  | Changes to the home directory of the user `user`. |
+| `cd /home/user` | Changes to the directory `/home/user`. |
+| `ls [path]`| Lists the contents of the specified path. |
+| `ls`   | Lists the contents of the current directory. |
+| `cat [file]`   | Displays the contents of a specified file. |
+| `cat`  | Reads from the standard input and displays the input. |
+| `exit` | Exits the current shell. |
+| `logout`   | Exits the current login session (not available in all shells). |
+| `^D` or `^d`   | Exits the shell using the shortcut `CTRL+D`. |
+| `man command`| Displays the manual page for a command. |
+| `man -k keyword` | Returns all man pages containing the specified keyword. |
+| `apropos keyword`| Searches for the keyword in the manual page descriptions. |
+| `[command] --help` | Displays a help message for the specified command. |
+| `whatis [command]`| Display one-line manual page descriptions |
+| `clear`| Clears the entire terminal screen. |
+| `^L` or `^l`   | Clears the terminal window (history still accessible via scroll). |
+| `touch file(s)`  | Creates empty file(s). |
 
 ### Navigating man pages
 
-| Key                  | Action                               |
+| Key  | Action   |
 |----------------------|--------------------------------------|
-| Enter, Down Arrow     | Move down one line.                 |
-| Up Arrow, `k`         | Move up one line.                   |
-| Spacebar, Page Down   | Move down one page.                 |
-| `g`                   | Go to the start or top.             |
-| `G`                   | Go to the end or bottom.            |
-| `h`                   | Display help.                       |
-| `j`                   | Move down one line.                 |
-| `k`                   | Move up one line.                   |
-| `l`                   | Move right (scroll horizontally).   |
-| `q`                   | Quit.                               |
+| Enter, Down Arrow | Move down one line. |
+| Up Arrow, `k` | Move up one line.   |
+| Spacebar, Page Down   | Move down one page. |
+| `g`   | Go to the start or top. |
+| `G`   | Go to the end or bottom.|
+| `h`   | Display help.   |
+| `j`   | Move down one line. |
+| `k`   | Move up one line.   |
+| `l`   | Move right (scroll horizontally).   |
+| `q`   | Quit.   |
 
 ---
 
@@ -1980,10 +1980,10 @@ When modifying file permissions, these categories are referenced to define who g
 
 | **Symbol** | **Category** |
 |------------|--------------|
-| `u`        | User         |
-| `g`        | Group        |
-| `o`        | Other        |
-| `a`        | All          |
+| `u`| User |
+| `g`| Group|
+| `o`| Other|
+| `a`| All  |
 
 For example, 
 ```bash
@@ -2069,7 +2069,7 @@ Linux file permissions are displayed using a **10-character string**, which can 
 1. **Trailing Characters in Permission Strings**  
 * Sometimes, additional characters indicate special access control methods:  
   - **`.` (Trailing Period)**: Indicates an SELinux security context.  
-  - **`+` (Trailing Plus)**: Indicates Access Control Lists (ACLs).    
+  - **`+` (Trailing Plus)**: Indicates Access Control Lists (ACLs).
 
 ```bash
 $ ls -l sales.data
@@ -2321,16 +2321,16 @@ By adding these values together, you can represent any combination of permission
 
 The following table shows how the numeric values correspond to permission combinations:
 
-| **Permissions** | **Numeric Value** | **Description**                     |
+| **Permissions** | **Numeric Value** | **Description** |
 |------------------|-------------------|-------------------------------------|
-| `rwx`            | 7                 | Read, write, and execute            |
-| `rw-`            | 6                 | Read and write                      |
-| `r-x`            | 5                 | Read and execute                    |
-| `r--`            | 4                 | Read only                           |
-| `-wx`            | 3                 | Write and execute                   |
-| `-w-`            | 2                 | Write only                          |
-| `--x`            | 1                 | Execute only                        |
-| `---`            | 0                 | No permissions                      |
+| `rwx`| 7 | Read, write, and execute|
+| `rw-`| 6 | Read and write  |
+| `r-x`| 5 | Read and execute|
+| `r--`| 4 | Read only   |
+| `-wx`| 3 | Write and execute   |
+| `-w-`| 2 | Write only  |
+| `--x`| 1 | Execute only|
+| `---`| 0 | No permissions  |
 
 ---
 
@@ -2660,13 +2660,13 @@ $
 
 ### Summary of group related commands
 
-| **Command**               | **Description**                              |
+| **Command**   | **Description**  |
 |---------------------------|----------------------------------------------|
-| `sudo groupadd GROUP_NAME`| Create a group                               |
-| `cat /etc/group`          | List all groups                              |
-| `sudo usermod -aG GROUP_NAME USER_NAME` | Add a user to a group                  |
-| `groups USER_NAME`        | Check user groups                            |
-| `sudo groupdel GROUP_NAME`| Delete a group                               |
+| `sudo groupadd GROUP_NAME`| Create a group   |
+| `cat /etc/group`  | List all groups  |
+| `sudo usermod -aG GROUP_NAME USER_NAME` | Add a user to a group  |
+| `groups USER_NAME`| Check user groups|
+| `sudo groupdel GROUP_NAME`| Delete a group   |
 
 ---
 
@@ -2798,8 +2798,8 @@ The permissions for directories are interpreted differently compared to regular 
 
 | **Permission** | **Effect on Directory** |
 |----------------|-------------------------|
-| `r` (read)     | Allows viewing the names of the files and subdirectories inside the directory (e.g., `ls` command).          |
-| `w` (write)    | Allows creating, deleting, or renaming files and subdirectories within the directory.                        |
+| `r` (read) | Allows viewing the names of the files and subdirectories inside the directory (e.g., `ls` command).  |
+| `w` (write)| Allows creating, deleting, or renaming files and subdirectories within the directory.|
 | `x` (execute)  | Allows entering the directory (e.g., `cd` command) and accessing files or subdirectories if permissions allow. |
 
 Directory permission usually only contain **0s**, **5s**, and **7s**. Common directory permissions include **755**, **700**, **770**, and **750**.
@@ -3268,7 +3268,7 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 | `$ chmod [user][operation][permissions] [file]` | Changes permissions for a file or directory. |
 | `$ chmod u+x myscript.sh`| Adds execute permission to the user for `myscript.sh`.   |
 | `$ chmod g-w myscript.sh`| Removes write permission from the group for `myscript.sh`.   |
-| `$ chmod o=r file.txt`   | Sets read-only permission for others on `file.txt`.  |
+| `$ chmod o=r file.txt` | Sets read-only permission for others on `file.txt`.  |
 | `$ chmod a+x program.sh` | Adds execute permission for all users on `program.sh`.   |
 | `$ chmod o= mydoc.txt`   | Removes all permissions for others on `mydoc.txt`.   |
 | `$ chmod a= afile.txt`   | Removes all permissions for all users on `afile.txt`.|
@@ -3333,25 +3333,25 @@ Once you enter `more` pager program, you can use the following commands to navig
 
 | **Key** | **Action** |
 |---------|------------|
-| `<space>`| Display next k lines of text (current screen size)            |
-| `z`| Display next k lines of text (current screen size)            |
-| `<return>`| Display next k lines of text (1 line)                         |
-| `d` or `ctrl-D`| Scroll k lines (current scroll size, initially 11)            |
+| `<space>`| Display next k lines of text (current screen size)|
+| `z`| Display next k lines of text (current screen size)|
+| `<return>`| Display next k lines of text (1 line) |
+| `d` or `ctrl-D`| Scroll k lines (current scroll size, initially 11)|
 | `q` or `Q` or `<interrupt>`  | Exit from more|
-| `s`| Skip forward k lines of text (1 line)                         |
-| `f`| Skip forward k screenfuls of text (1 screenful)               |
-| `b` or `ctrl-B`| Skip backwards k screenfuls of text (1 screenful)             |
-| `'`| Go to place where previous search started                     |
-| `=`| Display current line number                                    |
-| `/<regular expression>`      | Search for kth occurrence of regular expression (1 occurrence) |
+| `s`| Skip forward k lines of text (1 line) |
+| `f`| Skip forward k screenfuls of text (1 screenful)   |
+| `b` or `ctrl-B`| Skip backwards k screenfuls of text (1 screenful) |
+| `'`| Go to place where previous search started |
+| `=`| Display current line number|
+| `/<regular expression>`  | Search for kth occurrence of regular expression (1 occurrence) |
 | `n`| Search for kth occurrence of last regular expression (1 occurrence) |
-| `!<cmd>` or `:!<cmd>`| Execute `<cmd>` in a subshell                                  |
-| `v`                          | Start up '/usr/bin/vi' at current line|
-| `ctrl-L`                     | Redraw screen|
-| `:n`                         | Go to kth next file (1 file)|
-| `:p`| Go to kth previous file (1 file)                               |
-| `:f`| Display current file name and line number                      |
-| `.`| Repeat previous command                                        |
+| `!<cmd>` or `:!<cmd>`| Execute `<cmd>` in a subshell  |
+| `v`  | Start up '/usr/bin/vi' at current line|
+| `ctrl-L` | Redraw screen|
+| `:n` | Go to kth next file (1 file)|
+| `:p`| Go to kth previous file (1 file)   |
+| `:f`| Display current file name and line number  |
+| `.`| Repeat previous command|
 
 `more` is often contrasted with the less command, which offers more advanced features like scrolling backward and forward through a file more efficiently.
 
@@ -3374,38 +3374,38 @@ You can scroll up and down through the file, search for patterns, and use other 
 
 Here's a table summarizing the useful `less` commands:
 
-| **Command**                  | **Description**                                                       |
+| **Command**  | **Description**   |
 |------------------------------|-----------------------------------------------------------------------|
-| **Space** or **f**            | Move forward one screen.                                              |
-| **b** or **Ctrl-B**           | Move backward one screen.                                             |
-| **Enter** or **j**            | Move forward one line.                                                |
-| **k**                         | Move backward one line.                                               |
-| **g**                         | Go to the beginning of the file.                                      |
-| **G**                         | Go to the end of the file.                                            |
-| **<number>g**                 | Go to a specific line number (e.g., `50g` goes to line 50).           |
-| **/pattern**                  | Search forward for the pattern.                                       |
-| **?pattern**                  | Search backward for the pattern.                                      |
-| **n**                         | Go to the next occurrence of the search pattern.                      |
-| **N**                         | Go to the previous occurrence of the search pattern.                  |
-| **/pattern[Enter]**           | Find the next match of the pattern.                                   |
-| **?pattern[Enter]**           | Find the previous match of the pattern.                               |
-| **{**                         | Jump to the previous search result.                                   |
-| **}**                         | Jump to the next search result.                                       |
-| **&pattern**                  | Show only the lines matching the given pattern.                       |
-| **Ctrl-F**                    | Scroll forward by one screen.                                         |
-| **Ctrl-B**                    | Scroll backward by one screen.                                        |
-| **v**                         | Open the file in the `vi` editor at the current location.             |
-| **=**                         | Display the current line number.                                      |
-| **:f**                        | Show the current filename and line number.                            |
-| **:p**                        | Display the previous file (when viewing multiple files).              |
-| **:n**                        | Display the next file (when viewing multiple files).                  |
-| **q** or **Ctrl-C**           | Exit `less`.                                                          |
-| **Ctrl-D**                    | Scroll down half a screen.                                            |
-| **Ctrl-U**                    | Scroll up half a screen.                                              |
-| **h**                         | Show the help screen with all the commands.                           |
-| **m**                         | Mark the current location.                                            |
-| **`**                         | Jump back to the last marked location.                                |
-| **s**                         | Sort the file (requires sorting support in `less`).                   |
+| **Space** or **f**| Move forward one screen.  |
+| **b** or **Ctrl-B**   | Move backward one screen. |
+| **Enter** or **j**| Move forward one line.|
+| **k** | Move backward one line.   |
+| **g** | Go to the beginning of the file.  |
+| **G** | Go to the end of the file.|
+| **<number>g** | Go to a specific line number (e.g., `50g` goes to line 50).   |
+| **/pattern**  | Search forward for the pattern.   |
+| **?pattern**  | Search backward for the pattern.  |
+| **n** | Go to the next occurrence of the search pattern.  |
+| **N** | Go to the previous occurrence of the search pattern.  |
+| **/pattern[Enter]**   | Find the next match of the pattern.   |
+| **?pattern[Enter]**   | Find the previous match of the pattern.   |
+| **{** | Jump to the previous search result.   |
+| **}** | Jump to the next search result.   |
+| **&pattern**  | Show only the lines matching the given pattern.   |
+| **Ctrl-F**| Scroll forward by one screen. |
+| **Ctrl-B**| Scroll backward by one screen.|
+| **v** | Open the file in the `vi` editor at the current location. |
+| **=** | Display the current line number.  |
+| **:f**| Show the current filename and line number.|
+| **:p**| Display the previous file (when viewing multiple files).  |
+| **:n**| Display the next file (when viewing multiple files).  |
+| **q** or **Ctrl-C**   | Exit `less`.  |
+| **Ctrl-D**| Scroll down half a screen.|
+| **Ctrl-U**| Scroll up half a screen.  |
+| **h** | Show the help screen with all the commands.   |
+| **m** | Mark the current location.|
+| **`** | Jump back to the last marked location.|
+| **s** | Sort the file (requires sorting support in `less`).   |
   
 
 ### Philosophy: *less is more*
@@ -3476,8 +3476,8 @@ $ tail README.md
 sri@envy:~/Documents/Linux
 $ tail -5 README.md 
 | **Example Workflow with `dpkg`** | **Description**| **Command**|
-| Install a `.deb` package| Install a `.deb` file.    | `sudo dpkg -i package.deb`|
-| Fix broken dependencies| Fix unmet dependencies after installing a `.deb` package.    | `sudo apt install -f`|
+| Install a `.deb` package| Install a `.deb` file.| `sudo dpkg -i package.deb`|
+| Fix broken dependencies| Fix unmet dependencies after installing a `.deb` package.| `sudo apt install -f`|
 | List installed files for a package | View which files a package has installed.| `dpkg -L <package>`  |
 | Find a package by file | Identify which package installed a specific file.  | `dpkg -S /path/to/file`   |sri@envy:~/Documents/Linux
 $ 
@@ -3564,18 +3564,18 @@ Vim operates in various modes, each designed for specific tasks:
 Vim starts in **Command Mode**, where every keystroke is interpreted as a command rather than input text. In this mode, you can navigate, delete, copy, paste, and perform many editing actions.
 
 #### Key Features in Command Mode:
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Move up one line                   | `k`         |
-| Move down one line                 | `j`         |
-| Move left one character            | `h`         |
-| Move right one character           | `l`         |
-| Move right one word                | `w`         |
-| Move left one word                 | `b`         |
-| Move to the beginning of the line  | `^`         |
-| Move to the end of the line        | `$`         |
-| Move to the beginning of the file  | `gg`        |
-| Move to the end of the file        | `G`         |
+| Move up one line   | `k` |
+| Move down one line | `j` |
+| Move left one character| `h` |
+| Move right one character   | `l` |
+| Move right one word| `w` |
+| Move left one word | `b` |
+| Move to the beginning of the line  | `^` |
+| Move to the end of the line| `$` |
+| Move to the beginning of the file  | `gg`|
+| Move to the end of the file| `G` |
 
 **Examples**:
 - Move 3 lines down: `3j`
@@ -3586,12 +3586,12 @@ Vim starts in **Command Mode**, where every keystroke is interpreted as a comman
 
 ### 2. Insert Mode
 Insert Mode allows you to input text directly into the file. You can enter Insert Mode from Command Mode using the following keys:
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Insert at the current position     | `i`         |
-| Insert at the beginning of the line | `I`        |
-| Append after the current position  | `a`         |
-| Append at the end of the line      | `A`         |
+| Insert at the current position | `i` |
+| Insert at the beginning of the line | `I`|
+| Append after the current position  | `a` |
+| Append at the end of the line  | `A` |
 
 Once you're done typing, press `Esc` to return to Command Mode.
 
@@ -3605,16 +3605,16 @@ Once you're done typing, press `Esc` to return to Command Mode.
 Line Mode is accessed by typing `:` in Command Mode. Here, you can execute commands for saving, quitting, searching, and more.
 
 #### Common Commands in Line Mode:
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Save the file                      | `:w`        |
-| Quit the editor                    | `:q`        |
-| Save and quit                      | `:wq` or `:x` |
-| Quit without saving                | `:q!`       |
-| Go to line `n`                     | `:n`        |
-| Enable line numbers                | `:set nu`   |
-| Disable line numbers               | `:set nonu` |
-| Access help                        | `:help`     |
+| Save the file  | `:w`|
+| Quit the editor| `:q`|
+| Save and quit  | `:wq` or `:x` |
+| Quit without saving| `:q!`   |
+| Go to line `n` | `:n`|
+| Enable line numbers| `:set nu`   |
+| Disable line numbers   | `:set nonu` |
+| Access help| `:help` |
 
 **Examples**:
 - Save the file: `:w`
@@ -3627,12 +3627,12 @@ Line Mode is accessed by typing `:` in Command Mode. Here, you can execute comma
 ## Editing Commands in Command Mode
 
 ### 1. Deleting Text
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Delete a character                 | `x`         |
-| Delete a word                      | `dw`        |
-| Delete a line                      | `dd`        |
-| Delete from cursor to line end     | `D`         |
+| Delete a character | `x` |
+| Delete a word  | `dw`|
+| Delete a line  | `dd`|
+| Delete from cursor to line end | `D` |
 
 **Examples**:
 - Delete a character: `x`
@@ -3642,12 +3642,12 @@ Line Mode is accessed by typing `:` in Command Mode. Here, you can execute comma
 ---
 
 ### 2. Changing Text
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Replace the current character      | `r`         |
-| Change the current word            | `cw`        |
-| Change the current line            | `cc`        |
-| Change to the line's end           | `c$`        |
+| Replace the current character  | `r` |
+| Change the current word| `cw`|
+| Change the current line| `cc`|
+| Change to the line's end   | `c$`|
 
 **Examples**:
 - Replace a character with `d`: `rd`
@@ -3657,11 +3657,11 @@ Line Mode is accessed by typing `:` in Command Mode. Here, you can execute comma
 
 ### 3. Copying and Pasting Text
 Vim uses the `yank` command to copy and `p` to paste.
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Yank the current line              | `yy`        |
-| Yank a word                        | `yw`        |
-| Paste the yanked text              | `p`         |
+| Yank the current line  | `yy`|
+| Yank a word| `yw`|
+| Paste the yanked text  | `p` |
 
 **Examples**:
 - Yank a line: `yy`
@@ -3670,10 +3670,10 @@ Vim uses the `yank` command to copy and `p` to paste.
 ---
 
 ### 4. Undo and Redo
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Undo the last change               | `u`         |
-| Redo the last undone change        | `Ctrl + r`  |
+| Undo the last change   | `u` |
+| Redo the last undone change| `Ctrl + r`  |
 
 **Examples**:
 - Undo: `u`
@@ -3683,12 +3683,12 @@ Vim uses the `yank` command to copy and `p` to paste.
 
 ### 5. Searching in Vim
 Search for patterns in the text efficiently.
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Search forward for a pattern       | `/pattern`  |
-| Search backward for a pattern      | `?pattern`  |
-| Move to the next occurrence        | `n`         |
-| Move to the previous occurrence    | `N`         |
+| Search forward for a pattern   | `/pattern`  |
+| Search backward for a pattern  | `?pattern`  |
+| Move to the next occurrence| `n` |
+| Move to the previous occurrence| `N` |
 
 **Examples**:
 - Search for "example": `/example`
@@ -3706,63 +3706,63 @@ Many commands can be repeated by prefixing them with a number.
 ---
 
 ## Case Manipulation
-| **Action**                        | **Command** |
+| **Action**| **Command** |
 |------------------------------------|-------------|
-| Toggle case of the current character | `~`         |
+| Toggle case of the current character | `~` |
 
 ---
 
 ## Summary of Vim Commands
 
-| Action                                         | Key     |
+| Action | Key |
 |------------------------------------------------|---------|
-| Move up one line                               | `k`     |
-| Move down one line                             | `j`     |
-| Move left one character                        | `h`     |
-| Move right one character                       | `l`     |
-| Move right one word                            | `w`     |
-| Move left one word                             | `b`     |
-| Move to the beginning of the line              | `^`     |
-| Move to the end of the line                    | `$`     |
-| Move to the beginning of the file              | `gg`    |
-| Move to the end of the file                    | `G`     |
-| Insert at the current position                 | `i`     |
-| Insert at the beginning of the line            | `I`     |
-| Append text after the cursor position          | `a`     |
-| Append text at the end of the line             | `A`     |
-| Save the file                                  | `:w`    |
+| Move up one line   | `k` |
+| Move down one line | `j` |
+| Move left one character| `h` |
+| Move right one character   | `l` |
+| Move right one word| `w` |
+| Move left one word | `b` |
+| Move to the beginning of the line  | `^` |
+| Move to the end of the line| `$` |
+| Move to the beginning of the file  | `gg`|
+| Move to the end of the file| `G` |
+| Insert at the current position | `i` |
+| Insert at the beginning of the line| `I` |
+| Append text after the cursor position  | `a` |
+| Append text at the end of the line | `A` |
+| Save the file  | `:w`|
 | Save the file even if permissions are not set  | `:w!`   |
-| Quit the editor                                | `:q`    |
-| Quit without saving the file                   | `:q!`   |
-| Save and quit                                  | `:wq` or `:x` |
-| Go to line `n`                                 | `:n`    |
-| Go to the last line of the file                | `:$`    |
-| Enable line numbering                          | `:set nu` |
-| Disable line numbering                         | `:set nonu` |
-| Access the help documentation                  | `:help` |
+| Quit the editor| `:q`|
+| Quit without saving the file   | `:q!`   |
+| Save and quit  | `:wq` or `:x` |
+| Go to line `n` | `:n`|
+| Go to the last line of the file| `:$`|
+| Enable line numbering  | `:set nu` |
+| Disable line numbering | `:set nonu` |
+| Access the help documentation  | `:help` |
 | Repeat a command with a number prefix (e.g., 3j to move down 3 lines) | `3j`, `20iText`, `80i_`  |
-| Delete a character                             | `x`     |
-| Delete a word                                  | `dw`    |
-| Delete a line                                  | `dd`    |
-| Delete from the current position to the end of the line | `D`     |
-| Replace the current character                  | `r`     |
-| Change the current word                        | `cw`    |
-| Change the current line                        | `cc`    |
-| Change from the current position to the end of the line | `c$`    |
-| Reverse the case of the current character      | `~`     |
-| Yank (copy) the current line                   | `yy`    |
-| Yank a word                                    | `yw`    |
-| Paste the most recent yanked text              | `p`     |
-| Undo the last change                           | `u`     |
-| Redo the last undone change                    | `Ctrl + r` |
-| Start a forward search for `<pattern>`         | `/pattern` |
-| Start a reverse search for `<pattern>`         | `?pattern` |
-| Reverse the case of the current character      | `~`     |
-| Move the cursor to the next word               | `w`     |
-| Move the cursor to the previous word           | `b`     |
-| Move the cursor to the beginning of the line   | `^`     |
-| Move the cursor to the end of the line         | `$`     |
-| Move the cursor to the next match of a search  | `n`     |
+| Delete a character | `x` |
+| Delete a word  | `dw`|
+| Delete a line  | `dd`|
+| Delete from the current position to the end of the line | `D` |
+| Replace the current character  | `r` |
+| Change the current word| `cw`|
+| Change the current line| `cc`|
+| Change from the current position to the end of the line | `c$`|
+| Reverse the case of the current character  | `~` |
+| Yank (copy) the current line   | `yy`|
+| Yank a word| `yw`|
+| Paste the most recent yanked text  | `p` |
+| Undo the last change   | `u` |
+| Redo the last undone change| `Ctrl + r` |
+| Start a forward search for `<pattern>` | `/pattern` |
+| Start a reverse search for `<pattern>` | `?pattern` |
+| Reverse the case of the current character  | `~` |
+| Move the cursor to the next word   | `w` |
+| Move the cursor to the previous word   | `b` |
+| Move the cursor to the beginning of the line   | `^` |
+| Move the cursor to the end of the line | `$` |
+| Move the cursor to the next match of a search  | `n` |
 | Move the cursor to the previous match of a search | `N`   |
 
 ---
@@ -4195,24 +4195,24 @@ $
 ## Summary of Deleting, Moving, and Renaming Files and Directories Commands
 Here's the updated table including the commands you provided:
 
-| **Command**                           | **Description**                                                                                     | **Example**                                                                                     |
+| **Command**   | **Description** | **Example** |
 |---------------------------------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| `rm file`                             | Remove a file.                                                                                      | `rm test.txt` - Removes `test.txt`.                                                            |
-| `rm -r file_or_directory`             | Remove a directory or file recursively, including its contents.                                     | `rm -r my_folder` - Removes the `my_folder` directory and all its contents.                   |
-| `rm -rf file_or_directory`            | Forcefully remove a directory or file recursively without confirmation.                             | `rm -rf temp_folder` - Forces removal of `temp_folder` and its contents without prompts.       |
-| `chmod 444 write_protected_file`      | Make a file write-protected (read-only for all users).                                              | `chmod 444 my_file` - Makes `my_file` read-only.                                               |
-| `rm *.txt`                            | Use a wildcard to remove all `.txt` files in the current directory.                                 | `rm *.txt` - Deletes all `.txt` files.                                                         |
-| `rm * -r`                             | Remove all files and directories recursively in the current directory.                              | `rm * -r` - Deletes everything in the current directory recursively.                           |
-| `rm file?.txt`                        | Remove files matching a single-character wildcard pattern.                                          | `rm file?.txt` - Deletes files like `file1.txt`, `file2.txt`, but not `file10.txt`.            |
-| `rm .hidden_file_pattern`             | Remove hidden files matching a specific pattern.                                                    | `rm .myhiddenfile` - Removes the hidden file `.myhiddenfile`.                                  |
-| `rm .*.txt`                           | Remove hidden files with a `.txt` extension.                                                        | `rm .*.txt` - Deletes hidden `.txt` files.                                                     |
-| `cp source_file destination_file_directory` | Copy a file to a specific directory.                                                               | `cp report.pdf /documents/` - Copies `report.pdf` to the `/documents/` directory.              |
-| `cp source_file1 [source_fileN ...] destination_directory` | Copy multiple files to a directory.                                                               | `cp file1.txt file2.txt /backup/` - Copies `file1.txt` and `file2.txt` to `/backup/`.          |
-| `cp -i source_file destination_directory` | Copy a file interactively, prompting before overwriting.                                           | `cp -i file1.txt /backup/` - Asks for confirmation before overwriting files in `/backup/`.     |
-| `cp -r source_directory destination_directory` | Recursively copy a directory and its contents.                                                    | `cp -r project_folder /backup/` - Copies `project_folder` and its contents to `/backup/`.      |
-| `mv source destination`               | Move a file or directory to a new location.                                                        | `mv file.txt /home/user/documents/` - Moves `file.txt` to `/home/user/documents/`.             |
-| `mv old_name new_name`                | Rename a file or directory.                                                                        | `mv old_project new_project` - Renames `old_project` to `new_project`.                         |
-| `mv -i source destination`            | Move a file or directory interactively, prompting before overwriting.                              | `mv -i file.txt /home/user/documents/` - Prompts before overwriting an existing file.          |
+| `rm file` | Remove a file.  | `rm test.txt` - Removes `test.txt`.|
+| `rm -r file_or_directory` | Remove a directory or file recursively, including its contents. | `rm -r my_folder` - Removes the `my_folder` directory and all its contents.   |
+| `rm -rf file_or_directory`| Forcefully remove a directory or file recursively without confirmation. | `rm -rf temp_folder` - Forces removal of `temp_folder` and its contents without prompts.   |
+| `chmod 444 write_protected_file`  | Make a file write-protected (read-only for all users).  | `chmod 444 my_file` - Makes `my_file` read-only.   |
+| `rm *.txt`| Use a wildcard to remove all `.txt` files in the current directory. | `rm *.txt` - Deletes all `.txt` files. |
+| `rm * -r` | Remove all files and directories recursively in the current directory.  | `rm * -r` - Deletes everything in the current directory recursively.   |
+| `rm file?.txt`| Remove files matching a single-character wildcard pattern.  | `rm file?.txt` - Deletes files like `file1.txt`, `file2.txt`, but not `file10.txt`.|
+| `rm .hidden_file_pattern` | Remove hidden files matching a specific pattern.| `rm .myhiddenfile` - Removes the hidden file `.myhiddenfile`.  |
+| `rm .*.txt`   | Remove hidden files with a `.txt` extension.| `rm .*.txt` - Deletes hidden `.txt` files. |
+| `cp source_file destination_file_directory` | Copy a file to a specific directory.   | `cp report.pdf /documents/` - Copies `report.pdf` to the `/documents/` directory.  |
+| `cp source_file1 [source_fileN ...] destination_directory` | Copy multiple files to a directory.   | `cp file1.txt file2.txt /backup/` - Copies `file1.txt` and `file2.txt` to `/backup/`.  |
+| `cp -i source_file destination_directory` | Copy a file interactively, prompting before overwriting.   | `cp -i file1.txt /backup/` - Asks for confirmation before overwriting files in `/backup/`. |
+| `cp -r source_directory destination_directory` | Recursively copy a directory and its contents.| `cp -r project_folder /backup/` - Copies `project_folder` and its contents to `/backup/`.  |
+| `mv source destination`   | Move a file or directory to a new location.| `mv file.txt /home/user/documents/` - Moves `file.txt` to `/home/user/documents/`. |
+| `mv old_name new_name`| Rename a file or directory.| `mv old_project new_project` - Renames `old_project` to `new_project`. |
+| `mv -i source destination`| Move a file or directory interactively, prompting before overwriting.  | `mv -i file.txt /home/user/documents/` - Prompts before overwriting an existing file.  |
 
 ### Notes:
 - The `rm` command is powerful; **use `-rf` cautiously** as it can delete critical files/directories without confirmation.
@@ -4468,12 +4468,12 @@ We will use this `table.txt` for the examples below.
 
 ### Common `sort` Options and Examples:
 
-| **Command**                                   | **Description**                                    | **Option**       | **Example**                                                                 |
+| **Command**   | **Description**| **Option**   | **Example** |
 |-----------------------------------------------|---------------------------------------------------|------------------|-----------------------------------------------------------------------------|
-| `sort file`                                   | Sorts the contents of a file **line by line**     | `file`           | `sort table.txt` - Sorts all rows in `table.txt` by their first column.     |
-| `sort -k FIELD_NUM`                           | Sorts by a specific field/column                 | `-k FIELD_NUM`   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column.             |
-| `sort -r`                                     | Sorts in reverse order                           | `-r`             | `sort -r table.txt` - Sorts `table.txt` by the first column in descending order. |
-| `sort -u`                                     | Sorts uniquely (removing duplicates)             | `-u`             | `sort -u table.txt` - Removes duplicate rows while sorting `table.txt`.     |
+| `sort file`   | Sorts the contents of a file **line by line** | `file`   | `sort table.txt` - Sorts all rows in `table.txt` by their first column. |
+| `sort -k FIELD_NUM`   | Sorts by a specific field/column | `-k FIELD_NUM`   | `sort -k 2 table.txt` - Sorts `table.txt` by the second column. |
+| `sort -r` | Sorts in reverse order   | `-r` | `sort -r table.txt` - Sorts `table.txt` by the first column in descending order. |
+| `sort -u` | Sorts uniquely (removing duplicates) | `-u` | `sort -u table.txt` - Removes duplicate rows while sorting `table.txt`. |
 
 ---
 
@@ -5461,15 +5461,15 @@ Environment variables are name-value pairs that provide information to processes
 ### Common Environment Variables
 | **Variable** | **Description**  |
 |--------------|------------------|
-| `EDITOR`     | The program used to edit files. |
-| `HOME`       | The user's home directory. |
-| `LOGNAME`    | The user ID or login ID of the current user. |
-| `MAIL`       | The location of the user's mailbox on the local system. |
-| `OLDPWD`     | The old, or previous, working directory. |
-| `PATH`       | The search path for commands. |
-| `PAGER`      | The program used for paging through a file. |
-| `PS1`        | The primary prompt string. |
-| `PWD`        | The present working directory. |
+| `EDITOR` | The program used to edit files. |
+| `HOME`   | The user's home directory. |
+| `LOGNAME`| The user ID or login ID of the current user. |
+| `MAIL`   | The location of the user's mailbox on the local system. |
+| `OLDPWD` | The old, or previous, working directory. |
+| `PATH`   | The search path for commands. |
+| `PAGER`  | The program used for paging through a file. |
+| `PS1`| The primary prompt string. |
+| `PWD`| The present working directory. |
 
 ### Viewing Environment Variables
 
@@ -6034,12 +6034,12 @@ $ ps
 
 The `ps` command has several options to control the level of detail displayed in its output.
 
-| **Description**                         | **Option**   |
+| **Description** | **Option**   |
 |-----------------------------------------|------------------|
 | Display all processes   | `-e` |
-| Use a full-format listing   | `-f`         |
+| Use a full-format listing   | `-f` |
 | Display processes for a specific user   | `-u <username>`  |
-| Display processes by process ID (PID)   | `-p <PID>`       |
+| Display processes by process ID (PID)   | `-p <PID>`   |
 | Display processes in a hierarchical format (tree) | `-H` |
 | Display processes in a tree format using ASCII art | `--forest` |
 
@@ -6047,12 +6047,12 @@ The `ps` command has several options to control the level of detail displayed in
 
 | **Command** | **Description** |
 |------------------|-------------------------------------------------------------|
-| `ps -e`           | Display all processes.                                       |
-| `ps -ef`          | Display all processes using a full format listing.           |
-| `ps -eH`          | Display all processes in a tree format.                      |
-| `ps -e --forest`  | Display all processes in a tree format with ASCII art.       |
-| `ps -u <username>` | Display processes running for username.                     |
-| `ps -fp <PID>`    | Display a full-format listing for process ID (PID).          |
+| `ps -e`   | Display all processes.   |
+| `ps -ef`  | Display all processes using a full format listing.   |
+| `ps -eH`  | Display all processes in a tree format.  |
+| `ps -e --forest`  | Display all processes in a tree format with ASCII art.   |
+| `ps -u <username>` | Display processes running for username. |
+| `ps -fp <PID>`| Display a full-format listing for process ID (PID).  |
 
 
 #### Display every process running on the system:
@@ -6404,18 +6404,18 @@ To check job status, press the **Enter** key. If any jobs are completed, their s
 
 ### Job Control Table
 
-| **Description**                                   | **Command**          |
+| **Description**   | **Command**  |
 |---------------------------------------------------|----------------------|
-| Start command in the background                   | `command &`          |
-| Kill the foreground process                       | `Ctrl-C`             |
-| Suspend(pause) the foreground process             | `Ctrl-Z`             |
-| Background most recent suspended process          | `bg`                 |
-| Background a suspended process                    | `bg [%num]`          |
-| Foreground most recent backgrounded process       | `fg`                 |
-| Foreground a backgrounded process                 | `fg [%num]`          |
-| Kill a process by job number or PID               | `kill [%num]` or `kill <PID>` |
-| List all jobs or a specific job by job number     | `jobs [%num]`        |
-| List all the jobs with process id                 | `jobs -l`            |
+| Start command in the background   | `command &`  |
+| Kill the foreground process   | `Ctrl-C` |
+| Suspend(pause) the foreground process | `Ctrl-Z` |
+| Background most recent suspended process  | `bg` |
+| Background a suspended process| `bg [%num]`  |
+| Foreground most recent backgrounded process   | `fg` |
+| Foreground a backgrounded process | `fg [%num]`  |
+| Kill a process by job number or PID   | `kill [%num]` or `kill <PID>` |
+| List all jobs or a specific job by job number | `jobs [%num]`|
+| List all the jobs with process id | `jobs -l`|
 
 ### Job Status
 
