@@ -10,6 +10,7 @@
 * [Viewing File and Directory Details](#Viewing-File-and-Directory-Details)
   * [Summary](#summary-of-viewing-file-and-directory-commands)
 * [Permissions](#Permissions)
+  * [Summary](#summary-of-permissions-commands)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
   * [Summary](#Summary-of-Vim-Commands)
 * [The Vim Editor](#the-vim-editor)
@@ -1572,7 +1573,7 @@ This creates a symbolic link `myfilelink` that points to `/home/sri/Documents/my
 Use the `ls -l` command to identify symbolic links. The symlink is indicated with an `@` in `ls -F` or displayed with an arrow (`->`) pointing to the target:
 ```bash
 # Syntax
-ls -lF
+$ ls -lF
 
 # Example
 sri@envy:~/Desktop
@@ -1902,9 +1903,21 @@ $ tree -C
 
 # Permissions 
 
+In linux permissions are called **modes**. 
+
 ## Understanding File Types
 
-The `ls -l` command displays long listings of files and directories, including the file types. The first character of the permission string indicates the file type. Here are the common file types:
+The `ls -l` command displays long listings of files and directories, including the file types. 
+
+```bash
+sri@envy:~/Documents/Linux
+$ ls -l
+total 3248
+-rw-rw-r-- 1 sri sri  236154 Jan  3 05:21 README.md
+^
+^
+```
+The first character of the permission string indicates the file type. Here are the common file types:
 
 | **Symbol** | **File Type** | **Example** |
 |------------|---------------|-------------|
@@ -1917,8 +1930,9 @@ The `ls -l` command displays long listings of files and directories, including t
 | `s`| Socket| `srw-rw-rw- 1 sri users    0 Jun 14 09:31 mysocket`|
 | `?`| Unknown file type| `?-????????? ? ?    ?       ?            ? unknownfile`|
 
+The remaining characters in the permission string represent three main types of permissions.
 
-## File Permissions
+## Types of Permissions
 
 Permissions are represented by three symbols: **read (`r`)**, **write (`w`)**, and **execute (`x`)**. Each permission grants specific abilities over files and directories.
 
@@ -1928,21 +1942,19 @@ Permissions are represented by three symbols: **read (`r`)**, **write (`w`)**, a
 | `w`        | Write          |
 | `x`        | Execute        |
 
-### File Permissions
+### Permission Types for Directories
 
 For files, the meanings of these permissions are straightforward:
 - **Read** (`r`): Allows viewing the file's contents.
 - **Write** (`w`): Allows modifying the file.
 - **Execute** (`x`): Allows running the file as a program.
 
-### Directory Permissions
+### Permission Types for Directories
 
 For directories, the meanings differ slightly:
 - **Read** (`r`): Allows viewing the names of files in the directory.
 - **Write** (`w`): Allows modifying the directory's contents (creating, renaming, or deleting files).
 - **Execute** (`x`): Allows entering the directory (`cd` command).
-
-### Example:
 
 ```bash
 sri@envy:~
@@ -1952,11 +1964,13 @@ drwxr-xr-x 13 sri sri 4096 Jan  1 13:35 /home/sri/Documents/
 
 In this case:
 - `drwxr-xr-x`: Indicates a directory (`d` at the beginning).
-- The permissions `rwxr-xr-x` mean that the owner (`sri`) can read, write, and execute; the group (`users`) can read and execute, but not write; others can also read and execute but cannot write.
+- The permissions `rwxr-xr-x` mean that the owner (`sri`) can read, write, and execute; the group (`sri`) can read and execute, but not write; others can also read and execute but cannot write.
+
+> **Note** the permission `r` for a directory allows an entity to view the entries of the directory, but to read the content of items present in the directory, they need appropriate file permissions. 
 
 ## User Categories for Permissions
 
-Linux uses three categories for managing file ownership and permissions:
+All files in Linux are owned by a user and a group. This allows for unique permissions to be applied for three sets of users for managing file ownership and permissions:
 1. **User** (`u`): The file owner.
 2. **Group** (`g`): The group associated with the file.
 3. **Other** (`o`): All other users.
@@ -1971,8 +1985,7 @@ When modifying file permissions, these categories are referenced to define who g
 | `o`        | Other        |
 | `a`        | All          |
 
-### Example:
-
+For example, 
 ```bash
 $ ls -l sales.data
 -rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
@@ -1983,7 +1996,8 @@ Here:
 - **Group** (`users`) is the group owner.
 - **Others** are anyone else who is not the owner or part of the group.
 
-### Viewing Group Memberships
+### Group
+Every user is a member of at least one group, called their primary group. However, users can be members of many groups. Groups bring in user organization, eg. group called "sales" can contain all the employees from sales department. 
 
 To see which groups you belong to, you can run the following commands:
 
@@ -2020,24 +2034,77 @@ $
 For another user:
 
 ```bash
+# Syntax
 $ groups [username]
+
+# Example
+sri@envy:~/Documents/Linux
+$ groups root
+root : root
+sri@envy:~/Documents/Linux
+$ groups sri
+sri : sri adm cdrom sudo dip plugdev users lpadmin
+sri@envy:~/Documents/Linux
+$ 
 ```
 
 These commands display the groups the user belongs to, which help in determining the permissions granted to each user category.
 
+
+## Decoding Permissions
+
+Linux file permissions are displayed using a **10-character string**, which can be decoded as follows:  
+
+1. **File Type** (1st Character):  
+- Indicates the type of file.  
+  - `-` = Regular file  
+  - `d` = Directory  
+  - `l` = Symbolic link  
+
+1. **Permissions** (Next 9 Characters):  
+- Split into **user (owner)**, **group**, and **others**.  
+- Each group has **read (r)**, **write (w)**, and **execute (x)** permissions.  
+- If a permission is missing, it's represented by `-`.
+
+1. **Trailing Characters in Permission Strings**  
+* Sometimes, additional characters indicate special access control methods:  
+  - **`.` (Trailing Period)**: Indicates an SELinux security context.  
+  - **`+` (Trailing Plus)**: Indicates Access Control Lists (ACLs).    
+
+```bash
+$ ls -l sales.data
+-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data
+```
+- File type: `-` (regular file)  
+- User (owner): `rw-` (read and write)  
+- Group: `r--` (read-only)  
+- Others: `r--` (read-only)  
+- Owner: `sri`  
+- Group: `users`  
+
+```bash
+$ ls -l sales.data.selinux
+-rw-r--r--. 1 sri users 1040 Jun 14 09:31 sales.data.selinux
+# SELinux context applied.
+
+$ ls -l sales.data.acl
+-rw-r--r--+ 1 sri users 1040 Jun 14 09:31 sales.data.acl
+# ACLs are in use.
+```
+
+**Tips for Troubleshooting:**  
+- If you notice a trailing character (`.` or `+`), additional investigation may be required, as these security mechanisms can affect file access.  
+
 ## Changing Permissions
 
 Linux provides the `chmod` (**change mode**) command to modify file permissions. Permissions can be changed either using **symbolic** or **numeric (octal) modes**.
-Certainly! Here's an elaboration on **symbolic mode** for changing file permissions using the `chmod` command:
 
----
-
-### Symbolic Mode Permissions
+### 1. Symbolic Mode Permissions
 
 In **symbolic mode**, you can modify file or directory permissions in a human-readable format. The symbolic notation allows you to specify **who** the change applies to, **what action** to perform, and **which permissions** to apply or remove.
 
-#### Syntax
 ```bash
+# Syntax
 $ chmod [user][operation][permissions] [file]
 ```
 
@@ -2049,9 +2116,9 @@ $ chmod [user][operation][permissions] [file]
    - `a`: All users (shorthand for `u`, `g`, and `o`).
 
 2. **[operation]:** Defines what action to take:
-   - `+`: Add the specified permissions.
-   - `-`: Remove the specified permissions.
-   - `=`: Set the permissions exactly as specified, overriding existing ones.
+   - `+`: Add the specified permissions if not already present.
+   - `-`: Remove the specified permissions if not already present.
+   - `=`: Set the permissions **exactly** as specified, overriding existing ones.
 
 3. **[permissions]:** The type of access being granted or removed:
    - `r`: Read permission (view file contents).
@@ -2064,75 +2131,180 @@ $ chmod [user][operation][permissions] [file]
 
 ##### 1. Add execute permission for the user (owner):
 ```bash
+# Syntax
 $ chmod u+x myscript.sh
+
+# Example
+sri@envy:~/Desktop
+$ ls afile.txt -l
+-rw-rw-r-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod u+x afile.txt 
+sri@envy:~/Desktop
+$ ls -l afile.txt 
+-rwxrw-r-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 - Adds execute (`x`) permission for the file's owner (`u`).
 - After this, the owner can run the script as a program.
 
 ##### 2. Remove write permission for the group:
 ```bash
+# Syntax
 $ chmod g-w myscript.sh
+
+# Example
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrwxr-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod g-x afile.txt
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrw-r-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+
 ```
 - Removes write (`w`) permission for the file's group (`g`).
 - Members of the group can no longer modify the file.
 
 ##### 3. Set read-only permission for others:
 ```bash
+# Syntax
 $ chmod o=r file.txt
+
+# Example
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrw-rwx 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod o=r afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrw-r-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 - Sets the permission for others (`o`) to read-only (`r`).
 - Removes any existing write or execute permissions for others.
 
 ##### 4. Allow all users to execute a file:
 ```bash
+# Syntax
 $ chmod a+x program.sh
+
+# Example
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod a+x afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---x--x--x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 - Adds execute permission for all users (`a`), including owner, group, and others.
 
 ##### 5. Set exact permissions for the group:
 ```bash
+# Syntax
 $ chmod g=rw myfile.txt
+
+# Example
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---x--x--x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod g=rw afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---xrw---x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 - Sets the group (`g`) permissions to read (`r`) and write (`w`) only.
 - Removes any execute or other permissions previously set for the group.
 
 ##### 6. Remove all permissions for others:
 ```bash
+# Syntax
 $ chmod o= mydoc.txt
+
+# Example
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---xrw---x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod o= afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---xrw---- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 - Removes all permissions for others (`o`), making the file inaccessible to them.
+- Simiarly you can remove all the permission for others as well using `a=`.
 
-
-#### Advanced Permissions Modifications:
-
-##### Multiple Changes in One Command:
+##### 7. Multiple Changes in One Command:
 You can modify permissions for different categories simultaneously. For example:
 ```bash
-chmod u+x,g-w,o=r file.txt
-```
-This command adds execute permission for the user, removes write permission for the group, and sets read-only permission for others. The resulting permissions string will look like:
-```bash
--rwxr--r-- 
+# Sytnax
+$ chmod u+x,g-w,o=r file.txt
+
+# Example
+sri@envy:~/Desktop
+$ chmod a= afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod a+x,g+r,u+rw afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxr-x--x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
 ```
 
-##### Explicit Permission Setting:
+##### 8. Explicit Permission Setting:
 The equal sign (`=`) can be used to overwrite existing permissions for a user category:
 ```bash
-chmod u=rwx file.txt
+# Syntax
+$ chmod u=rwx file.txt
+
+# Example
+sri@envy:~/Desktop
+$ chmod u=wx afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+--wxr-x--x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+
 ```
-This sets the user's permissions to read, write, and execute, overriding any existing permissions for the user category. The resulting permissions string will look like:
-```bash
--rwxr--r-- 
-```
+This sets the user's permissions to read, write, and execute, overriding any existing permissions for the user category. 
 
 ---
 
-#### Practical Usage
 
-Symbolic mode is especially helpful for fine-tuning permissions without needing to know the numeric representation (e.g., `chmod 755`). You can use it to incrementally modify permissions, such as granting temporary access to a script or restricting access to sensitive files.
-
-
-### Numeric Mode Permissions
+### 2. Numeric Mode Permissions
 
 In **numeric (octal) mode**, file permissions are represented using a three-digit number, where each digit specifies the permissions for a different category of users: **owner (user)**, **group**, and **others**. Each digit is the sum of the numeric values assigned to the permissions:
 
@@ -2164,70 +2336,185 @@ The following table shows how the numeric values correspond to permission combin
 
 #### How It Works
 
+ For example, `chmod 754` assigns:
+- **7** (rwx): Owner has full permissions (read, write, execute).
+- **5** (r-x): Group can read and execute, but not write.
+- **4** (r--): Others can only read.
+
 1. **Structure of Permissions**:
    - The **first digit** applies to the file **owner**.
    - The **second digit** applies to the **group**.
    - The **third digit** applies to **others** (everyone else).
 
-   For example:
-   - `chmod 754` assigns:
-     - **7** (rwx): Owner has full permissions (read, write, execute).
-     - **5** (r-x): Group can read and execute, but not write.
-     - **4** (r--): Others can only read.
-
 2. **Calculating the Numeric Value**:
    - Add the numeric values for the desired permissions.
    - Example: `rw-` (read + write) = `4 + 2 = 6`.
 
+The below method of specification also works: 
+```bash
+sri@envy:~/Desktop
+$ chmod 7 dir
+sri@envy:~/Desktop
+$ ls -ld dir
+d------rwx 2 sri sri 4096 Jan  3 10:58 dir
+
+sri@envy:~/Desktop
+$ chmod 77 dir
+sri@envy:~/Desktop
+$ ls -ld dir
+d---rwxrwx 2 sri sri 4096 Jan  3 10:58 dir
+
+sri@envy:~/Desktop
+$ chmod 777 dir 
+sri@envy:~/Desktop
+$ ls -ld dir
+drwxrwxrwx 2 sri sri 4096 Jan  3 10:58 dir
+
+sri@envy:~/Desktop
+$ 
+```
+
+
 ---
+
 
 #### Examples of chmod in Numeric Mode
 
+##### 0. Remove all permissions (lock a file):
+```bash
+$ chmod 000 secretfile.txt
+```
+- **0** (---): Owner, group, and others have no access.
+
 ##### 1. Give the owner full permissions, and the group and others read-only:
-   ```bash
-   chmod 744 myfile.txt
-   ```
-   - **7** (rwx): Owner can read, write, and execute.
-   - **4** (r--): Group can only read.
-   - **4** (r--): Others can only read.
+```bash
+# Syntax
+$ chmod 744 myfile.txt
+
+# Example
+sri@envy:~/Desktop
+$ chmod 000 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod 774 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrwxr-- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+
+```
+- **7** (rwx): Owner can read, write, and execute.
+- **4** (r--): Group can only read.
+- **4** (r--): Others can only read.
 
 ##### 2. Give the owner read and write permissions, and no permissions to the group and others:
-   ```bash
-   chmod 600 myfile.txt
-   ```
-   - **6** (rw-): Owner can read and write.
-   - **0** (---): Group has no permissions.
-   - **0** (---): Others have no permissions.
+```bash
+# Syntax
+$ chmod 600 myfile.txt
+
+# Example
+sri@envy:~/Desktop
+$ chmod 000 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod 600 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rw------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+
+```
+- **6** (rw-): Owner can read and write.
+- **0** (---): Group has no permissions.
+- **0** (---): Others have no permissions.
 
 ##### 3. Give everyone execute permission only:
-   ```bash
-   chmod 111 script.sh
-   ```
-   - **1** (--x): Owner can only execute.
-   - **1** (--x): Group can only execute.
-   - **1** (--x): Others can only execute.
+```bash
+# Syntax
+$ chmod 111 script.sh
+
+# Example
+sri@envy:~/Desktop
+$ chmod 000 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod 111 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---x--x--x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+
+```
+- **1** (--x): Owner can only execute.
+- **1** (--x): Group can only execute.
+- **1** (--x): Others can only execute.
 
 ##### 4. Set permissions for a shared script:
-   ```bash
-   chmod 775 shared_script.sh
-   ```
-   - **7** (rwx): Owner can read, write, and execute.
-   - **7** (rwx): Group can read, write, and execute.
-   - **5** (r-x): Others can read and execute, but not write.
+```bash
+# Syntax
+$ chmod 775 shared_script.sh
+
+# Example
+sri@envy:~/Desktop
+$ chmod 000 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod 775 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rwxrwxr-x 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+```
+- **7** (rwx): Owner can read, write, and execute.
+- **7** (rwx): Group can read, write, and execute.
+- **5** (r-x): Others can read and execute, but not write.
 
 ##### 5. Make a file readable and writable by everyone:
-   ```bash
-   chmod 666 openfile.txt
-   ```
-   - **6** (rw-): Owner can read and write.
-   - **6** (rw-): Group can read and write.
-   - **6** (rw-): Others can read and write.
+```bash
+# Syntax
+$ chmod 666 openfile.txt
 
-##### 6. Remove all permissions (lock a file):
-   ```bash
-   chmod 000 secretfile.txt
-   ```
-   - **0** (---): Owner, group, and others have no access.
+# Example
+sri@envy:~/Desktop
+$ chmod 000 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+---------- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ chmod 666 afile.txt 
+sri@envy:~/Desktop
+$ ls -l
+total 0
+-rw-rw-rw- 1 sri sri 0 Jan  3 05:43 afile.txt
+sri@envy:~/Desktop
+$ 
+```
+- **6** (rw-): Owner can read and write.
+- **6** (rw-): Group can read and write.
+- **6** (rw-): Others can read and write.
+
+
 
 #### Key Benefits of Numeric Mode
 - **Precision**: Numeric mode explicitly defines all permissions at once.
@@ -2242,27 +2529,14 @@ Here are some commonly used permission sets and their symbolic, binary, and octa
 
 | **Symbolic**   | **Octal** | **Meaning**  |
 |----------------|-----------|------------------------------------------------------------------------------------------------------|
-| `-rwx------`   | `700` | Owner has full control over the file; no one else has access. |
+| `-rwx------`   | `700` | Owner has full control over the file; no one else has access. For confidential file|
 | `-rwxr-xr-x`  | `755` | Owner has full control; everyone else can execute the file but only the owner can edit it.|
 | `-rw-rw-r--`  | `664` | Owner and group members can modify the file; others can only read it.|
 | `-rw-rw----`  | `660` | Owner and group members can modify the file; others have no access.  |
-| `-rw-r--r--`  | `644` | Owner can modify the file; everyone else can only read it.|
+| `-rw-r--r--`  | `644` | Owner can modify the file; everyone else can only read it. For public document|
 
-#### Example:
-To set the permission `-rwxr-xr-x` for a file, use:
-```bash
-$ chmod 755 filename
-```
-**Set permissions to `700`**: Only the owner can read, write, and execute the file; others have no access.
-```bash
-chmod 700 confidential_file
-```
-**Set permissions to `644`**: The owner can read and write the file, while everyone else can only read it.
-```bash
-chmod 644 public_document
-```
 
-## Understanding Security Risks with Permissions
+### Understanding Security Risks with Permissions
 
 It's crucial to avoid overly permissive permissions, such as `777` and `666`. These allow anyone on the system to read, write, or execute the file, which poses significant security risks. Some of the potential issues include:
 
@@ -2275,59 +2549,250 @@ It's crucial to avoid overly permissive permissions, such as `777` and `666`. Th
 * Limit access to sensitive files and make use of groups to provide controlled access. 
 * Avoid using `777` or `666` permissions unless absolutely necessary. For example, if multiple users need write access, use groups and restrict permissions for others.
 
-## Working with Groups and Special Modes
+## Working with Groups
 
-### Working with Groups
+When multiple users need access to the same file, Linux group ownership and permissions are useful tools for managing file access.
 
-When multiple users need to access and modify a file, the `chgrp` command can be used to change the file's group ownership. This allows members of a group to share access to the file.
 
-#### Example 1: Changing the Group Ownership of a File
-If a file `sales.report` needs to be shared by a sales team, you can change the group ownership of the file to the `sales` group:
+#### To view existing Groups
+```bash
+# Syntax
+$ cat /etc/group
+
+# Example
+sri@envy:~/Desktop
+$ cat /etc/group
+root:x:0:
+daemon:x:1:
+bin:x:2:
+sys:x:3:
+adm:x:4:syslog,sri
+tty:x:5:
+disk:x:6:
+```
+The output shows the contents of the `/etc/group` file, which defines the groups on a Linux system. Each line represents a group and follows this format:
 
 ```bash
+GROUP_NAME:PASSWORD:GID:MEMBERS
+```
+
+- **GROUP_NAME**: The name of the group.  
+- **PASSWORD**: Typically `x`, indicating that group passwords are stored in a shadow file (not commonly used anymore).  
+- **GID**: The Group ID, a unique numeric identifier for the group.  
+- **MEMBERS**: A comma-separated list of users who belong to the group.
+
+---
+
+#### Creating a Group
+```bash
+# Syntax
+$ groupadd [options] GROUP_NAME
+
+# Example
+sri@envy:~/Desktop
+$ groupadd a_new_group
+groupadd: Permission denied.
+groupadd: cannot lock /etc/group; try again later.
+sri@envy:~/Desktop
+$ sudo groupadd a_new_group
+[sudo] password for sri: 
+sri@envy:~/Desktop
+$ cat /etc/group | grep a_new_
+a_new_group:x:1001:
+sri@envy:~/Desktop
+$ 
+```
+
+---
+
+### Adding Users to the Group 
+
+To add a user (e.g., `sri`) to the group:  
+```bash
+# Syntax
+$ sudo usermod -aG group userid
+
+# Example
+sri@envy:~/Desktop
+$ sudo usermod -aG a_new_group sri
+sri@envy:~/Desktop
+$ groups sri | grep a_new
+sri : sri adm cdrom sudo dip plugdev users lpadmin a_new_group
+sri@envy:~/Desktop
+$ 
+```
+---
+
+### Creating a Group with a Specific GID
+If you want to assign a specific Group ID (GID) to the group:  
+```bash
+# Syntax
+$ sudo groupadd -g <number> <group_name>
+
+# Example
+sri@envy:~/Desktop
+$ sudo groupadd another_new_group -g 2000 
+sri@envy:~/Desktop
+$ cat /etc/group | grep another
+another_new_group:x:2000:
+sri@envy:~/Desktop
+$ 
+```
+
+---
+
+### Deleting a Group
+If you need to delete a group:  
+```bash
+# Syntax
+$ sudo groupdel <group_name>
+
+# Examples
+sri@envy:~/Desktop
+$ sudo groupdel another_new_group 
+sri@envy:~/Desktop
+$ sudo groupdel a_new_group 
+sri@envy:~/Desktop
+$ 
+```
+
+---
+
+### Summary of group related commands
+
+| **Command**               | **Description**                              |
+|---------------------------|----------------------------------------------|
+| `sudo groupadd GROUP_NAME`| Create a group                               |
+| `cat /etc/group`          | List all groups                              |
+| `sudo usermod -aG GROUP_NAME USER_NAME` | Add a user to a group                  |
+| `groups USER_NAME`        | Check user groups                            |
+| `sudo groupdel GROUP_NAME`| Delete a group                               |
+
+---
+
+### Changing Group Ownership
+
+Use the `chgrp` command to change the group owner of a file. 
+
+**Example:**  
+First let's create a group called `sales`.
+```bash
+sri@envy:~/Desktop
+$ sudo groupadd sales
+sri@envy:~/Desktop
+$ cat /etc/group | grep sal
+sales:x:1001:
+sri@envy:~/Desktop
+$ 
+```
+Create a file, `sales.report`, with default group ownership:  
+```bash
+sri@envy:~/Desktop
+$ touch sales.report
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw-r-- 1 sri sri 0 Jan  3 06:53 sales.report
+sri@envy:~/Desktop
+$ 
+```
+- Default group: `sri` (sri's primary group).  
+
+Change group ownership to `sales`:  
+```bash
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw-r-- 1 sri sri 0 Jan  3 06:53 sales.report
+sri@envy:~/Desktop
 $ chgrp sales sales.report
+chgrp: changing group of 'sales.report': Operation not permitted
+sri@envy:~/Desktop
+$ sudo chgrp sales sales.report
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw-r-- 1 sri sales 0 Jan  3 06:53 sales.report
+sri@envy:~/Desktop
+$ 
 ```
+- New group: `sales`.  
 
-#### Example 2: Setting Permissions for Group Access
-To allow the members of the `sales` group to read and write the file, while others on the system should have read-only access, set the file permissions to `664`:
+---
 
+#### Setting Permissions for Group Access
+
+- Use `chmod` to grant appropriate permissions to the group.  
+  - Recommended permissions for non-executable files:  
+    - `664 (rw-rw-r--)`: User and group can read/write; others can read.  This is also the default option in Ubuntu 24.04.
+    - `660 (rw-rw----)`: User and group can read/write; no access for others.  
+
+**Example:**  
+Set group read/write permissions (660):  
 ```bash
-$ chmod 664 sales.report
+sri@envy:~/Desktop
+$ chmod 660 sales.report 
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw---- 1 sri sales 0 Jan  3 06:53 sales.report
+sri@envy:~/Desktop
+$ 
+
 ```
-This translates to:
-- Owner: `rw-`
-- Group: `rw-`
-- Others: `r--`
+- Group members (`sales`) can now read and modify the file.
 
-If no access should be granted to users outside the `sales` group, set permissions to `660`:
-
+**Deleting a group**
 ```bash
-$ chmod 660 sales.report
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw---- 1 sri sales 0 Jan  3 06:53 sales.report
+sri@envy:~/Desktop
+$ sudo groupdel sales
+sri@envy:~/Desktop
+$ ls -l sales.report 
+-rw-rw---- 1 sri 1001 0 Jan  3 06:53 sales.report
+                 ^^^^
+sri@envy:~/Desktop
+$
 ```
-This means:
-- Owner: `rw-`
-- Group: `rw-`
-- Others: `---`
 
-#### Example 3: Sharing Files in a Common Directory
-If you want all team members to access files from a common location, create a shared directory and set appropriate permissions. Assuming you have superuser privileges, create a directory `/usr/local/sales`:
+---
 
+#### Sharing Files in a Common Directory
+
+- **Shared Location**: It's more convenient to use a common directory for group files, such as `/usr/local/sales`.  
+  - The directory group owner should be set to the relevant group (e.g., `sales`).  
+  - Recommended directory permissions:  
+    - `775 (rwxrwxr-x)`: User and group have full access; others can read/execute.  
+    - `770 (rwxrwx---)`: Only user and group have full access.  
+
+**Example:**  
+Create a shared directory:  
 ```bash
-mkdir /usr/local/sales
-$ chgrp sales /usr/local/sales
-$ chmod 770 /usr/local/sales
+$ ls -ld /usr/local/sales
+drwxrwxr-x 2 root sales 4096 Jun 15 20:53 /usr/local/sales
 ```
+- Group owner: `sales`.  
+- Permissions: `775`.
 
-This gives full access to the sales team, while no access is granted to others. Permissions are:
-- Owner: `rwx`
-- Group: `rwx`
-- Others: `---`
+Move the file to the shared directory:  
+```bash
+$ mv sales.report /usr/local/sales/
+$ ls -l /usr/local/sales
+total 4
+-rw-rw-r-- 1 sri sales 6 Jun 15 20:41 sales.report
+```
+- `sales.report` is now accessible to all group members.
 
-### Directory Permissions: An In-depth Explanation
+---
+
+### Key Points
+- Use `chgrp` to assign a file to a group.  
+- Adjust file permissions (`chmod`) to control group access.  
+- Shared directories simplify collaboration and should have appropriate group ownership and permissions.
+
+## Directory Permissions
 
 Directory permissions are critical in controlling access to files and subdirectories within the directory. While file permissions dictate how a file can be read, written, or executed, directory permissions determine how the files and subdirectories inside it are accessed, listed, or modified.
 
-#### Understanding Directory Permissions
+### Understanding Directory Permissions
 
 The permissions for directories are interpreted differently compared to regular files. Here's what each permission means for a directory:
 
@@ -2337,197 +2802,405 @@ The permissions for directories are interpreted differently compared to regular 
 | `w` (write)    | Allows creating, deleting, or renaming files and subdirectories within the directory.                        |
 | `x` (execute)  | Allows entering the directory (e.g., `cd` command) and accessing files or subdirectories if permissions allow. |
 
----
-
-#### **Permission Combinations for Directories**
-
-| **Permissions** | **Effect** |
-|-----------------|------------|
-| `---`            | No access to the directory.|
-| `--x`            | Allows entering the directory but not listing its contents (you must know file names explicitly to access).   |
-| `r--`            | Allows viewing the directory's contents but not accessing files or entering the directory.                   |
-| `r-x`            | Allows viewing and accessing files, but modifications (e.g., adding or deleting files) are not allowed.      |
-| `rw-`            | Allows viewing and modifying the directory's contents but not entering it.|
-| `rwx`            | Full access: viewing, modifying, and entering the directory.|
+Directory permission usually only contain **0s**, **5s**, and **7s**. Common directory permissions include **755**, **700**, **770**, and **750**.
 
 ---
 
-#### Examples of Directory Permissions in Action
+### Permission Combinations for Directories
 
-##### 1. Checking Directory Permissions
-
-Use `ls -ld` to view the permissions of a directory:
-```bash
-ls -ld directory/
-drwxr-xr-x 2 sri users 4096 Sep 29 22:02 directory/
-```
-
-- `drwxr-xr-x`: 
-  - `d`: Indicates it's a directory.
-  - `rwx` (user): The owner can read, write, and execute (full control).
-  - `r-x` (group): Group members can read and execute but not write.
-  - `r-x` (others): Others can read and execute but not write.
-
-Use `ls -l` to view the contents and their permissions:
-```bash
-ls -l directory/
--rwxr--r-- 1 sri users 0 Sep 29 22:02 testprog
-```
+| **Permissions** | **Effect**   |
+|-----------------|-------------------------------------------------------------------------------------------------------|
+| `---`| No access to the directory.   |
+| `--x`| Allows entering the directory but not listing its contents (you must know file names explicitly to access).|
+| `r--`| Allows viewing the directory's contents but not accessing files or entering the directory.|
+| `r-x`| Allows viewing and accessing files, but modifications (e.g., adding or deleting files) are not allowed.|
+| `rw-`| Allows viewing and modifying the directory's contents but not entering it.|
+| `rwx`| Full access: viewing, modifying, and entering the directory.  |
+| `-w-`| Allows creating or deleting files in the directory but not listing or accessing them. |
+| `-wx`| Allows modifying and entering the directory but not listing its contents. |
 
 ---
 
-##### 2. Removing Read and Execute Permissions
+### Explanation of All Cases with Examples  
 
-If you remove read (`r`) and execute (`x`) permissions for the directory, access to its contents becomes restricted:
+#### `---` (No Access)
+Cannot list, enter, or modify the directory.  
+
 ```bash
-chmod 300 directory/
-ls -ld directory/
-d-wx------ 2 sri users 4096 Sep 29 22:02 directory/
+# Syntax
+$ chmod 000 dir
+$ ls dir
+ls: cannot open directory 'dir': Permission denied
+
+# Example
+sri@envy:~/Desktop
+$ chmod 000 dir
+sri@envy:~/Desktop
+$ ls dir
+ls: cannot open directory 'dir': Permission denied
+sri@envy:~/Desktop
+$ ./dir/a
+bash: ./dir/a: Permission denied
+sri@envy:~/Desktop
+$ ./dir/subdir/b
+bash: ./dir/subdir/b: Permission denied
+sri@envy:~/Desktop
+$ ./dir/c
+bash: ./dir/c: Permission denied
+sri@envy:~/Desktop
+$ 
+
 ```
 
-- The owner can write to the directory (e.g., delete files) but cannot list its contents or enter it.
-
-Trying to list the contents will fail:
+#### `--x` (Execute Only)
+You can enter the directory, but you cannot list its contents. You must know file names to access them.  
 ```bash
-ls directory/
-ls: cannot open directory: Permission denied
+# Syntax
+$ chmod 111 dir
+$ cd dir
+$ ls
+ls: cannot open directory '.': Permission denied
+$ cat file.txt  # Works if the file name is known and permissions allow it.
+
+# Example
+sri@envy:~/Desktop
+$ chmod 111 dir
+sri@envy:~/Desktop
+$ cd dir
+sri@envy:~/Desktop/dir
+$ ls
+ls: cannot open directory '.': Permission denied
+sri@envy:~/Desktop/dir
+$ cat a.c
+#include<stdio.h>
+int main(){
+	printf("Hello, world from Dir\n");
+}
+sri@envy:~/Desktop/dir
+$ cat subdir/b.c
+#include<stdio.h>
+int main(){
+	printf("Hello, world from Subdir\n");
+}
+sri@envy:~/Desktop/dir
+$ ./a
+Hello, world from Dir
+sri@envy:~/Desktop/dir
+$ ./subdir/b
+Hello, world from Subdir
+sri@envy:~/Desktop/dir
+$ 
+
 ```
 
----
-
-##### **3. Restricting Access with No Execute Permission
-
-When the execute (`x`) permission is missing:
+#### `r--` (Read Only) 
+You can list the directory's contents but cannot enter or access files.  
 ```bash
-chmod 600 directory/
-ls -ld directory/
-drw------- 2 sri users 4096 Sep 29 22:02 directory/
+# Syntax
+$ chmod 444 dir
+$ ls dir  # Lists the files.
+$ cd dir
+cd: Permission denied
+
+# Example
+sri@envy:~/Desktop
+$ chmod 444 dir
+sri@envy:~/Desktop
+$ ls dir
+ls: cannot access 'dir/a.c': Permission denied
+ls: cannot access 'dir/subdir': Permission denied
+ls: cannot access 'dir/a': Permission denied
+a  a.c  subdir
+sri@envy:~/Desktop
+$ cd dir
+bash: cd: dir: Permission denied
+sri@envy:~/Desktop
+$ ls /dir/subdir
+ls: cannot access '/dir/subdir': No such file or directory
+sri@envy:~/Desktop
+$ ls dir/subdir
+ls: cannot access 'dir/subdir': Permission denied
+sri@envy:~/Desktop
+$ cd dir
+bash: cd: dir: Permission denied
+sri@envy:~/Desktop
+$ ./dir/a
+bash: ./dir/a: Permission denied
+sri@envy:~/Desktop
+$ 
+
 ```
 
-- **Read-only without execute:** You can view the directory contents but cannot enter it or access individual files:
-  ```bash
-  ls directory/
-  file1 file2 file3
-  cd directory/
-  bash: cd: directory: Permission denied
-  ```
-
----
-
-##### 4. Changing Permissions to Grant Access
-
-To allow viewing and accessing the directory contents, you need to grant both read (`r`) and execute (`x`) permissions:
+#### `r-x` (Read and Execute)
+You can list the directory's contents and access files, but cannot modify (e.g., add or delete files).  
 ```bash
-chmod 500 directory/
-ls -ld directory/
-dr-x------ 2 sri users 4096 Sep 29 22:02 directory/
+# Syntax
+$ chmod 555 dir
+$ ls dir  # Lists the files.
+$ cd dir  # Allows entering the directory.
+$ touch newfile
+touch: cannot touch 'newfile': Permission denied
+
+# Example
+sri@envy:~/Desktop
+$ chmod 555 dir
+sri@envy:~/Desktop
+$ ls dir
+a  a.c  subdir
+sri@envy:~/Desktop
+$ cd dir
+sri@envy:~/Desktop/dir
+$ touch newfile
+touch: cannot touch 'newfile': Permission denied
+sri@envy:~/Desktop/dir
+$ ./a
+Hello, world from Dir
+sri@envy:~/Desktop/dir
+$ ./subdir/b
+Hello, world from Subdir
+sri@envy:~/Desktop/dir
+$ 
 ```
 
-- The owner can now list (`ls`) and access (`cd`) the directory but cannot modify its contents.
+#### `rw-` (Read and Write)
+You can list and modify the directory's contents but cannot enter it.  
+```bash
+# Syntax
+$ chmod 666 dir
+$ ls dir  # Lists the files.
+$ cd dir
+cd: Permission denied
 
----
+# Example
+sri@envy:~/Desktop
+$ chmod 666 dir
+sri@envy:~/Desktop
+$ ls dir
+ls: cannot access 'dir/a.c': Permission denied
+ls: cannot access 'dir/subdir': Permission denied
+ls: cannot access 'dir/a': Permission denied
+a  a.c  subdir
+sri@envy:~/Desktop
+$ cd dir
+bash: cd: dir: Permission denied
+sri@envy:~/Desktop
+$ ./dir/a
+bash: ./dir/a: Permission denied
+sri@envy:~/Desktop
+$ touch dir/afile
+touch: cannot touch 'dir/afile': Permission denied
+sri@envy:~/Desktop
+$ 
+```
 
-### **Examples of Specific Directory Permission Scenarios**
+#### `rwx` (Full Access)
+You can list, access, modify, and enter the directory.  
+```bash
+# Syntax
+$ chmod 777 dir
+$ ls dir  # Lists the files.
+$ cd dir  # Allows entering the directory.
+$ touch newfile  # Creates a new file.
 
-#### **Scenario 1: A Public Directory**
+# Example
+sri@envy:~/Desktop
+$ chmod 777 dir
+sri@envy:~/Desktop
+$ cd dir
+sri@envy:~/Desktop/dir
+$ ls
+a  a.c  subdir
+sri@envy:~/Desktop/dir
+$ ./a
+Hello, world from Dir
+sri@envy:~/Desktop/dir
+$ touch new_file
+sri@envy:~/Desktop
+$ 
+```
+
+#### `-w-` (Write Only)
+You can create or delete files in the directory but cannot list or access them.  
+```bash
+# Syntax
+$ chmod 222 dir
+$ ls dir
+ls: cannot open directory '.': Permission denied
+$ touch newfile  # Works to create files.
+
+# Example
+sri@envy:~/Desktop
+$ chmod 222 dir
+sri@envy:~/Desktop
+$ ls
+dir
+sri@envy:~/Desktop
+$ ls dir
+ls: cannot open directory 'dir': Permission denied
+sri@envy:~/Desktop
+$ cd dir
+bash: cd: dir: Permission denied
+sri@envy:~/Desktop
+$ touch dir/new_file
+touch: cannot touch 'dir/new_file': Permission denied
+sri@envy:~/Desktop
+$ ./dir/a
+bash: ./dir/a: Permission denied
+sri@envy:~/Desktop
+$ 
+```
+
+#### `-wx` (Write and Execute)
+You can modify and enter the directory, but cannot list its contents.  
+```bash
+# Syntax
+$ chmod 333 dir
+$ ls dir
+ls: cannot open directory '.': Permission denied
+$ cd dir  # Allows entering the directory.
+$ touch newfile  # Works to create files.
+
+# Example
+sri@envy:~/Desktop
+$ chmod 333 dir
+sri@envy:~/Desktop
+$ ls dir
+ls: cannot open directory 'dir': Permission denied
+sri@envy:~/Desktop
+$ cd dir
+sri@envy:~/Desktop/dir
+$ touch new_file
+sri@envy:~/Desktop/dir
+$ ./a
+Hello, world from Dir
+sri@envy:~/Desktop/dir
+$ 
+```
+
+### Examples of Specific Directory Permission Scenarios
+
+#### Scenario 1: A Public Directory
 To make a directory accessible to everyone without allowing modifications:
 ```bash
-chmod 755 public/
-ls -ld public/
-drwxr-xr-x 2 sri users 4096 Sep 29 22:02 public/
+sri@envy:~/Desktop
+$ mkdir public
+sri@envy:~/Desktop
+$ chmod 755 public
+sri@envy:~/Desktop
+$ ls -ld public/
+drwxr-xr-x 2 sri sri 4096 Jan  3 10:56 public/
+sri@envy:~/Desktop
+$ 
 ```
 - **Owner**: Full control (read, write, execute).
 - **Group and Others**: Can read and execute but not write.
 
 ---
 
-#### **Scenario 2: A Private Directory**
+#### Scenario 2: A Private Directory
 To make a directory private to the owner:
 ```bash
-chmod 700 private/
-ls -ld private/
-drwx------ 2 sri users 4096 Sep 29 22:02 private/
+sri@envy:~/Desktop
+$ mkdir private
+sri@envy:~/Desktop
+$ chmod 700 private
+sri@envy:~/Desktop
+$ ls -ld private/
+drwx------ 2 sri sri 4096 Jan  3 10:56 private/
+sri@envy:~/Desktop
+$ 
 ```
 - Only the owner can list, modify, and access the directory.
 
 ---
 
-#### **Scenario 3: Locking a Directory**
+#### Scenario 3: Locking a Directory
 To lock a directory completely:
 ```bash
-chmod 000 locked/
-ls -ld locked/
-d--------- 2 sri users 4096 Sep 29 22:02 locked/
+sri@envy:~/Desktop
+$ mkdir locked
+sri@envy:~/Desktop
+$ chmod 000 locked
+sri@envy:~/Desktop
+$ ls -ld locked
+d--------- 2 sri sri 4096 Jan  3 11:01 locked
+sri@envy:~/Desktop
+$ 
 ```
 - No one, including the owner, can list, access, or modify the directory without changing its permissions.
-
----
-
-### **Common Commands for Managing Directory Permissions**
-
-1. **Grant execute permission for the owner:**
-   ```bash
-   chmod u+x directory/
-   ```
-
-2. **Remove write permission for group and others:**
-   ```bash
-   chmod go-w directory/
-   ```
-
-3. **Set permissions to read-only for all users:**
-   ```bash
-   chmod 555 directory/
-   ```
-
-4. **Restore full permissions for the owner and restrict others:**
-   ```bash
-   chmod 700 directory/
-   ```
-
----
-
-### **Important Notes**
-- **Removing execute permission** prevents entering the directory even if read permission is granted.
-- **Removing write permission** prevents modifications to the directory but allows viewing or accessing files.
-- Always carefully manage directory permissions to avoid accidentally locking yourself out of important directories.
 
 ### Default Permissions and the File Creation Mask
 
 The file creation mask (`umask`) determines the default permissions for new files and directories. The `umask` value is subtracted from the base permissions (777 for directories and 666 for files).
 
-#### Example 6: Viewing the Umask
+#### Viewing the Umask
 The `umask` command shows the current default settings:
 
 ```bash
-umask
-0022
+# Syntax
+$ umask
+$ umask -S
+
+# Example
+sri@envy:~/Desktop
+$ umask
+0002
+sri@envy:~/Desktop
+$ 
+
+sri@envy:~/Desktop
+$ umask -S
+u=rwx,g=rwx,o=rx
+sri@envy:~/Desktop
+$ 
+
 ```
 
-A `umask` of `022` subtracts write permissions from the group and others, resulting in the following default permissions:
-- Directories: `755`
-- Files: `644`
+A `umask` of `0|002` subtracts write permissions from the group and others, resulting in the following default permissions:
+- Directories: `775`
+- Files: `664`
 
-#### Example 7: Setting a Specific Umask
+**Demonstration**
+```bash
+sri@envy:~/Desktop
+$ umask
+0002
+sri@envy:~/Desktop
+$ mkdir dir
+sri@envy:~/Desktop
+$ ls -ld dir
+drwxrwxr-x 2 sri sri 4096 Jan  3 11:05 dir
+sri@envy:~/Desktop
+$ touch file
+sri@envy:~/Desktop
+$ ls -l file
+-rw-rw-r-- 1 sri sri 0 Jan  3 11:06 file
+sri@envy:~/Desktop
+$ 
+```
+
+#### Setting a Specific Umask
 To allow members of your group to modify files, set the `umask` to `002`:
 
 ```bash
-umask 002
+$ umask 022
+$ umask u=,g=w,o=w
 ```
 This results in:
-- Directories: `775`
-- Files: `664`
+- Directories: `755`
+- Files: `644`
 
 For a more restrictive `umask`, such as `007`, which grants no permissions to users outside the group:
 
 ```bash
-umask 007
+$ umask 007
+$ umask u=, g=, o=rwx
 ```
 This results in:
 - Directories: `770`
 - Files: `660`
 
-#### Example 8: Estimating Creation Permissions
+#### Estimating Creation Permissions
 To estimate the permissions of new files and directories based on the `umask`, subtract the umask from the base permissions:
 - `umask 022` → Directories: `755`, Files: `644`
 - `umask 002` → Directories: `775`, Files: `664`
@@ -2546,7 +3219,6 @@ To enable `setuid`:
 - Octal mode: Prepend `4`
 - Symbolic mode: Use `u+s`
 
-#### Example 9: Setting Setuid
 ```bash
 $ chmod 4755 /usr/bin/passwd
 ```
@@ -2559,26 +3231,24 @@ To enable `setgid`:
 - Octal mode: Prepend `2`
 - Symbolic mode: Use `g+s`
 
-#### Example 10: Setting Setgid
 ```bash
 $ chmod 2755 /usr/bin/locate
 ```
 This enables `setgid` on the `locate` command.
 
-#### Example 11: Setting Setgid on a Directory
+#### Setting Setgid on a Directory
 ```bash
 $ chmod 2770 /usr/local/sales
 ```
 This ensures that all new files created in `/usr/local/sales` will inherit the `sales` group.
 
 #### Sticky Bit
-The `sticky` bit prevents users from deleting files owned by others, even if they have write access to the directory. This is typically used in shared directories like `/tmp` to prevent file deletion by unauthorized users.
+The `sticky` bit **prevents users from deleting files owned by others**, even if they have write access to the directory. This is typically used in shared directories like `/tmp` to prevent file deletion by unauthorized users.
 
 To enable the sticky bit:
 - Octal mode: Prepend `1`
 - Symbolic mode: Use `+t`
 
-#### Example 12: Setting the Sticky Bit
 ```bash
 $ chmod 1777 /tmp
 ```
@@ -2586,49 +3256,39 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 
 ## Summary of Permissions Commands
 
-
-| **Command**      | **Description**                                                  | **Example**                                                 |
-|------------------|------------------------------------------------------------------|-------------------------------------------------------------|
-| `ls -l`          | Lists files with detailed information, including permissions.    | `ls -l myfile.txt`                                           |
-| `chmod`          | Changes file permissions.                                        | `chmod u+x myscript.sh`                                      |
-| `groups`         | Displays the groups a user belongs to.                           | `groups`                                                    |
-| `id -Gn`         | Shows the list of groups for a specific user.                    | `id -Gn john`                                               |
-| `ls -l` (example)| Displays detailed file listing with permissions for `sales.data`.| `-rw-r--r-- 1 sri users 10400 Jun 14 09:31 sales.data`      |
-| `chmod 744`      | Sets permissions using numeric mode (user read/write, group/others read only). | `chmod 744 file.txt`                                         |
-| `chmod u+x`      | Adds execute permission for the user.                            | `chmod u+x myscript.sh`                                      |
-| `chmod g-w`      | Removes write permission for the group.                         | `chmod g-w myscript.sh`                                      |
-| `chmod o=r`      | Sets read-only permissions for others.                          | `chmod o=r file.txt`                                         |
-| `chmod 600`      | Sets file permissions for user (read/write) and no permissions for group/others. | `chmod 600 myfile.txt`                                       |
-| `chmod 755`      | Grants full permissions to the user, and read/execute for group and others. | `chmod 755 script.sh`                                        |
-| `ls -l`                           | Lists files and directories with detailed information including permissions.                     | `ls -l sales.data`                                        |
-| `chmod g+w file`                  | Adds write permission for the group on the specified file.                                        | `chmod g+w sales.data`                                   |
-| `chmod g-w file`                  | Removes write permission for the group on the specified file.                                    | `chmod g-w sales.data`                                   |
-| `chmod go+x file`                 | Adds execute permission for both the group and others on the specified file.                      | `chmod go+x sales.data`                                  |
-| `chmod ug+wx file`                | Adds both write and execute permissions for the user and group on the specified file.            | `chmod ug+wx sales.data`                                 |
-| `chmod u=rwx,g+x,a=r file`        | Sets specific permissions for the user, group, and others.                                       | `chmod u=rwx,g+x,a=r sales.data`                         |
-| `chmod a=r file`                  | Sets read-only permissions for everyone (user, group, and others).                               | `chmod a=r sales.data`                                   |
-| `chmod o-rwx file`                | Removes all permissions (read, write, execute) for others.                                       | `chmod o-rwx sales.data`                                 |
-| `chmod u+x,g-w,o=r file`          | Adds execute permission for the user, removes write permission for the group, and sets read-only permissions for others. | `chmod u+x,g-w,o=r sales.data`                           |
-| `chmod u=rwx file`                | Explicitly sets the user's permissions to read, write, and execute, overwriting any existing user permissions. | `chmod u=rwx sales.data`                                 |
-| `chmod 700 filename`     | Sets full control for the owner, and no permissions for others.       | Grants owner `rwx` permissions, group and others have no access. |
-| `chmod 755 filename`     | Grants full permissions to the owner, and read and execute permissions to group and others. | Owner: `rwx`, Group: `r-x`, Others: `r-x`. |
-| `chmod 664 filename`     | Grants read and write permissions to the owner and group, and read-only permission to others. | Owner: `rw-`, Group: `rw-`, Others: `r--`. |
-| `chmod 660 filename`     | Grants read and write permissions to the owner and group, and no permissions to others. | Owner: `rw-`, Group: `rw-`, Others: `---`. |
-| `chmod 644 filename`     | Grants read and write permissions to the owner, and read-only permissions to others. | Owner: `rw-`, Group: `r--`, Others: `r--`. |
-| `chmod 777 filename`     | Grants full control to everyone (user, group, others).                | Owner: `rwx`, Group: `rwx`, Others: `rwx`. |
-| `chmod 755 confidential_file` | Grants full control to the owner, and read and execute permissions to group and others. | Owner: `rwx`, Group: `r-x`, Others: `r-x`. |
-| `chmod 644 public_document` | Grants read and write permissions to the owner, and read-only permissions to others. | Owner: `rw-`, Group: `r--`, Others: `r--`. |
-| `chgrp`          | Changes the group ownership of a file or directory.       | `chgrp sales sales.report`                                           |
-| `chmod`          | Changes the permissions of a file or directory.           | `chmod 664 sales.report`                                             |
-| `chmod`          | Sets directory permissions to restrict access to the group. | `chmod 770 /usr/local/sales`                                         |
-| `ls -ld`         | Displays detailed information about a directory.          | `ls -ld directory/`                                                  |
-| `ls -l`          | Displays detailed information about files in a directory. | `ls -l directory/`                                                   |
-| `umask`          | Displays or sets the file creation mask (umask).           | `umask 022`                                                          |
-| `umask` (with `-S`) | Displays or sets the file creation mask using symbolic notation. | `umask -S`                                                           |
-| `chmod` (with `setuid`) | Sets the setuid permission to run a program with the owner's privileges. | `chmod 4755 /usr/bin/passwd`                                          |
-| `chmod` (with `setgid`) | Sets the setgid permission to run a program with the group's privileges. | `chmod 2755 /usr/bin/locate`                                          |
-| `chmod` (with `sticky bit`) | Sets the sticky bit to prevent users from deleting files owned by others. | `chmod 1777 /tmp`                                                    |
-
+| **Command**  | **Description**   |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------|
+| `$ ls -l`| Lists detailed information about files and directories in the current directory.  |
+| `$ ls -ld /home/sri/Documents/`  | Displays detailed information about the `/home/sri/Documents` directory itself.  |
+| `$ groups`   | Lists the groups the current user belongs to.|
+| `$ id`   | Displays user ID (UID), group ID (GID), and other group memberships. |
+| `$ id -G`| Displays the numeric GIDs of all groups the user belongs to. |
+| `$ id -Gn`   | Lists the group names of all groups the user belongs to. |
+| `$ groups [username]`| Lists the groups a specified user belongs to.|
+| `$ chmod [user][operation][permissions] [file]` | Changes permissions for a file or directory. |
+| `$ chmod u+x myscript.sh`| Adds execute permission to the user for `myscript.sh`.   |
+| `$ chmod g-w myscript.sh`| Removes write permission from the group for `myscript.sh`.   |
+| `$ chmod o=r file.txt`   | Sets read-only permission for others on `file.txt`.  |
+| `$ chmod a+x program.sh` | Adds execute permission for all users on `program.sh`.   |
+| `$ chmod o= mydoc.txt`   | Removes all permissions for others on `mydoc.txt`.   |
+| `$ chmod a= afile.txt`   | Removes all permissions for all users on `afile.txt`.|
+| `$ chmod u=rwx file.txt` | Grants read, write, and execute permissions to the user for `file.txt`.  |
+| `$ chmod 7 dir`  | Grants full access (rwx) to the owner only for `dir`.|
+| `$ chmod 77 dir` | Grants full access (rwx) to owner and group for `dir`.   |
+| `$ chmod 777 dir`| Grants full access (rwx) to everyone for `dir`.  |
+| `$ cat /etc/group`   | Displays the contents of the `/etc/group` file, showing group information.   |
+| `$ groupadd [options] GROUP_NAME`| Creates a new group with the specified name. |
+| `$ sudo usermod -aG group userid`| Adds a user to a specified group.|
+| `$ sudo groupadd -g <number> <group_name>` | Creates a group with a specific GID. |
+| `sudo groupdel <group_name>` | Deletes a specified group.   |
+| `$ sudo chgrp sales sales.report`| Changes the group owner of `sales.report` to `sales`.|
+| `$ umask`| Displays the current umask value.|
+| `$ umask valid_octal`| Changes the current umask to the specified value.|
+| `$ umask -S`| Displays the current umask in Symbolic form.|
+| `$ umask u=rwx,g=rx,o=rx`| Changes the current umask to the specified value in Symbolic format|
+| `$ chmod 4755 /usr/bin/passwd`   | Sets the setuid permission on `passwd`, allowing execution as the file's owner (root).   |
+| `$ chmod 2755 /usr/bin/locate`   | Sets the setgid permission on `locate`, allowing execution as the file's group.  |
+| `$ chmod 1777 /tmp`  | Sets the sticky bit on `/tmp`, ensuring only owners can delete their files within the directory.  |
 
 # Viewing and Editing Files
 
