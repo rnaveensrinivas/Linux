@@ -12,6 +12,8 @@
 * [Permissions](#Permissions)
   * [Summary](#summary-of-permissions-commands)
 * [Viewing and Editing Files](#Viewing-and-Editing-Files)
+  * [Summary](#summary-of-viewing-files)
+* [The Vim Editor](#the-vim-editor)
   * [Summary](#Summary-of-Vim-Commands)
 * [The Vim Editor](#the-vim-editor)
   * [Summary](#summary-of-vim-commands)
@@ -29,7 +31,7 @@
   * [Summary](#Summary-of-Switching-User-Commands)
 * [Installing Software](#Installing-Software)
   * [Summary](#Summary-of-Installing-Software-Commands)
-
+* [**CheatSheet**](#Cheat-Sheet)
 ---
 
 # Introduction  
@@ -329,7 +331,7 @@ There are two main types of libraries in Linux:
 
 #### Dynamic Libraries (`.so` files):  
    These libraries are loaded into memory at runtime when the program is executed. They are not part of the program's executable file but are instead shared by multiple programs. This reduces memory usage because the library is only loaded into memory once. Dynamic libraries can be updated independently of the programs using them, providing greater flexibility.
-)**:
+
 ### Difference Between `/bin` and `/lib`:
 
 #### `/bin` (Binaries):  
@@ -1877,29 +1879,30 @@ $ tree -C
 ## Summary of Viewing File and Directory Commands
 | Command | Description  |
 |---------------------------------|----------------------------------------------------------------------------------------------|
-| `$ ls`  | Lists files and directories in the current directory.|
-| `$ ls -l`   | Lists files and directories with detailed information (long format).|
-| `$ ls -a`   | Lists all files, including hidden files (starting with `.`).|
-| `$ ls --color`  | Displays files with color-coded output (for file types).|
-| `$ ls -F`   | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.  |
-| `$ ls -t`   | Lists files sorted by modification time (most recent first).|
-| `$ ls -r`   | Reverses the order of the file list.|
-| `$ ls -R`   | Recursively lists all files and directories.|
-| `$ ls -d [Directory]`   | Displays information about directories, not their contents. |
-| `$ ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes. |
-| `$ ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`). |
-| `$ ls -b`   | Displays file names with non-printable characters as escape sequences.  |
-| `$ ls -alf` | Combines options: lists all files, including hidden ones, in long format.   |
-| `$ ls -altr`| Lists all files, including hidden ones, in long format, sorted by time in reverse order.|
-| `$ echo $LS_COLORS` | Displays the current color settings for the `ls` command.   |
-| `$ export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).  |
-| `$ ln -s [target] [symlink]`| Creates a symbolic link named `[symlink]` pointing to `[target]`.   |
-| `$ cat myfilelink`  | Displays the contents of the file pointed to by the symbolic link `myfilelink`. |
-| `$ cd mydirlink`| Changes the current directory to the one pointed to by the symbolic link `mydirlink`.   |
-| `$ tree`| Displays the directory structure as a tree.|
-| `$ tree -d` | Displays only directories in the tree structure.   |
-| `$ tree -C` | Displays the tree structure with color-coded output.   |
+| `ls`  | Lists files and directories in the current directory.|
+| `ls -l`   | Lists files and directories with detailed information (long format).|
+| `ls -a`   | Lists all files, including hidden files (starting with `.`).|
+| `ls --color`  | Displays files with color-coded output (for file types).|
+| `ls -F`   | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.  |
+| `ls -t`   | Lists files sorted by modification time (most recent first).|
+| `ls -r`   | Reverses the order of the file list.|
+| `ls -R`   | Recursively lists all files and directories.|
+| `ls -d [Directory]`   | Displays information about directories, not their contents. |
+| `ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes. |
+| `ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`). |
+| `ls -b`   | Displays file names with non-printable characters as escape sequences.  |
+| `ls -alf` | Combines options: lists all files, including hidden ones, in long format.   |
+| `ls -altr`| Lists all files, including hidden ones, in long format, sorted by time in reverse order.|
+| `echo $LS_COLORS` | Displays the current color settings for the `ls` command.   |
+| `export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).  |
+| `ln -s [target] [symlink]`| Creates a symbolic link named `[symlink]` pointing to `[target]`.   |
+| `cat myfilelink`  | Displays the contents of the file pointed to by the symbolic link `myfilelink`. |
+| `cd mydirlink`| Changes the current directory to the one pointed to by the symbolic link `mydirlink`.   |
+| `tree`| Displays the directory structure as a tree.|
+| `tree -d` | Displays only directories in the tree structure.   |
+| `tree -C` | Displays the tree structure with color-coded output.   |
 
+---
 
 # Permissions 
 
@@ -3258,37 +3261,39 @@ This allows everyone to write to `/tmp`, but only the owner of a file can delete
 
 | **Command**  | **Description**   |
 |--------------------------------------|-------------------------------------------------------------------------------------------------------|
-| `$ ls -l`| Lists detailed information about files and directories in the current directory.  |
-| `$ ls -ld /home/sri/Documents/`  | Displays detailed information about the `/home/sri/Documents` directory itself.  |
-| `$ groups`   | Lists the groups the current user belongs to.|
-| `$ id`   | Displays user ID (UID), group ID (GID), and other group memberships. |
-| `$ id -G`| Displays the numeric GIDs of all groups the user belongs to. |
-| `$ id -Gn`   | Lists the group names of all groups the user belongs to. |
-| `$ groups [username]`| Lists the groups a specified user belongs to.|
-| `$ chmod [user][operation][permissions] [file]` | Changes permissions for a file or directory. |
-| `$ chmod u+x myscript.sh`| Adds execute permission to the user for `myscript.sh`.   |
-| `$ chmod g-w myscript.sh`| Removes write permission from the group for `myscript.sh`.   |
-| `$ chmod o=r file.txt` | Sets read-only permission for others on `file.txt`.  |
-| `$ chmod a+x program.sh` | Adds execute permission for all users on `program.sh`.   |
-| `$ chmod o= mydoc.txt`   | Removes all permissions for others on `mydoc.txt`.   |
-| `$ chmod a= afile.txt`   | Removes all permissions for all users on `afile.txt`.|
-| `$ chmod u=rwx file.txt` | Grants read, write, and execute permissions to the user for `file.txt`.  |
-| `$ chmod 7 dir`  | Grants full access (rwx) to the owner only for `dir`.|
-| `$ chmod 77 dir` | Grants full access (rwx) to owner and group for `dir`.   |
-| `$ chmod 777 dir`| Grants full access (rwx) to everyone for `dir`.  |
-| `$ cat /etc/group`   | Displays the contents of the `/etc/group` file, showing group information.   |
-| `$ groupadd [options] GROUP_NAME`| Creates a new group with the specified name. |
-| `$ sudo usermod -aG group userid`| Adds a user to a specified group.|
-| `$ sudo groupadd -g <number> <group_name>` | Creates a group with a specific GID. |
+| `ls -l`| Lists detailed information about files and directories in the current directory.  |
+| `ls -ld /home/sri/Documents/`  | Displays detailed information about the `/home/sri/Documents` directory itself.  |
+| `groups`   | Lists the groups the current user belongs to.|
+| `id`   | Displays user ID (UID), group ID (GID), and other group memberships. |
+| `id -G`| Displays the numeric GIDs of all groups the user belongs to. |
+| `id -Gn`   | Lists the group names of all groups the user belongs to. |
+| `groups [username]`| Lists the groups a specified user belongs to.|
+| `chmod [user][operation][permissions] [file]` | Changes permissions for a file or directory. |
+| `chmod u+x myscript.sh`| Adds execute permission to the user for `myscript.sh`.   |
+| `chmod g-w myscript.sh`| Removes write permission from the group for `myscript.sh`.   |
+| `chmod o=r file.txt` | Sets read-only permission for others on `file.txt`.  |
+| `chmod a+x program.sh` | Adds execute permission for all users on `program.sh`.   |
+| `chmod o= mydoc.txt`   | Removes all permissions for others on `mydoc.txt`.   |
+| `chmod a= afile.txt`   | Removes all permissions for all users on `afile.txt`.|
+| `chmod u=rwx file.txt` | Grants read, write, and execute permissions to the user for `file.txt`.  |
+| `chmod 7 dir`  | Grants full access (rwx) to the owner only for `dir`.|
+| `chmod 77 dir` | Grants full access (rwx) to owner and group for `dir`.   |
+| `chmod 777 dir`| Grants full access (rwx) to everyone for `dir`.  |
+| `cat /etc/group`   | Displays the contents of the `/etc/group` file, showing group information.   |
+| `groupadd [options] GROUP_NAME`| Creates a new group with the specified name. |
+| `sudo usermod -aG group userid`| Adds a user to a specified group.|
+| `sudo groupadd -g <number> <group_name>` | Creates a group with a specific GID. |
 | `sudo groupdel <group_name>` | Deletes a specified group.   |
-| `$ sudo chgrp sales sales.report`| Changes the group owner of `sales.report` to `sales`.|
-| `$ umask`| Displays the current umask value.|
-| `$ umask valid_octal`| Changes the current umask to the specified value.|
-| `$ umask -S`| Displays the current umask in Symbolic form.|
-| `$ umask u=rwx,g=rx,o=rx`| Changes the current umask to the specified value in Symbolic format|
-| `$ chmod 4755 /usr/bin/passwd`   | Sets the setuid permission on `passwd`, allowing execution as the file's owner (root).   |
-| `$ chmod 2755 /usr/bin/locate`   | Sets the setgid permission on `locate`, allowing execution as the file's group.  |
-| `$ chmod 1777 /tmp`  | Sets the sticky bit on `/tmp`, ensuring only owners can delete their files within the directory.  |
+| `sudo chgrp sales sales.report`| Changes the group owner of `sales.report` to `sales`.|
+| `umask`| Displays the current umask value.|
+| `umask valid_octal`| Changes the current umask to the specified value.|
+| `umask -S`| Displays the current umask in Symbolic form.|
+| `umask u=rwx,g=rx,o=rx`| Changes the current umask to the specified value in Symbolic format|
+| `chmod 4755 /usr/bin/passwd`   | Sets the setuid permission on `passwd`, allowing execution as the file's owner (root).   |
+| `chmod 2755 /usr/bin/locate`   | Sets the setgid permission on `locate`, allowing execution as the file's group.  |
+| `chmod 1777 /tmp`  | Sets the sticky bit on `/tmp`, ensuring only owners can delete their files within the directory.  |
+
+---
 
 # Viewing and Editing Files
 
@@ -4860,7 +4865,7 @@ zebra
 sri@envy:~/Documents/Linux
 $ 
 ```
-(`$ sort`, then, type the text you want to sort. **Press `Ctrl-d` to indicate EOF**, and the text will be sorted).
+(`sort`, then, type the text you want to sort. **Press `Ctrl-d` to indicate EOF**, and the text will be sorted).
 
 ## Pipes and Redirection
 
@@ -5423,35 +5428,36 @@ $
 
 ## Summary of I/O Redirection Commands
 
-### Command Summary
 
 | Command| Description |
 |----------------------------------------|-----------------------------------------------------------------------------|
-| `$ sort`   | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.  |
-| `$ command1 \| command2`   | Feeds the output of `command1` as input to `command2`.  |
+| `sort`   | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.  |
+| `command1 \| command2`   | Feeds the output of `command1` as input to `command2`.  |
 | `grep [options] 'pattern' [file...]`   | Searches for a pattern in the given file(s).|
 | `grep -i pattern file` | Performs a case-insensitive search for the pattern in the file. |
 | `grep pattern file[s]` | Searches for the pattern in one or more files.  |
-| `$ grep -i ^a words`   | Finds lines starting with `a` (case-insensitive) in the file `words`.   |
-| `$ grep -n pattern file`   | Displays line numbers along with matching lines.|
-| `$ grep -r pattern file_or_directory`  | Recursively searches for the pattern in files and subdirectories.   |
-| `$ grep -rl pattern file_or_directory` | Lists file names containing the pattern (recursive search). |
+| `grep -i ^a words`   | Finds lines starting with `a` (case-insensitive) in the file `words`.   |
+| `grep -n pattern file`   | Displays line numbers along with matching lines.|
+| `grep -r pattern file_or_directory`  | Recursively searches for the pattern in files and subdirectories.   |
+| `grep -rl pattern file_or_directory` | Lists file names containing the pattern (recursive search). |
 | `grep -v pattern file` | Displays lines that do not match the pattern.   |
-| `$ grep -c pattern file`   | Counts the number of lines matching the pattern.|
-| `$ grep -w pattern file`   | Matches the whole word pattern in the file. |
-| `$ grep -E pattern file`   | Uses extended regular expressions for pattern matching. |
-| `$ command < file` | Redirects the content of `file` as input to `command`.  |
+| `grep -c pattern file`   | Counts the number of lines matching the pattern.|
+| `grep -w pattern file`   | Matches the whole word pattern in the file. |
+| `grep -E pattern file`   | Uses extended regular expressions for pattern matching. |
+| `command < file` | Redirects the content of `file` as input to `command`.  |
 | `command > file`   | Redirects the output of `command` to `file` (overwriting if exists).|
 | `command >> file`   | Appends the output of `command` to `file`|
-| `$ command 2> error_file`  | Redirects standard error (stderr) to `error_file`.  |
-| `$ command 1> output_file` | Redirects standard output (stdout) to `output_file`.|
-| `$ command > file 2>&1`| Redirects both stdout and stderr to `file`. |
-| `$ ls >> output_file 2>&1` | Appends both stdout and stderr of `ls` to `output_file`.|
-| `$ ls -fsw >> output_file 2>&1`| Appends `ls` output with flags `-fsw` to `output_file`, including errors.   |
-| `$ command > /dev/null`| Discards stdout by redirecting it to `/dev/null`.   |
-| `$ command 2> /dev/null`   | Discards stderr by redirecting it to `/dev/null`.   |
-| `$ command < file > command`   | Redirects `file` as input and outputs to another `command`. |
-| `$ command \| command > file`   | Pipes output from one command and redirects it to a file.   |
+| `command 2> error_file`  | Redirects standard error (stderr) to `error_file`.  |
+| `command 1> output_file` | Redirects standard output (stdout) to `output_file`.|
+| `command > file 2>&1`| Redirects both stdout and stderr to `file`. |
+| `ls >> output_file 2>&1` | Appends both stdout and stderr of `ls` to `output_file`.|
+| `ls -fsw >> output_file 2>&1`| Appends `ls` output with flags `-fsw` to `output_file`, including errors.   |
+| `command > /dev/null`| Discards stdout by redirecting it to `/dev/null`.   |
+| `command 2> /dev/null`   | Discards stderr by redirecting it to `/dev/null`.   |
+| `command < file > command`   | Redirects `file` as input and outputs to another `command`. |
+| `command \| command > file`   | Pipes output from one command and redirects it to a file.   |
+
+---
 
 # Additional Command Line Concepts
 
@@ -5954,32 +5960,31 @@ This will be interpreted as a single command. The continued lines are prefixed w
 ---
 
 ## Summary of Additional Command Line Concept Commands
-### Command Summary Table
 
 | Command| Description |
 |--------------------------------------------|-----------------------------------------------------------------------------|
-| `$ echo $ENVIRONMENT_VARIABLE` | Displays the value of the specified environment variable.   |
-| `$ printenv ENVIRONMENT_VARIABLE`  | Prints the value of the specified environment variable. |
-| `$ printenv`   | Lists all environment variables and their values.   |
-| `$ env`| Displays the current environment, including variables.  |
-| `$ VAR_NAME=value` | Creates a shell variable `VAR_NAME` with the specified value.   |
-| `$ export A_NEW_ENV_VAR`   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
-| `$ bash -c 'echo $A_NEW_ENV_VAR'`  | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.  |
-| `$ unset VAR_NAME` | Deletes the shell variable or environment variable `VAR_NAME`.  |
-| `$ alias alias_name='command'` | Creates a shortcut (`alias_name`) for the specified command.|
-| `$ alias`  | Lists all currently defined aliases.|
-| `$ unalias alias_name` | Removes the specified alias.|
-| `$ unalias -a` | Removes all aliases.|
-| `$ source ~/.bashrc` or `. ~/.bashrc`  | Reloads the shell configuration file (`.bashrc`).   |
-| `$ echo $HISTSIZE` | Displays the maximum number of commands stored in the shell history.|
-| `$ history`| Lists the command history.  |
-| `$ !Number_from_history`   | Re-executes the command at the specified history number.|
-| `$ !!` | Re-executes the last command.   |
-| `$ !pattern`   | Re-executes the most recent command matching the pattern.   |
+| `echo $ENVIRONMENT_VARIABLE` | Displays the value of the specified environment variable.   |
+| `printenv ENVIRONMENT_VARIABLE`  | Prints the value of the specified environment variable. |
+| `printenv`   | Lists all environment variables and their values.   |
+| `env`| Displays the current environment, including variables.  |
+| `VAR_NAME=value` | Creates a shell variable `VAR_NAME` with the specified value.   |
+| `export A_NEW_ENV_VAR`   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
+| `bash -c 'echo $A_NEW_ENV_VAR'`  | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.  |
+| `unset VAR_NAME` | Deletes the shell variable or environment variable `VAR_NAME`.  |
+| `alias alias_name='command'` | Creates a shortcut (`alias_name`) for the specified command.|
+| `alias`  | Lists all currently defined aliases.|
+| `unalias alias_name` | Removes the specified alias.|
+| `unalias -a` | Removes all aliases.|
+| `source ~/.bashrc` or `. ~/.bashrc`  | Reloads the shell configuration file (`.bashrc`).   |
+| `echo $HISTSIZE` | Displays the maximum number of commands stored in the shell history.|
+| `history`| Lists the command history.  |
+| `!Number_from_history`   | Re-executes the command at the specified history number.|
+| `!!` | Re-executes the last command.   |
+| `!pattern`   | Re-executes the most recent command matching the pattern.   |
 | `Ctrl + r; pattern; Ctrl + r`  | Initiates reverse search in command history for a matching pattern. |
 | `Ctrl + c` or `<esc>`  | Cancels or exits reverse search.|
 | **Tab Completion** | Auto-completes commands or file names.  |
-| `$ echo "words .. \ more words "`  | Concatenates lines using `\` for multiline command input.   |
+| `echo "words .. \ more words "`  | Concatenates lines using `\` for multiline command input.   |
 ---
 
 # Processes and Jobs 
@@ -7295,3 +7300,348 @@ While `apt` is the most common tool for package management, you can interact dir
 | Fix broken dependencies  | Fix unmet dependencies after installing a `.deb` package.  | `sudo apt install -f`   |
 | List installed files for a package | View which files a package has installed.  | `dpkg -L <package>` |
 | Find a package by file   | Identify which package installed a specific file.  | `dpkg -S /path/to/file` |
+
+---
+
+# Cheat Sheet
+
+| Commands  | Description   |
+|-----------------------------------|-------------------------------------------------------------------|
+| **Basic Commands** | --- |
+| `ls [dir]`| Lists the contents of a directory.|
+| `whereis -b [command]`| Searches for the binary (executable) file of a command.   |
+| `whereis -m [command]`| Searches for the manual page of a command.|
+| `whereis -s [command]`| Searches for the source code of a command.|
+| `whereis -u [command]`| Finds unlinked files (files not listed in the system's database). |
+| `whereis -B <path> [command]` | Specifies a directory to search for binaries. |
+| `whereis -M <path> [command]` | Specifies a directory to search for manual pages. |
+| `whereis -S <path> [command]` | Specifies a directory to search for source files. | 
+| `pwd`  | Displays the present working directory. |
+| `cd [directory]`   | Changes the current directory to the specified directory. |
+| `cd -` | Changes to the previous directory. |
+| `cd`   | Changes to the user's home directory. |
+| `cd ~` | Changes to the user's home directory. |
+| `cd ~user`  | Changes to the home directory of the user `user`. |
+| `cd /home/user` | Changes to the directory `/home/user`. |
+| `ls [path]`| Lists the contents of the specified path. |
+| `ls`   | Lists the contents of the current directory. |
+| `cat [file]`   | Displays the contents of a specified file. |
+| `cat`  | Reads from the standard input and displays the input. |
+| `exit` | Exits the current shell. |
+| `logout`   | Exits the current login session (not available in all shells). |
+| `^D` or `^d`   | Exits the shell using the shortcut `CTRL+D`. |
+| `man command`| Displays the manual page for a command. |
+| `man -k keyword` | Returns all man pages containing the specified keyword. |
+| `apropos keyword`| Searches for the keyword in the manual page descriptions. |
+| `[command] --help` | Displays a help message for the specified command. |
+| `whatis [command]`| Display one-line manual page descriptions |
+| `clear`| Clears the entire terminal screen. |
+| `^L` or `^l`   | Clears the terminal window (history still accessible via scroll). |
+| `touch file(s)`  | Creates empty file(s). |
+| --- | --- |
+| **Man Page Commands** | **Description** |
+| Enter, Down Arrow | Move down one line. |
+| Up Arrow, `k` | Move up one line. |
+| Spacebar, Page Down | Move down one page. |
+| `g` | Go to the start or top. |
+| `G` | Go to the end or bottom. |
+| `h` | Display help. |
+| `j` | Move down one line. |
+| `k` | Move up one line. |
+| `l` | Move right (scroll horizontally). |
+| `q` | Quit. |
+| --- | --- |
+| **Directory Commands** | --- |
+| `cd [directory]` | Changes the current directory to the specified directory.|
+| `cd -`   | Returns to the previous directory.   |
+| `cd` | Changes to the home directory.   |
+| `cd ~`   | Changes to the home directory (shortcut).|
+| `cd ~[username]` | Changes to the home directory of the specified user. |
+| `cd /home/[username]`| Changes to the absolute path of the specified user's home directory. |
+| `cd .`   | Stays in the current directory.  |
+| `cd ..`  | Moves up one level to the parent directory.  |
+| `mkdir [directory]`  | Creates a new directory with the specified name. |
+| `mkdir -p [path]`| Creates nested directories, including intermediate ones, if they don't exist.|
+| `rmdir [directory]`  | Removes an empty directory.  |
+| `rm -r [directory]`  | Removes a directory and its contents recursively, prompting for confirmation for protected files.|
+| `rm -rf [directory]` | Removes a directory and its contents forcefully, without any prompts or confirmation.|
+| `pwd`| Displays the present working directory.  |
+| `ls [path]`  | Lists the contents of the specified directory.   |
+| `ls` | Lists the contents of the current directory.|
+| `tree [directory]`   | Displays the directory structure in a tree format.   |
+| `touch [file]`   | Creates an empty file with the specified name.   |
+| `git init`   | Initializes a new Git repository in the current directory.   |
+| `git add .`  | Stages all changes in the current directory for the next commit. |
+| `git commit -m [message]`| Creates a commit with the specified message. |
+| --- | --- |
+| **Summary of Viewing File and Directory Commands** | --- |
+| `ls`  | Lists files and directories in the current directory.|
+| `ls -l`   | Lists files and directories with detailed information (long format).|
+| `ls -a`   | Lists all files, including hidden files (starting with `.`).|
+| `ls --color`  | Displays files with color-coded output (for file types).|
+| `ls -F`   | Appends indicators (e.g., `/` for directories, `*` for executables) to file names.  |
+| `ls -t`   | Lists files sorted by modification time (most recent first).|
+| `ls -r`   | Reverses the order of the file list.|
+| `ls -R`   | Recursively lists all files and directories.|
+| `ls -d [Directory]`   | Displays information about directories, not their contents. |
+| `ls "file name with space"`   | Lists a file with spaces in its name by enclosing it in quotes. |
+| `ls file\ name\ with\ space`  | Lists a file with spaces in its name by escaping spaces with a backslash (`\`). |
+| `ls -b`   | Displays file names with non-printable characters as escape sequences.  |
+| `ls -alf` | Combines options: lists all files, including hidden ones, in long format.   |
+| `ls -altr`| Lists all files, including hidden ones, in long format, sorted by time in reverse order.|
+| `echo $LS_COLORS` | Displays the current color settings for the `ls` command.   |
+| `export LS_COLORS="di=01;32:ln=01;33"` | Customizes the `ls` color scheme (e.g., green for directories, yellow for links).  |
+| `ln -s [target] [symlink]`| Creates a symbolic link named `[symlink]` pointing to `[target]`.   |
+| `cat myfilelink`  | Displays the contents of the file pointed to by the symbolic link `myfilelink`. |
+| `cd mydirlink`| Changes the current directory to the one pointed to by the symbolic link `mydirlink`.   |
+| `tree`| Displays the directory structure as a tree.|
+| `tree -d` | Displays only directories in the tree structure.   |
+| `tree -C` | Displays the tree structure with color-coded output.   |
+| --- | --- |
+| **Permissions Commands** | --- |
+| `ls -l`| Lists detailed information about files and directories in the current directory.  |
+| `ls -ld /home/sri/Documents/`  | Displays detailed information about the `/home/sri/Documents` directory itself.  |
+| `groups`   | Lists the groups the current user belongs to.|
+| `id`   | Displays user ID (UID), group ID (GID), and other group memberships. |
+| `id -G`| Displays the numeric GIDs of all groups the user belongs to. |
+| `id -Gn`   | Lists the group names of all groups the user belongs to. |
+| `groups [username]`| Lists the groups a specified user belongs to.|
+| `chmod [user][operation][permissions] [file]` | Changes permissions for a file or directory. |
+| `chmod u+x myscript.sh`| Adds execute permission to the user for `myscript.sh`.   |
+| `chmod g-w myscript.sh`| Removes write permission from the group for `myscript.sh`.   |
+| `chmod o=r file.txt` | Sets read-only permission for others on `file.txt`.  |
+| `chmod a+x program.sh` | Adds execute permission for all users on `program.sh`.   |
+| `chmod o= mydoc.txt`   | Removes all permissions for others on `mydoc.txt`.   |
+| `chmod a= afile.txt`   | Removes all permissions for all users on `afile.txt`.|
+| `chmod u=rwx file.txt` | Grants read, write, and execute permissions to the user for `file.txt`.  |
+| `chmod 7 dir`  | Grants full access (rwx) to the owner only for `dir`.|
+| `chmod 77 dir` | Grants full access (rwx) to owner and group for `dir`.   |
+| `chmod 777 dir`| Grants full access (rwx) to everyone for `dir`.  |
+| `cat /etc/group`   | Displays the contents of the `/etc/group` file, showing group information.   |
+| `groupadd [options] GROUP_NAME`| Creates a new group with the specified name. |
+| `sudo usermod -aG group userid`| Adds a user to a specified group.|
+| `sudo groupadd -g <number> <group_name>` | Creates a group with a specific GID. |
+| `sudo groupdel <group_name>` | Deletes a specified group.   |
+| `sudo chgrp sales sales.report`| Changes the group owner of `sales.report` to `sales`.|
+| `umask`| Displays the current umask value.|
+| `umask valid_octal`| Changes the current umask to the specified value.|
+| `umask -S`| Displays the current umask in Symbolic form.|
+| `umask u=rwx,g=rx,o=rx`| Changes the current umask to the specified value in Symbolic format|
+| `chmod 4755 /usr/bin/passwd`   | Sets the setuid permission on `passwd`, allowing execution as the file's owner (root).   |
+| `chmod 2755 /usr/bin/locate`   | Sets the setgid permission on `locate`, allowing execution as the file's group.  |
+| `chmod 1777 /tmp`  | Sets the sticky bit on `/tmp`, ensuring only owners can delete their files within the directory.  |
+| --- | --- |
+| **Viewing Files Commands** | --- |
+| `cat [file]` | Displays the entire contents of a file. Useful for smaller files. |
+| `more [file]` | Displays a file one page at a time. Useful for larger files. |
+| `less [file]` | Allows backward navigation and searching within a file. |
+| `head [file]` | Displays the first 10 lines of a file. |
+| `head -N [file]` | Displays the first N lines of a file. |
+| `tail [file]` | Displays the last 10 lines of a file. |
+| `tail -N [file]` | Displays the last N lines of a file. |
+| `tail -f [file]` | Displays the last lines of a file and follows it as it grows (useful for logs). |
+| `less [file]` + `F` | Follow a file as it grows in real-time within `less`. |
+| ---| ---|
+| **Vim Commands** | **Description** |
+| `k` | Move up one line |
+| `j` | Move down one line |
+| `h` | Move left one character |
+| `l` | Move right one character |
+| `w` | Move right one word |
+| `b` | Move left one word |
+| `^` | Move to the beginning of the line |
+| `$` | Move to the end of the line |
+| `gg` | Move to the beginning of the file |
+| `G` | Move to the end of the file |
+| `i` | Insert at the current position |
+| `I` | Insert at the beginning of the line |
+| `a` | Append text after the cursor position |
+| `A` | Append text at the end of the line |
+| `:w` | Save the file |
+| `:w!` | Save the file even if permissions are not set |
+| `:q` | Quit the editor |
+| `:q!` | Quit without saving the file |
+| `:wq` or `:x` | Save and quit |
+| `:n` | Go to line `n` |
+| `:$` | Go to the last line of the file |
+| `:set nu` | Enable line numbering |
+| `:set nonu` | Disable line numbering |
+| `:help` | Access the help documentation |
+| `3j`, `20iText`, `80i_` | Repeat a command with a number prefix (e.g., 3j to move down 3 lines) |
+| `x` | Delete a character |
+| `dw` | Delete a word |
+| `dd` | Delete a line |
+| `D` | Delete from the current position to the end of the line |
+| `r` | Replace the current character |
+| `cw` | Change the current word |
+| `cc` | Change the current line |
+| `c$` | Change from the current position to the end of the line |
+| `~` | Reverse the case of the current character |
+| `yy` | Yank (copy) the current line |
+| `yw` | Yank a word |
+| `p` | Paste the most recent yanked text |
+| `u` | Undo the last change |
+| `Ctrl + r` | Redo the last undone change |
+| `/pattern` | Start a forward search for `<pattern>` |
+| `?pattern` | Start a reverse search for `<pattern>` |
+| `n` | Move the cursor to the next match of a search |
+| `N` | Move the cursor to the previous match of a search |
+| --- | --- |
+| **Deleting, Moving, and Renaming Files & Directories Commands** | --- |
+| `rm file` | Remove a file. |
+| `rm -r file_or_directory` | Remove a directory or file recursively, including its contents. |
+| `rm -rf file_or_directory` | Forcefully remove a directory or file recursively without confirmation. |
+| `chmod 444 write_protected_file` | Make a file write-protected (read-only for all users). |
+| `rm *.txt` | Use a wildcard to remove all `.txt` files in the current directory. |
+| `rm * -r` | Remove all files and directories recursively in the current directory. |
+| `rm file?.txt` | Remove files matching a single-character wildcard pattern. |
+| `rm .hidden_file_pattern` | Remove hidden files matching a specific pattern. |
+| `rm .*.txt` | Remove hidden files with a `.txt` extension. |
+| `cp source_file destination_file_directory` | Copy a file to a specific directory. |
+| `cp source_file1 [source_fileN ...] destination_directory` | Copy multiple files to a directory. |
+| `cp -i source_file destination_directory` | Copy a file interactively, prompting before overwriting. |
+| `cp -r source_directory destination_directory` | Recursively copy a directory and its contents. |
+| `mv source destination` | Move a file or directory to a new location. |
+| `mv old_name new_name` | Rename a file or directory. |
+| `mv -i source destination` | Move a file or directory interactively, prompting before overwriting. |
+| --- | --- |
+| **Finding, Sorting, and Comparing Files & Directories Commands** | --- |
+| `find [path...][options] [expression]` | General syntax of the `find` command. |
+| `find . -name name_pattern` | Find files by name (case-sensitive). |
+| `find . -iname name_pattern` | Find files by name (case-insensitive). |
+| `find ~ -name name_pattern -ls` | Find files by name and list their details. |
+| `find . -mtime [+-]number_of_days` | Find files modified within a specific number of days. |
+| `find . -size [+-]size` | Find files by size (e.g., +10M for files larger than 10MB). |
+| `find . -newer file_or_directory` | Find files that are newer than a specific file or directory. |
+| `find . -name name_pattern -exec some_commands {} \;` | Execute a command on each found item. |
+| `find ~ -name bfile -mtime -1 -exec cat {} \;` | Combine `find` options: find files modified in the last day and display their content. |
+| `locate pattern` | Locate files by pattern using an indexed database. |
+| `sort file` | Sort the contents of a file line by line. |
+| `sort -n file` | Sort the contents of a file numerically. |
+| `sort -k column_number file` | Sort by a specific column. |
+| `sort -r table.txt` | Sort the contents of a file in reverse order. |
+| `sort [-k number]+ filename` | Sort based on a specific column or columns. |
+| `sort -n -u file_name` | Sort uniquely by numeric order (removes duplicates). |
+| `sort -n -k 2 -u table.txt` | Sort uniquely based on column 2 (numeric). |
+| `diff file_or_dir file_or_dir` | Compare two files or directories line by line. |
+| `sdiff file_or_dir file_or_dir` | Side-by-side comparison of files or directories. |
+| `vimdiff file1 file2` | Compare two files using `vimdiff` in Vim editor. |
+| --- | --- |
+| **I/O Redirection Commands** | --- |
+| `sort`   | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.  |
+| `command1 \| command2`   | Feeds the output of `command1` as input to `command2`.  |
+| `grep [options] 'pattern' [file...]`   | Searches for a pattern in the given file(s).|
+| `grep -i pattern file` | Performs a case-insensitive search for the pattern in the file. |
+| `grep pattern file[s]` | Searches for the pattern in one or more files.  |
+| `grep -i ^a words`   | Finds lines starting with `a` (case-insensitive) in the file `words`.   |
+| `grep -n pattern file`   | Displays line numbers along with matching lines.|
+| `grep -r pattern file_or_directory`  | Recursively searches for the pattern in files and subdirectories.   |
+| `grep -rl pattern file_or_directory` | Lists file names containing the pattern (recursive search). |
+| `grep -v pattern file` | Displays lines that do not match the pattern.   |
+| `grep -c pattern file`   | Counts the number of lines matching the pattern.|
+| `grep -w pattern file`   | Matches the whole word pattern in the file. |
+| `grep -E pattern file`   | Uses extended regular expressions for pattern matching. |
+| `command < file` | Redirects the content of `file` as input to `command`.  |
+| `command > file`   | Redirects the output of `command` to `file` (overwriting if exists).|
+| `command >> file`   | Appends the output of `command` to `file`|
+| `command 2> error_file`  | Redirects standard error (stderr) to `error_file`.  |
+| `command 1> output_file` | Redirects standard output (stdout) to `output_file`.|
+| `command > file 2>&1`| Redirects both stdout and stderr to `file`. |
+| `ls >> output_file 2>&1` | Appends both stdout and stderr of `ls` to `output_file`.|
+| `ls -fsw >> output_file 2>&1`| Appends `ls` output with flags `-fsw` to `output_file`, including errors.   |
+| `command > /dev/null`| Discards stdout by redirecting it to `/dev/null`.   |
+| `command 2> /dev/null`   | Discards stderr by redirecting it to `/dev/null`.   |
+| `command < file > command`   | Redirects `file` as input and outputs to another `command`. |
+| `command \| command > file`   | Pipes output from one command and redirects it to a file.   |
+| --- | --- |
+| **Additional Command Line Concepts Commands** | --- |
+| `echo $ENVIRONMENT_VARIABLE` | Displays the value of the specified environment variable.   |
+| `printenv ENVIRONMENT_VARIABLE`  | Prints the value of the specified environment variable. |
+| `printenv`   | Lists all environment variables and their values.   |
+| `env`| Displays the current environment, including variables.  |
+| `VAR_NAME=value` | Creates a shell variable `VAR_NAME` with the specified value.   |
+| `export A_NEW_ENV_VAR`   | Marks `A_NEW_ENV_VAR` as an environment variable available to subprocesses. |
+| `bash -c 'echo $A_NEW_ENV_VAR'`  | Runs a subshell and prints the value of `A_NEW_ENV_VAR` in it.  |
+| `unset VAR_NAME` | Deletes the shell variable or environment variable `VAR_NAME`.  |
+| `alias alias_name='command'` | Creates a shortcut (`alias_name`) for the specified command.|
+| `alias`  | Lists all currently defined aliases.|
+| `unalias alias_name` | Removes the specified alias.|
+| `unalias -a` | Removes all aliases.|
+| `source ~/.bashrc` or `. ~/.bashrc`  | Reloads the shell configuration file (`.bashrc`).   |
+| `echo $HISTSIZE` | Displays the maximum number of commands stored in the shell history.|
+| `history`| Lists the command history.  |
+| `!Number_from_history`   | Re-executes the command at the specified history number.|
+| `!!` | Re-executes the last command.   |
+| `!pattern`   | Re-executes the most recent command matching the pattern.   |
+| `Ctrl + r; pattern; Ctrl + r`  | Initiates reverse search in command history for a matching pattern. |
+| `Ctrl + c` or `<esc>`  | Cancels or exits reverse search.|
+| **Tab Completion** | Auto-completes commands or file names.  |
+| `echo "words .. \ more words "`  | Concatenates lines using `\` for multiline command input.   |
+| --- | --- |
+| **Processes & Job Control Commands** | --- |
+| `ps` | Lists running processes on the system.  | `ps`  |
+| `ps -e`  | Displays all processes running on the system.   | `ps -e`   |
+| `ps -ef` | Displays all processes with a full format listing.  | `ps -ef`  |
+| `ps -eH` | Displays processes in a hierarchical (tree) format. | `ps -eH`  |
+| `ps -e --forest` | Displays processes in a tree format using ASCII art.| `ps -e --forest`  |
+| `ps -u <username>`   | Displays processes running for a specific user. | `ps -u john`  |
+| `ps -p <PID>`| Displays information for a specific process ID (PID).   | `ps -p 1234`  |
+| `pstree` | Displays processes in a hierarchical tree format.   | `pstree`  |
+| `top`| Displays a real-time process list with system performance information.  | `top` |
+| `htop`   | Interactive and improved version of `top` with a user-friendly interface.   | `htop`|
+| `sudo apt install htop`  | Installs `htop` on a Debian-based system.   | `sudo apt install htop`   |
+| `kill <PID>` | Terminates a running process using its process ID (PID).| `kill 5678`   |
+| `command &`  | Starts a command in the background. | `sleep 60 &`  |
+| `Ctrl-C` | Kills the foreground process.  | (Press `Ctrl-C` while the job is in the foreground)   |
+| `Ctrl-Z` | Suspends the foreground process.   | (Press `Ctrl-Z` while the job is running) |
+| `bg [%num]`  | Resumes a suspended job in the background.  | `bg %1`   |
+| `bg` | Resumes the most recently suspended job in the background.  | `bg`  |
+| `fg [%num]`  | Brings a backgrounded job to the foreground.| `fg %1`   |
+| `fg` | Brings the most recent background job to the foreground.| `fg`  |
+| `kill [%num]` or `kill <PID>`| Kills a job by job number or PID.   | `kill %1` or `kill 12345` |
+| `jobs` or `jobs [%num]`  | Lists all jobs or a specific job by job number.| `jobs` or `jobs %1`|
+| `kill -l`| Lists available signals.| `kill -l`|
+| `kill -<signal> %num` or `kill -<signal> <PID>` | Sends a specific signal to a job. | `kill -9 %1` or `kill -9 12345`|
+| `kill -9`| Force kills a job using the SIGKILL signal.| `kill -9 %1`|
+| `kill -15`| Kills a job using the SIGTERM signal.| `kill -15 %1`|
+| --- | --- |
+| **Switching Users Commands** | --- |
+| `su`          | Switch to the root user account. Prompts for the root password. |
+| `su [user]`   | Switch to the specified user account. Prompts for the user's password. |
+| `su -`        | Switch to the root user and simulate a fresh login shell. |
+| `su - [user]` | Switch to the specified user and simulate a fresh login shell. |
+| `su -c [command]` | Execute a single command as the root user. |
+| `sudo command` | Execute a command as the root user. Prompts for the user's password. |
+| `sudo -l`     | List the commands the user is allowed to execute with `sudo`. |
+| `sudo su`     | Switch to the root user using `sudo`. |
+| `sudo su -`   | Switch to the root user and simulate a fresh login shell using `sudo`. |
+| `sudo su [user]` | Switch to another user using `sudo`. |
+| `sudo su - [user]` | Switch to another user and simulate a fresh login shell using `sudo`. |
+| `sudo su user -c [command]` | Execute a command as another user using `sudo`. |
+| `sudo -u user [command]` | Execute a command as the specified user using `sudo`. |
+| `whoami`      | Display the current user's username. |
+| `exit`        | Exit the current shell or logout of the current user session. |
+| --- | --- |
+| **Software Installation Commands** | --- |
+| `sudo apt update` | Update package list and metadata from repositories |
+| `sudo apt upgrade` | Upgrade all installed packages to the latest available versions |
+| `sudo apt autoremove` | Remove unnecessary packages that were installed as dependencies but are no longer needed |
+| `sudo apt clean` | Clear the local repository cache to free up space |
+| `sudo apt search search-pattern` | Search for packages matching the search pattern |
+| `sudo apt install package` | Install a package |
+| `sudo apt install -y package` | Install a package and automatically answer "yes" to prompts |
+| `sudo apt remove package` | Remove a package, leaving behind configuration files |
+| `sudo apt purge package` | Remove a package, including its configuration files |
+| `sudo apt show package` | Display detailed information about a package |
+| `sudo apt full-upgrade` | Perform an upgrade with more aggressive handling of dependencies |
+| `-y` | 'yes' to all the upcoming download requests |
+| `dpkg -l` | List all installed packages. |
+| `dpkg -S /path/to/file` | Find the package that provides a specific file. |
+| `sudo dpkg -i package.deb` | Install a package from a `.deb` file. |
+| `dpkg -L <package>` | List all files installed by a package. |
+| `sudo dpkg -i package.deb` | Install a `.deb` file. |
+| `sudo apt install -f` | Fix unmet dependencies after installing a `.deb` package. |
+| `dpkg -L <package>` | View which files a package has installed. |
+| `dpkg -S /path/to/file` | Identify which package installed a specific file. |
+
+---
