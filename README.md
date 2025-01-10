@@ -7442,8 +7442,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `^L` or `^l`   | Clears the terminal window (history still accessible via scroll). |
 | `touch file(s)`  | Creates empty file(s). |
 | `eval [arguments]` | Executes the command in arguments. |
-| --- | --- |
-| **Man Page Commands** | **Description** |
+| ______________________| |
+| **Man Page Commands** | |
 | Enter, Down Arrow | Move down one line. |
 | Up Arrow, `k` | Move up one line. |
 | Spacebar, Page Down | Move down one page. |
@@ -7454,8 +7454,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `k` | Move up one line. |
 | `l` | Move right (scroll horizontally). |
 | `q` | Quit. |
-| --- | --- |
-| **Directory Commands** | --- |
+| ______________________| |
+| **Directory Commands** | |
 | `cd [directory]` | Changes the current directory to the specified directory.|
 | `cd -`   | Returns to the previous directory.   |
 | `cd` | Changes to the home directory.   |
@@ -7477,8 +7477,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `git init`   | Initializes a new Git repository in the current directory.   |
 | `git add .`  | Stages all changes in the current directory for the next commit. |
 | `git commit -m [message]`| Creates a commit with the specified message. |
-| --- | --- |
-| **Summary of Viewing File and Directory Commands** | --- |
+| ______________________| |
+| **Summary of Viewing File and Directory Commands** | |
 | `ls`  | Lists files and directories in the current directory.|
 | `ls -l`   | Lists files and directories with detailed information (long format).|
 | `ls -a`   | Lists all files, including hidden files (starting with `.`).|
@@ -7501,8 +7501,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `tree`| Displays the directory structure as a tree.|
 | `tree -d` | Displays only directories in the tree structure.   |
 | `tree -C` | Displays the tree structure with color-coded output.   |
-| --- | --- |
-| **Permissions Commands** | --- |
+| ______________________| |
+| **Permissions Commands** | |
 | `ls -l`| Lists detailed information about files and directories in the current directory.  |
 | `ls -ld /home/sri/Documents/`  | Displays detailed information about the `/home/sri/Documents` directory itself.  |
 | `groups`   | Lists the groups the current user belongs to.|
@@ -7534,8 +7534,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `chmod 4755 /usr/bin/passwd`   | Sets the setuid permission on `passwd`, allowing execution as the file's owner (root).   |
 | `chmod 2755 /usr/bin/locate`   | Sets the setgid permission on `locate`, allowing execution as the file's group.  |
 | `chmod 1777 /tmp`  | Sets the sticky bit on `/tmp`, ensuring only owners can delete their files within the directory.  |
-| --- | --- |
-| **Viewing Files Commands** | --- |
+| ______________________| |
+| **Viewing Files Commands** | |
 | `cat [file]` | Displays the entire contents of a file. Useful for smaller files. |
 | `more [file]` | Displays a file one page at a time. Useful for larger files. |
 | `less [file]` | Allows backward navigation and searching within a file. |
@@ -7545,7 +7545,7 @@ While `apt` is the most common tool for package management, you can interact dir
 | `tail -N [file]` | Displays the last N lines of a file. |
 | `tail -f [file]` | Displays the last lines of a file and follows it as it grows (useful for logs). |
 | `less [file]` + `F` | Follow a file as it grows in real-time within `less`. |
-| ---| ---|
+| ______________________| |
 | **Vim Commands** | **Description** |
 | `k` | Move up one line |
 | `j` | Move down one line |
@@ -7590,8 +7590,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `?pattern` | Start a reverse search for `<pattern>` |
 | `n` | Move the cursor to the next match of a search |
 | `N` | Move the cursor to the previous match of a search |
-| --- | --- |
-| **Deleting, Moving, and Renaming Files & Directories Commands** | --- |
+| ______________________| |
+| **Deleting, Moving, and Renaming Files & Directories Commands** |  |
 | `rm file` | Remove a file. |
 | `rm -r file_or_directory` | Remove a directory or file recursively, including its contents. |
 | `rm -rf file_or_directory` | Forcefully remove a directory or file recursively without confirmation. |
@@ -7608,8 +7608,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `mv source destination` | Move a file or directory to a new location. |
 | `mv old_name new_name` | Rename a file or directory. |
 | `mv -i source destination` | Move a file or directory interactively, prompting before overwriting. |
-| --- | --- |
-| **Finding, Sorting, and Comparing Files & Directories Commands** | --- |
+| ______________________| |
+| **Finding, Sorting, and Comparing Files & Directories Commands** | |
 | `find [path...][options] [expression]` | General syntax of the `find` command. |
 | `find . -name name_pattern` | Find files by name (case-sensitive). |
 | `find . -iname name_pattern` | Find files by name (case-insensitive). |
@@ -7630,8 +7630,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `diff file_or_dir file_or_dir` | Compare two files or directories line by line. |
 | `sdiff file_or_dir file_or_dir` | Side-by-side comparison of files or directories. |
 | `vimdiff file1 file2` | Compare two files using `vimdiff` in Vim editor. |
-| --- | --- |
-| **I/O Redirection Commands** | --- |
+| ______________________| |
+| **I/O Redirection Commands** | |
 | `sort`   | Sorts input lines alphabetically. Pressing `CTRL + D` acts as EOF.  |
 | `command1 \| command2`   | Feeds the output of `command1` as input to `command2`.  |
 | `grep [options] 'pattern' [file...]`   | Searches for a pattern in the given file(s).|
@@ -7657,8 +7657,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `command 2> /dev/null`   | Discards stderr by redirecting it to `/dev/null`.   |
 | `command < file > command`   | Redirects `file` as input and outputs to another `command`. |
 | `command \| command > file`   | Pipes output from one command and redirects it to a file.   |
-| --- | --- |
-| **Additional Command Line Concepts Commands** | --- |
+| ______________________| |
+| **Additional Command Line Concepts Commands** | |
 | `echo $ENVIRONMENT_VARIABLE` | Displays the value of the specified environment variable.   |
 | `printenv ENVIRONMENT_VARIABLE`  | Prints the value of the specified environment variable. |
 | `printenv`   | Lists all environment variables and their values.   |
@@ -7681,8 +7681,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `Ctrl + c` or `<esc>`  | Cancels or exits reverse search.|
 | **Tab Completion** | Auto-completes commands or file names.  |
 | `echo "words .. \ more words "`  | Concatenates lines using `\` for multiline command input.   |
-| --- | --- |
-| **Processes & Job Control Commands** | --- |
+| ______________________| |
+| **Processes & Job Control Commands** | |
 | `ps` | Lists running processes on the system.  | `ps`  |
 | `ps -e`  | Displays all processes running on the system.   | `ps -e`   |
 | `ps -ef` | Displays all processes with a full format listing.  | `ps -ef`  |
@@ -7708,8 +7708,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `kill -<signal> %num` or `kill -<signal> <PID>` | Sends a specific signal to a job. | `kill -9 %1` or `kill -9 12345`|
 | `kill -9`| Force kills a job using the SIGKILL signal.| `kill -9 %1`|
 | `kill -15`| Kills a job using the SIGTERM signal.| `kill -15 %1`|
-| --- | --- |
-| **Switching Users Commands** | --- |
+| ______________________| |
+| **Switching Users Commands** | |
 | `su`          | Switch to the root user account. Prompts for the root password. |
 | `su [user]`   | Switch to the specified user account. Prompts for the user's password. |
 | `su -`        | Switch to the root user and simulate a fresh login shell. |
@@ -7725,8 +7725,8 @@ While `apt` is the most common tool for package management, you can interact dir
 | `sudo -u user [command]` | Execute a command as the specified user using `sudo`. |
 | `whoami`      | Display the current user's username. |
 | `exit`        | Exit the current shell or logout of the current user session. |
-| --- | --- |
-| **Software Installation Commands** | --- |
+| ______________________| |
+| **Software Installation Commands** | |
 | `sudo apt update` | Update package list and metadata from repositories |
 | `sudo apt upgrade` | Upgrade all installed packages to the latest available versions |
 | `sudo apt autoremove` | Remove unnecessary packages that were installed as dependencies but are no longer needed |
