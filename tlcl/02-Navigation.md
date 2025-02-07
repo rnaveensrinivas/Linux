@@ -1,19 +1,15 @@
-# Navigation
-
 ### Table of Content
 - [Navigation](#navigation)
-    - [Table of Content](#table-of-content)
-    - [Understanding the file System Tree](#understanding-the-file-system-tree)
-    - [The Current Working Directory](#the-current-working-directory)
-    - [Changing the Current Working Directory](#changing-the-current-working-directory)
-    - [Important Facts about Filenames](#important-facts-about-filenames)
-    - [Summary](#summary)
+  - [The Current Working Directory](#the-current-working-directory)
+  - [Changing the Current Working Directory](#changing-the-current-working-directory)
+  - [Important Facts about Filenames](#important-facts-about-filenames)
+  - [Summary](#summary)
 
 ---
 
-### Understanding the file System Tree
+# Navigation
 
-- **Unix-like File System**: Organized in a hierarchical directory (folder in other OSes) structure.
+- **Unix-like File System**: Organized in a hierarchical directory (directory is "folder" in other OSes) structure.
 - **Tree-like Pattern**: Directories contain files and other directories.
 - **Root Directory**: The first (top most) directory in the file system, represented by `/`.
 - **Subdirectories**: The root directory contains files and subdirectories, which may contain further files and subdirectories.
@@ -23,7 +19,7 @@
 
 ---
 
-### The Current Working Directory
+## The Current Working Directory
 
 - **Current Working Directory**: We are always inside a single directory, called the current working directory.
 - **Parent Directory**: The directory above the current one is called the parent directory.
@@ -35,7 +31,7 @@
 
 ---
 
-### Changing the Current Working Directory
+## Changing the Current Working Directory
 
 - To change the working directory, use the `cd` command followed by the pathname of the target directory.
 
@@ -55,7 +51,7 @@
 
 ---
 
-### Important Facts about Filenames
+## Important Facts about Filenames
 
 **Hidden Files**:
 - Filenames that begin with a period (`.`) are hidden.
@@ -78,7 +74,7 @@
 
 ---
 
-### Summary
+## Summary
 
 This chapter explained how the shell treats the directory structure of the system. We learned about absolute and relative pathnames and the basic commands that we use to move about that structure. In the next chapter we will use this knowledge to go on a  tour of a modern Linux system.
 
