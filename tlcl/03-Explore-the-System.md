@@ -1,8 +1,5 @@
-# Explore the System
-
-## Table of Contents
+### Table of Contents
 - [Explore the System](#explore-the-system)
-  - [Table of Contents](#table-of-contents)
   - [Linux Commands' Options and Arguments](#linux-commands-options-and-arguments)
   - [Fun with `ls`](#fun-with-ls)
     - [A table showing some important `ls` command options.](#a-table-showing-some-important-ls-command-options)
@@ -18,6 +15,10 @@
   - [Symbolic Links](#symbolic-links)
   - [Summary](#summary)
 
+---
+
+# Explore the System
+
 ## Linux Commands' Options and Arguments
 
 - **Command Structure**: Most commands follow the format `command -options arguments`.  
@@ -29,6 +30,8 @@
 - **Example Usage**: `ls -lt` lists files in long format sorted by modification time.  
 - **Long Option Example**: `ls -lt --reverse` reverses the order of the sort.  
 - **Case Sensitivity**: Options are case-sensitive in Linux.
+
+---
 
 ## Fun with `ls` 
 
