@@ -1,26 +1,24 @@
-# What is the Shell?
-
 ### Table of Contents
 
 - [What is the Shell?](#what-is-the-shell)
-    - [Table of Contents](#table-of-contents)
-    - [The Shell](#the-shell)
-    - [Terminal Emulators](#terminal-emulators)
-    - [Shell Prompt](#shell-prompt)
-    - [A Few Words About Mice and Focus](#a-few-words-about-mice-and-focus)
-    - [Simple Commands](#simple-commands)
-    - [The Console Behind the Curtain](#the-console-behind-the-curtain)
+  - [The Shell](#the-shell)
+  - [Terminal Emulators](#terminal-emulators)
+  - [Shell Prompt](#shell-prompt)
+  - [A Few Words About Mice and Focus](#a-few-words-about-mice-and-focus)
+  - [Simple Commands](#simple-commands)
+  - [The Console Behind the Curtain](#the-console-behind-the-curtain)
   - [Summary:](#summary)
 
 ---
 
-### The Shell
+# What is the Shell?
+
 - The command line refers to the shell, a **program** that processes keyboard commands and passes them to the operating system.
 - The default shell on most Linux distributions is **bash** (Bourne Again SHell), which is an enhanced version of the original Unix shell, **sh**, created by Steve Bourne.
 
 ---
 
-### Terminal Emulators
+## Terminal Emulators
 - Terminal emulators are required to interact with the shell when using a graphical user interface (GUI).
 - Common terminal emulators:
   - **KDE** (KDE stands for **K** **D**esktop **E**nvironment, and it's a **g**raphical **u**ser **i**nterface (GUI) for Linux operating systems) uses **konsole**.
@@ -29,7 +27,7 @@
 
 ---
 
-### Shell Prompt
+## Shell Prompt
 
 **Launching the Terminal**: 
 - Open the terminal emulator to begin interacting with the shell.
@@ -51,7 +49,7 @@
 
 ---
 
-### A Few Words About Mice and Focus
+## A Few Words About Mice and Focus
 
 **Using the Mouse in Terminal**:
 - The terminal can also be used with a mouse for quick copy and paste.
@@ -61,7 +59,7 @@
 **Copy-Paste in Terminal**:
 - **Ctrl+C** and **Ctrl+V** do not work for copy-paste in the terminal.
 - These key combinations have different functions in the shell.
-- And they were assigned many years before the release of Microsoft Windows.
+- And they were assigned many years **before** the release of Microsoft Windows.
 
 **Focus Policy**:
 - Most desktop environments (KDE or GNOME) in an effort to mimic Windows use "click to focus," meaning you must click a window to activate it.
@@ -70,7 +68,7 @@
 
 ---
 
-### Simple Commands
+## Simple Commands
 
 ```bash
 $ date
@@ -101,7 +99,7 @@ $ ^d # control + d also quit.
 
 ---
 
-### The Console Behind the Curtain
+## The Console Behind the Curtain
 
 **Virtual Terminals/Consoles**:
 - Even without a terminal emulator, several terminal sessions (virtual consoles) run in the background.
