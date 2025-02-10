@@ -1,8 +1,8 @@
 ### Table of Contents
 - [Working with Commands](#working-with-commands)
   - [Identifying Commands](#identifying-commands)
-    - [`type` – Display a Command's Type](#type--display-a-commands-type)
-    - [`which` – Display an Executable's Location](#which--display-an-executables-location)
+    - [`type` - Display a Command's Type](#type---display-a-commands-type)
+    - [`which` - Display an Executable's Location](#which---display-an-executables-location)
   - [Getting a Command's Documentation](#getting-a-commands-documentation)
     - [`help` - Get Help for Shell Builtins](#help---get-help-for-shell-builtins)
     - [`--help` - Display Usage Information](#--help---display-usage-information)
@@ -11,9 +11,14 @@
       - [Specifying a Section](#specifying-a-section)
       - [Navigation in `man` Pages](#navigation-in-man-pages)
     - [Using `apropos` to Find Commands](#using-apropos-to-find-commands)
-      - [Alternative: `man -k`\*](#alternative-man--k)
-    - [**Using `whatis` to Get a Quick Command Description**](#using-whatis-to-get-a-quick-command-description)
+      - [Alternative: `man -k`](#alternative-man--k)
+    - [Using `whatis` to Get a Quick Command Description](#using-whatis-to-get-a-quick-command-description)
     - [The most brutal man page, `bash`](#the-most-brutal-man-page-bash)
+    - [`info` - Display a Program's Info entry](#info---display-a-programs-info-entry)
+    - [README and Other Program Documentation Files](#readme-and-other-program-documentation-files)
+  - [Creating Our Own Commmands with alias](#creating-our-own-commmands-with-alias)
+  - [Summary](#summary)
+    - [Summary of Commands](#summary-of-commands)
 
 # Working with Commands
 
@@ -26,7 +31,7 @@ A **command** in Linux can be one of four types:
 
 2. **Shell Builtin**  
    - Commands built directly into the shell (e.g., `cd`).  
-   - Executed faster than external programs since they don’t require a separate process.  
+   - Executed faster than external programs since they don't require a separate process.  
 
 3. **Shell Function**  
    - Miniature shell scripts defined within the shell environment.  
@@ -38,7 +43,7 @@ A **command** in Linux can be one of four types:
 
 ## Identifying Commands
 
-### `type` – Display a Command's Type
+### `type` - Display a Command's Type
 - A **shell builtin** that shows what kind of command the shell will execute.  
 - Syntax: `type command1 command2`  
 - Examples:  
@@ -62,7 +67,7 @@ A **command** in Linux can be one of four types:
     ```
 - Output can show if the command is a **builtin, alias, or executable**.  
 
-### `which` – Display an Executable's Location
+### `which` - Display an Executable's Location
 - Finds the **exact location** of an executable program.  
 - Syntax: `which command`  
 - Example:  
@@ -179,7 +184,7 @@ A **command** in Linux can be one of four types:
 
 ### Using the `man` Command (Manual Pages)
 
-- The `man` command displays a program’s **manual page**, which serves as a **reference** (not a tutorial).  
+- The `man` command displays a program's **manual page**, which serves as a **reference** (not a tutorial).  
 - Syntax:  
   ```bash
   man command
@@ -268,7 +273,7 @@ A **command** in Linux can be one of four types:
 
 ---
 
-#### Alternative: `man -k`*
+#### Alternative: `man -k`
 - The `man -k` command performs the same search as `apropos`.  
 - Example:  
   ```bash
@@ -276,12 +281,12 @@ A **command** in Linux can be one of four types:
   ```
 
 **When to Use `apropos`?**  
-- When you **don’t know** the exact command name.  
+- When you **don't know** the exact command name.  
 - To explore **related commands** for a topic.  
 
 ---
 
-### **Using `whatis` to Get a Quick Command Description**  
+### Using `whatis` to Get a Quick Command Description
 
 - The `whatis` command provides a **one-line summary** of a command from the man pages.  
 - Syntax:  
@@ -304,5 +309,139 @@ A **command** in Linux can be one of four types:
 - The **`man bash`** page is **over 80 pages long**, very **dense**, and difficult for beginners.  
 - While **not beginner-friendly**, it is an **accurate and complete** reference.  
 - Mastering it is a milestone for **advanced shell users!** 🚀  
+
+---
+
+### `info` - Display a Program's Info entry
+
+- **GNU Info System**:  
+  - Alternative to man pages for GNU programs.  
+  - Uses a reader program called `info`, which reads info files.  
+  - Info pages are hyperlinked like web pages.  
+
+- **Info File Structure**:  
+  - Organized as a **tree** with individual **nodes**.  
+  - Each **node** covers a **single topic**.  
+
+- **Hyperlinks in Info Pages**:  
+  - Identified by a **leading asterisk (`*`)**.  
+  - Navigate by **placing the cursor** on a link and pressing **Enter**.  
+  - Allows movement **between nodes** for structured reading.
+
+- **Invoking Info**:  
+  - Run `info` followed by the program name.  
+  - Example: `info coreutils` opens a menu for coreutils programs.  
+  - Most of the command line programs we have seen so far are part of GNU Project's *coreutils* package. 
+
+- **Navigation Commands (Table 5-2)**:  
+  - `?` → Display help.  
+  - `PgUp` / `Backspace` → Previous page.  
+  - `PgDn` / `Space` → Next page.  
+  - `n` → Next node.  
+  - `p` → Previous node.  
+  - `u` → Move up to parent node.  
+  - `Enter` → Follow hyperlink at the cursor.  
+  - `q` → Quit.  
+
+---
+
+### README and Other Program Documentation Files
+
+- Many software packages installed on our system have documentation files residing in the `/usr/share/doc` directory.
+- Most of them can be viewed using `less`. 
+- Some files are usually in plain text or HTML format, and be viewed in browser.  
+- `.gz` files are compressed; use `zless` to view them.
+
+---
+
+## Creating Our Own Commmands with alias
+
+- **Combining Multiple Commands on One Line**  
+  - Use a semicolon (`;`) to separate multiple commands on a single line.  
+  - Example:  
+    ```bash
+    cd /usr; ls; cd -
+    ```
+  - This sequence:
+    1. Changes directory to `/usr`
+    2. Lists the directory contents
+    3. Returns to the previous directory (`cd -`)
+
+- **Creating an Alias**  
+  - The `alias` command allows us to create custom shortcuts for commands.  
+  - Syntax:  
+    ```bash
+    alias name='command(s)'
+    ```
+  - Ensure there are no whitespaces before and after the equal sign. 
+  - Example:  
+    ```bash
+    alias foo='cd /usr; ls; cd -'
+    ```
+  - The alias `foo` now performs the three-step sequence whenever executed.
+
+- **Checking if a Name is Already Used**  
+  - Use the `type` command to check if a name is taken:  
+    ```bash
+    type test
+    ```
+  - If taken, it will indicate whether it's a shell built-in or another command.  
+  - Example Output:  
+    ```
+    test is a shell builtin
+    ```
+  - This is just to ensure that we don't use an identifier that already exists in scope.
+
+- **Using the Alias**  
+  - Once created, the alias can be used like any other command:  
+    ```bash
+    foo
+    ```
+  - This executes the aliased commands.
+
+- **Viewing Defined Aliases**  
+  - Use `type` to check alias details:  
+    ```bash
+    type foo
+    ```
+  - Example Output:  
+    ```
+    foo is aliased to `cd /usr; ls; cd -`
+    ```
+  - To see all aliases in the environment:  
+    ```bash
+    alias
+    ```
+  - Example Default Aliases (Fedora):  
+    ```bash
+    alias l.='ls -d .* --color=tty'
+    alias ll='ls -l --color=tty'
+    alias ls='ls --color=tty'
+    ```
+
+- **Removing an Alias**  
+  - Use the `unalias` command:  
+    ```bash
+    unalias foo
+    ```
+  - Check if the alias is removed:  
+    ```bash
+    type foo
+    ```
+  - Output:  
+    ```
+    bash: type: foo: not found
+    ```
+
+- **Persisting Aliases Across Sessions**  
+  - Aliases created in the command line are temporary and disappear when the shell session ends.  
+  - In **Chapter 11**, methods to make aliases permanent by adding them to environment files will be discussed.
+
+---
+
+## Summary
+
+### Summary of Commands
+
 
 ---
